@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next"
 import { Inter } from "next/font/google"
-import { Toaster } from "sonner"
 
 import "./globals.css"
 import { Header } from "@/components/layout/header"
@@ -70,14 +69,6 @@ export default function RootLayout({
         </main>
 
         <Footer />
-
-        {/* Toast notifications */}
-        <Toaster
-          position="bottom-right"
-          toastOptions={{
-            className: "bg-card text-card-foreground border-border",
-          }}
-        />
       </body>
     </html>
   )

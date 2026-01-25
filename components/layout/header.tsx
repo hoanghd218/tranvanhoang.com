@@ -47,12 +47,13 @@ function DesktopNav() {
       {mainNavItems.map((item) => (
         <NavLink key={item.href} item={item} isActive={pathname === item.href} />
       ))}
-      <Button asChild variant="default" size="sm">
-        <Link href={ctaItem.href}>
-          <span className="hidden sm:inline">{ctaItem.title}</span>
-          <span className="sm:hidden">🎁</span>
-        </Link>
-      </Button>
+      <Link
+        href={ctaItem.href}
+        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-8 px-3 bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        <span className="hidden sm:inline">{ctaItem.title}</span>
+        <span className="sm:hidden">🎁</span>
+      </Link>
     </nav>
   )
 }
@@ -114,11 +115,13 @@ function MobileNav() {
           </nav>
 
           <div className="mt-auto pt-4 border-t">
-            <Button asChild className="w-full">
-              <Link href={ctaItem.href} onClick={() => setOpen(false)}>
-                {ctaItem.title}
-              </Link>
-            </Button>
+            <Link
+              href={ctaItem.href}
+              onClick={() => setOpen(false)}
+              className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-semibold transition-all rounded-md bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              {ctaItem.title}
+            </Link>
           </div>
         </div>
       </SheetContent>
