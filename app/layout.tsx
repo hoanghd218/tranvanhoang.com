@@ -4,6 +4,8 @@ import { Inter, Merriweather } from "next/font/google"
 import "./globals.css"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
+import { OrganizationSchema } from "@/components/seo/organization-schema"
+import { WebsiteSchema } from "@/components/seo/website-schema"
 
 // Inter font with Vietnamese support
 const inter = Inter({
@@ -62,6 +64,10 @@ export default function RootLayout({
   return (
     <html lang="vi" className={`${inter.variable} ${merriweather.variable}`}>
       <body className="antialiased min-h-screen flex flex-col">
+        {/* JSON-LD Structured Data */}
+        <OrganizationSchema />
+        <WebsiteSchema />
+
         {/* Skip to main content for accessibility */}
         <a
           href="#main-content"

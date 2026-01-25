@@ -1,0 +1,11 @@
+# robots.txt for tranvanhoang.com
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://tranvanhoang.com/sitemap.xml
+
+# Disallow admin/private paths (if any)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /private/

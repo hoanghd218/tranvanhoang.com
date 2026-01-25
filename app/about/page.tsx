@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Container, Section } from "@/components/custom/container";
 import { GradientText } from "@/components/custom/gradient-text";
+import { PersonSchema } from "@/components/seo/person-schema";
 import { CheckCircle, Mail, MapPin, Calendar, Heart, BookOpen, Lightbulb } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <PersonSchema />
+
       {/* Hero */}
       <Section className="py-16 md:py-24">
         <Container>
