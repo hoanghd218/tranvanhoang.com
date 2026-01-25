@@ -22,6 +22,19 @@
   /* Gradient values */
   --gradient-from: var(--coral);
   --gradient-to: var(--bronze);
+
+  /* Life Page Colors - Calming, Nature-Inspired */
+  --life-sage: #7C9A92;
+  --life-sage-dark: #5c7a70;
+  --life-sand: #D4B996;
+  --life-sand-dark: #b89a6e;
+  --life-lavender: #9B8AA8;
+  --life-moss: #5a6b55;
+  --life-background: #0f0f0f;
+  --life-card: #1a1a1e;
+  --life-border: #2a2a2e;
+  --life-gradient-from: var(--life-sage);
+  --life-gradient-to: var(--life-sand);
 }
 
 @theme inline {
@@ -40,9 +53,21 @@
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
-  /* Typography - Will use Inter/Source Sans */
+  /* Life Page Colors */
+  --color-life-sage: var(--life-sage);
+  --color-life-sage-dark: var(--life-sage-dark);
+  --color-life-sand: var(--life-sand);
+  --color-life-sand-dark: var(--life-sand-dark);
+  --color-life-lavender: var(--life-lavender);
+  --color-life-moss: var(--life-moss);
+  --color-life-background: var(--life-background);
+  --color-life-card: var(--life-card);
+  --color-life-border: var(--life-border);
+
+  /* Typography */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-merriweather), Georgia, serif;
 
   /* Spacing - Generous padding like ClaudeKit */
   --spacing-section: 4rem; /* py-16 */
@@ -75,6 +100,20 @@ body {
 /* Utility Classes */
 .text-gradient {
   background: linear-gradient(135deg, var(--gradient-from) 0%, var(--gradient-to) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-life-gradient {
+  background: linear-gradient(135deg, var(--life-sage) 0%, var(--life-sand) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-life-gradient-alt {
+  background: linear-gradient(135deg, var(--life-lavender) 0%, var(--life-sage) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -121,6 +160,33 @@ body {
   line-height: 1.1;
   font-weight: 700;
   letter-spacing: -0.025em;
+}
+
+/* Life Page Serif Headings */
+.heading-serif {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.heading-serif-lg {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.heading-serif-md {
+  font-family: var(--font-serif);
+  font-size: 1.875rem;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.body-serif {
+  font-family: var(--font-serif);
+  line-height: 1.8;
+  max-width: 65ch;
 }
 
 /* Smooth Scrolling */

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Merriweather } from "next/font/google"
 
 import "./globals.css"
 import { Header } from "@/components/layout/header"
@@ -11,6 +11,14 @@ const inter = Inter({
   subsets: ["latin", "vietnamese"],
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
+})
+
+// Merriweather for life page headings
+const merriweather = Merriweather({
+  variable: "--font-merriweather",
+  subsets: ["latin", "vietnamese"],
+  display: "swap",
+  weight: ["300", "400", "700", "900"],
 })
 
 export const metadata: Metadata = {
@@ -52,7 +60,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="vi" className={inter.variable}>
+    <html lang="vi" className={`${inter.variable} ${merriweather.variable}`}>
       <body className="antialiased min-h-screen flex flex-col">
         {/* Skip to main content for accessibility */}
         <a

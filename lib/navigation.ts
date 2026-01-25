@@ -25,7 +25,7 @@ export const mainNavItems: NavItem[] = [
   },
   {
     title: "Tài nguyên",
-    href: "/resources",
+    href: "/tai-nguyen",
   },
   {
     title: "Cuộc sống",
@@ -53,7 +53,7 @@ export const footerNavItems: {
     { title: "Về tôi", href: "/about" },
     { title: "Học AI", href: "/learn" },
     { title: "Blog", href: "/blog" },
-    { title: "Tài nguyên", href: "/resources" },
+    { title: "Tài nguyên", href: "/tai-nguyen" },
   ],
   resources: [
     { title: "Free Gift", href: "/free-gift" },
