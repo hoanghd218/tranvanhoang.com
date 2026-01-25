@@ -12,11 +12,11 @@ export const mainNavItems: NavItem[] = [
   },
   {
     title: "Học AI",
-    href: "/learn",
+    href: "/learn-ai",
     children: [
-      { title: "AI cho người mới", href: "/learn/ai-cho-nguoi-moi", description: "Bắt đầu từ con số 0" },
-      { title: "AI cho Marketing", href: "/learn/ai-marketing", description: "Áp dụng AI vào marketing" },
-      { title: "AI cho công việc", href: "/learn/ai-cong-viec", description: "Tăng năng suất công việc" },
+      { title: "AI cho người mới", href: "/learn-ai/ai-for-beginners", description: "Bắt đầu từ con số 0" },
+      { title: "AI cho Marketing", href: "/learn-ai/ai-for-marketing", description: "Áp dụng AI vào marketing" },
+      { title: "AI cho công việc", href: "/learn-ai/ai-for-work", description: "Tăng năng suất công việc" },
     ],
   },
   {
@@ -51,7 +51,7 @@ export const footerNavItems: {
   },
   quickLinks: [
     { title: "Về tôi", href: "/about" },
-    { title: "Học AI", href: "/learn" },
+    { title: "Học AI", href: "/learn-ai" },
     { title: "Blog", href: "/blog" },
     { title: "Tài nguyên", href: "/tai-nguyen" },
   ],
