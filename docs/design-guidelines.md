@@ -1,7 +1,7 @@
 # Design Guidelines
 
 **Project**: AI Educator Website
-**Phase**: 1 - Foundation & Design System
+**Phase**: 2 - Core Layout & Navigation
 **Last Updated**: 2025-01-25
 
 ## Overview
@@ -352,6 +352,159 @@ function MyForm() {
 
 ---
 
+## Navigation Patterns
+
+### Navigation Configuration (`lib/navigation.ts`)
+
+Centralized navigation structure for consistent routing across header and footer.
+
+```typescript
+import { mainNavItems, ctaItem, footerNavItems } from "@/lib/navigation"
+```
+
+**Types:**
+
+```typescript
+type NavItem = {
+  title: string
+  href: string
+  description?: string      // Dropdown description
+  children?: NavItem[]      // Nested navigation items
+}
+```
+
+**Main Navigation Items:**
+
+| Route | Path | Children |
+|-------|------|----------|
+| Về tôi | `/about` | - |
+| Học AI | `/learn` | AI cho người mới, AI cho Marketing, AI cho công việc |
+| Blog | `/blog` | - |
+| Tài nguyên | `/resources` | - |
+| Cuộc sống | `/life` | - |
+
+**Footer Columns:**
+
+| Column | Items |
+|--------|-------|
+| Brand | Logo, tagline |
+| Quick Links | Về tôi, Học AI, Blog, Tài nguyên |
+| Resources | Free Gift, Cuộc sống, Newsletter, Liên hệ |
+| Connect | Email, Facebook, YouTube |
+
+### Header Component (`components/layout/header.tsx`)
+
+Responsive navigation header with desktop and mobile layouts.
+
+```tsx
+import { Header } from "@/components/layout/header"
+
+// In layout.tsx
+<Header />
+```
+
+**Features:**
+
+| Feature | Desktop | Mobile |
+|---------|---------|--------|
+| Navigation | Horizontal `nav` | Sheet drawer |
+| Logo | GradientText | GradientText |
+| CTA Button | Full text | Icon only |
+| Menu Toggle | N/A | Hamburger icon |
+
+**Behavior:**
+- Sticky header with `backdrop-blur-md` on scroll
+- Active route highlighted in coral color
+- Hover state transitions to coral
+- Mobile menu closes on navigation
+
+**Accessibility:**
+- Skip-to-content link (see `app/layout.tsx`)
+- `aria-label` on menu toggle button
+- `sr-only` text for icon-only elements
+- Focus-visible outlines in coral
+
+### Footer Component (`components/layout/footer.tsx`)
+
+4-column footer with newsletter signup and social links.
+
+```tsx
+import { Footer } from "@/components/layout/footer"
+
+// In layout.tsx
+<Footer />
+```
+
+**Layout:**
+
+```
+Mobile: 1 column          Tablet: 2 columns          Desktop: 4 columns
+┌─────────────────┐       ┌─────────────────┐       ┌────┬────┬────┬────┐
+│ Brand           │       │ Brand           │       │ Brand | QL | Res | News│
+│ Quick Links     │   →   │ Quick Links     │   →   └────┴────┴────┴────┘
+│ Resources       │       │ Resources       │
+│ Newsletter      │       │ Newsletter      │
+└─────────────────┘       └─────────────────┘
+```
+
+**Newsletter Form:**
+- Email input with validation
+- Loading state during submission
+- Success message in Vietnamese
+- Styled with `bg-muted/50`
+
+**External Links:**
+- `target="_blank"` for new tab
+- `rel="noopener noreferrer"` for security
+- `aria-label` for screen readers
+
+### Responsive Breakpoints
+
+| Breakpoint | Header | Footer |
+|------------|--------|--------|
+| `< md` | Sheet menu | 1 column |
+| `md - lg` | Sheet menu | 2 columns |
+| `>= lg` | Desktop nav | 4 columns |
+
+### Accessibility Guidelines
+
+#### Skip Link
+
+Required in `app/layout.tsx`:
+
+```tsx
+<a href="#main-content" className="sr-only focus:not-sr-only ...">
+  Skip to main content
+</a>
+```
+
+#### ARIA Labels
+
+| Element | Label |
+|---------|-------|
+| Mobile menu toggle | "Toggle menu" |
+| Mobile menu close | "Close menu" |
+| External social links | Social platform name |
+| Newsletter submit | "Đăng ký" context |
+
+#### Focus Management
+
+- Skip link appears on focus
+- Focus-visible ring: `2px solid var(--coral)`
+- Mobile menu traps focus within sheet
+- Dialog/Sheet uses Radix UI focus trap
+
+### File Organization
+
+```
+components/
+└── layout/                 # Layout components
+    ├── header.tsx         # Responsive header
+    └── footer.tsx         # 4-column footer
+```
+
+---
+
 ## Spacing System
 
 ### Container Layout
@@ -465,6 +618,9 @@ components/
 │   ├── brand-card.tsx
 │   ├── cta-button.tsx
 │   └── container.tsx
+├── layout/                 # Layout components (Phase 2)
+│   ├── header.tsx         # Responsive header
+│   └── footer.tsx         # 4-column footer
 └── ui/                    # Generic UI components
     ├── index.ts           # Barrel export
     ├── tabs.tsx

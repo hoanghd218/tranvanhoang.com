@@ -1,7 +1,7 @@
 # Codebase Summary
 
 **Project**: AI Educator Website
-**Phase**: 1 - Foundation & Design System
+**Phase**: 2 - Core Layout & Navigation
 **Last Updated**: 2025-01-25
 **Status**: Complete
 
@@ -15,9 +15,12 @@ AI Educator Website is a modern personal portfolio site built with Next.js 16, f
 tranvanhoang.com/
 ├── app/                    # Next.js App Router
 │   ├── globals.css        # Global styles & design tokens
-│   ├── layout.tsx         # Root layout
+│   ├── layout.tsx         # Root layout (updated Phase 2)
 │   └── page.tsx           # Home page
 ├── components/
+│   ├── layout/            # Layout components (Phase 2)
+│   │   ├── header.tsx    # Responsive header
+│   │   └── footer.tsx    # 4-column footer
 │   ├── custom/            # Brand-specific components
 │   │   ├── gradient-text.tsx
 │   │   ├── brand-card.tsx
@@ -39,7 +42,8 @@ tranvanhoang.com/
 │       ├── alert.tsx
 │       └── badge.tsx
 ├── lib/
-│   └── utils.ts           # cn() utility
+│   ├── utils.ts           # cn() utility
+│   └── navigation.ts      # Navigation config (Phase 2)
 ├── types/                 # TypeScript types
 ├── public/                # Static assets
 ├── docs/                  # Documentation
@@ -139,6 +143,54 @@ cn(...inputs: ClassValue[]): string
 
 Tailwind class merger using `clsx` and `tailwind-merge`.
 
+### Navigation Configuration (`lib/navigation.ts`)
+
+Centralized navigation structure for consistent routing:
+
+```typescript
+type NavItem = {
+  title: string
+  href: string
+  description?: string       // For dropdown descriptions
+  children?: NavItem[]       // For dropdown menus
+}
+
+const mainNavItems: NavItem[] = [...]
+const footerNavItems: {...}  // 4-column footer structure
+```
+
+**Structure:**
+
+| Export | Purpose |
+|--------|---------|
+| `mainNavItems` | Header navigation items (Về tôi, Học AI, Blog, Tài nguyên, Cuộc sống) |
+| `ctaItem` | Primary CTA button (Nhận quà miễn phí) |
+| `footerNavItems` | Footer columns: brand, quickLinks, resources, connect |
+
+### Layout Components (`components/layout/`)
+
+Responsive layout shell components (Phase 2):
+
+| Component | File | Purpose |
+|-----------|------|---------|
+| `Header` | `header.tsx` | Sticky header with scroll effect, desktop nav, mobile sheet menu |
+| `Footer` | `footer.tsx` | 4-column footer with newsletter signup |
+
+**Header Features:**
+- Sticky positioning with backdrop blur on scroll
+- Desktop: Horizontal nav with dropdown support
+- Mobile: Sheet-based slide-out menu
+- Active route highlighting with coral color
+- Skip-to-content link for accessibility
+
+**Footer Features:**
+- Brand column with description
+- Quick Links column (navigation)
+- Resources column (tài nguyên)
+- Newsletter column with email signup form
+- Social media links in bottom bar
+- External links open in new tab with security attributes
+
 ## Key Dependencies
 
 ### Production
@@ -224,11 +276,21 @@ npm run lint     # Run ESLint
 - [x] Form validation with Zod schemas
 - [x] Documentation setup
 
+## Phase 2 Deliverables (Current)
+
+- [x] Navigation configuration (`lib/navigation.ts`)
+- [x] Responsive header with desktop/mobile layouts
+- [x] 4-column footer with newsletter signup
+- [x] Skip-to-content accessibility link
+- [x] Active route highlighting
+- [x] External link security attributes
+- [x] Mobile sheet menu with nested navigation
+
 ## Next Phases
 
-- Phase 2: Content Pages & Navigation
 - Phase 3: Interactive Features
 - Phase 4: Performance & SEO Optimization
+- Phase 5: Blog & Content System
 
 ## Documentation Files
 
