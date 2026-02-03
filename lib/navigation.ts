@@ -63,7 +63,8 @@ export const footerNavItems: {
   ],
   connect: [
     { title: "Email", href: "mailto:hoang@example.com" },
-    { title: "Facebook", href: "https://facebook.com" },
-    { title: "YouTube", href: "https://youtube.com" },
+    { title: "Facebook", href: "https://www.facebook.com/hoanghd218/" },
+    { title: "LinkedIn", href: "https://www.linkedin.com/in/hoanghd218/" },
+    { title: "YouTube", href: "https://www.youtube.com/@tony-hoang-ai-automation" },
   ],
 }

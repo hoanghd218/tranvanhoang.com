@@ -10,6 +10,8 @@ import { mainNavItems, ctaItem, type NavItem } from "@/lib/navigation"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { GradientText } from "@/components/custom/gradient-text"
+import { ThemeToggle } from "@/components/custom/theme-provider"
+import { Gift } from "lucide-react"
 
 const NavLink = React.memo(function NavLink({ item, isActive }: { item: NavItem; isActive: boolean }) {
   if (item.children) {
@@ -47,12 +49,13 @@ function DesktopNav() {
       {mainNavItems.map((item) => (
         <NavLink key={item.href} item={item} isActive={pathname === item.href} />
       ))}
+      <ThemeToggle />
       <Link
         href={ctaItem.href}
         className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-8 px-3 bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <span className="hidden sm:inline">{ctaItem.title}</span>
-        <span className="sm:hidden">🎁</span>
+        <Gift className="w-4 h-4 sm:hidden" />
       </Link>
     </nav>
   )

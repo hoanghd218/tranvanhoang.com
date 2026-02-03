@@ -2,11 +2,19 @@
 
 import * as React from "react"
 import Link from "next/link"
+import { Mail, Facebook, Linkedin, Youtube } from "lucide-react"
 
 import { footerNavItems } from "@/lib/navigation"
 import { GradientText } from "@/components/custom/gradient-text"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+
+const socialIcons: Record<string, React.ComponentType<{ className?: string }>> = {
+  Email: Mail,
+  Facebook: Facebook,
+  LinkedIn: Linkedin,
+  YouTube: Youtube,
+}
 
 function FooterColumn({
   title,
@@ -130,19 +138,22 @@ export function Footer() {
             © {currentYear} Hoàng. Tất cả các quyền được bảo lưu.
           </p>
 
-          <div className="flex items-center gap-4">
-            {footerNavItems.connect.map((link) => (
-              <Link
-                key={link.title}
-                href={link.href}
-                className="text-muted-foreground hover:text-coral transition-colors"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.title}
-              >
-                {link.title}
-              </Link>
-            ))}
+          <div className="flex items-center gap-3">
+            {footerNavItems.connect.map((link) => {
+              const Icon = socialIcons[link.title]
+              return (
+                <Link
+                  key={link.title}
+                  href={link.href}
+                  className="p-2 rounded-full bg-muted/50 text-muted-foreground hover:text-coral hover:bg-muted transition-colors"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={link.title}
+                >
+                  {Icon && <Icon className="h-4 w-4" />}
+                </Link>
+              )
+            })}
           </div>
         </div>
       </div>

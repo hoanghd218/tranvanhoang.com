@@ -2,9 +2,118 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Role & Responsibilities
+## Project Overview
 
-Your role is to analyze user requirements, delegate tasks to appropriate sub-agents, and ensure cohesive delivery of features that meet specifications and architectural standards.
+This is a **Next.js 16** personal website/blog for an AI educator. It's a content-focused site with:
+- Static blog posts written in MDX (located in `content/blog/`)
+- Learning paths for AI courses (`app/learn-ai/`)
+- A "Life" page with personal timeline stories (`app/life/`)
+- Resources page (`app/tai-nguyen/`)
+- Vietnamese language support with SEO optimization
+
+## Common Commands
+
+```bash
+# Development
+npm run dev          # Start dev server on localhost:3000
+npm run build        # Production build
+npm run lint         # Run ESLint
+
+# No test runner configured yet
+```
+
+## Architecture
+
+### Tech Stack
+- **Framework**: Next.js 16 (App Router, static export)
+- **Language**: TypeScript 5
+- **Styling**: Tailwind CSS 4 with custom CSS variables
+- **UI Components**: Radix UI primitives + custom shadcn-style components
+- **Content**: MDX with gray-matter for frontmatter parsing
+- **Fonts**: Inter (primary) + Merriweather (serif for Life page)
+
+### Key Directories
+
+```
+app/                    # Next.js App Router pages
+├── blog/               # Blog listing and post pages
+├── learn-ai/           # AI learning paths and modules
+├── life/               # Personal timeline/stories
+├── tai-nguyen/         # Resources page
+├── layout.tsx          # Root layout with fonts + SEO
+└── globals.css         # Global styles + CSS variables
+
+components/
+├── ui/                 # Base UI components (Button, Card, Dialog, etc.)
+├── custom/             # Custom components (GradientText, CTAButton, etc.)
+├── layout/             # Header, Footer
+├── home/               # Homepage sections
+├── blog/               # Blog-specific components
+├── learning/           # Learning path components
+├── life/               # Life page components
+└── seo/                # JSON-LD schema components
+
+lib/
+├── utils.ts            # cn() helper for Tailwind class merging
+└── mdx.ts              # MDX parsing utilities + content queries
+
+content/
+└── blog/               # MDX blog posts organized by category
+    ├── ai-co-ban/      # AI basics category
+    ├── ai-marketing/   # AI for marketing
+    ├── tool-prompt/    # Tools & prompts
+    └── goc-trai-nghiem/ # Personal experiences
+```
+
+### Content System
+
+Blog posts are MDX files in `content/blog/{category}/{slug}.mdx` with frontmatter:
+```yaml
+---
+title: "Post Title"
+description: "Brief description"
+date: "2025-01-15"
+category: "ai-co-ban"
+tags: ["AI", "beginner"]
+featuredImage: "/images/post.jpg"
+draft: false
+---
+```
+
+Content is fetched via functions in `lib/mdx.ts`:
+- `getAllPosts()` - All published posts sorted by date
+- `getPostsByCategory()` - Filter by category
+- `getPostBySlug()` - Single post lookup
+- `searchPosts()` - Basic search implementation
+
+### Styling Conventions
+
+**Color System** (defined in `globals.css`):
+- Primary brand: `--coral` (#D97757) and `--bronze` (#D4A27F)
+- Life page theme: `--life-sage`, `--life-sand`, `--life-lavender`
+- Dark theme only (no light mode)
+
+**Typography**:
+- Sans-serif: Inter with Vietnamese subset
+- Serif: Merriweather for Life page headings
+
+**Utilities**:
+- `.text-gradient` - Coral-to-bronze gradient text
+- `.text-life-gradient` - Sage-to-sand gradient for Life page
+- `.container-custom` - Max-width 72rem centered container
+- `.section-spacing` - Consistent py-16 padding
+
+### Component Patterns
+
+**UI Components** (`components/ui/`):
+- Use `class-variance-authority` for variant management
+- Import `cn()` from `@/lib/utils` for class merging
+- Follow shadcn/ui patterns with `data-slot` attributes
+
+**Custom Components**:
+- Use kebab-case file names (e.g., `gradient-text.tsx`)
+- Keep files under 200 lines; split when exceeded
+- Use descriptive names that explain purpose
 
 ## Workflows
 

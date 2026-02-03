@@ -6,6 +6,8 @@ import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { OrganizationSchema } from "@/components/seo/organization-schema"
 import { WebsiteSchema } from "@/components/seo/website-schema"
+import { EmailCapturePopupClient } from "@/components/email-capture/email-capture-popup-client"
+import { Providers } from "@/components/providers"
 
 // Inter font with Vietnamese support
 const inter = Inter({
@@ -25,16 +27,16 @@ const merriweather = Merriweather({
 
 export const metadata: Metadata = {
   title: {
-    default: "Hoàng - AI Educator | Dạy AI cho người mới bắt đầu",
+    default: "Hoàng - AI Educator | Dạy AI cho ngườii mới bắt đầu",
     template: "%s | Hoàng",
   },
-  description: "Hoàng chia sẻ cách dùng AI sao cho người chưa biết gì cũng làm được. Không cần code. Không áp lực kỹ thuật.",
-  keywords: ["AI", "artificial intelligence", "học AI", "AI cho người mới", "marketing AI", "Vietnamese AI education"],
+  description: "Hoàng chia sẻ cách dùng AI sao cho ngườii chưa biết gì cũng làm được. Không cần code. Không áp lực kỹ thuật.",
+  keywords: ["AI", "artificial intelligence", "học AI", "AI cho ngườii mới", "marketing AI", "Vietnamese AI education"],
   authors: [{ name: "Hoàng" }],
   robots: "index, follow",
   openGraph: {
     title: "Hoàng - AI Educator",
-    description: "Dạy AI cho người mới. Đơn giản, dễ hiểu, thực tế.",
+    description: "Dạy AI cho ngườii mới. Đơn giản, dễ hiểu, thực tế.",
     locale: "vi_VN",
     type: "website",
     siteName: "Hoàng AI Educator",
@@ -42,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Hoàng - AI Educator",
-    description: "Dạy AI cho người mới bắt đầu",
+    description: "Dạy AI cho ngườii mới bắt đầu",
   },
   alternates: {
     canonical: "https://tranvanhoang.com",
@@ -50,7 +52,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#0E0E0E",
+  themeColor: "#D97757",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -62,28 +64,34 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="vi" className={`${inter.variable} ${merriweather.variable}`}>
+    <html lang="vi" className={`${inter.variable} ${merriweather.variable}`} suppressHydrationWarning>
       <body className="antialiased min-h-screen flex flex-col">
-        {/* JSON-LD Structured Data */}
-        <OrganizationSchema />
-        <WebsiteSchema />
+        <Providers>
+          {/* JSON-LD Structured Data */}
+          <OrganizationSchema />
+          <WebsiteSchema />
 
-        {/* Skip to main content for accessibility */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"
-        >
-          Skip to main content
-        </a>
+          {/* Skip to main content for accessibility */}
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"
+          >
+            Skip to main content
+          </a>
 
-        <Header />
+          <Header />
 
-        <main id="main-content" className="flex-1">
-          {children}
-        </main>
+          <main id="main-content" className="flex-1">
+            {children}
+          </main>
 
-        <Footer />
+          <Footer />
+
+          {/* Email capture popup (client-side only) */}
+          <EmailCapturePopupClient />
+        </Providers>
       </body>
     </html>
   )
 }
+
