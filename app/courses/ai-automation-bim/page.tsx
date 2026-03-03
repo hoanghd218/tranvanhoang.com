@@ -326,7 +326,7 @@ export default function AIAutomationBIMPage() {
                         className="p-4 bg-card border border-border rounded-xl hover:border-coral/50 transition-colors"
                       >
                         <h4 className="font-semibold mb-2">{part.title}</h4>
-                        <div className="flex flex-wrap gap-1.5 mb-2">
+                        <div className="flex flex-wrap gap-1.5">
                           {part.topics.map((topic) => (
                             <span
                               key={topic}
@@ -336,9 +336,6 @@ export default function AIAutomationBIMPage() {
                             </span>
                           ))}
                         </div>
-                        <span className="text-sm font-medium text-foreground/70">
-                          {part.lessons} bài · {part.duration}
-                        </span>
                       </div>
                     ))}
                   </div>
