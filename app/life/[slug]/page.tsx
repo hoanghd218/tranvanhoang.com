@@ -32,6 +32,9 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
   return {
     title: `${story.metadata.title} | Cuộc sống - Hoàng`,
     description: story.metadata.description,
+    alternates: {
+      canonical: `https://tranvanhoang.com/life/${slug}`,
+    },
   };
 }
 

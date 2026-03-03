@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:claudekit.cc)",
+      "Bash(python:*)",
+      "Bash(python3:*)",
+      "Skill(planning)",
+      "Bash(mkdir:*)",
+      "Bash(node /Users/hoangtran/.claude/scripts/set-active-plan.cjs:*)",
+      "WebSearch",
+      "WebFetch(domain:ui.shadcn.com)",
+      "WebFetch(domain:kit.com)",
+      "Bash(node .claude/scripts/set-active-plan.cjs:*)",
+      "SlashCommand(/plan:validate /Users/hoangtran/Documents/Github/tranvanhoang.com/plans/260125-0954-ai-educator-website)",
+      "Bash(test:*)",
+      "Bash(pnpm add:*)",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(pnpm build)",
+      "Bash(pnpm lint)",
+      "Bash(pnpm eslint:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx @tailwindcss/cli@4 --dry:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx repomix:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(node:*)",
+      "Bash(cat:*)",
+      "Bash(pnpm lint --no-error-on-unmatched-pattern app/tai-nguyen components/resources types/resource.ts lib/resources.ts)",
+      "Bash(done)",
+      "Bash(npm run build:*)",
+      "Bash(npm run lint:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

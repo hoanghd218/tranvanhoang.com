@@ -9,7 +9,6 @@
  */
 
 const { stdin, env } = require('process');
-const { execSync } = require('child_process');
 const os = require('os');
 const fs = require('fs');
 const path = require('path');
@@ -18,24 +17,11 @@ const path = require('path');
 const { green, yellow, red, cyan, magenta, dim, coloredBar, RESET, shouldUseColor } = require('./hooks/lib/colors.cjs');
 const { parseTranscript } = require('./hooks/lib/transcript-parser.cjs');
 const { countConfigs } = require('./hooks/lib/config-counter.cjs');
+const { loadConfig } = require('./hooks/lib/ck-config-utils.cjs');
+const { getGitInfo } = require('./hooks/lib/git-info-cache.cjs');
 
 // Buffer constant matching /context output (22.5% of 200k)
 const AUTOCOMPACT_BUFFER = 45000;
-
-/**
- * Safe command execution wrapper
- */
-function exec(cmd) {
-  try {
-    return execSync(cmd, {
-      encoding: 'utf8',
-      stdio: ['pipe', 'pipe', 'ignore'],
-      windowsHide: true
-    }).trim();
-  } catch {
-    return '';
-  }
-}
 
 /**
  * Expand home directory to ~
@@ -56,9 +42,6 @@ function getTerminalWidth() {
     const parsed = parseInt(env.COLUMNS, 10);
     if (!isNaN(parsed) && parsed > 0) return parsed;
   }
-  // Subprocess fallback
-  const tputCols = exec('tput cols');
-  if (tputCols && /^\d+$/.test(tputCols)) return parseInt(tputCols, 10);
   return 120; // Safe default
 }
 
@@ -110,6 +93,17 @@ async function readStdin() {
 // ============================================================================
 
 /**
+ * Build usage time string with optional percentage
+ * @returns {string|null} Formatted usage string or null if unavailable
+ */
+function buildUsageString(ctx) {
+  if (!ctx.sessionText || ctx.sessionText === 'N/A') return null;
+  let str = ctx.sessionText.replace(' until reset', ' left');
+  if (ctx.usagePercent != null) str += ` (${Math.round(ctx.usagePercent)}%)`;
+  return str;
+}
+
+/**
  * Render session lines with multi-level responsive wrapping
  * Combines parts based on content length vs terminal width
  * Tries to minimize lines while keeping content readable
@@ -150,10 +144,9 @@ function renderSessionLines(ctx) {
     sessionPart += `  ${coloredBar(ctx.contextPercent, 12)} ${ctx.contextPercent}%`;
   }
   // Add usage/reset info to session part (stays on line 1 with model - Claude Code only reads line 1)
-  if (ctx.sessionText) {
-    let usageStr = `⌛ ${ctx.sessionText.replace(' until reset', ' left')}`;
-    if (ctx.usagePercent != null) usageStr += ` (${Math.round(ctx.usagePercent)}% used)`;
-    sessionPart += `  ${usageStr}`;
+  const usageStr = buildUsageString(ctx);
+  if (usageStr) {
+    sessionPart += `  ⌛ ${usageStr.replace(/\)$/, ' used)')}`;
   }
 
   // Build stats part (only lines changed now)
@@ -307,6 +300,42 @@ function renderTodosLine(transcript) {
 }
 
 /**
+ * Render minimal mode - single line with emojis, no progress bar
+ * Format: "🤖 opus 4.5  🔋 50%  ⏰ 2h 16m (38%)  🌿 branch  📁 ~/path"
+ */
+function renderMinimal(ctx) {
+  const parts = [`🤖 ${ctx.modelName}`];
+  if (ctx.contextPercent > 0) {
+    const batteryIcon = ctx.contextPercent > 70 ? red('🔋') : '🔋';
+    parts.push(`${batteryIcon} ${ctx.contextPercent}%`);
+  }
+  const usageStr = buildUsageString(ctx);
+  if (usageStr) parts.push(`⏰ ${usageStr}`);
+  if (ctx.gitBranch) parts.push(`🌿 ${ctx.gitBranch}`);
+  parts.push(`📁 ${ctx.currentDir}`);
+  console.log(parts.join('  '));
+}
+
+/**
+ * Render compact mode - 2 lines: session info + location (branch + dir)
+ */
+function renderCompact(ctx) {
+  // Line 1: Session info (model + context + usage)
+  let line1 = `🤖 ${ctx.modelName}`;
+  if (ctx.contextPercent > 0) {
+    line1 += `  ${coloredBar(ctx.contextPercent, 12)} ${ctx.contextPercent}%`;
+  }
+  const usageStr = buildUsageString(ctx);
+  if (usageStr) line1 += `  ⌛ ${usageStr}`;
+  console.log(line1.replace(/ /g, '\u00A0'));
+
+  // Line 2: Location (branch + directory)
+  let line2 = `📁 ${ctx.currentDir}`;
+  if (ctx.gitBranch) line2 += `  🌿 ${ctx.gitBranch}`;
+  console.log(line2.replace(/ /g, '\u00A0'));
+}
+
+/**
  * Main render function - outputs all lines
  * Falls back to single line if multi-line fails
  */
@@ -354,27 +383,14 @@ async function main() {
 
     const modelName = data.model?.display_name || 'Claude';
 
-    // Git detection
-    let gitBranch = '';
-    let gitUnstaged = 0;
-    let gitStaged = 0;
-    let gitAhead = 0;
-    let gitBehind = 0;
-    if (exec('git rev-parse --git-dir')) {
-      gitBranch = exec('git branch --show-current') || exec('git rev-parse --short HEAD');
-      const unstagedOutput = exec('git diff --name-only');
-      if (unstagedOutput) gitUnstaged = unstagedOutput.split('\n').filter(l => l.trim()).length;
-      // Staged files count
-      const stagedOutput = exec('git diff --cached --name-only');
-      if (stagedOutput) gitStaged = stagedOutput.split('\n').filter(l => l.trim()).length;
-      // Ahead/behind upstream
-      const aheadBehind = exec('git rev-list --left-right --count @{u}...HEAD 2>/dev/null');
-      if (aheadBehind) {
-        const parts = aheadBehind.split(/\s+/);
-        gitBehind = parseInt(parts[0], 10) || 0;
-        gitAhead = parseInt(parts[1], 10) || 0;
-      }
-    }
+    // Git detection using batched cache
+    const rawDir = data.workspace?.current_dir || data.cwd || process.cwd();
+    const gitInfo = getGitInfo(rawDir);
+    const gitBranch = gitInfo?.branch || '';
+    const gitUnstaged = gitInfo?.unstaged || 0;
+    const gitStaged = gitInfo?.staged || 0;
+    const gitAhead = gitInfo?.ahead || 0;
+    const gitBehind = gitInfo?.behind || 0;
 
     // Active plan detection - read from session temp file
     let activePlan = '';
@@ -437,16 +453,22 @@ async function main() {
       const usageCachePath = path.join(os.tmpdir(), 'ck-usage-limits-cache.json');
       if (fs.existsSync(usageCachePath)) {
         const cache = JSON.parse(fs.readFileSync(usageCachePath, 'utf8'));
-        const fiveHour = cache.data?.five_hour;
-        usagePercent = fiveHour?.utilization ?? null;
-        const resetAt = fiveHour?.resets_at;
-        if (resetAt) {
-          const resetTime = new Date(resetAt);
-          const remaining = Math.floor(resetTime.getTime() / 1000) - Math.floor(Date.now() / 1000);
-          if (remaining > 0 && remaining < 18000) {
-            const rh = Math.floor(remaining / 3600);
-            const rm = Math.floor((remaining % 3600) / 60);
-            sessionText = `${rh}h ${rm}m until reset`;
+
+        // Check status flag for fallback (non-OAuth scenarios)
+        if (cache.status === 'unavailable') {
+          sessionText = 'N/A';
+        } else {
+          const fiveHour = cache.data?.five_hour;
+          usagePercent = fiveHour?.utilization ?? null;
+          const resetAt = fiveHour?.resets_at;
+          if (resetAt) {
+            const resetTime = new Date(resetAt);
+            const remaining = Math.floor(resetTime.getTime() / 1000) - Math.floor(Date.now() / 1000);
+            if (remaining > 0 && remaining < 18000) {
+              const rh = Math.floor(remaining / 3600);
+              const rm = Math.floor((remaining % 3600) / 60);
+              sessionText = `${rh}h ${rm}m until reset`;
+            }
           }
         }
       }
@@ -462,7 +484,6 @@ async function main() {
     const linesRemoved = data.cost?.total_lines_removed || 0;
 
     // Config counts
-    const rawDir = data.workspace?.current_dir || data.cwd || process.cwd();
     const configs = countConfigs(rawDir);
 
     // Build render context
@@ -485,8 +506,26 @@ async function main() {
       transcript
     };
 
-    // Render (multi-line by default)
-    render(ctx, false);
+    // Load config and get statusline mode
+    const config = loadConfig({ includeProject: false, includeAssertions: false, includeLocale: false });
+    const statuslineMode = config.statusline || 'full';
+
+    // Render based on mode
+    switch (statuslineMode) {
+      case 'none':
+        console.log('');
+        break;
+      case 'minimal':
+        renderMinimal(ctx);
+        break;
+      case 'compact':
+        renderCompact(ctx);
+        break;
+      case 'full':
+      default:
+        render(ctx, false);
+        break;
+    }
 
   } catch (err) {
     // Fallback: output minimal single line on any error

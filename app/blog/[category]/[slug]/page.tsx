@@ -5,6 +5,8 @@ import { getPostBySlug, getRelatedPosts, getAllCategories } from "@/lib/mdx";
 import { GradientText } from "@/components/custom/gradient-text";
 import { Container, Section } from "@/components/custom/container";
 import { PostCard } from "@/components/blog/post-card";
+import { ArticleSchema } from "@/components/seo/article-schema";
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -39,6 +41,9 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       title: post.metadata.title,
       description: post.metadata.description,
     },
+    alternates: {
+      canonical: `https://tranvanhoang.com/blog/${category}/${slug}`,
+    },
   };
 }
 
@@ -72,8 +77,31 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const categories = getAllCategories();
   const currentCategory = categories.find((c) => c.slug === category);
 
+  const baseUrl = "https://tranvanhoang.com";
+
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <ArticleSchema
+        title={post.metadata.title}
+        description={post.metadata.description}
+        datePublished={post.metadata.date}
+        author={post.metadata.author || "Hoàng"}
+        url={`${baseUrl}/blog/${category}/${slug}`}
+        tags={post.metadata.tags}
+        image={post.metadata.featuredImage}
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Trang chủ", url: baseUrl },
+          { name: "Blog", url: `${baseUrl}/blog` },
+          ...(currentCategory
+            ? [{ name: currentCategory.name, url: `${baseUrl}/blog/${category}` }]
+            : []),
+          { name: post.metadata.title, url: `${baseUrl}/blog/${category}/${slug}` },
+        ]}
+      />
+
       {/* Hero */}
       <Section className="py-12 md:py-16">
         <Container>

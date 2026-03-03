@@ -27,24 +27,32 @@ const merriweather = Merriweather({
 
 export const metadata: Metadata = {
   title: {
-    default: "Hoàng - AI Educator | Dạy AI cho ngườii mới bắt đầu",
+    default: "Hoàng - AI Educator | Dạy AI cho người mới bắt đầu",
     template: "%s | Hoàng",
   },
-  description: "Hoàng chia sẻ cách dùng AI sao cho ngườii chưa biết gì cũng làm được. Không cần code. Không áp lực kỹ thuật.",
-  keywords: ["AI", "artificial intelligence", "học AI", "AI cho ngườii mới", "marketing AI", "Vietnamese AI education"],
+  description: "Hoàng chia sẻ cách dùng AI sao cho người chưa biết gì cũng làm được. Không cần code. Không áp lực kỹ thuật.",
+  keywords: ["AI", "artificial intelligence", "học AI", "AI cho người mới", "marketing AI", "Vietnamese AI education"],
   authors: [{ name: "Hoàng" }],
   robots: "index, follow",
   openGraph: {
     title: "Hoàng - AI Educator",
-    description: "Dạy AI cho ngườii mới. Đơn giản, dễ hiểu, thực tế.",
+    description: "Dạy AI cho người mới. Đơn giản, dễ hiểu, thực tế.",
     locale: "vi_VN",
     type: "website",
     siteName: "Hoàng AI Educator",
+    images: [
+      {
+        url: "https://tranvanhoang.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Hoàng - AI Educator",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Hoàng - AI Educator",
-    description: "Dạy AI cho ngườii mới bắt đầu",
+    description: "Dạy AI cho người mới bắt đầu",
   },
   alternates: {
     canonical: "https://tranvanhoang.com",

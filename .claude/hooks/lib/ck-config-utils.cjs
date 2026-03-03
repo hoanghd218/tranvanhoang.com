@@ -59,12 +59,30 @@ const DEFAULT_CONFIG = {
       useGemini: true  // Toggle Gemini CLI usage in research skill
     }
   },
-  assertions: []
+  assertions: [],
+  statusline: 'full',
+  hooks: {
+    'session-init': true,
+    'subagent-init': true,
+    'dev-rules-reminder': true,
+    'usage-context-awareness': true,
+    'context-tracking': true,
+    'scout-block': true,
+    'privacy-block': true,
+    'post-edit-simplify-reminder': true,
+    'task-completed-handler': true,
+    'teammate-idle-handler': true
+  }
 };
 
 /**
  * Deep merge objects (source values override target, nested objects merged recursively)
  * Arrays are replaced entirely (not concatenated) to avoid duplicate entries
+ *
+ * IMPORTANT: Empty objects {} are treated as "inherit from parent", not "replace with empty".
+ * This allows global config to set hooks.foo: false and have it persist even when
+ * local config has hooks: {} (empty = inherit, not reset to defaults).
+ *
  * @param {Object} target - Base object
  * @param {Object} source - Object to merge (takes precedence)
  * @returns {Object} Merged object
@@ -83,7 +101,13 @@ function deepMerge(target, source) {
       result[key] = [...sourceVal];
     }
     // Objects: recurse (but not null)
+    // SKIP empty objects - treat {} as "inherit from parent"
     else if (sourceVal !== null && typeof sourceVal === 'object' && !Array.isArray(sourceVal)) {
+      // Empty object = inherit (don't override parent values)
+      if (Object.keys(sourceVal).length === 0) {
+        // Keep target value unchanged - empty source means "no override"
+        continue;
+      }
       result[key] = deepMerge(targetVal || {}, sourceVal);
     }
     // Primitives: source wins
@@ -494,6 +518,10 @@ function loadConfig(options = {}) {
     result.codingLevel = merged.codingLevel ?? -1;
     // Skills configuration
     result.skills = merged.skills || DEFAULT_CONFIG.skills;
+    // Hooks configuration
+    result.hooks = merged.hooks || DEFAULT_CONFIG.hooks;
+    // Statusline mode
+    result.statusline = merged.statusline || 'full';
 
     return sanitizeConfig(result, projectRoot);
   } catch (e) {
@@ -510,7 +538,9 @@ function getDefaultConfig(includeProject = true, includeAssertions = true, inclu
     paths: { ...DEFAULT_CONFIG.paths },
     docs: { ...DEFAULT_CONFIG.docs },
     codingLevel: -1,  // Default: disabled (no injection, saves tokens)
-    skills: { ...DEFAULT_CONFIG.skills }
+    skills: { ...DEFAULT_CONFIG.skills },
+    hooks: { ...DEFAULT_CONFIG.hooks },
+    statusline: 'full'
   };
   if (includeLocale) {
     result.locale = { ...DEFAULT_CONFIG.locale };
@@ -752,6 +782,20 @@ function extractTaskListId(resolved) {
   return path.basename(resolved.path);
 }
 
+/**
+ * Check if a hook is enabled in config
+ * Returns true if hook is not defined (default enabled)
+ *
+ * @param {string} hookName - Hook name (script basename without .cjs)
+ * @returns {boolean} Whether hook is enabled
+ */
+function isHookEnabled(hookName) {
+  const config = loadConfig({ includeProject: false, includeAssertions: false, includeLocale: false });
+  const hooks = config.hooks || {};
+  // Return true if undefined (default enabled), otherwise return the boolean value
+  return hooks[hookName] !== false;
+}
+
 module.exports = {
   CONFIG_PATH,
   LOCAL_CONFIG_PATH,
@@ -782,5 +826,6 @@ module.exports = {
   resolveNamingPattern,
   getGitBranch,
   getGitRoot,
-  extractTaskListId
+  extractTaskListId,
+  isHookEnabled
 };

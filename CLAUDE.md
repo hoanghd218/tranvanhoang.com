@@ -4,116 +4,76 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a **Next.js 16** personal website/blog for an AI educator. It's a content-focused site with:
-- Static blog posts written in MDX (located in `content/blog/`)
-- Learning paths for AI courses (`app/learn-ai/`)
-- A "Life" page with personal timeline stories (`app/life/`)
-- Resources page (`app/tai-nguyen/`)
-- Vietnamese language support with SEO optimization
+Vietnamese-language personal website/blog for an AI educator (tranvanhoang.com). Content-focused, statically generated Next.js site.
 
 ## Common Commands
 
 ```bash
-# Development
-npm run dev          # Start dev server on localhost:3000
-npm run build        # Production build
-npm run lint         # Run ESLint
-
-# No test runner configured yet
+npm run dev          # Dev server on localhost:3000
+npm run build        # Production build (static export) — use to verify changes compile
+npm run lint         # ESLint
+# No test runner configured
 ```
 
 ## Architecture
 
-### Tech Stack
-- **Framework**: Next.js 16 (App Router, static export)
-- **Language**: TypeScript 5
-- **Styling**: Tailwind CSS 4 with custom CSS variables
-- **UI Components**: Radix UI primitives + custom shadcn-style components
-- **Content**: MDX with gray-matter for frontmatter parsing
-- **Fonts**: Inter (primary) + Merriweather (serif for Life page)
+**Stack**: Next.js 16 (App Router) · TypeScript 5 · Tailwind CSS 4 · Radix UI + shadcn-style · MDX via gray-matter
 
 ### Key Directories
 
 ```
-app/                    # Next.js App Router pages
-├── blog/               # Blog listing and post pages
-├── learn-ai/           # AI learning paths and modules
-├── life/               # Personal timeline/stories
-├── tai-nguyen/         # Resources page
-├── layout.tsx          # Root layout with fonts + SEO
-└── globals.css         # Global styles + CSS variables
+app/                    # App Router pages
+├── blog/               # Blog listing + dynamic [category]/[slug] posts
+├── learn-ai/           # AI learning paths with dynamic [path]/[module]
+├── life/               # Timeline stories with dynamic [slug]
+├── about/, free-gift/, tai-nguyen/  # Static pages
+├── layout.tsx          # Root layout (fonts, SEO schemas, Providers wrapper)
+└── globals.css         # All CSS variables + custom animation utilities
 
 components/
-├── ui/                 # Base UI components (Button, Card, Dialog, etc.)
-├── custom/             # Custom components (GradientText, CTAButton, etc.)
+├── ui/                 # shadcn-style base components (cva variants, data-slot)
+├── custom/             # App-specific: GradientText, ThemeProvider, Container, CTAButton
 ├── layout/             # Header, Footer
-├── home/               # Homepage sections
-├── blog/               # Blog-specific components
-├── learning/           # Learning path components
-├── life/               # Life page components
-└── seo/                # JSON-LD schema components
+├── home/, blog/, learning/, life/  # Page-section components
+├── seo/                # JSON-LD structured data (Organization, Website, Person schemas)
+└── email-capture/      # Email popup with gift selector
 
 lib/
-├── utils.ts            # cn() helper for Tailwind class merging
-└── mdx.ts              # MDX parsing utilities + content queries
+├── utils.ts            # cn() — Tailwind class merging (clsx + tailwind-merge)
+└── mdx.ts              # All content queries: getAllPosts, getPostBySlug, searchPosts, etc.
 
-content/
-└── blog/               # MDX blog posts organized by category
-    ├── ai-co-ban/      # AI basics category
-    ├── ai-marketing/   # AI for marketing
-    ├── tool-prompt/    # Tools & prompts
-    └── goc-trai-nghiem/ # Personal experiences
+content/                # MDX blog posts (NOT content/blog/ — the content dir IS the root)
+├── ai-co-ban/          # Category dirs containing .mdx files
+├── ai-marketing/
+├── tool-prompt/
+└── goc-trai-nghiem/
 ```
 
 ### Content System
 
-Blog posts are MDX files in `content/blog/{category}/{slug}.mdx` with frontmatter:
-```yaml
----
-title: "Post Title"
-description: "Brief description"
-date: "2025-01-15"
-category: "ai-co-ban"
-tags: ["AI", "beginner"]
-featuredImage: "/images/post.jpg"
-draft: false
----
-```
+Blog posts: `content/{category}/{slug}.mdx` with required frontmatter fields: `title`, `date`, `category`. Optional: `description`, `tags`, `featuredImage`, `draft`, `author`.
 
-Content is fetched via functions in `lib/mdx.ts`:
-- `getAllPosts()` - All published posts sorted by date
-- `getPostsByCategory()` - Filter by category
-- `getPostBySlug()` - Single post lookup
-- `searchPosts()` - Basic search implementation
+`lib/mdx.ts` reads content directory recursively. Posts with `draft: true` are filtered out. Reading time calculated at 200 words/minute. Categories are hardcoded in `categoryMap` inside `mdx.ts` — add new categories there.
 
-### Styling Conventions
+**Known limitation**: Blog post page renders raw MDX content in a `<pre>` tag (not compiled MDX). Full MDX rendering not yet implemented.
 
-**Color System** (defined in `globals.css`):
-- Primary brand: `--coral` (#D97757) and `--bronze` (#D4A27F)
-- Life page theme: `--life-sage`, `--life-sand`, `--life-lavender`
-- Dark theme only (no light mode)
+### Theming
 
-**Typography**:
-- Sans-serif: Inter with Vietnamese subset
-- Serif: Merriweather for Life page headings
+Custom `ThemeProvider` in `components/custom/theme-provider.tsx` — NOT using `next-themes` (though it's installed as a dependency). Supports light + dark via `.dark` class on `<html>`. `ThemeToggle` component exported from same file. Default theme: light, persisted in localStorage, respects `prefers-color-scheme`.
 
-**Utilities**:
-- `.text-gradient` - Coral-to-bronze gradient text
-- `.text-life-gradient` - Sage-to-sand gradient for Life page
-- `.container-custom` - Max-width 72rem centered container
-- `.section-spacing` - Consistent py-16 padding
+**Color System** (in `globals.css`):
+- Brand: `--coral` (#D97757), `--bronze` (#D4A27F)
+- Life page: `--life-sage`, `--life-sand`, `--life-lavender`
+- CSS utility classes: `.text-gradient`, `.text-life-gradient`, `.container-custom`, `.section-spacing`
+
+**Typography**: Inter (sans, Vietnamese subset) + Merriweather (serif, Life page headings)
 
 ### Component Patterns
 
-**UI Components** (`components/ui/`):
-- Use `class-variance-authority` for variant management
-- Import `cn()` from `@/lib/utils` for class merging
-- Follow shadcn/ui patterns with `data-slot` attributes
-
-**Custom Components**:
-- Use kebab-case file names (e.g., `gradient-text.tsx`)
-- Keep files under 200 lines; split when exceeded
-- Use descriptive names that explain purpose
+- UI components use `class-variance-authority` for variants, `cn()` from `@/lib/utils`
+- Custom components use kebab-case filenames
+- `Container` and `Section` wrapper components in `components/custom/container.tsx`
+- Path alias: `@/*` maps to project root
 
 ## Workflows
 

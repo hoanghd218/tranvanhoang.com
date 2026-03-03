@@ -16,6 +16,8 @@ import { Container, Section } from "@/components/custom/container";
 import { GradientText } from "@/components/custom/gradient-text";
 import { modules, outcomes, gifts, courseInfo } from "./course-data";
 import { RegistrationForm } from "./registration-form";
+import { CourseSchema } from "@/components/seo/course-schema";
+import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema";
 
 export const metadata: Metadata = {
   title: "AI Automation Cho BIM — Lập trình Revit API và Web với AI | Hoàng",
@@ -25,6 +27,9 @@ export const metadata: Metadata = {
     description: courseInfo.description,
     type: "website",
     locale: "vi_VN",
+  },
+  alternates: {
+    canonical: "https://tranvanhoang.com/courses/ai-automation-bim",
   },
 };
 
@@ -50,6 +55,19 @@ const moduleColors: Record<string, { bg: string; text: string; border: string }>
 export default function AIAutomationBIMPage() {
   return (
     <>
+      {/* JSON-LD Structured Data */}
+      <CourseSchema
+        name="AI Automation Cho BIM — Lập trình Revit API và Web với AI"
+        description={courseInfo.description}
+        url="https://tranvanhoang.com/courses/ai-automation-bim"
+      />
+      <BreadcrumbSchema
+        items={[
+          { name: "Trang chủ", url: "https://tranvanhoang.com" },
+          { name: "Khóa học", url: "https://tranvanhoang.com/courses/ai-automation-bim" },
+        ]}
+      />
+
       {/* Hero */}
       <Section className="py-12 md:py-20">
         <Container>
@@ -113,6 +131,73 @@ export default function AIAutomationBIMPage() {
             >
               Đăng ký ngay <ArrowRight className="w-5 h-5" />
             </a>
+          </div>
+        </Container>
+      </Section>
+
+      {/* Pain Points & Solution */}
+      <Section className="py-12 bg-card/30">
+        <Container>
+          <div className="max-w-3xl mx-auto">
+            <h2 className="text-2xl font-semibold mb-8 text-center">
+              Bạn có đang gặp phải những vấn đề này?
+            </h2>
+
+            {/* Pain points */}
+            <div className="space-y-4 mb-10">
+              {[
+                {
+                  pain: "Mất vài tháng trời chỉ để học một ngôn ngữ lập trình",
+                  detail: "Đọc docs, xem tutorial, viết code lỗi liên tục... rồi vẫn chưa làm được gì ra hồn.",
+                },
+                {
+                  pain: "Công việc lặp đi lặp lại nhưng toàn phải làm bằng tay",
+                  detail: "Tạo bản vẽ, đánh số sheet, dựng thép cột dầm — mỗi dự án lại ngồi click từ đầu.",
+                },
+                {
+                  pain: "Muốn tạo Add-in Revit nhưng không biết bắt đầu từ đâu",
+                  detail: "C# API khó, tài liệu ít, không ai hướng dẫn, tự mò mất thời gian.",
+                },
+                {
+                  pain: "Có ý tưởng phần mềm BIM nhưng không biết cách bán",
+                  detail: "Code xong rồi — nhưng license, landing page, thanh toán, marketing thì hoàn toàn mù mờ.",
+                },
+              ].map((item) => (
+                <div
+                  key={item.pain}
+                  className="flex items-start gap-4 p-4 rounded-xl border border-red-200 dark:border-red-900/50 bg-red-50/50 dark:bg-red-950/20"
+                >
+                  <span className="text-red-500 text-xl shrink-0 mt-0.5">✕</span>
+                  <div>
+                    <p className="font-semibold text-foreground">{item.pain}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{item.detail}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Solution */}
+            <div className="p-6 rounded-2xl border-2 border-green-300 dark:border-green-800 bg-green-50/50 dark:bg-green-950/20">
+              <h3 className="text-xl font-bold text-green-700 dark:text-green-400 mb-3">
+                Giải pháp: Để AI làm thay bạn
+              </h3>
+              <p className="text-muted-foreground mb-4">
+                Thay vì mất vài tháng tự học, bạn chỉ cần <strong className="text-foreground">mô tả ý tưởng bằng tiếng Việt</strong> — AI sẽ viết code, tạo giao diện, build ứng dụng cho bạn. Khoá học này dạy bạn cách <strong className="text-foreground">điều khiển AI</strong> để:
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {[
+                  "Code Revit API nhanh gấp 10x với AI",
+                  "Tự động hoá công việc BIM lặp đi lặp lại",
+                  "Tạo web bán hàng mà không cần là web developer",
+                  "Từ ý tưởng → sản phẩm → thu nhập chỉ trong vài tuần",
+                ].map((point) => (
+                  <div key={point} className="flex items-start gap-2">
+                    <CheckCircle className="w-4 h-4 text-green-500 shrink-0 mt-1" />
+                    <span className="text-sm font-medium">{point}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </Container>
       </Section>

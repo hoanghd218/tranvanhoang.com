@@ -1,9 +1,12 @@
 import { MetadataRoute } from "next";
+import { getAllPosts } from "@/lib/mdx";
+import { getAllLifeStories } from "@/lib/life-mdx";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://tranvanhoang.com";
 
-  const routes: MetadataRoute.Sitemap = [
+  // Static routes
+  const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}`,
       lastModified: new Date(),
@@ -64,7 +67,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
+    {
+      url: `${baseUrl}/courses/ai-automation-bim`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
   ];
 
-  return routes;
+  // Dynamic blog post routes
+  const posts = getAllPosts();
+  const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => ({
+    url: `${baseUrl}/blog/${post.category}/${post.slug}`,
+    lastModified: new Date(post.metadata.date),
+    changeFrequency: "weekly" as const,
+    priority: 0.6,
+  }));
+
+  // Dynamic life story routes
+  const stories = getAllLifeStories();
+  const lifeRoutes: MetadataRoute.Sitemap = stories.map((story) => ({
+    url: `${baseUrl}/life/${story.slug}`,
+    lastModified: new Date(story.metadata.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.5,
+  }));
+
+  return [...staticRoutes, ...blogRoutes, ...lifeRoutes];
 }
