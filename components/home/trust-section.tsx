@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTranslations } from "next-intl"
 import { Award, Users, BookOpen, Star } from "lucide-react"
 
 import { GradientText } from "@/components/custom/gradient-text"
@@ -8,39 +9,13 @@ import { Container, Section } from "@/components/custom/container"
 import { ScrollReveal } from "@/components/custom/scroll-reveal"
 import { AnimatedCounter } from "@/components/custom/animated-counter"
 
-type StatItem = {
-  icon: React.ComponentType<{ className?: string }>
+const statIcons = [Award, Users, BookOpen, Star]
+
+type StatData = {
   value: string
   label: string
   description: string
 }
-
-const statsData: StatItem[] = [
-  {
-    icon: Award,
-    value: "5+",
-    label: "Năm kinh nghiệm",
-    description: "Trong lĩnh vực AI và công nghệ",
-  },
-  {
-    icon: Users,
-    value: "10K+",
-    label: "Học viên",
-    description: "Đã tham gia các khóa học",
-  },
-  {
-    icon: BookOpen,
-    value: "50+",
-    label: "Bài viết",
-    description: "Về AI cho người mới",
-  },
-  {
-    icon: Star,
-    value: "4.9/5",
-    label: "Đánh giá",
-    description: "Từ học viên",
-  },
-]
 
 const brandLogos = [
   "TechDaily",
@@ -51,8 +26,8 @@ const brandLogos = [
   "TechInAsia",
 ]
 
-function StatCard({ stat, index }: { stat: StatItem; index: number }) {
-  const Icon = stat.icon
+function StatCard({ stat, index }: { stat: StatData; index: number }) {
+  const Icon = statIcons[index]
 
   return (
     <ScrollReveal delay={index * 150} className="text-center">
@@ -73,12 +48,10 @@ function StatCard({ stat, index }: { stat: StatItem; index: number }) {
 }
 
 function LogoMarquee() {
-  // Double the logos for seamless infinite scroll
   const doubledLogos = [...brandLogos, ...brandLogos]
 
   return (
     <div className="relative overflow-hidden">
-      {/* Gradient fade edges */}
       <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-card/50 to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-card/50 to-transparent z-10 pointer-events-none" />
 
@@ -97,31 +70,30 @@ function LogoMarquee() {
 }
 
 export function TrustSection() {
+  const t = useTranslations("home")
+  const stats = t.raw("trustStats") as StatData[]
+
   return (
     <Section className="bg-card/50">
       <Container>
-        {/* Section Header */}
         <ScrollReveal className="text-center max-w-2xl mx-auto mb-12">
           <h2 className="heading-md mb-4">
-            Tại sao <GradientText>tin tôi?</GradientText>
+            {t("trustTitle")} <GradientText>{t("trustTitleHighlight")}</GradientText>
           </h2>
           <p className="text-muted-foreground">
-            Tôi không chỉ dạy lý thuyết - tôi đã áp dụng AI vào thực tế
-            và giúp hàng ngàn người làm được điều tương tự.
+            {t("trustSubtitle")}
           </p>
         </ScrollReveal>
 
-        {/* Stats Grid */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          {statsData.map((stat, index) => (
+          {stats.map((stat, index) => (
             <StatCard key={stat.label} stat={stat} index={index} />
           ))}
         </div>
 
-        {/* Social Proof with Marquee */}
         <div className="mt-12 pt-12 border-t border-border">
           <p className="text-center text-sm text-muted-foreground mb-6">
-            Đã được đề cập trên / Hợp tác với
+            {t("trustSocialProof")}
           </p>
           <LogoMarquee />
         </div>
@@ -129,4 +101,3 @@ export function TrustSection() {
     </Section>
   )
 }
-

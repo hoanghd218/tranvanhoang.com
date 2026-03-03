@@ -1,301 +1,325 @@
-# ClaudeKit Engineer - Project Roadmap
+# tranvanhoang.com - Project Roadmap
 
-**Last Updated:** 2025-12-28
-**Current Version:** 2.2.0-beta.4
-**Repository:** https://github.com/claudekit/claudekit-engineer
+**Last Updated:** 2026-03-03
+**Current Version:** 3.0.0
+**Repository:** https://github.com/hoangtran/tranvanhoang.com
 
 ## Executive Summary
 
-ClaudeKit Engineer is an AI-powered development orchestration framework enabling developers to build professional software faster through intelligent agent collaboration, automated workflows, and comprehensive quality management. The project has successfully completed core foundation phases and is advancing cross-platform compatibility and advanced features.
+tranvanhoang.com is a modern personal website and content platform for an AI educator, featuring bilingual support (Vietnamese + English), blog system, learning paths, and course management. The project emphasizes accessibility, performance, and maintainable component architecture using Next.js 16 with Tailwind CSS and Radix UI.
 
 ---
 
 ## Phase Overview
 
 ### Phase 1: Foundation (COMPLETE)
-**Status:** ✅ Complete | **Completion:** v1.8.0
+**Status:** ✅ Complete | **Completion:** 2025-01-15
 **Progress:** 100%
 
-Established core agent orchestration framework, slash command system, automated releases, and foundational skills library.
+Established Next.js 16 application with design system, component library, and layout infrastructure.
 
 **Key Achievements:**
-- Multi-agent orchestration engine
-- 50+ slash commands (plan, cook, test, ask, bootstrap, debug, fix:*)
-- Semantic versioning & automated releases
-- 20+ skills library (auth, cloud, databases, design, etc.)
-- Documentation system with repomix integration
-- Scout Block Hook for cross-platform performance optimization
-- Git workflows with conventional commits enforcement
+- Next.js 16 (App Router) setup with TypeScript
+- Tailwind CSS 4 with custom design tokens (coral, bronze)
+- Radix UI primitives + shadcn-style components
+- Custom brand components (GradientText, BrandCard, CTAButton)
+- Navigation configuration and routing structure
+- Responsive header and footer layouts
+- Form handling with react-hook-form + Zod
 
 ---
 
-### Phase 2: Cross-Platform Enhancement (NEAR COMPLETE)
-**Status:** 🔄 95% Complete | **Completion Target:** Jan 2026
-**Progress:** 95%+ (Preview Dashboard complete, skills expansion pending)
+### Phase 2: Core Layout & Navigation (COMPLETE)
+**Status:** ✅ Complete | **Completion:** 2025-02-10
+**Progress:** 100%
 
-Expanding platform support and improving developer experience across Windows, macOS, and Linux environments. Recent focus on Preview Dashboard completion and hook optimization.
+Implemented core layout infrastructure with responsive header/footer and navigation system.
 
-#### Sub-Task: Windows Statusline Support
-**Status:** ✅ COMPLETE
-**Completed:** 2025-11-11
-**Priority:** Medium
-
-Enabled Windows users to use Claude Code statusline functionality through multiple cross-platform script implementations.
-
-**Deliverables Completed:**
-- `statusline.ps1` - PowerShell native implementation for Windows
-- `statusline.js` - Node.js universal fallback implementation
-- `docs/statusline-windows-support.md` - Comprehensive user guide (4 setup options)
-- `docs/statusline-architecture.md` - Technical architecture & implementation details
-- All 5 implementation phases complete:
-  - Phase 1: Research & Analysis
-  - Phase 2: PowerShell Implementation
-  - Phase 3: Node.js Fallback
-  - Phase 4: Platform Detection & Wrapper
-  - Phase 5: Testing & Documentation
-
-**Features:**
-- ✅ PowerShell 5.1+ & PowerShell Core 7+ support
-- ✅ Node.js 16+ universal fallback
-- ✅ Git Bash integration
-- ✅ WSL full compatibility
-- ✅ Feature parity: colors, git branch, models, sessions, costs, tokens, progress bars
-- ✅ ANSI color support with NO_COLOR environment variable
-- ✅ ccusage integration for session metrics
-- ✅ UTF-8 encoding & emoji support
-
-**Performance:**
-- PowerShell 5.1: ~250ms cold, ~150ms warm
-- PowerShell 7+: ~150ms cold, ~100ms warm
-- Node.js: ~100ms cold, ~50ms warm
-- With ccusage: ~300ms typical
-
-**Documentation Quality:**
-- User setup guide with 4 configuration options
-- Troubleshooting section (9 common issues)
-- Performance benchmarks
-- Platform compatibility matrix
-- Migration guide between implementations
-- Advanced configuration examples
-- 380+ lines of comprehensive guidance
-
-#### Sub-Task: Preview Dashboard (All 6 Phases)
-**Status:** ✅ COMPLETE
-**Completed:** 2025-12-11
-**Priority:** High
-
-Interactive web-based visualization of implementation plans with advanced filtering, sorting, and real-time discovery.
-
-**Deliverables Completed:**
-- Phase 1-2: HTTP server infrastructure & API endpoints
-- Phase 3-4: Plan discovery with `plan-scanner.cjs` and metadata extraction
-- Phase 5-6: Dashboard UI with `dashboard-renderer.cjs`, `dashboard.css`, `dashboard.js`, and `dashboard-template.html`
-- System architecture documentation updated
-
-**Features:**
-- ✅ `/dashboard` route with auto-fit responsive grid layout
-- ✅ `/api/dashboard` JSON API endpoint
-- ✅ Plan discovery engine (real-time, no manual updates)
-- ✅ Progress rings and status bars with percentage calculation
-- ✅ Sorting: date (newest first), alphabetically, by progress
-- ✅ Filtering: all, pending, in-progress, completed statuses
-- ✅ Full-text search with highlighting
-- ✅ Dark/light theme toggle with localStorage persistence
-- ✅ WCAG 2.1 AA accessibility compliance (keyboard nav, ARIA labels)
-- ✅ Responsive mobile-friendly design
-- ✅ Phase breakdown with status tracking
-- ✅ Security-validated path traversal prevention
-
-**Accessibility & Quality:**
-- WCAG 2.1 AA color contrast compliance
-- Keyboard navigation throughout
-- ARIA labels and semantic HTML
-- Touch-friendly interactive controls
-- Performance optimized (lazy loading)
+**Key Achievements:**
+- Responsive sticky header with desktop/mobile variants
+- 4-column footer with newsletter signup integration
+- Mobile sheet-based navigation menu
+- Active route highlighting
+- Skip-to-content accessibility link
+- Semantic HTML structure
+- Navigation configuration system
 
 ---
 
-### Phase 3: Advanced Features (PLANNED)
-**Status:** 📋 Planned | **Target Start:** Jan 2026
+### Phase 3: Internationalization (COMPLETE)
+**Status:** ✅ Complete | **Completion:** 2026-03-03
+**Progress:** 100%
+
+Full bilingual support (Vietnamese + English) using next-intl v4 with localized routing and UI translations.
+
+**Key Achievements:**
+- ✅ next-intl v4 integration with middleware routing
+- ✅ Dual locale support: Vietnamese (default) + English
+- ✅ Translated route slugs: `/tai-nguyen` (vi) ↔ `/resources` (en)
+- ✅ Full UI translation: ~240 keys in messages/vi.json & messages/en.json
+- ✅ Middleware-based locale detection (Accept-Language header support)
+- ✅ LocaleSwitcher component with Globe icon
+- ✅ All pages moved under `app/[locale]/` structure
+- ✅ Locale-aware metadata generation with hreflang alternates
+- ✅ `/courses/*` excluded from i18n (separate hand-rolled system)
+- ✅ MDX blog content remains Vietnamese-only (culturally specific)
+- ✅ TypeScript locale types for type-safe routing
+
+**Architecture:**
+- Locale routing: `localePrefix: "as-needed"` (vi has no prefix, en uses /en/*)
+- Route mapping: Dynamic and static path aliases supported
+- Translation organization: Structured by domain (common, nav, footer, home, blog, etc.)
+- Locale switching: In-page toggle preserving URL structure
+
+**Files & Directories:**
+- `i18n/routing.ts` - Locale definitions and path mappings
+- `i18n/request.ts` - Request locale detection
+- `i18n/navigation.ts` - Locale-aware navigation utilities
+- `middleware.ts` - Request routing and locale detection
+- `messages/vi.json` - Vietnamese translations
+- `messages/en.json` - English translations
+- `components/layout/locale-switcher.tsx` - Language toggle UI
+
+---
+
+### Phase 4: Blog Translation & Content Localization (PLANNED)
+**Status:** 📋 Planned | **Target Start:** Q2 2026
 **Progress:** 0%
 
-Future enhancements for AI-assisted development capabilities.
+Extend blog content system to support English translations while maintaining Vietnamese as primary content.
 
 **Planned Items:**
-- Visual workflow builder UI
-- Custom agent creator UI
-- Enhanced caching mechanisms
-- Real-time collaboration features
-- Analytics & insights dashboard
-- Performance telemetry
+- MDX translation layer (babel plugin or custom loader)
+- Content duplication strategy for blog posts
+- Category translation in routing
+- Search functionality for translated content
+- Excerpt translation automation
+- Related content linking across locales
 
 ---
 
-### Phase 4: Enterprise (FUTURE)
-**Status:** 📋 Future | **Target Start:** Q2 2026
+### Phase 5: Performance & SEO Optimization (PLANNED)
+**Status:** 📋 Planned | **Target Start:** Q3 2026
 **Progress:** 0%
 
-Enterprise-grade features and deployment options.
+Enhanced performance metrics and SEO capabilities for multi-locale content.
 
 **Planned Items:**
-- Self-hosted deployment options
-- Advanced security features
-- Compliance automation
-- Custom enterprise integrations
-- Dedicated enterprise support
+- Vercel Analytics integration
+- Web Vitals monitoring per locale
+- Image optimization and CDN strategy
+- Sitemap generation (per locale)
+- Open Graph meta tags per locale
+- Structured data enhancement (BreadcrumbList, FAQPage)
+- Core Web Vitals targets: LCP < 2.5s, FID < 100ms, CLS < 0.1
+
+---
+
+### Phase 6: Analytics & User Engagement (FUTURE)
+**Status:** 📋 Future | **Target Start:** Q4 2026
+**Progress:** 0%
+
+User analytics, engagement tracking, and content performance insights.
+
+**Planned Items:**
+- Event tracking (course enrollments, resource downloads)
+- Heatmap analysis for content discovery
+- User preference tracking per locale
+- Content recommendation engine
+- Newsletter analytics and segmentation
+- Conversion funnel tracking
 
 ---
 
 ## Current Development Focus
 
-### 1. Windows Ecosystem Support
-- ✅ Statusline cross-platform support
-- 📋 Windows terminal integration optimization
-- 📋 PowerShell Core expansion
-- 📋 WSL2 performance optimization
+### 1. i18n Consolidation (Current Phase 3)
+- ✅ next-intl v4 integration complete
+- ✅ Locale switching UI implemented
+- ✅ Message translations complete (~240 keys)
+- 📋 Testing across different Accept-Language headers
+- 📋 Performance metrics per locale
 
-### 2. Additional Cloud Skills
-- 📋 Google Cloud Platform (GCP) integration
-- 📋 Amazon Web Services (AWS) integration
-- 📋 Microsoft Azure integration
+### 2. Content System Enhancements
+- 📋 MDX blog translation support (Phase 4)
+- 📋 Learning path localization
+- 📋 Course content organization
+- 📋 Timeline/Life story management
 
-### 3. Enhanced Documentation
-- ✅ Updated Windows support guides
-- 📋 API reference automation
-- 📋 Architecture guide expansion
-- 📋 Tutorial library
+### 3. SEO & Performance
+- 📋 Sitemap generation for all locales
+- 📋 hreflang tag validation
+- 📋 Image optimization pipeline
+- 📋 Core Web Vitals monitoring
 
-### 4. Performance Optimization
-- ✅ Scout Block Hook for agent performance
-- 📋 Caching strategies for common operations
-- 📋 Token optimization
-- 📋 Parallel execution enhancements
+### 4. User Experience
+- 📋 Locale preference persistence (cookie/localStorage)
+- 📋 Content recommendation by locale
+- 📋 Enhanced search functionality
+- 📋 Accessibility audits (WCAG 2.1 AA)
 
 ---
 
 ## Milestone Tracking
 
-### Q4 2025 Milestones
+### Q1 2026 Milestones (Current)
 | Milestone | Status | Due Date | Progress |
 |-----------|--------|----------|----------|
-| Windows Statusline Support | ✅ Complete | 2025-11-11 | 100% |
-| Preview Dashboard (6 Phases) | ✅ Complete | 2025-12-11 | 100% |
-| Additional Skills Library Expansion | 📋 Pending | 2025-12-15 | 0% |
-| Enhanced Error Handling | 📋 Pending | 2025-12-31 | 0% |
+| Phase 1: Foundation | ✅ Complete | 2025-01-15 | 100% |
+| Phase 2: Layout & Navigation | ✅ Complete | 2025-02-10 | 100% |
+| Phase 3: Internationalization | ✅ Complete | 2026-03-03 | 100% |
+| Documentation Updates | ✅ Complete | 2026-03-03 | 100% |
 
-### Q1 2026 Milestones
+### Q2 2026 Milestones
 | Milestone | Status | Due Date | Progress |
 |-----------|--------|----------|----------|
-| Visual Workflow Builder | 📋 Planned | 2026-03-31 | 0% |
-| Custom Agent Creator UI | 📋 Planned | 2026-03-31 | 0% |
-| Cloud Platform Integrations (GCP, AWS, Azure) | 📋 Planned | 2026-03-31 | 0% |
+| Phase 4: Blog Translation | 📋 Planned | 2026-06-30 | 0% |
+| SEO Optimization Phase | 📋 Planned | 2026-06-30 | 0% |
+| Performance Baseline Testing | 📋 Planned | 2026-06-15 | 0% |
+
+### Q3 2026 Milestones
+| Milestone | Status | Due Date | Progress |
+|-----------|--------|----------|----------|
+| Phase 5: Performance & SEO | 📋 Planned | 2026-09-30 | 0% |
+| Analytics Integration | 📋 Planned | 2026-09-30 | 0% |
 
 ---
 
 ## Success Metrics
 
-### Adoption
-- GitHub stars: Tracking (public launch pending)
-- NPM downloads: Tracking
-- Active users & installations: Tracking
-- Community engagement: In development
+### User Engagement
+- Bounce rate: < 35%
+- Average session duration: > 2 minutes
+- Pages per session: > 1.5
+- Return visitor rate: > 25%
 
-### Performance Targets
-- Bootstrap time: < 10 minutes
-- Planning to implementation cycle: 50% reduction
-- Documentation coverage: > 90%
-- Test coverage: > 80%
-- Code review time: 75% reduction
+### Performance Targets (Core Web Vitals)
+- Largest Contentful Paint (LCP): < 2.5s
+- First Input Delay (FID): < 100ms
+- Cumulative Layout Shift (CLS): < 0.1
+- Time to First Byte (TTFB): < 600ms
+
+### Content Metrics
+- Blog post publication rate: 2-4 posts/month
+- Newsletter subscriber growth: 10%+ monthly
+- Course enrollment conversion: > 5%
+- Resource download tracking: > 100/month
+
+### Localization Metrics
+- Vietnamese traffic: > 70%
+- English traffic: > 15%
+- Other locales: < 15%
+- Locale-specific engagement: Tracked per region
 
 ### Quality Standards
-- Conventional commit compliance: 100%
-- Zero secrets in commits: 100%
-- Automated test pass rate: > 95%
-- Documentation freshness: < 24 hours lag
-
-### Developer Experience
-- Time to first commit: < 5 minutes
-- Onboarding time: 50% reduction vs baseline
-- Context switching overhead: 60% reduction
-- Satisfaction score target: > 4.5/5.0
+- TypeScript coverage: 100%
+- Component test coverage: > 80%
+- Accessibility: WCAG 2.1 AA compliant
+- SEO score: > 90 (Lighthouse)
 
 ---
 
 ## Feature Inventory
 
-### Core Features (COMPLETE)
-- ✅ Multi-agent orchestration system
-- ✅ 50+ slash commands
-- ✅ Comprehensive skills library (20+)
-- ✅ Automated release management
-- ✅ Development workflow automation
-- ✅ Documentation system with repomix
-- ✅ Cross-platform performance optimization
-- ✅ Git workflow automation
-- ✅ Comprehensive error handling
+### Phase 1 Features (COMPLETE)
+- ✅ Next.js 16 App Router setup
+- ✅ Tailwind CSS 4 with custom design tokens
+- ✅ Radix UI component library
+- ✅ Brand-specific components (Gradient, Card, CTA, Container)
+- ✅ TypeScript strict mode
+- ✅ Form handling (react-hook-form + Zod)
+- ✅ Icon library (Lucide React)
+- ✅ Toast notifications (Sonner)
+- ✅ Dark mode support (next-themes)
 
-### Recent Additions (2025-12-11)
-- ✅ Preview Dashboard - all 6 phases complete
-  - Interactive plan visualization with card-based grid
-  - Advanced sorting, filtering, and search capabilities
-  - Dark/light theme with WCAG 2.1 AA compliance
-  - Real-time plan discovery & metadata extraction
-  - Responsive mobile-friendly design
+### Phase 2 Features (COMPLETE)
+- ✅ Responsive sticky header
+- ✅ 4-column footer with newsletter signup
+- ✅ Mobile navigation (sheet-based menu)
+- ✅ Active route highlighting
+- ✅ Skip-to-content accessibility
+- ✅ Navigation configuration system
+- ✅ SEO metadata optimization
 
-### Previous Additions (2025-11-11)
-- ✅ Windows statusline support (PowerShell, Node.js)
-- ✅ Cross-platform statusline documentation
-- ✅ Advanced configuration guides
+### Phase 3 Features (COMPLETE - 2026-03-03)
+- ✅ next-intl v4 integration
+- ✅ Dual locale support (vi + en)
+- ✅ Translated route slugs (/tai-nguyen ↔ /resources)
+- ✅ Full UI translation (~240 keys)
+- ✅ Middleware-based locale routing
+- ✅ LocaleSwitcher component
+- ✅ Locale-aware metadata with hreflang
+- ✅ Courses excluded from i18n system
+- ✅ Blog content Vietnamese-only (intentional)
 
-### In Development
-- 🔄 Additional cloud platform integrations
-- 🔄 UI/UX improvements
-- 🔄 Enhanced error handling patterns
-- 🔄 Performance optimization phase 2
+### Phase 4 Features (PLANNED)
+- 📋 MDX blog translation support
+- 📋 Content duplication strategy
+- 📋 Category translation in routing
+- 📋 Related content linking across locales
 
-### Planned
-- 📋 Visual workflow builder
-- 📋 Custom agent creator
-- 📋 Team collaboration features
-- 📋 Analytics dashboard
+### Phase 5 Features (PLANNED)
+- 📋 Vercel Analytics integration
+- 📋 Web Vitals monitoring
+- 📋 Image optimization
+- 📋 Sitemap generation per locale
+- 📋 Enhanced structured data
+
+### Phase 6+ Features (FUTURE)
+- 📋 Event tracking and analytics
+- 📋 User preference persistence
+- 📋 Content recommendation engine
+- 📋 Heatmap analysis
 
 ---
 
 ## Technical Architecture
 
 ### Technology Stack
-- **Runtime:** Node.js >= 18.0.0, Bash, PowerShell, Cross-platform hooks
-- **AI Platforms:** Anthropic Claude, OpenRouter, Google Gemini, Grok Code
-- **Development Tools:** Semantic Release, Commitlint, Husky, Repomix, Scout Block Hook
-- **CI/CD:** GitHub Actions
-- **Languages:** JavaScript, Bash, PowerShell, Markdown
+- **Framework:** Next.js 16.1.4 (App Router)
+- **Language:** TypeScript 5
+- **Styling:** Tailwind CSS 4
+- **UI Library:** React 19.2.3
+- **Components:** Radix UI + shadcn-style
+- **i18n:** next-intl v4
+- **Forms:** react-hook-form + Zod
+- **State:** Built-in React hooks
+- **Icons:** Lucide React
+- **Notifications:** Sonner
+- **Theme:** next-themes (dark/light)
+- **Content:** MDX with gray-matter
 
-### Integration Points
-- MCP Tools: context7, sequential-thinking, SearchAPI, review-website, VidCap
-- External Services: GitHub (Actions, Releases, PRs), Discord, NPM
-- Platforms: Windows, macOS, Linux, WSL, Git Bash
+### External Integrations
+- Next.js Image Optimization
+- Vercel Analytics (planned)
+- Newsletter service (TBD)
+- SEO tools: JSON-LD schemas
+- Fonts: Google Fonts (Inter, Merriweather)
 
 ---
 
 ## Known Constraints & Limitations
 
 ### Technical
-- Requires Node.js >= 18.0.0
-- Depends on Claude Code or Open Code CLI
-- File-based communication has I/O overhead
-- Token limits on AI model context windows
+- Static export only (no dynamic rendering/SSR)
+- MDX blog content not compiled at runtime (limitation noted)
+- Locale detection relies on Accept-Language header or URL prefix
+- Course system has separate locale handling (not integrated with next-intl)
 
-### Operational
-- Requires API keys for AI platforms
-- GitHub Actions minutes for CI/CD
-- Internet connection for MCP tools
-- Storage for repomix output files
+### Content
+- Blog posts are Vietnamese-only (cultural choice, not technical limitation)
+- Learning paths must be manually translated if localized
+- Timeline/Life stories require separate translation management
 
-### Design
-- Agent definitions must be Markdown with frontmatter
-- Commands follow slash syntax
-- Reports use specific naming conventions
-- Conventional commits required
+### Internationalization
+- ~240 translation keys must be maintained across locales
+- Path mappings limited to specific routes (only /tai-nguyen mapped)
+- Fallback language behavior: English for missing Vietnamese keys (or vice versa)
+
+### Browser Support
+- Modern browsers only (ES2020+ support)
+- Dark mode support via CSS custom properties
+- Responsive design targets mobile-first (320px+)
 
 ---
 
@@ -303,85 +327,122 @@ Enterprise-grade features and deployment options.
 
 | Risk | Impact | Likelihood | Mitigation |
 |------|--------|-----------|-----------|
-| AI Model API Failures | High | Medium | Retry logic, fallback models, graceful degradation |
-| Context Window Limits | Medium | High | Repomix for code compaction, selective loading, chunking |
-| Agent Coordination Failures | High | Low | Validation checks, error recovery, rollback mechanisms |
-| Secret Exposure | Critical | Low | Pre-commit scanning, .gitignore enforcement, security reviews |
-| Documentation Drift | Medium | Medium | Automated triggers, freshness checks, validation workflows |
+| Translation Key Misses | Medium | Medium | Comprehensive key inventory, testing both locales, fallback strings |
+| Locale Routing Conflicts | Medium | Low | URL prefix strategy, route mapping validation, middleware tests |
+| Blog Translation Backlog | High | High | Phase 4 planning, consider machine translation as interim solution |
+| Performance Regression | High | Medium | Core Web Vitals monitoring, Lighthouse CI, bundle analysis |
+| Content Sync Issues | Medium | Medium | Single source of truth, version control, deployment validation |
+| Mobile Responsiveness | High | Low | Mobile-first design, device testing, responsive unit tests |
 
 ---
 
 ## Dependencies & External Requirements
 
 ### Required
-- Node.js runtime environment
+- Node.js >= 18.0.0
 - Git version control
-- Claude Code or Open Code CLI
-- API keys for AI platforms
+- npm or pnpm package manager
+- next-intl v4
+- react-hook-form + Zod
+- Tailwind CSS 4
 
 ### Optional
-- Discord webhook for notifications
-- GitHub repository for CI/CD
-- NPM account for publishing
-- PowerShell 5.1+ (Windows statusline)
+- Vercel deployment (for native Analytics)
+- Newsletter service provider (e.g., Substack, Convertkit)
+- Analytics platform (Google Analytics, Plausible)
+- CDN for static assets (Cloudflare, Netlify)
+- SEO monitoring tools (Ahrefs, SEMrush)
 
-### Key External Tools
-- Semantic Release
-- Commitlint
-- Husky
-- Repomix
-- Scout Block Hook
-- Various MCP servers
+### Development Tools
+- TypeScript 5
+- ESLint
+- Tailwind CSS IntelliSense (IDE plugin)
+- MDX extension (IDE support)
 
 ---
 
 ## Compliance & Standards
 
 ### Code Standards
-- YAGNI (You Aren't Gonna Need It)
-- KISS (Keep It Simple, Stupid)
-- DRY (Don't Repeat Yourself)
-- Files < 500 lines
+- TypeScript strict mode enabled
+- ESLint configuration enforcement
+- Components < 200 LOC
+- Pages < 150 LOC
+- Utility functions < 100 LOC
 - Comprehensive error handling
-- Security-first development
+- No hardcoded strings (use i18n keys)
+
+### i18n Standards
+- All UI strings in message files
+- Consistent key naming (camelCase)
+- Organized by domain/namespace
+- ~240+ keys per locale minimum
+- Fallback strings for missing keys
+
+### Accessibility Standards
+- WCAG 2.1 AA compliance
+- Semantic HTML throughout
+- ARIA labels on interactive elements
+- Keyboard navigation support
+- Color contrast ratio >= 4.5:1
 
 ### Git Standards
-- Conventional Commits
+- Conventional commits (feat, fix, docs, style, refactor, perf, test)
 - Clean commit history
-- No AI attribution
 - No secrets in commits
 - Professional PR descriptions
+- Branch naming: feature/*, fix/*, docs/*
 
-### Documentation Standards
-- Markdown format
-- Up-to-date (< 24 hours)
-- Comprehensive coverage
-- Clear examples
-- Proper versioning
-
-### Testing Standards
-- Unit test coverage > 80%
-- Integration tests for workflows
-- Error scenario coverage
-- Performance validation
-- Security testing
+### SEO Standards
+- JSON-LD schema markup
+- hreflang tags per locale
+- Meta descriptions and titles
+- Open Graph tags
+- Sitemap generation
+- Canonical URLs
 
 ---
 
-## Recent Beta Releases (Phase 2 Progress)
+## Release History
 
-| Version | Date | Key Changes |
-|---------|------|-------------|
-| v2.2.0-beta.4 | 2025-12-28 | docs(all): update version, command count (75+), skill count (38), agent count (17+) |
-| v1.20.0-beta.13 | 2025-12-11 | feat(preview-dashboard): complete all 6 phases - UI, filtering, search, theme |
-| v1.20.0-beta.12 | 2025-12-10 | perf(hooks): optimize token consumption in hook system |
-| v1.20.0-beta.11 | 2025-12-09 | fix(install): Windows PowerShell detection improvements |
-| v1.20.0-beta.10 | 2025-12-08 | fix(hooks): prevent stale plan pollution in dev-rules |
-| v1.20.0-beta.9 | 2025-12-08 | fix(hooks): correct .ckignore path handling |
-| v1.20.0-beta.8 | 2025-12-08 | feat(skills): integrate ui-ux-pro-max skill |
-| v1.20.0-beta.7 | 2025-12-07 | docs: fix YAGNI typo; refactor: placeholder standardization |
-| v1.20.0-beta.6 | 2025-12-07 | refactor: migrate active-plan to session state |
-| v1.20.0-beta.5 | 2025-12-07 | feat(install): bulletproof skills installation |
+### Version 3.0.0 (Current - 2026-03-03)
+**Status**: Phase 3 Complete - Internationalization
+
+#### Features
+- ✅ Full i18n support via next-intl v4
+- ✅ Bilingual routing (vi/en)
+- ✅ ~240 UI translation keys
+- ✅ Translated route slugs (/tai-nguyen ↔ /resources)
+- ✅ LocaleSwitcher component
+- ✅ Middleware-based locale detection
+
+#### Documentation
+- ✅ System architecture updated with i18n section
+- ✅ Codebase summary updated for Phase 3
+- ✅ Project roadmap restructured for tranvanhoang.com
+
+---
+
+### Version 2.0.0 (Previous - 2025-02-10)
+**Status**: Phase 2 Complete - Core Layout & Navigation
+
+#### Features
+- ✅ Responsive sticky header
+- ✅ 4-column footer
+- ✅ Mobile navigation menu
+- ✅ Navigation configuration system
+
+---
+
+### Version 1.0.0 (Initial - 2025-01-15)
+**Status**: Phase 1 Complete - Foundation
+
+#### Features
+- ✅ Next.js 16 setup
+- ✅ Tailwind CSS 4 design system
+- ✅ Radix UI components
+- ✅ Component library
+- ✅ TypeScript configuration
 
 ---
 
@@ -405,130 +466,36 @@ Enterprise-grade features and deployment options.
 
 ---
 
-### Version 1.20.0-beta.13 (Previous - 2025-12-11)
-
-#### Features Added
-- **Preview Dashboard - ALL 6 PHASES COMPLETE**
-  - Phase 1-2: Infrastructure & API endpoints (`/dashboard`, `/api/dashboard`)
-  - Phase 3-4: Plan discovery & metadata extraction (`plan-scanner.cjs`)
-  - Phase 5-6: Dashboard UI & Interactivity
-    - `dashboard-renderer.cjs` - Card rendering with progress visualization
-    - `dashboard-template.html` - Responsive grid layout with sticky header
-    - `dashboard.css` - Dark/light themes, WCAG 2.1 AA compliance
-    - `dashboard.js` - Client-side filtering, sorting, search, theme toggle
-
-#### Dashboard Features
-- Interactive plan cards in auto-fit grid
-- Progress rings and status bars
-- Sorting: by date (newest first), alphabetically, by progress percentage
-- Filtering: all, pending, in-progress, completed
-- Full-text search with highlighting
-- Dark/light theme toggle (localStorage persistence)
-- WCAG 2.1 AA accessibility (keyboard navigation, ARIA labels)
-- Responsive mobile-friendly design
-- Real-time plan discovery (no manual updates)
-- Phase breakdown with individual status tracking
-- Security-validated path traversal prevention
-
----
-
-### Version 1.20.0-beta.12 (2025-12-10)
-
-#### Performance Improvements
-- **Hook Optimization**: Reduced token consumption in hook system
-  - Optimized session-init context caching
-  - Improved dev-rules-reminder deduplication
-  - Streamlined subagent-init context injection
-  - Measurable improvement in prompt response times
-
-#### Features Added
-- Cascading configuration resolution
-- Hybrid output-type detection
-- Bulletproof skills installation system
-- Session state plan migration
-
-#### Bug Fixes
-- Windows PowerShell detection improvements
-- Stale plan pollution prevention
-- .ckignore path handling
-- Placeholder standardization across codebase
-
-#### Quality
-- Improved cross-platform compatibility
-- Enhanced error handling patterns
-- Better context management in agent workflows
-
----
-
-### Version 1.8.0 (Released - 2025-11-11)
-
-#### Features Added
-- **Windows Statusline Support:** Complete cross-platform statusline implementation
-  - PowerShell native implementation (statusline.ps1)
-  - Node.js universal fallback (statusline.js)
-  - Support for Windows PowerShell 5.1+, PowerShell Core 7+
-  - Git Bash and WSL full compatibility
-
-#### Documentation Added
-- Comprehensive Windows statusline user guide (statusline-windows-support.md)
-- Technical architecture documentation (statusline-architecture.md)
-- Setup guides for 4 different Windows environments
-- Troubleshooting guide with 9 common issue solutions
-- Performance benchmarks for all implementations
-
-#### Quality Improvements
-- Feature parity across bash, PowerShell, and Node.js
-- Enhanced ANSI color support
-- UTF-8 encoding verification
-- Cross-platform path handling
-- Silent degradation error handling
-
-#### Implementation Details
-- Phase 1: Research & analysis complete
-- Phase 2: PowerShell implementation complete
-- Phase 3: Node.js fallback complete
-- Phase 4: Platform detection & wrapper complete
-- Phase 5: Testing & documentation complete
-
----
-
 ## Document References
 
 ### Core Documentation
-- [Project Overview & PDR](./project-overview-pdr.md)
-- [Code Standards](./code-standards.md)
-- [System Architecture](./system-architecture.md)
-- [Codebase Summary](./codebase-summary.md)
-- [Release Process](./RELEASE.md)
-
-### Feature Documentation
-- [Windows Statusline Support Guide](./statusline-windows-support.md)
-- [Statusline Architecture](./statusline-architecture.md)
+- [Project Overview & PDR](./project-overview-pdr.md) - Product requirements and vision
+- [Code Standards](./code-standards.md) - Coding conventions and patterns
+- [System Architecture](./system-architecture.md) - Technical architecture and i18n design
+- [Codebase Summary](./codebase-summary.md) - Project structure and dependencies
+- [Design Guidelines](./design-guidelines.md) - Component usage and patterns
 
 ### External Resources
-- [Claude Code Documentation](https://docs.claude.com/en/docs/claude-code/overview)
-- [Open Code Documentation](https://opencode.ai/docs)
-- [Conventional Commits](https://conventionalcommits.org/)
-- [Semantic Versioning](https://semver.org/)
-- [Keep a Changelog](https://keepachangelog.com/)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [next-intl Documentation](https://next-intl-docs.vercel.app/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Radix UI Documentation](https://www.radix-ui.com/)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [React Hook Form](https://react-hook-form.com/)
+- [Zod Documentation](https://zod.dev/)
 
 ---
 
-## Questions & Notes
+## Unresolved Questions
 
-### Current Status
-- Windows statusline support implementation fully delivered and documented
-- Ready for integration testing with Claude Code CLI
-- All 5 phases of implementation complete with comprehensive documentation
-
-### Next Steps (Not Yet Scheduled)
-1. Integration testing with Claude Code CLI production
-2. Performance validation on target Windows platforms
-3. User feedback collection from Windows developer community
-4. Consideration of additional Windows ecosystem enhancements
+1. **Blog Translation Strategy**: Should English blog posts be machine-generated first, then edited? Or handle manually?
+2. **Analytics Platform**: Which analytics service (Vercel, Plausible, or self-hosted)?
+3. **Newsletter Service**: Which provider integrates best with i18n? (Substack, Convertkit, etc.)
+4. **Course Locale Sync**: Should /courses/* integrate with next-intl or maintain separate system?
+5. **SEO Priority**: Which locale should be prioritized for search ranking (vi vs en)?
 
 ---
 
-**Maintained By:** ClaudeKit Engineer Team
-**Last Review:** 2025-12-28
-**Next Review Target:** 2026-01-31
+**Maintained By:** tranvanhoang.com Team
+**Last Review:** 2026-03-03
+**Next Review Target:** 2026-06-03

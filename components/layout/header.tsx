@@ -1,60 +1,71 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Menu, X } from "lucide-react"
+import { useTranslations } from "next-intl"
+import { Menu, X, Gift } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { mainNavItems, ctaItem, type NavItem } from "@/lib/navigation"
+import { Link, usePathname } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { GradientText } from "@/components/custom/gradient-text"
 import { ThemeToggle } from "@/components/custom/theme-provider"
-import { Gift } from "lucide-react"
+import { LocaleSwitcher } from "@/components/layout/locale-switcher"
 
-const NavLink = React.memo(function NavLink({ item, isActive }: { item: NavItem; isActive: boolean }) {
-  if (item.children) {
-    return (
-      <Link
-        href={item.href}
-        className={cn(
-          "text-sm font-medium transition-colors hover:text-coral",
-          isActive ? "text-coral" : "text-muted-foreground"
-        )}
-      >
-        {item.title}
-      </Link>
-    )
+type NavItem = {
+  title: string
+  href: string
+  children?: { title: string; href: string }[]
+}
+
+function useNavItems(): { mainNav: NavItem[]; cta: NavItem } {
+  const t = useTranslations("nav")
+  return {
+    mainNav: [
+      { title: t("about"), href: "/about" },
+      {
+        title: t("learnAi"),
+        href: "/learn-ai",
+        children: [
+          { title: t("aiForBeginners"), href: "/learn-ai/ai-for-beginners" },
+          { title: t("aiForMarketing"), href: "/learn-ai/ai-for-marketing" },
+          { title: t("aiForWork"), href: "/learn-ai/ai-for-work" },
+        ],
+      },
+      { title: t("blog"), href: "/blog" },
+      { title: t("courses"), href: "/courses/ai-automation-bim" },
+      { title: t("resources"), href: "/tai-nguyen" },
+      { title: t("life"), href: "/life" },
+    ],
+    cta: { title: t("freeGift"), href: "/free-gift" },
   }
-
-  return (
-    <Link
-      href={item.href}
-      className={cn(
-        "text-sm font-medium transition-colors hover:text-coral",
-        isActive ? "text-coral" : "text-muted-foreground"
-      )}
-    >
-      {item.title}
-    </Link>
-  )
-})
+}
 
 function DesktopNav() {
   const pathname = usePathname()
+  const { mainNav, cta } = useNavItems()
 
   return (
     <nav className="hidden md:flex items-center gap-6">
-      {mainNavItems.map((item) => (
-        <NavLink key={item.href} item={item} isActive={pathname === item.href} />
+      {mainNav.map((item) => (
+        <Link
+          key={item.href}
+          href={item.href as "/about"}
+          className={cn(
+            "text-sm font-medium transition-colors hover:text-coral",
+            pathname === item.href ? "text-coral" : "text-muted-foreground"
+          )}
+        >
+          {item.title}
+        </Link>
       ))}
+      <LocaleSwitcher />
       <ThemeToggle />
       <Link
-        href={ctaItem.href}
+        href={cta.href as "/free-gift"}
         className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-8 px-3 bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
-        <span className="hidden sm:inline">{ctaItem.title}</span>
+        <span className="hidden sm:inline">{cta.title}</span>
         <Gift className="w-4 h-4 sm:hidden" />
       </Link>
     </nav>
@@ -64,6 +75,7 @@ function DesktopNav() {
 function MobileNav() {
   const pathname = usePathname()
   const [open, setOpen] = React.useState(false)
+  const { mainNav, cta } = useNavItems()
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -87,10 +99,10 @@ function MobileNav() {
           </div>
 
           <nav className="flex flex-col gap-4">
-            {mainNavItems.map((item) => (
+            {mainNav.map((item) => (
               <div key={item.href} className="flex flex-col gap-2">
                 <Link
-                  href={item.href}
+                  href={item.href as "/about"}
                   className={cn(
                     "text-base font-medium",
                     pathname === item.href ? "text-coral" : "text-foreground"
@@ -104,7 +116,7 @@ function MobileNav() {
                     {item.children.map((child) => (
                       <Link
                         key={child.href}
-                        href={child.href}
+                        href={child.href as "/learn-ai/ai-for-beginners"}
                         className="text-sm text-muted-foreground hover:text-coral"
                         onClick={() => setOpen(false)}
                       >
@@ -119,11 +131,11 @@ function MobileNav() {
 
           <div className="mt-auto pt-4 border-t">
             <Link
-              href={ctaItem.href}
+              href={cta.href as "/free-gift"}
               onClick={() => setOpen(false)}
               className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-semibold transition-all rounded-md bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
-              {ctaItem.title}
+              {cta.title}
             </Link>
           </div>
         </div>
@@ -154,15 +166,10 @@ export function Header() {
       )}
     >
       <div className="container-custom h-16 flex items-center justify-between">
-        {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
           <GradientText className="text-xl font-bold">Hoàng</GradientText>
         </Link>
-
-        {/* Desktop Navigation */}
         <DesktopNav />
-
-        {/* Mobile Navigation */}
         <MobileNav />
       </div>
     </header>

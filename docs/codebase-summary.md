@@ -1,8 +1,8 @@
 # Codebase Summary
 
 **Project**: AI Educator Website
-**Phase**: 2 - Core Layout & Navigation
-**Last Updated**: 2025-01-25
+**Phase**: 3 - Internationalization (i18n)
+**Last Updated**: 2026-03-03
 **Status**: Complete
 
 ## Overview
@@ -13,41 +13,53 @@ AI Educator Website is a modern personal portfolio site built with Next.js 16, f
 
 ```
 tranvanhoang.com/
-├── app/                    # Next.js App Router
-│   ├── globals.css        # Global styles & design tokens
-│   ├── layout.tsx         # Root layout (updated Phase 2)
-│   └── page.tsx           # Home page
+├── app/
+│   ├── [locale]/                          # Locale segment (vi, en)
+│   │   ├── page.tsx                      # Home page
+│   │   ├── about/page.tsx
+│   │   ├── blog/
+│   │   │   ├── page.tsx
+│   │   │   ├── [category]/page.tsx
+│   │   │   └── [category]/[slug]/page.tsx
+│   │   ├── learn-ai/
+│   │   │   ├── page.tsx
+│   │   │   ├── ai-for-beginners/page.tsx
+│   │   │   ├── ai-for-marketing/page.tsx
+│   │   │   ├── ai-for-work/page.tsx
+│   │   │   └── [path]/[module]/page.tsx
+│   │   ├── tai-nguyen/page.tsx             # /resources in English
+│   │   ├── free-gift/page.tsx
+│   │   ├── life/page.tsx
+│   │   └── life/[slug]/page.tsx
+│   ├── courses/                           # Excluded from i18n (separate locale system)
+│   ├── globals.css                        # Global styles & design tokens
+│   ├── layout.tsx                         # Root layout
+│   └── page.tsx                           # Catch-all redirect
 ├── components/
-│   ├── layout/            # Layout components (Phase 2)
-│   │   ├── header.tsx    # Responsive header
-│   │   └── footer.tsx    # 4-column footer
-│   ├── custom/            # Brand-specific components
-│   │   ├── gradient-text.tsx
-│   │   ├── brand-card.tsx
-│   │   ├── cta-button.tsx
-│   │   └── container.tsx
-│   └── ui/                # shadcn/ui-style primitives
-│       ├── tabs.tsx
-│       ├── accordion.tsx
-│       ├── avatar.tsx
-│       ├── sonner.tsx
-│       ├── form.tsx
-│       ├── button.tsx
-│       ├── card.tsx
-│       ├── input.tsx
-│       ├── label.tsx
-│       ├── navigation-menu.tsx
-│       ├── sheet.tsx
-│       ├── dialog.tsx
-│       ├── alert.tsx
-│       └── badge.tsx
+│   ├── layout/
+│   │   ├── header.tsx                     # With locale switcher
+│   │   ├── footer.tsx
+│   │   └── locale-switcher.tsx            # NEW: Locale toggle button
+│   ├── custom/                            # Brand components
+│   ├── ui/                                # shadcn/ui primitives
+│   └── seo/                               # SEO schemas
+├── i18n/                                  # NEW: i18n configuration
+│   ├── routing.ts                         # Locale routing + path mappings
+│   ├── request.ts                         # Request locale detection
+│   └── navigation.ts                      # Locale-aware navigation
+├── messages/                              # NEW: Translation files
+│   ├── vi.json                            # Vietnamese translations (~240 keys)
+│   └── en.json                            # English translations (~240 keys)
 ├── lib/
-│   ├── utils.ts           # cn() utility
-│   └── navigation.ts      # Navigation config (Phase 2)
-├── types/                 # TypeScript types
-├── public/                # Static assets
-├── docs/                  # Documentation
-└── package.json
+│   ├── utils.ts                           # cn() utility
+│   ├── mdx.ts                             # MDX content queries
+│   └── navigation.ts                      # Navigation config
+├── content/                               # MDX blog posts (Vietnamese only)
+│   └── {category}/*.mdx
+├── middleware.ts                          # NEW: i18n middleware
+├── types/                                 # TypeScript types
+├── public/                                # Static assets
+└── docs/                                  # Documentation
 ```
 
 ## Core Technologies
@@ -199,6 +211,7 @@ Responsive layout shell components (Phase 2):
 |---------|---------|---------|
 | `next` | 16.1.4 | React framework |
 | `react` / `react-dom` | 19.2.3 | UI library |
+| `next-intl` | 4.x | i18n support with message translation |
 | `@radix-ui/*` | 1.x | UI primitives |
 | `class-variance-authority` | 0.7.1 | Button variants |
 | `clsx` / `tailwind-merge` | 2.x/3.x | Class utilities |
@@ -276,7 +289,7 @@ npm run lint     # Run ESLint
 - [x] Form validation with Zod schemas
 - [x] Documentation setup
 
-## Phase 2 Deliverables (Current)
+## Phase 2 Deliverables
 
 - [x] Navigation configuration (`lib/navigation.ts`)
 - [x] Responsive header with desktop/mobile layouts
@@ -286,11 +299,24 @@ npm run lint     # Run ESLint
 - [x] External link security attributes
 - [x] Mobile sheet menu with nested navigation
 
+## Phase 3 Deliverables (Current)
+
+- [x] next-intl integration (v4) with middleware routing
+- [x] Dual locale support: Vietnamese (default) + English
+- [x] Translated route slugs (/tai-nguyen ↔ /resources)
+- [x] Full UI translation (~240 keys in messages/vi.json & messages/en.json)
+- [x] Middleware-based locale detection and routing
+- [x] LocaleSwitcher component with Globe icon
+- [x] All pages moved under app/[locale]/ structure
+- [x] Locale-aware metadata generation
+- [x] /courses/* excluded from i18n (separate hand-rolled system)
+- [x] MDX blog content remains Vietnamese-only
+
 ## Next Phases
 
-- Phase 3: Interactive Features
-- Phase 4: Performance & SEO Optimization
-- Phase 5: Blog & Content System
+- Phase 4: Blog Translation & Content Localization
+- Phase 5: Performance & SEO Optimization
+- Phase 6: Analytics & User Engagement
 
 ## Documentation Files
 
