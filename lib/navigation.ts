@@ -24,6 +24,10 @@ export const mainNavItems: NavItem[] = [
     href: "/blog",
   },
   {
+    title: "Khoá học",
+    href: "/courses/ai-automation-bim",
+  },
+  {
     title: "Tài nguyên",
     href: "/tai-nguyen",
   },
