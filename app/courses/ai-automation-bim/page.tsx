@@ -233,7 +233,7 @@ export default function AIAutomationBIMPage() {
           </div>
 
           {/* Dev Stack row */}
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto mb-6">
             <h3 className="text-sm font-semibold text-coral uppercase tracking-wider mb-3">
               Lập trình & Deploy
             </h3>
@@ -249,6 +249,23 @@ export default function AIAutomationBIMPage() {
                   <p className="text-xs text-muted-foreground">{tech.desc}</p>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Payment row */}
+          <div className="max-w-4xl mx-auto">
+            <h3 className="text-sm font-semibold text-green-600 dark:text-green-400 uppercase tracking-wider mb-3">
+              Thanh toán tự động
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div className="p-4 bg-card border border-border rounded-xl text-center">
+                <h4 className="font-semibold text-sm mb-1">SePay</h4>
+                <p className="text-xs text-muted-foreground">Cổng thanh toán VietQR — nhận tiền tự động qua webhook</p>
+              </div>
+              <div className="p-4 bg-card border border-border rounded-xl text-center">
+                <h4 className="font-semibold text-sm mb-1">VietQR</h4>
+                <p className="text-xs text-muted-foreground">Mã QR thanh toán — khách scan & trả tiền trong 5 giây</p>
+              </div>
             </div>
           </div>
         </Container>
