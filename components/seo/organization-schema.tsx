@@ -13,14 +13,10 @@ export function OrganizationSchema() {
       "name": "Tony Hoang"
     },
     "sameAs": [
-      "https://facebook.com",
-      "https://youtube.com"
-    ],
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "customer service",
-      "email": "hoang@example.com"
-    }
+      "https://www.facebook.com/hoanghd218/",
+      "https://www.youtube.com/@tony-hoang-ai-automation",
+      "https://www.linkedin.com/in/hoanghd218/"
+    ]
   };
 
   return <JsonLd data={schema} />;

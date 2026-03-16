@@ -26,8 +26,10 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     return { title: t("postNotFound") }
   }
 
+  const ogImage = post.metadata.featuredImage || "https://tranvanhoang.com/images/og-default.png"
+
   return {
-    title: `${post.metadata.title} | Tony Hoang - AI Educator`,
+    title: post.metadata.title,
     description: post.metadata.description,
     openGraph: {
       title: post.metadata.title,
@@ -36,14 +38,20 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       publishedTime: post.metadata.date,
       authors: [post.metadata.author || "Tony Hoang"],
       tags: post.metadata.tags,
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.metadata.title }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.metadata.title,
       description: post.metadata.description,
+      images: [ogImage],
     },
     alternates: {
       canonical: `https://tranvanhoang.com/blog/${category}/${slug}`,
+      languages: {
+        vi: `https://tranvanhoang.com/blog/${category}/${slug}`,
+        en: `https://tranvanhoang.com/en/blog/${category}/${slug}`,
+      },
     },
   }
 }

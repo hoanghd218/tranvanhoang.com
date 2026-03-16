@@ -9,8 +9,9 @@ export function PersonSchema() {
     "jobTitle": "AI Educator",
     "description": "Người dạy AI cho người mới bắt đầu, giúp hàng nghìn người tiếp cận công nghệ một cách đơn giản.",
     "sameAs": [
-      "https://facebook.com",
-      "https://youtube.com"
+      "https://www.facebook.com/hoanghd218/",
+      "https://www.youtube.com/@tony-hoang-ai-automation",
+      "https://www.linkedin.com/in/hoanghd218/"
     ],
     "knowsAbout": [
       "Artificial Intelligence",
@@ -19,7 +20,7 @@ export function PersonSchema() {
       "AI for Marketing",
       "AI for Work"
     ],
-    "areaOfServed": "Vietnam"
+    "areaServed": "Vietnam"
   };
 
   return <JsonLd data={schema} />;

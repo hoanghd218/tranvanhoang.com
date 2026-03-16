@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next"
+import Script from "next/script"
 import { Inter, Merriweather } from "next/font/google"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
@@ -70,7 +71,12 @@ export async function generateMetadata({
       description: t("twitterDescription"),
     },
     alternates: {
-      canonical: "https://tranvanhoang.com",
+      canonical: locale === "vi" ? "https://tranvanhoang.com" : `https://tranvanhoang.com/${locale}`,
+      languages: {
+        vi: "https://tranvanhoang.com",
+        en: "https://tranvanhoang.com/en",
+        "x-default": "https://tranvanhoang.com",
+      },
     },
   }
 }
@@ -100,6 +106,20 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} className={`${inter.variable} ${merriweather.variable}`} suppressHydrationWarning>
+      <head>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-96036PT8ZC"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-96036PT8ZC');
+          `}
+        </Script>
+      </head>
       <body className="antialiased min-h-screen flex flex-col">
         <NextIntlClientProvider messages={messages}>
           <Providers>
