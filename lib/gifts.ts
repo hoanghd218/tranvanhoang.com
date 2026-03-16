@@ -45,6 +45,14 @@ export const gifts: Gift[] = [
     driveUrl: "https://github.com/zubair-trabzada/ai-marketing-claude",
     category: "marketing",
   },
+  {
+    id: "kdp-coloring-book-prompts",
+    title: "342 Prompts Tạo Sách Tô Màu Amazon KDP",
+    description: "Bộ 342 super prompts dùng ngay để tạo sách tô màu cho người lớn trên Amazon KDP — chỉ cần paste prompt và nhận đầy đủ tiêu đề, mô tả, keywords, cover và các trang minh hoạ.",
+    icon: "🎨",
+    driveUrl: "https://docs.google.com/spreadsheets/d/1DTEd-AGaovyxlAHmVT7AfnpqqclLmiTwxnAZNnw2Ls4/edit?gid=0#gid=0",
+    category: "ai-tools",
+  },
 ]
 
 /**
