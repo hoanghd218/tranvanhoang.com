@@ -39,7 +39,7 @@ export const mainNavItems: NavItem[] = [
 
 export const ctaItem: NavItem = {
   title: "Nhận quà miễn phí",
-  href: "/free-gift",
+  href: "/qua",
 }
 
 export const footerNavItems: {
@@ -60,7 +60,7 @@ export const footerNavItems: {
     { title: "Tài nguyên", href: "/tai-nguyen" },
   ],
   resources: [
-    { title: "Free Gift", href: "/free-gift" },
+    { title: "Free Gift", href: "/qua" },
     { title: "Cuộc sống", href: "/life" },
     { title: "Newsletter", href: "/newsletter" },
     { title: "Liên hệ", href: "/contact" },

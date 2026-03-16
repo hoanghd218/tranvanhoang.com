@@ -107,7 +107,7 @@ export function Footer() {
   ]
 
   const resourceLinks = [
-    { title: t("freeGift"), href: "/free-gift" },
+    { title: t("freeGift"), href: "/qua" },
     { title: t("life"), href: "/life" },
     { title: "Newsletter", href: "/newsletter" },
     { title: t("contact"), href: "/contact" },

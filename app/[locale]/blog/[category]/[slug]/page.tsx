@@ -224,7 +224,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <h2 className="text-2xl font-semibold mb-4">{t("readyToLearnAi")}</h2>
             <p className="text-muted-foreground mb-6">{t("readyToLearnAiDesc")}</p>
             <Link
-              href="/free-gift"
+              href="/qua"
               className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-coral text-white font-medium hover:bg-coral-dark transition-colors"
             >
               {t("getFreeGift")}

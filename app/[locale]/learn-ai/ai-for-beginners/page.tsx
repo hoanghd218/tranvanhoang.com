@@ -201,7 +201,7 @@ export default async function BeginnerPathPage({ params }: { params: Promise<{ l
             <p className="text-muted-foreground mb-6">{t("aiForBeginners.ctaSubtitle")}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/free-gift"
+                href="/qua"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-coral text-white font-medium hover:bg-coral-dark transition-colors"
               >
                 {t("aiForBeginners.ctaRegisterBtn")}

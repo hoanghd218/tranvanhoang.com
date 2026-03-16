@@ -99,7 +99,7 @@ export default async function ModulePage({ params }: ModulePageProps) {
               </p>
 
               <Link
-                href="/free-gift"
+                href="/qua"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-coral text-white font-medium hover:bg-coral-dark transition-colors"
               >
                 <span>Đăng ký nhận thông báo</span>

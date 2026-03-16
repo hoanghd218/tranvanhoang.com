@@ -108,7 +108,7 @@ export default async function LifePage({ params }: { params: Promise<{ locale: s
             <h2 className="heading-serif text-2xl mb-4">{t("ctaTitle")}</h2>
             <p className="body-serif text-muted-foreground mb-6">{t("ctaSubtitle")}</p>
             <Link
-              href="/free-gift"
+              href="/qua"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-life-sage text-white font-medium hover:bg-life-sage-dark transition-colors"
             >
               <span>{t("ctaButton")}</span>

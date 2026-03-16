@@ -196,7 +196,7 @@ export default async function WorkPathPage({ params }: { params: Promise<{ local
             <p className="text-muted-foreground mb-6">{t("aiForWork.ctaSubtitle")}</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                href="/free-gift"
+                href="/qua"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-green-500 text-white font-medium hover:bg-green-600 transition-colors"
               >
                 {t("aiForWork.ctaRegisterBtn")}

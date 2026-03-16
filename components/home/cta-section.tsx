@@ -47,7 +47,7 @@ export function CTASection() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
-              href="/free-gift"
+              href="/qua"
               className="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-base font-semibold transition-all h-12 px-8 bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background btn-ripple animate-glow-pulse"
             >
               <Sparkles className="w-5 h-5 transition-transform group-hover:rotate-12" />

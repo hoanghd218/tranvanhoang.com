@@ -17,15 +17,6 @@ type StatData = {
   description: string
 }
 
-const brandLogos = [
-  "TechDaily",
-  "AI Vietnam",
-  "StartupHub",
-  "Digital Marketing",
-  "VnExpress",
-  "TechInAsia",
-]
-
 function StatCard({ stat, index }: { stat: StatData; index: number }) {
   const Icon = statIcons[index]
 
@@ -44,28 +35,6 @@ function StatCard({ stat, index }: { stat: StatData; index: number }) {
         <p className="text-sm text-muted-foreground">{stat.description}</p>
       </div>
     </ScrollReveal>
-  )
-}
-
-function LogoMarquee() {
-  const doubledLogos = [...brandLogos, ...brandLogos]
-
-  return (
-    <div className="relative overflow-hidden">
-      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-card/50 to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-card/50 to-transparent z-10 pointer-events-none" />
-
-      <div className="flex animate-marquee">
-        {doubledLogos.map((logo, index) => (
-          <div
-            key={`${logo}-${index}`}
-            className="flex-shrink-0 px-8 py-2 mx-4 rounded-lg bg-card/50 border border-border/50 text-lg font-semibold text-muted-foreground transition-all duration-300 hover:text-coral hover:border-coral/30 cursor-pointer"
-          >
-            {logo}
-          </div>
-        ))}
-      </div>
-    </div>
   )
 }
 
@@ -91,12 +60,6 @@ export function TrustSection() {
           ))}
         </div>
 
-        <div className="mt-12 pt-12 border-t border-border">
-          <p className="text-center text-sm text-muted-foreground mb-6">
-            {t("trustSocialProof")}
-          </p>
-          <LogoMarquee />
-        </div>
       </Container>
     </Section>
   )

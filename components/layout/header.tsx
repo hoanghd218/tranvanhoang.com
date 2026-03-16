@@ -37,7 +37,7 @@ function useNavItems(): { mainNav: NavItem[]; cta: NavItem } {
       { title: t("resources"), href: "/tai-nguyen" },
       { title: t("life"), href: "/life" },
     ],
-    cta: { title: t("freeGift"), href: "/free-gift" },
+    cta: { title: t("freeGift"), href: "/qua" },
   }
 }
 
@@ -62,7 +62,7 @@ function DesktopNav() {
       <LocaleSwitcher />
       <ThemeToggle />
       <Link
-        href={cta.href as "/free-gift"}
+        href={cta.href as "/qua"}
         className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-8 px-3 bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <span className="hidden sm:inline">{cta.title}</span>
@@ -131,7 +131,7 @@ function MobileNav() {
 
           <div className="mt-auto pt-4 border-t">
             <Link
-              href={cta.href as "/free-gift"}
+              href={cta.href as "/qua"}
               onClick={() => setOpen(false)}
               className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-semibold transition-all rounded-md bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >

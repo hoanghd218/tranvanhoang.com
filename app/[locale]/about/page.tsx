@@ -162,7 +162,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
                 {t("ctaLearnBtn")}
               </Link>
               <Link
-                href="/free-gift"
+                href="/qua"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border-2 border-coral text-coral font-medium hover:bg-coral/10 transition-colors"
               >
                 {t("ctaGiftBtn")}
