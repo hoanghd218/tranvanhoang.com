@@ -4,7 +4,7 @@ export function PersonSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    "name": "Hoàng",
+    "name": "Tony Hoang",
     "url": "https://tranvanhoang.com",
     "jobTitle": "AI Educator",
     "description": "Người dạy AI cho người mới bắt đầu, giúp hàng nghìn người tiếp cận công nghệ một cách đơn giản.",

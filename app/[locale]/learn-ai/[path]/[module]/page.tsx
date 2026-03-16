@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: ModulePageProps): Promise<Met
   const pathName = pathNames[path] || path;
 
   return {
-    title: `Module ${module}: ${pathName} | Hoàng`,
+    title: `Module ${module}: ${pathName} | Tony Hoang`,
     description: `Học Module ${module} trong khóa học ${pathName}`,
   };
 }

@@ -27,14 +27,14 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   }
 
   return {
-    title: `${post.metadata.title} | Hoàng - AI Educator`,
+    title: `${post.metadata.title} | Tony Hoang - AI Educator`,
     description: post.metadata.description,
     openGraph: {
       title: post.metadata.title,
       description: post.metadata.description,
       type: "article",
       publishedTime: post.metadata.date,
-      authors: [post.metadata.author || "Hoàng"],
+      authors: [post.metadata.author || "Tony Hoang"],
       tags: post.metadata.tags,
     },
     twitter: {
@@ -90,7 +90,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         title={post.metadata.title}
         description={post.metadata.description}
         datePublished={post.metadata.date}
-        author={post.metadata.author || "Hoàng"}
+        author={post.metadata.author || "Tony Hoang"}
         url={`${baseUrl}/blog/${category}/${slug}`}
         tags={post.metadata.tags}
         image={post.metadata.featuredImage}

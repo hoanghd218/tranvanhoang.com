@@ -1,6 +1,6 @@
 {
   "common": {
-    "siteName": "Hoàng",
+    "siteName": "Tony Hoang",
     "siteTagline": "Teaching AI for beginners. No coding required. No technical pressure.",
     "skipToContent": "Skip to main content",
     "readingTime": "{minutes} min read",
@@ -33,13 +33,13 @@
     "subscribe": "Subscribe",
     "subscribing": "Sending...",
     "subscribeSuccess": "Thank you! Successfully subscribed.",
-    "copyright": "© {year} Hoàng. All rights reserved.",
+    "copyright": "© {year} Tony Hoang. All rights reserved.",
     "freeGift": "Free Gift",
     "life": "Life",
     "contact": "Contact"
   },
   "home": {
-    "heroTitle": "Hoàng shares how to use AI so that",
+    "heroTitle": "Tony Hoang shares how to use AI so that",
     "heroTitleHighlight": "complete beginners",
     "heroTitleEnd": "can do it too",
     "heroDescription": "No coding needed. No technical pressure. Just explaining from the fundamentals so you can understand and apply right away.",
@@ -116,10 +116,10 @@
   },
   "about": {
     "title": "About",
-    "metaTitle": "About Hoàng - AI Educator",
-    "metaDescription": "Learn about Hoàng — teaching AI for beginners.",
+    "metaTitle": "About Tony Hoang - AI Educator",
+    "metaDescription": "Learn about Tony Hoang — teaching AI for beginners.",
     "heroGreeting": "Hello, I'm",
-    "heroName": "Hoàng",
+    "heroName": "Tony Hoang",
     "heroIntro": "I dedicate my efforts to helping people who know nothing about AI get started and apply AI to their work and life with confidence.",
     "stat1Value": "10,000+",
     "stat1Label": "Students",
@@ -153,7 +153,7 @@
   },
   "blog": {
     "title": "Blog",
-    "metaTitle": "Blog - Hoàng AI Educator",
+    "metaTitle": "Blog - Tony Hoang AI Educator",
     "metaDescription": "Articles about AI, marketing, tools and experiences.",
     "heroTitle": "Blog",
     "heroTitleHighlight": "AI & Marketing",
@@ -194,7 +194,7 @@
   },
   "learnAi": {
     "title": "Learn AI",
-    "metaTitle": "Learn AI - Hoàng AI Educator",
+    "metaTitle": "Learn AI - Tony Hoang AI Educator",
     "metaDescription": "AI learning paths for beginners, marketing and work.",
     "heroTitle": "Learning paths for",
     "heroTitleHighlight": "AI",
@@ -222,7 +222,7 @@
     "testimonialsSubtitle": "Shares from people who have participated",
     "testimonial1Name": "Nguyen Minh",
     "testimonial1Role": "Marketing Manager",
-    "testimonial1Content": "I thought AI was so complicated, but learning with Hoàng made it so easy to understand. Now I write content 5x faster.",
+    "testimonial1Content": "I thought AI was so complicated, but learning with Tony Hoang made it so easy to understand. Now I write content 5x faster.",
     "testimonial2Name": "Tran Thi Ha",
     "testimonial2Role": "Founder SME",
     "testimonial2Content": "With no technical staff, I can do everything myself with AI. Clear ROI visible after just 1 month.",
@@ -346,7 +346,7 @@
   },
   "resources": {
     "title": "Resources",
-    "metaTitle": "Resources - Hoàng AI Educator",
+    "metaTitle": "Resources - Tony Hoang AI Educator",
     "metaDescription": "Free AI resources: templates, guides, tools.",
     "heroTitle": "Free",
     "heroTitleHighlight": "Resources",
@@ -370,7 +370,7 @@
   },
   "life": {
     "title": "Life",
-    "metaTitle": "Life - Hoàng",
+    "metaTitle": "Life - Tony Hoang",
     "metaDescription": "Life stories, experiences and reflections.",
     "heroSubtitle": "Personal Journal",
     "heroTitle": "Life",
@@ -386,10 +386,10 @@
     "breadcrumbLife": "Life",
     "quote": "Every day is a new story.",
     "backToLife": "Back to Life",
-    "storyNotFound": "Not Found | Hoàng",
-    "storyTitleSuffix": "Life - Hoàng",
+    "storyNotFound": "Not Found | Tony Hoang",
+    "storyTitleSuffix": "Life - Tony Hoang",
     "featuredQuote": "Life is the small moments that make up the big memories.",
-    "featuredQuoteAuthor": "Hoàng",
+    "featuredQuoteAuthor": "Tony Hoang",
     "minutesRead": "min read"
   },
   "notFound": {
@@ -398,7 +398,7 @@
     "description": "Sorry, the page you're looking for doesn't exist or has been moved.",
     "backHome": "Back to Home",
     "goBack": "Go Back",
-    "metaTitle": "404 - Page Not Found | Hoàng",
+    "metaTitle": "404 - Page Not Found | Tony Hoang",
     "metaDescription": "The page you're looking for doesn't exist."
   },
   "emailCapture": {
@@ -416,13 +416,13 @@
     "successMessage": "Your gift will be sent to your email in a few minutes."
   },
   "giftClaim": {
-    "metaTitle": "Claim Free AI Gifts - Hoàng AI Educator",
+    "metaTitle": "Claim Free AI Gifts - Tony Hoang AI Educator",
     "metaDescription": "Fill in your info to receive free AI resources: templates, prompts, checklists and more."
   },
   "metadata": {
-    "siteTitle": "Hoàng - AI Educator | Teaching AI for Beginners",
-    "siteDescription": "Hoàng teaches how to use AI so that anyone can do it. No coding required. No technical pressure.",
-    "ogTitle": "Hoàng - AI Educator",
+    "siteTitle": "Tony Hoang - AI Educator | Teaching AI for Beginners",
+    "siteDescription": "Tony Hoang teaches how to use AI so that anyone can do it. No coding required. No technical pressure.",
+    "ogTitle": "Tony Hoang - AI Educator",
     "ogDescription": "Teaching AI for beginners. Simple, easy to understand, practical.",
     "twitterDescription": "Teaching AI for beginners"
   }

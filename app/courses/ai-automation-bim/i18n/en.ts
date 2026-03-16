@@ -209,7 +209,7 @@ const en: CourseDictionary = {
     saleBadge: "37% Off — March Only",
     totalLessons: 68,
     totalDuration: "~16 hours of video",
-    instructor: "Hoang Tran",
+    instructor: "Tony Hoang",
     zaloLink: "https://zalo.me/g/qncnad235",
     facebookLink: "https://www.facebook.com/bimspeedsolutions",
     contactName: "Hien",

@@ -12,7 +12,7 @@ export function CourseSchema({
   name,
   description,
   url,
-  provider = "Hoàng - AI Educator",
+  provider = "Tony Hoang - AI Educator",
   language = "vi",
 }: CourseSchemaProps) {
   const schema = {
@@ -29,7 +29,7 @@ export function CourseSchema({
     },
     creator: {
       "@type": "Person",
-      name: "Hoàng",
+      name: "Tony Hoang",
       url: "https://tranvanhoang.com/about",
     },
   };

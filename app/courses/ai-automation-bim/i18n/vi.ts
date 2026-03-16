@@ -4,7 +4,7 @@ const vi: CourseDictionary = {
   locale: "vi",
 
   meta: {
-    title: "AI Automation Cho BIM — Lập trình Revit API và Web với AI | Hoàng",
+    title: "AI Automation Cho BIM — Lập trình Revit API và Web với AI | Tony Hoang",
     description:
       "Từ lập trình Revit API → xây dựng web → thương mại hoá sản phẩm. Tất cả đều dùng AI: Antigravity, Claude Code, GitHub Copilot.",
     ogTitle: "AI Automation Cho BIM — Lập trình Revit API và Web với AI",
@@ -209,7 +209,7 @@ const vi: CourseDictionary = {
     saleBadge: "Giảm 37% — Tháng 3 duy nhất",
     totalLessons: 68,
     totalDuration: "~16 giờ video",
-    instructor: "Hoàng Trần",
+    instructor: "Tony Hoang",
     zaloLink: "https://zalo.me/g/qncnad235",
     facebookLink: "https://www.facebook.com/bimspeedsolutions",
     contactName: "Hiên",

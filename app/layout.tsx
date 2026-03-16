@@ -17,7 +17,7 @@ const merriweather = Merriweather({
 })
 
 export const metadata: Metadata = {
-  title: "Hoàng - AI Educator",
+  title: "Tony Hoang - AI Educator",
 }
 
 export const viewport: Viewport = {

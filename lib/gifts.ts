@@ -10,7 +10,7 @@ export const gifts: Gift[] = [
     title: "AI Marketing Automation",
     description: "Bộ tài liệu AI Marketing: chiến lược, content, ads, email — giúp bạn tự động hoá marketing hiệu quả.",
     icon: "📈",
-    driveUrl: "https://drive.google.com/drive/folders/placeholder-ai-marketing",
+    driveUrl: "https://whop.com/freedombuilders/?a=hoangtranai",
     category: "marketing",
   },
   {
@@ -18,7 +18,7 @@ export const gifts: Gift[] = [
     title: "AI Tạo Landing Page Chuẩn Sale",
     description: "Hướng dẫn dùng AI để tạo landing page chuyển đổi cao — từ copywriting đến layout chuẩn sale.",
     icon: "🚀",
-    driveUrl: "https://drive.google.com/drive/folders/placeholder-ai-landing-page",
+    driveUrl: "https://whop.com/freedombuilders/?a=hoangtranai",
     category: "marketing",
   },
   {
@@ -26,7 +26,7 @@ export const gifts: Gift[] = [
     title: "AI OpenClaw",
     description: "Tài liệu hướng dẫn sử dụng OpenClaw — công cụ AI mạnh mẽ cho tự động hoá công việc.",
     icon: "🤖",
-    driveUrl: "https://drive.google.com/drive/folders/placeholder-ai-openclaw",
+    driveUrl: "https://whop.com/freedombuilders/?a=hoangtranai",
     category: "ai-tools",
   },
   {
@@ -34,7 +34,7 @@ export const gifts: Gift[] = [
     title: "AI Claude Code",
     description: "Prompts và workflow dùng Claude Code để viết code, debug, và xây dựng sản phẩm nhanh chóng.",
     icon: "💻",
-    driveUrl: "https://drive.google.com/drive/folders/placeholder-ai-claude-code",
+    driveUrl: "https://whop.com/freedombuilders/?a=hoangtranai",
     category: "coding",
   },
   {

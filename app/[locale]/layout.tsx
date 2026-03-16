@@ -43,24 +43,24 @@ export async function generateMetadata({
   return {
     title: {
       default: t("siteTitle"),
-      template: "%s | Hoàng",
+      template: "%s | Tony Hoang",
     },
     description: t("siteDescription"),
     keywords: ["AI", "artificial intelligence", "học AI", "AI cho người mới", "marketing AI", "Vietnamese AI education"],
-    authors: [{ name: "Hoàng" }],
+    authors: [{ name: "Tony Hoang" }],
     robots: "index, follow",
     openGraph: {
       title: t("ogTitle"),
       description: t("ogDescription"),
       locale: locale === "vi" ? "vi_VN" : "en_US",
       type: "website",
-      siteName: "Hoàng AI Educator",
+      siteName: "Tony Hoang AI Educator",
       images: [
         {
           url: "https://tranvanhoang.com/og-image.png",
           width: 1200,
           height: 630,
-          alt: "Hoàng - AI Educator",
+          alt: "Tony Hoang - AI Educator",
         },
       ],
     },

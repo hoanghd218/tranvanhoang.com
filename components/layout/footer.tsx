@@ -120,7 +120,7 @@ export function Footer() {
           {/* Brand */}
           <div className="flex flex-col gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <GradientText className="text-2xl font-bold">Hoàng</GradientText>
+              <GradientText className="text-2xl font-bold">Tony Hoang</GradientText>
             </Link>
             <p className="text-sm text-muted-foreground">
               {t("tagline")}

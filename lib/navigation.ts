@@ -49,7 +49,7 @@ export const footerNavItems: {
   connect: NavItem[]
 } = {
   brand: {
-    title: "Hoàng",
+    title: "Tony Hoang",
     href: "/",
     description: "Dạy AI cho người mới bắt đầu",
   },

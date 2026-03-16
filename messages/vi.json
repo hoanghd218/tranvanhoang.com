@@ -1,6 +1,6 @@
 {
   "common": {
-    "siteName": "Hoàng",
+    "siteName": "Tony Hoang",
     "siteTagline": "Dạy AI cho người mới bắt đầu. Không cần code. Không áp lực kỹ thuật.",
     "skipToContent": "Bỏ qua đến nội dung chính",
     "readingTime": "{minutes} phút đọc",
@@ -33,13 +33,13 @@
     "subscribe": "Đăng ký",
     "subscribing": "Đang gửi...",
     "subscribeSuccess": "Cảm ơn bạn! Đã đăng ký thành công.",
-    "copyright": "© {year} Hoàng. Tất cả các quyền được bảo lưu.",
+    "copyright": "© {year} Tony Hoang. Tất cả các quyền được bảo lưu.",
     "freeGift": "Free Gift",
     "life": "Cuộc sống",
     "contact": "Liên hệ"
   },
   "home": {
-    "heroTitle": "Hoàng chia sẻ cách dùng AI sao cho",
+    "heroTitle": "Tony Hoang chia sẻ cách dùng AI sao cho",
     "heroTitleHighlight": "người chưa biết gì",
     "heroTitleEnd": "cũng làm được",
     "heroDescription": "Không cần code. Không áp lực kỹ thuật. Chỉ giải thích từ bản chất để bạn hiểu và áp dụng được ngay.",
@@ -116,10 +116,10 @@
   },
   "about": {
     "title": "Về tôi",
-    "metaTitle": "Về Hoàng - AI Educator",
-    "metaDescription": "Tìm hiểu về Hoàng — người dạy AI cho người mới bắt đầu.",
+    "metaTitle": "Về Tony Hoang - AI Educator",
+    "metaDescription": "Tìm hiểu về Tony Hoang — người dạy AI cho người mới bắt đầu.",
     "heroGreeting": "Xin chào, tôi là",
-    "heroName": "Hoàng",
+    "heroName": "Tony Hoang",
     "heroIntro": "Tôi dành sức mình để giúp những người chưa biết gì về AI có thể bắt đầu và ứng dụng AI vào công việc, cuộc sống một cách tự tin.",
     "stat1Value": "10,000+",
     "stat1Label": "Học viên",
@@ -153,7 +153,7 @@
   },
   "blog": {
     "title": "Blog",
-    "metaTitle": "Blog - Hoàng AI Educator",
+    "metaTitle": "Blog - Tony Hoang AI Educator",
     "metaDescription": "Bài viết về AI, marketing, công cụ và trải nghiệm.",
     "heroTitle": "Blog",
     "heroTitleHighlight": "AI & Marketing",
@@ -194,7 +194,7 @@
   },
   "learnAi": {
     "title": "Học AI",
-    "metaTitle": "Học AI - Hoàng AI Educator",
+    "metaTitle": "Học AI - Tony Hoang AI Educator",
     "metaDescription": "Lộ trình học AI cho người mới bắt đầu, marketing và công việc.",
     "heroTitle": "Lộ trình",
     "heroTitleHighlight": "học AI",
@@ -222,7 +222,7 @@
     "testimonialsSubtitle": "Những chia sẻ từ người đã tham gia",
     "testimonial1Name": "Nguyễn Minh",
     "testimonial1Role": "Marketing Manager",
-    "testimonial1Content": "Tưởng AI phức tạp lắm, ai ngờ học với Hoàng dễ hiểu đến vậy. Giờ tôi viết content nhanh hơn 5x.",
+    "testimonial1Content": "Tưởng AI phức tạp lắm, ai ngờ học với Tony Hoang dễ hiểu đến vậy. Giờ tôi viết content nhanh hơn 5x.",
     "testimonial2Name": "Trần Thị Hà",
     "testimonial2Role": "Founder SME",
     "testimonial2Content": "Không có nhân sự kỹ thuật, nhưng với AI tôi tự làm được mọi việc. ROI thấy rõ ràng sau 1 tháng.",
@@ -346,7 +346,7 @@
   },
   "resources": {
     "title": "Tài nguyên",
-    "metaTitle": "Tài nguyên - Hoàng AI Educator",
+    "metaTitle": "Tài nguyên - Tony Hoang AI Educator",
     "metaDescription": "Tài nguyên miễn phí về AI: templates, guides, tools.",
     "heroTitle": "Tài nguyên",
     "heroTitleHighlight": "miễn phí",
@@ -370,7 +370,7 @@
   },
   "life": {
     "title": "Cuộc sống",
-    "metaTitle": "Cuộc sống - Hoàng",
+    "metaTitle": "Cuộc sống - Tony Hoang",
     "metaDescription": "Câu chuyện cuộc sống, trải nghiệm và suy ngẫm.",
     "heroSubtitle": "Nhật ký cá nhân",
     "heroTitle": "Cuộc sống",
@@ -386,10 +386,10 @@
     "breadcrumbLife": "Cuộc sống",
     "quote": "Mỗi ngày là một câu chuyện mới.",
     "backToLife": "Quay lại Cuộc sống",
-    "storyNotFound": "Không tìm thấy | Hoàng",
-    "storyTitleSuffix": "Cuộc sống - Hoàng",
+    "storyNotFound": "Không tìm thấy | Tony Hoang",
+    "storyTitleSuffix": "Cuộc sống - Tony Hoang",
     "featuredQuote": "Cuộc sống là những khoảnh khắc nhỏ tạo nên những kỷ niệm lớn.",
-    "featuredQuoteAuthor": "Hoàng",
+    "featuredQuoteAuthor": "Tony Hoang",
     "minutesRead": "phút đọc"
   },
   "notFound": {
@@ -398,7 +398,7 @@
     "description": "Xin lỗi, trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.",
     "backHome": "Về trang chủ",
     "goBack": "Quay lại",
-    "metaTitle": "404 - Trang không tìm thấy | Hoàng",
+    "metaTitle": "404 - Trang không tìm thấy | Tony Hoang",
     "metaDescription": "Trang bạn đang tìm kiếm không tồn tại."
   },
   "emailCapture": {
@@ -416,13 +416,13 @@
     "successMessage": "Quà tặng sẽ được gửi đến email của bạn trong vài phút."
   },
   "giftClaim": {
-    "metaTitle": "Nhận quà tặng AI miễn phí - Hoàng AI Educator",
+    "metaTitle": "Nhận quà tặng AI miễn phí - Tony Hoang AI Educator",
     "metaDescription": "Điền thông tin để nhận ngay bộ tài nguyên AI miễn phí: templates, prompts, checklist và nhiều hơn nữa."
   },
   "metadata": {
-    "siteTitle": "Hoàng - AI Educator | Dạy AI cho người mới bắt đầu",
-    "siteDescription": "Hoàng chia sẻ cách dùng AI sao cho người chưa biết gì cũng làm được. Không cần code. Không áp lực kỹ thuật.",
-    "ogTitle": "Hoàng - AI Educator",
+    "siteTitle": "Tony Hoang - AI Educator | Dạy AI cho người mới bắt đầu",
+    "siteDescription": "Tony Hoang chia sẻ cách dùng AI sao cho người chưa biết gì cũng làm được. Không cần code. Không áp lực kỹ thuật.",
+    "ogTitle": "Tony Hoang - AI Educator",
     "ogDescription": "Dạy AI cho người mới. Đơn giản, dễ hiểu, thực tế.",
     "twitterDescription": "Dạy AI cho người mới bắt đầu"
   }

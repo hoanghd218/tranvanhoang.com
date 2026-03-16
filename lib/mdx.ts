@@ -112,7 +112,7 @@ function parsePost(filePath: string): BlogPost | null {
         date: data.date,
         tags: data.tags || [],
         category: data.category,
-        author: data.author || "Hoàng",
+        author: data.author || "Tony Hoang",
         readingTime,
         featuredImage: data.featuredImage,
         draft: data.draft || false,

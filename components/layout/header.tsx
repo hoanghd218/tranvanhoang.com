@@ -89,7 +89,7 @@ function MobileNav() {
         <div className="flex flex-col gap-6 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-              <GradientText className="text-xl font-bold">Hoàng</GradientText>
+              <GradientText className="text-xl font-bold">Tony Hoang</GradientText>
             </Link>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" aria-label="Close menu">
@@ -167,7 +167,7 @@ export function Header() {
     >
       <div className="container-custom h-16 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <GradientText className="text-xl font-bold">Hoàng</GradientText>
+          <GradientText className="text-xl font-bold">Tony Hoang</GradientText>
         </Link>
         <DesktopNav />
         <MobileNav />
