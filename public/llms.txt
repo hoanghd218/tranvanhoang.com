@@ -1,0 +1,39 @@
+# Tony Hoang - AI Educator
+
+> Vietnamese AI educator helping beginners learn artificial intelligence through practical courses and content.
+
+## About
+
+Tony Hoang (Trần Văn Hoàng) is an AI educator based in Vietnam. He teaches AI fundamentals, AI for marketing, prompt engineering, and AI automation to Vietnamese-speaking audiences.
+
+- Website: https://tranvanhoang.com
+- YouTube: https://www.youtube.com/@tony-hoang-ai-automation
+- LinkedIn: https://www.linkedin.com/in/hoanghd218/
+- Facebook: https://www.facebook.com/hoanghd218/
+
+## Content
+
+### Blog
+- AI Cơ Bản (AI Basics): https://tranvanhoang.com/blog
+- AI Marketing: https://tranvanhoang.com/blog
+- Tool & Prompt: https://tranvanhoang.com/blog
+- Góc Trải Nghiệm (Experience Corner): https://tranvanhoang.com/blog
+
+### Learning Paths
+- AI cho Người Mới: https://tranvanhoang.com/learn-ai/ai-for-beginners
+- AI cho Marketing: https://tranvanhoang.com/learn-ai/ai-for-marketing
+- AI cho Công Việc: https://tranvanhoang.com/learn-ai/ai-for-work
+
+### Courses
+- AI Automation BIM: https://tranvanhoang.com/courses/ai-automation-bim
+
+## Topics
+- Artificial Intelligence fundamentals
+- Prompt Engineering
+- AI for Marketing
+- AI Automation
+- Machine Learning basics
+
+## Language
+Primary: Vietnamese (vi)
+Secondary: English (en)

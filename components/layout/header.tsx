@@ -33,7 +33,6 @@ function useNavItems(): { mainNav: NavItem[]; cta: NavItem } {
         ],
       },
       { title: t("blog"), href: "/blog" },
-      { title: t("courses"), href: "/courses/ai-automation-bim" },
       { title: t("resources"), href: "/tai-nguyen" },
       { title: t("life"), href: "/life" },
     ],
@@ -63,7 +62,7 @@ function DesktopNav() {
       <ThemeToggle />
       <Link
         href={cta.href as "/qua"}
-        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-8 px-3 bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all h-10 px-4 bg-coral text-white hover:bg-coral-dark active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background"
       >
         <span className="hidden sm:inline">{cta.title}</span>
         <Gift className="w-4 h-4 sm:hidden" />

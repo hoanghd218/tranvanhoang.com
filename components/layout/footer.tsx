@@ -165,12 +165,12 @@ export function Footer() {
               <a
                 key={link.key}
                 href={link.href}
-                className="p-2 rounded-full bg-muted/50 text-muted-foreground hover:text-coral hover:bg-muted transition-colors"
+                className="p-3 rounded-full bg-muted/50 text-muted-foreground hover:text-coral hover:bg-muted transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.key}
               >
-                <link.icon className="h-4 w-4" />
+                <link.icon className="h-5 w-5" />
               </a>
             ))}
           </div>

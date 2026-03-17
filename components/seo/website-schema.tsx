@@ -7,6 +7,7 @@ export function WebsiteSchema() {
     "name": "Tony Hoang - AI Educator",
     "url": "https://tranvanhoang.com",
     "description": "Dạy AI cho người mới bắt đầu",
+    "inLanguage": "vi",
     "potentialAction": {
       "@type": "SearchAction",
       "target": {

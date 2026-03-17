@@ -11,6 +11,7 @@ import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { OrganizationSchema } from "@/components/seo/organization-schema"
 import { WebsiteSchema } from "@/components/seo/website-schema"
+import { PersonSchema } from "@/components/seo/person-schema"
 import { EmailCapturePopupClient } from "@/components/email-capture/email-capture-popup-client"
 import { Providers } from "@/components/providers"
 import { routing } from "@/i18n/routing"
@@ -107,6 +108,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${inter.variable} ${merriweather.variable}`} suppressHydrationWarning>
       <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-96036PT8ZC"
           strategy="afterInteractive"
@@ -125,6 +128,7 @@ export default async function LocaleLayout({
           <Providers>
             <OrganizationSchema />
             <WebsiteSchema />
+            <PersonSchema />
 
             <a
               href="#main-content"

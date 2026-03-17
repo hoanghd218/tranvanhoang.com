@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
 import { Container, Section } from "@/components/custom/container"
@@ -30,6 +31,16 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <div className="max-w-4xl mx-auto">
             {/* Intro */}
             <div className="text-center mb-12">
+              <div className="relative w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden ring-4 ring-coral/20">
+                <Image
+                  src="/hoang-profile.webp"
+                  alt="Tony Hoang - AI Educator"
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="128px"
+                />
+              </div>
               <h1 className="heading-xl mb-6">
                 {t("heroGreeting")} <GradientText>{t("heroName")}</GradientText>
               </h1>

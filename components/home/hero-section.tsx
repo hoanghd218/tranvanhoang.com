@@ -2,7 +2,8 @@
 
 import * as React from "react"
 import { useTranslations } from "next-intl"
-import { Gift, Search, Sparkles } from "lucide-react"
+import Image from "next/image"
+import { Gift, Search } from "lucide-react"
 
 import { Link } from "@/i18n/navigation"
 import { GradientText } from "@/components/custom/gradient-text"
@@ -58,15 +59,15 @@ export function HeroSection() {
             <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-coral/20 to-bronze/20 animate-pulse-slow" />
               <div className="absolute inset-4 rounded-full bg-gradient-to-br from-coral/10 to-bronze/10" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-coral/30 to-bronze/30 flex items-center justify-center animate-glow-pulse">
-                    <Sparkles className="w-10 h-10 text-coral" />
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {t("heroDecorativeText")}
-                  </div>
-                </div>
+              <div className="absolute inset-4 rounded-full overflow-hidden">
+                <Image
+                  src="/hoang-profile.webp"
+                  alt="Tony Hoang - AI Educator"
+                  fill
+                  priority
+                  className="object-cover"
+                  sizes="(max-width: 640px) 256px, (max-width: 1024px) 320px, 384px"
+                />
               </div>
             </div>
           </div>

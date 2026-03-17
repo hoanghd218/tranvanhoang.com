@@ -11,17 +11,14 @@ import {
   CheckCircle,
   Download,
   ExternalLink,
-  Phone,
   Mail,
   Video,
   Users,
-  User,
   Loader2,
   Sparkles,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { Container, Section } from "@/components/custom/container"
 import { GradientText } from "@/components/custom/gradient-text"
 import { cn } from "@/lib/utils"
@@ -29,21 +26,12 @@ import type { Gift as GiftType } from "@/types/gift"
 
 // -- Validation schema --
 const claimSchema = z.object({
-  fullName: z
-    .string()
-    .min(1, "Vui lòng nhập họ tên")
-    .min(2, "Họ tên phải có ít nhất 2 ký tự"),
+  fullName: z.string().min(1, "Vui lòng nhập họ tên"),
+  phone: z.string().min(1, "Vui lòng nhập số điện thoại"),
   email: z
     .string()
     .min(1, "Vui lòng nhập email")
     .email("Email không hợp lệ"),
-  phone: z
-    .string()
-    .min(1, "Vui lòng nhập số điện thoại")
-    .regex(
-      /^(\+84|84|0)(3|5|7|8|9)\d{8}$/,
-      "Số điện thoại không hợp lệ (VD: 0901234567)"
-    ),
 })
 
 type ClaimFormData = z.infer<typeof claimSchema>
@@ -62,7 +50,7 @@ export function GiftClaimPageClient({ gifts }: GiftClaimPageClientProps) {
     formState: { errors, isSubmitting },
   } = useForm<ClaimFormData>({
     resolver: zodResolver(claimSchema),
-    defaultValues: { fullName: "", email: "", phone: "" },
+    defaultValues: { fullName: "", phone: "", email: "" },
   })
 
   const onSubmit = async (data: ClaimFormData) => {
@@ -74,8 +62,6 @@ export function GiftClaimPageClient({ gifts }: GiftClaimPageClientProps) {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            fullName: data.fullName,
-            phone: data.phone,
             email: data.email,
             submittedAt: new Date().toISOString(),
           }),
@@ -110,121 +96,59 @@ export function GiftClaimPageClient({ gifts }: GiftClaimPageClientProps) {
             </h1>
 
             <p className="text-lg text-muted-foreground mb-10 animate-fade-in-delay-1">
-              Điền thông tin bên dưới để nhận ngay bộ tài nguyên AI giá trị — gồm templates, prompts, checklist và nhiều hơn nữa.
+              Nhập email để nhận ngay bộ tài nguyên AI giá trị — gồm templates, prompts, checklist và nhiều hơn nữa.
             </p>
 
-            {/* ── Claim Form ── */}
+            {/* ── Claim Form (inline email + button) ── */}
             {!claimed ? (
-              <div className="max-w-md mx-auto animate-fade-in-delay-2">
-                <div className="bg-card border border-border rounded-2xl p-6 md:p-8 shadow-lg">
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                    {/* Full Name */}
-                    <div className="space-y-2 text-left">
-                      <Label htmlFor="claim-fullname">
-                        Họ tên <span className="text-destructive">*</span>
-                      </Label>
-                      <div className="relative">
-                        <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                        <Input
-                          id="claim-fullname"
-                          type="text"
-                          placeholder="Nguyễn Văn A"
-                          className={cn(
-                            "pl-10",
-                            errors.fullName && "border-destructive focus-visible:ring-destructive"
-                          )}
-                          {...register("fullName")}
-                        />
-                      </div>
-                      {errors.fullName && (
-                        <p className="text-sm text-destructive">{errors.fullName.message}</p>
-                      )}
+              <div className="max-w-lg mx-auto animate-fade-in-delay-2">
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <div className="flex items-center gap-0 rounded-full border-2 border-coral/30 bg-card p-1.5 shadow-lg shadow-coral/5 transition-all focus-within:border-coral/60 focus-within:shadow-coral/10">
+                    <div className="relative flex-1">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                      <Input
+                        id="claim-email"
+                        type="email"
+                        placeholder="Email address"
+                        className="border-0 bg-transparent pl-11 pr-2 py-3 text-base shadow-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-muted-foreground/60"
+                        {...register("email")}
+                      />
                     </div>
-
-                    {/* Email */}
-                    <div className="space-y-2 text-left">
-                      <Label htmlFor="claim-email">
-                        Email <span className="text-destructive">*</span>
-                      </Label>
-                      <div className="relative">
-                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                        <Input
-                          id="claim-email"
-                          type="email"
-                          placeholder="you@example.com"
-                          className={cn(
-                            "pl-10",
-                            errors.email && "border-destructive focus-visible:ring-destructive"
-                          )}
-                          {...register("email")}
-                        />
-                      </div>
-                      {errors.email && (
-                        <p className="text-sm text-destructive">{errors.email.message}</p>
-                      )}
-                    </div>
-
-                    {/* Phone */}
-                    <div className="space-y-2 text-left">
-                      <Label htmlFor="claim-phone">
-                        Số điện thoại <span className="text-destructive">*</span>
-                      </Label>
-                      <div className="relative">
-                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                        <Input
-                          id="claim-phone"
-                          type="tel"
-                          placeholder="0901234567"
-                          className={cn(
-                            "pl-10",
-                            errors.phone && "border-destructive focus-visible:ring-destructive"
-                          )}
-                          {...register("phone")}
-                        />
-                      </div>
-                      {errors.phone && (
-                        <p className="text-sm text-destructive">{errors.phone.message}</p>
-                      )}
-                    </div>
-
-                    {submitError && (
-                      <p className="text-sm text-destructive text-center">{submitError}</p>
-                    )}
-
                     <Button
                       type="submit"
-                      className="w-full bg-coral hover:bg-coral-dark text-white text-base py-5"
+                      className="rounded-full bg-coral hover:bg-coral-dark text-white font-semibold px-6 py-3 text-sm md:text-base whitespace-nowrap transition-all active:scale-95"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? (
-                        <>
-                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                          Đang xử lý...
-                        </>
+                        <Loader2 className="w-4 h-4 animate-spin" />
                       ) : (
-                        <>
-                          <Gift className="w-4 h-4 mr-2" />
-                          Nhận quà ngay
-                        </>
+                        "Nhận quà ngay"
                       )}
                     </Button>
-                  </form>
-
-                  {/* Trust signals */}
-                  <div className="mt-5 flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-                      Miễn phí 100%
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-                      Không spam
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <CheckCircle className="w-3.5 h-3.5 text-green-500" />
-                      Nhận ngay lập tức
-                    </span>
                   </div>
+
+                  {errors.email && (
+                    <p className="text-sm text-destructive mt-2">{errors.email.message}</p>
+                  )}
+                  {submitError && (
+                    <p className="text-sm text-destructive mt-2">{submitError}</p>
+                  )}
+                </form>
+
+                {/* Trust signals */}
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1">
+                    <CheckCircle className="w-3.5 h-3.5 text-green-500" />
+                    Miễn phí 100%
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <CheckCircle className="w-3.5 h-3.5 text-green-500" />
+                    Không spam
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <CheckCircle className="w-3.5 h-3.5 text-green-500" />
+                    Nhận ngay lập tức
+                  </span>
                 </div>
               </div>
             ) : (

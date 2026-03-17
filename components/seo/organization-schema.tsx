@@ -12,6 +12,7 @@ export function OrganizationSchema() {
       "@type": "Person",
       "name": "Tony Hoang"
     },
+    "inLanguage": "vi",
     "sameAs": [
       "https://www.facebook.com/hoanghd218/",
       "https://www.youtube.com/@tony-hoang-ai-automation",

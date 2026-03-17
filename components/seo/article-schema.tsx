@@ -4,6 +4,7 @@ interface ArticleSchemaProps {
   title: string;
   description: string;
   datePublished: string;
+  dateModified?: string;
   author: string;
   url: string;
   tags?: string[];
@@ -14,6 +15,7 @@ export function ArticleSchema({
   title,
   description,
   datePublished,
+  dateModified,
   author,
   url,
   tags,
@@ -25,6 +27,8 @@ export function ArticleSchema({
     headline: title,
     description,
     datePublished,
+    dateModified: dateModified || datePublished,
+    inLanguage: "vi",
     author: {
       "@type": "Person",
       name: author,

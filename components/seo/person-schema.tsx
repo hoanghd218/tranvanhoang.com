@@ -20,6 +20,7 @@ export function PersonSchema() {
       "AI for Marketing",
       "AI for Work"
     ],
+    "image": "https://tranvanhoang.com/hoang-profile.webp",
     "areaServed": "Vietnam"
   };
 

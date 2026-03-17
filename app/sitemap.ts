@@ -22,54 +22,47 @@ function buildAlternates(path: string) {
   return { languages }
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  // Static routes with priorities
-  const staticPages: { path: string; priority: number; changeFreq: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
-    { path: "/", priority: 1, changeFreq: "weekly" },
-    { path: "/about", priority: 0.8, changeFreq: "monthly" },
-    { path: "/learn-ai", priority: 0.9, changeFreq: "weekly" },
-    { path: "/learn-ai/ai-for-beginners", priority: 0.7, changeFreq: "monthly" },
-    { path: "/learn-ai/ai-for-marketing", priority: 0.7, changeFreq: "monthly" },
-    { path: "/learn-ai/ai-for-work", priority: 0.7, changeFreq: "monthly" },
-    { path: "/blog", priority: 0.8, changeFreq: "weekly" },
-    { path: "/tai-nguyen", priority: 0.7, changeFreq: "monthly" },
-    { path: "/qua", priority: 0.6, changeFreq: "monthly" },
-    { path: "/life", priority: 0.7, changeFreq: "weekly" },
-    { path: "/courses/ai-automation-bim", priority: 0.8, changeFreq: "monthly" },
-  ]
-
-  const staticRoutes: MetadataRoute.Sitemap = staticPages.map(({ path, priority, changeFreq }) => ({
-    url: localizedUrl(path, defaultLocale),
-    lastModified: new Date(),
-    changeFrequency: changeFreq,
-    priority,
+/** Create entries for both locales of a given path */
+function bilingualEntries(path: string, lastModified: Date): MetadataRoute.Sitemap {
+  return locales.map((locale) => ({
+    url: localizedUrl(path, locale),
+    lastModified,
     alternates: buildAlternates(path),
   }))
+}
 
-  // Blog posts
+export default function sitemap(): MetadataRoute.Sitemap {
+  const staticPages = [
+    { path: "/", lastModified: new Date("2026-03-16") },
+    { path: "/about", lastModified: new Date("2026-03-01") },
+    { path: "/learn-ai", lastModified: new Date("2026-03-01") },
+    { path: "/learn-ai/ai-for-beginners", lastModified: new Date("2026-02-01") },
+    { path: "/learn-ai/ai-for-marketing", lastModified: new Date("2026-02-01") },
+    { path: "/learn-ai/ai-for-work", lastModified: new Date("2026-02-01") },
+    { path: "/blog", lastModified: new Date("2026-03-16") },
+    { path: "/tai-nguyen", lastModified: new Date("2026-01-15") },
+    { path: "/qua", lastModified: new Date("2026-01-15") },
+    { path: "/life", lastModified: new Date("2026-03-01") },
+    { path: "/courses/ai-automation-bim", lastModified: new Date("2026-02-15") },
+  ]
+
+  // Static routes — both vi and en versions
+  const staticRoutes = staticPages.flatMap(({ path, lastModified }) =>
+    bilingualEntries(path, lastModified)
+  )
+
+  // Blog posts — both vi and en versions
   const posts = getAllPosts()
-  const blogRoutes: MetadataRoute.Sitemap = posts.map((post) => {
+  const blogRoutes = posts.flatMap((post) => {
     const path = `/blog/${post.category}/${post.slug}`
-    return {
-      url: localizedUrl(path, defaultLocale),
-      lastModified: new Date(post.metadata.date),
-      changeFrequency: "weekly" as const,
-      priority: 0.6,
-      alternates: buildAlternates(path),
-    }
+    return bilingualEntries(path, new Date(post.metadata.date))
   })
 
-  // Life stories
+  // Life stories — both vi and en versions
   const stories = getAllLifeStories()
-  const lifeRoutes: MetadataRoute.Sitemap = stories.map((story) => {
+  const lifeRoutes = stories.flatMap((story) => {
     const path = `/life/${story.slug}`
-    return {
-      url: localizedUrl(path, defaultLocale),
-      lastModified: new Date(story.metadata.date),
-      changeFrequency: "monthly" as const,
-      priority: 0.5,
-      alternates: buildAlternates(path),
-    }
+    return bilingualEntries(path, new Date(story.metadata.date))
   })
 
   return [...staticRoutes, ...blogRoutes, ...lifeRoutes]
