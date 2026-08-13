@@ -18,6 +18,11 @@ const merriweather = Merriweather({
 
 export const metadata: Metadata = {
   title: "Tony Hoang - AI Educator",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: ["/icon.svg"],
+    apple: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
 }
 
 export const viewport: Viewport = {
