@@ -9,6 +9,7 @@ import { ResourceCard, ViewToggle } from "@/components/resources"
 import { GradientText } from "@/components/custom/gradient-text"
 import { Container, Section } from "@/components/custom/container"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -36,55 +37,52 @@ export default async function TaiNguyenPage({ params }: { params: Promise<{ loca
 
   return (
     <>
-      {/* Hero Section */}
-      <Section className="py-16 md:py-24">
+      {/* Hero — carries the one 42° field on this screen */}
+      <Section className="rk-field rk-field-soft">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="heading-xl mb-6">
+          <div className="max-w-3xl">
+            <h1 className="heading-xl mb-[var(--space-5)]">
               {t("heroTitle")} <GradientText>{t("heroTitleHighlight")}</GradientText>
             </h1>
-            <p className="text-lg text-muted-foreground">{t("heroSubtitle")}</p>
+            <p className="body-serif">{t("heroSubtitle")}</p>
           </div>
         </Container>
       </Section>
 
       {/* Category Filter & View Toggle */}
-      <Section className="py-8 bg-card/30">
+      <Section padding="8" className="border-y border-hairline">
         <Container>
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-between">
-            {/* Category Pills */}
-            <div className="flex flex-wrap gap-2 justify-center">
-              <Link
-                href="/tai-nguyen"
-                className="px-4 py-2 rounded-full bg-coral text-white text-sm font-medium transition-colors hover:bg-coral-dark"
-              >
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            {/* Category Pills — selected is a purple tint plus purple hairline */}
+            <div className="flex flex-wrap gap-2">
+              <Link href="/tai-nguyen" className={`${pillBase} border-hairline-accent bg-[var(--purple-a12)] text-text-accent`}>
                 {t("allCategories")}
-                <span className="ml-1.5 text-xs opacity-80">({allResources.length})</span>
+                <span className="ml-1.5 text-[length:var(--size-caption)] opacity-80">({allResources.length})</span>
               </Link>
               {categories.map((category) => (
                 <Link
                   key={category.slug}
-                  href={{ pathname: "/tai-nguyen", query: { category: category.slug } } as any}
-                  className="px-4 py-2 rounded-full bg-card border border-border text-sm font-medium text-muted-foreground transition-colors hover:border-coral hover:text-foreground"
+                  href={{ pathname: "/tai-nguyen", query: { category: category.slug } }}
+                  className={`${pillBase} border-hairline bg-surface-overlay text-text-secondary hover:border-hairline-accent hover:text-text-primary`}
                 >
                   {category.name}
-                  <span className="ml-1.5 text-xs opacity-60">({category.count})</span>
+                  <span className="ml-1.5 text-[length:var(--size-caption)] opacity-70">({category.count})</span>
                 </Link>
               ))}
             </div>
 
             {/* View Toggle */}
-            <ViewToggle />
+            <ViewToggle className="self-start sm:self-auto" />
           </div>
         </Container>
       </Section>
 
-      {/* Resources Grid */}
-      <Section className="py-12">
+      {/* Resources Grid — 3-up, never 5 */}
+      <Section padding="12">
         <Container>
           <div
             id="resources-grid"
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid gap-[var(--space-5)] md:grid-cols-2 lg:grid-cols-3"
           >
             {initialResources.map((resource) => (
               <ResourceCard
@@ -96,30 +94,30 @@ export default async function TaiNguyenPage({ params }: { params: Promise<{ loca
           </div>
 
           {initialResources.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-xl text-muted-foreground mb-4">{t("noResources")}</p>
-              <p className="text-sm text-muted-foreground">{t("noResourcesSubtitle")}</p>
+            <div className="py-[var(--space-9)]">
+              <p className="mb-3 text-[length:var(--size-h3)] text-text-primary">{t("noResources")}</p>
+              <p className="text-[length:var(--size-body-s)] text-text-secondary">
+                {t("noResourcesSubtitle")}
+              </p>
             </div>
           )}
         </Container>
       </Section>
 
       {/* Newsletter CTA */}
-      <Section className="py-16">
+      <Section padding="16">
         <Container>
-          <div className="max-w-2xl mx-auto text-center p-8 rounded-2xl bg-gradient-to-br from-coral/10 to-bronze/10 border border-border">
-            <h2 className="text-2xl font-semibold mb-4">{t("newsletterTitle")}</h2>
-            <p className="text-muted-foreground mb-6">{t("newsletterSubtitle")}</p>
-            <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
+          <div className="rk-card mx-auto max-w-2xl p-[var(--space-7)]">
+            <h2 className="mb-3 text-[length:var(--size-h2)] font-bold">{t("newsletterTitle")}</h2>
+            <p className="mb-[var(--space-5)] text-text-secondary">{t("newsletterSubtitle")}</p>
+            <form className="flex flex-col gap-3 sm:flex-row">
+              <Input
                 type="email"
                 placeholder={t("emailPlaceholder")}
-                className="flex-1 px-4 py-2 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-coral"
+                className="flex-1"
+                aria-label={t("emailPlaceholder")}
               />
-              <Button
-                type="submit"
-                className="bg-coral text-white hover:bg-coral-dark"
-              >
+              <Button type="submit" className="shrink-0">
                 {t("subscribe")}
               </Button>
             </form>
@@ -129,3 +127,7 @@ export default async function TaiNguyenPage({ params }: { params: Promise<{ loca
     </>
   )
 }
+
+/** Filter chip base — pill radius, 14px, hairline. */
+const pillBase =
+  "inline-flex items-center rounded-[var(--radius-pill)] border px-4 py-2 text-[length:var(--size-body-s)] font-medium transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)]"

@@ -8,6 +8,24 @@ interface AnimatedCounterProps {
   className?: string
 }
 
+/** Count-up runs on the cinematic duration (900ms) from the motion tokens. */
+const COUNT_DURATION = 900
+
+/**
+ * Decelerating curve matching the shape of `--ease-trajectory`
+ * (cubic-bezier(.2, .8, .2, 1)) closely enough for a numeric ramp.
+ */
+function easeTrajectory(t: number) {
+  return 1 - Math.pow(1 - t, 3)
+}
+
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  )
+}
+
 export function AnimatedCounter({ value, className }: AnimatedCounterProps) {
   const [displayValue, setDisplayValue] = React.useState("0")
   const ref = React.useRef<HTMLSpanElement>(null)
@@ -18,7 +36,7 @@ export function AnimatedCounter({ value, className }: AnimatedCounterProps) {
 
     // Parse the numeric part from strings like "5+", "10K+", "4.9/5"
     const numericMatch = value.match(/[\d.]+/)
-    if (!numericMatch) {
+    if (!numericMatch || prefersReducedMotion()) {
       setDisplayValue(value)
       return
     }
@@ -26,38 +44,35 @@ export function AnimatedCounter({ value, className }: AnimatedCounterProps) {
     const targetNum = parseFloat(numericMatch[0])
     const hasDecimal = value.includes(".")
     const hasK = value.includes("K")
-    const hasPlus = value.includes("+")
     const hasSlash = value.includes("/")
     const suffix = hasSlash ? value.split("/")[1] : ""
 
-    const duration = 2000
-    const steps = 60
-    const stepDuration = duration / steps
-    let currentStep = 0
+    let frame = 0
+    const start = performance.now()
 
-    const timer = setInterval(() => {
-      currentStep++
-      const progress = currentStep / steps
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4)
-      const currentNum = targetNum * easeOutQuart
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / COUNT_DURATION, 1)
+      const currentNum = targetNum * easeTrajectory(progress)
 
       let formatted = hasDecimal
         ? currentNum.toFixed(1)
         : Math.floor(currentNum).toString()
 
       if (hasK) formatted += "K"
-      if (hasPlus && currentStep === steps) formatted += "+"
       if (hasSlash) formatted += "/" + suffix
 
-      setDisplayValue(formatted)
-
-      if (currentStep >= steps) {
-        clearInterval(timer)
+      if (progress >= 1) {
         setDisplayValue(value)
+        return
       }
-    }, stepDuration)
 
-    return () => clearInterval(timer)
+      setDisplayValue(formatted)
+      frame = requestAnimationFrame(tick)
+    }
+
+    frame = requestAnimationFrame(tick)
+
+    return () => cancelAnimationFrame(frame)
   }, [isInView, value])
 
   return (

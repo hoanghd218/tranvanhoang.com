@@ -74,20 +74,26 @@ export function ZaloAgentsRedirectClient() {
     sendTrackingEvent()
   }
 
+  // Interstitial: minimal, centred, flat void black. The loading state is a
+  // fade only — no spinner, no bounce.
   return (
-    <div className="flex min-h-[70vh] items-center justify-center px-6 py-16">
-      <div className="w-full max-w-lg rounded-2xl border border-border bg-card p-8 text-center shadow-sm">
-        <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-coral">Zalo Agents</p>
-        <h1 className="mb-4 text-3xl font-semibold tracking-tight">{t("title")}</h1>
-        <p className="mb-6 text-muted-foreground">{t("redirecting")}</p>
+    <div className="flex min-h-[70vh] items-center justify-center bg-surface px-[var(--space-5)] py-[var(--space-9)] sm:px-[var(--gutter-page)]">
+      <div className="animate-fade-in w-full max-w-md text-center">
+        <p className="eyebrow mb-[var(--space-4)]">Zalo Agents</p>
+        <h1 className="heading-md">{t("title")}</h1>
+        <p className="animate-fade-in-delay-1 mt-[var(--space-4)] text-text-secondary">
+          {t("redirecting")}
+        </p>
         <a
           href={ZALO_GROUP_URL}
           onClick={handleFallbackClick}
-          className="inline-flex min-h-11 items-center justify-center rounded-lg bg-coral px-6 py-3 font-medium text-white transition-colors hover:bg-coral-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2"
+          className="mt-[var(--space-6)] inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-hairline-strong px-[var(--space-5)] font-medium text-text-primary transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:border-hairline-accent hover:bg-surface-overlay active:scale-[var(--press-scale)]"
         >
           {t("fallbackLink")}
         </a>
-        <p className="mt-4 text-sm text-muted-foreground">{t("fallbackHint")}</p>
+        <p className="mt-[var(--space-4)] text-[length:var(--size-body-s)] text-text-tertiary">
+          {t("fallbackHint")}
+        </p>
       </div>
     </div>
   )

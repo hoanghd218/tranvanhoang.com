@@ -1,7 +1,7 @@
 {
   "common": {
     "siteName": "Tony Hoang",
-    "siteTagline": "Teaching AI for beginners. No coding required. No technical pressure.",
+    "siteTagline": "Practical AI for work, marketing, and digital products.",
     "skipToContent": "Skip to main content",
     "readingTime": "{minutes} min read",
     "loading": "Loading...",
@@ -21,10 +21,10 @@
     "courses": "Courses",
     "resources": "Resources",
     "life": "Life",
-    "freeGift": "Free Gift"
+    "freeGift": "Learn for free"
   },
   "footer": {
-    "tagline": "Teaching AI for beginners. No coding required. No technical pressure.",
+    "tagline": "Turning AI into practical workflows you can use right away.",
     "quickLinks": "Quick Links",
     "resources": "Resources",
     "newsletter": "Newsletter",
@@ -39,100 +39,83 @@
     "contact": "Contact"
   },
   "home": {
-    "heroTitle": "Tony Hoang shares how to use AI so that",
-    "heroTitleHighlight": "complete beginners",
-    "heroTitleEnd": "can do it too",
-    "heroDescription": "No coding needed. No technical pressure. Just explaining from the fundamentals so you can understand and apply right away.",
-    "heroCta": "Get AI Starter Kit",
-    "heroCtaSecondary": "View AI Learning Paths",
-    "heroDecorativeText": "AI for everyone",
-    "audienceTitle": "Who do I",
-    "audienceTitleHighlight": "help?",
-    "audienceSubtitle": "Wherever you are, whatever level, I have the right path for you to start with AI confidently.",
-    "audiencePainPointsLabel": "Problems faced",
-    "audienceBenefitsLabel": "Benefits of learning",
+    "heroTitle": "Turn AI into a",
+    "heroTitleHighlight": "better way to work",
+    "heroTitleEnd": "every day",
+    "heroDescription": "I share learning paths, courses, and guides that help Vietnamese professionals use AI for work, marketing, and digital products — step by step, with no technical background required.",
+    "heroCta": "Take the free course",
+    "heroCtaSecondary": "Read practical guides",
+    "heroDecorativeText": "Tony Hoang · Practical AI for Vietnamese professionals",
+    "audienceTitle": "Start with the",
+    "audienceTitleHighlight": "work you need to do",
+    "audienceSubtitle": "Do not learn AI in the abstract. Choose your situation and follow the shortest path to your first useful outcome.",
+    "audiencePainPointsLabel": "What you need",
+    "audienceBenefitsLabel": "Where you will start",
     "audienceCards": [
       {
-        "title": "People new to AI",
-        "painPoints": ["Afraid of complex technology", "Intimidated by jargon", "Don't know where to start"],
-        "benefits": ["Explained from fundamentals, easy to understand", "No prior knowledge needed", "Apply immediately"]
+        "title": "Use AI correctly from day one",
+        "painPoints": ["Unsure which tool to choose", "Getting generic answers", "Overwhelmed by jargon"],
+        "benefits": ["Understand AI in plain language", "Write clear, contextual requests", "Apply it to one real task each day"],
+        "cta": "View the foundation path"
       },
       {
-        "title": "Marketers & Content Creators",
-        "painPoints": ["Spending too much time on content", "Running out of ideas", "Fierce competition"],
-        "benefits": ["Work 10x faster", "Endless ideas", "Higher quality content"]
+        "title": "Make marketing faster and consistent",
+        "painPoints": ["Slow path from idea to content", "Inconsistent brand voice", "Fragmented tools and handoffs"],
+        "benefits": ["Create structured briefs and content", "Build reusable workflows", "Save attention for important decisions"],
+        "cta": "View the marketing path"
       },
       {
-        "title": "Small business owners",
-        "painPoints": ["Limited budget", "Lack of technical staff", "Need immediate results"],
-        "benefits": ["Optimize costs with AI", "Do everything yourself", "Clear, measurable ROI"]
+        "title": "Reduce repetitive work",
+        "painPoints": ["Manual copying and summarizing", "Reports that take hours", "Information scattered across tools"],
+        "benefits": ["Identify tasks worth automating", "Design a workflow step by step", "Create an AI assistant for your work"],
+        "cta": "View the work path"
       }
     ],
-    "teachingTitle": "What do I",
-    "teachingTitleHighlight": "teach?",
-    "teachingSubtitle": "Learning paths designed to be practical, applicable to real work immediately.",
-    "teachingKeyContent": "Key content",
-    "teachingViewDetail": "View details",
-    "teachingViewAll": "View all paths →",
-    "teachingPaths": [
-      {
-        "title": "AI for Beginners",
-        "slug": "ai-cho-nguoi-moi",
-        "description": "From zero to confident using AI in daily work",
-        "modules": ["What is AI?", "ChatGPT basics", "Effective prompts", "Practical applications"],
-        "duration": "2-4 weeks"
-      },
-      {
-        "title": "AI for Marketing",
-        "slug": "ai-marketing",
-        "description": "Apply AI to 10x your marketing and content efficiency",
-        "modules": ["AI content writing", "Email marketing", "Social media", "Smart advertising"],
-        "duration": "3-5 weeks"
-      },
-      {
-        "title": "AI for Work",
-        "slug": "ai-cong-viec",
-        "description": "Boost productivity and automate work with AI",
-        "modules": ["Basic automation", "Data analysis", "Personal AI assistant", "Automated workflows"],
-        "duration": "4-6 weeks"
-      }
-    ],
-    "trustTitle": "Why",
-    "trustTitleHighlight": "trust me?",
-    "trustSubtitle": "I don't just teach theory — I've applied AI in practice and helped thousands do the same.",
-    "trustStats": [
-      { "value": "5+", "label": "Years of experience", "description": "In AI and technology" },
-      { "value": "10K+", "label": "Students", "description": "Have joined courses" },
-      { "value": "50+", "label": "Articles", "description": "About AI for beginners" },
-      { "value": "4.9/5", "label": "Rating", "description": "From students" }
-    ],
-    "ctaTitle": "Ready to start your",
-    "ctaTitleHighlight": "AI journey",
-    "ctaTitleEnd": "?",
-    "ctaSubtitle": "Get the free gift pack for beginners: checklist, prompt templates, and detailed video guides.",
-    "ctaButton": "Get Free Gift Now",
-    "ctaFeatures": ["10-step checklist", "50+ Prompt templates", "Video guides"],
-    "ctaTrust": "<highlight>2,500+</highlight> people have received gifts • No credit card needed • Unsubscribe anytime"
+    "teachingEyebrow": "Featured course",
+    "teachingTitle": "Learn by building a",
+    "teachingTitleHighlight": "real product",
+    "teachingSubtitle": "Start with the workshop that is available now and build a landing page you can put to use.",
+    "teachingDescription": "The first workshop covers structure, design, and vibe coding for a conversion-focused landing page.",
+    "teachingCoverAlt": "Landing page interface from the Vibe Coding Sale Page course",
+    "teachingAvailability": "Workshop 1 is available · Workshop 2 on checkout and CRM will be added later",
+    "teachingCta": "Start learning free",
+    "proofEyebrow": "Latest articles",
+    "proofTitle": "Read the latest",
+    "proofTitleHighlight": "AI notes and guides",
+    "proofSubtitle": "Read the latest articles on AI foundations, marketing, and noteworthy ways to apply the tools.",
+    "contentLanguageNote": "Articles and videos are currently presented in Vietnamese.",
+    "resourceLanguageNote": "The resource library and request form are currently presented in Vietnamese.",
+    "aboutEyebrow": "About Tony Hoang",
+    "aboutTitle": "Learn, build, and share workflows others can use",
+    "aboutDescription": "I focus on making AI less vague: break down the problem, test it with real tools, and explain it so others can do it themselves.",
+    "aboutCta": "Read my story",
+    "ctaTitle": "Need a resource to",
+    "ctaTitleHighlight": "start building",
+    "ctaTitleEnd": "today?",
+    "ctaSubtitle": "Choose the free resource that matches your current task. Each one is designed around a specific need.",
+    "ctaButton": "Browse free resources",
+    "ctaFeatures": ["AI Marketing Automation", "High-converting landing pages", "Claude Code workflows"],
+    "ctaNote": "Preview the content and choose what fits — no credit card required."
   },
   "about": {
     "title": "About",
-    "metaTitle": "About Tony Hoang - AI Educator",
-    "metaDescription": "Learn about Tony Hoang — teaching AI for beginners.",
+    "metaTitle": "About Tony Hoang - Practical AI for Vietnamese professionals",
+    "metaDescription": "Learn how Tony Hoang tests and shares practical AI workflows for real work.",
     "heroGreeting": "Hello, I'm",
     "heroName": "Tony Hoang",
-    "heroIntro": "I dedicate my efforts to helping people who know nothing about AI get started and apply AI to their work and life with confidence.",
-    "stat1Value": "10,000+",
-    "stat1Label": "Students",
-    "stat2Value": "50+",
-    "stat2Label": "Courses",
-    "stat3Value": "5 years",
-    "stat3Label": "Experience",
-    "stat4Value": "100%",
-    "stat4Label": "Dedicated",
+    "heroIntro": "I help Vietnamese professionals turn AI from a vague idea into workflows they can use for work, marketing, and digital products.",
+    "stat1Value": "3",
+    "stat1Label": "Application paths",
+    "stat2Value": "1",
+    "stat2Label": "Free course",
+    "stat3Value": "5",
+    "stat3Label": "Practical guides",
+    "stat4Value": "VI/EN",
+    "stat4Label": "Bilingual content",
     "storyTitle": "My Story",
-    "storyP1": "I started my journey with AI in 2020, when ChatGPT first launched. Like many others, I was confused and didn't know where to begin.",
-    "storyP2": "After years of learning, experimenting, and having successes (and failures), I realized that AI isn't something distant. It can help everyone save hours every day, if you know how to use it right.",
-    "storyP3": "From there, I decided to turn what I learned into courses, sharing freely to help more people access AI. No complexity. No pressure. Just simple and practical.",
+    "storyP1": "I came to AI with a practical question: how can I solve work faster while still understanding the process, instead of chasing every new tool?",
+    "storyP2": "Through learning and testing, I found that value does not come from knowing the most tools. It comes from breaking down the problem, providing the right context, and designing a repeatable workflow.",
+    "storyP3": "That is why I turn what I test into guides, learning paths, and free courses. The goal is not only to show what AI can do, but to help you build something useful yourself.",
     "valuesTitle": "Values I pursue",
     "value1Title": "Simplification",
     "value1Desc": "Everything complex can be explained simply. I believe anyone can learn.",
@@ -144,7 +127,7 @@
     "value4Desc": "Everyone has their own learning pace. I don't rush — you just need to be ready to start.",
     "infoTitle": "A few things about me",
     "infoLocation": "Based in Vietnam",
-    "infoTeachingSince": "Teaching since 2020",
+    "infoTeachingSince": "Sharing from hands-on practice",
     "infoCollaboration": "Open for collaboration and teaching opportunities",
     "ctaTitle": "Let's learn AI together",
     "ctaSubtitle": "Ready to start your journey with AI? I'll be with you every step of the way.",
@@ -153,7 +136,7 @@
   },
   "blog": {
     "title": "Blog",
-    "metaTitle": "Blog - Tony Hoang AI Educator",
+    "metaTitle": "Blog - Tony Hoang",
     "metaDescription": "Articles about AI, marketing, tools and experiences.",
     "heroTitle": "Blog",
     "heroTitleHighlight": "AI & Marketing",
@@ -194,7 +177,7 @@
   },
   "learnAi": {
     "title": "Learn AI",
-    "metaTitle": "Learn AI - Tony Hoang AI Educator",
+    "metaTitle": "Learn AI - Tony Hoang",
     "metaDescription": "AI learning paths for beginners, marketing and work.",
     "heroTitle": "Learning paths for",
     "heroTitleHighlight": "AI",
@@ -346,7 +329,7 @@
   },
   "resources": {
     "title": "Resources",
-    "metaTitle": "Resources - Tony Hoang AI Educator",
+    "metaTitle": "Resources - Tony Hoang",
     "metaDescription": "Free AI resources: templates, guides, tools.",
     "heroTitle": "Free",
     "heroTitleHighlight": "Resources",
@@ -416,7 +399,7 @@
     "successMessage": "Your gift will be sent to your email in a few minutes."
   },
   "giftClaim": {
-    "metaTitle": "Claim Free AI Gifts - Tony Hoang AI Educator",
+    "metaTitle": "Claim Free AI Gifts - Tony Hoang",
     "metaDescription": "Fill in your info to receive free AI resources: templates, prompts, checklists and more."
   },
   "zaloAgents": {
@@ -427,11 +410,69 @@
     "fallbackLink": "Open Zalo group",
     "fallbackHint": "If you are not redirected automatically, use the button above."
   },
+  "courses": {
+    "breadcrumbHome": "Home",
+    "breadcrumbLabel": "Breadcrumb",
+    "catalog": {
+      "metaTitle": "Free AI & Vibe Coding Courses",
+      "metaDescription": "Explore Tony Hoang's practical free courses on AI, vibe coding, landing pages, automated payments, and CRM.",
+      "eyebrow": "Course library",
+      "title": "Learn by building,",
+      "titleHighlight": "not just watching",
+      "subtitle": "Short, practical courses focused on workflows that help you create something useful right away.",
+      "viewCourse": "Start learning free"
+    },
+    "course": {
+      "metaTitle": "Vibe Coding Sale Page — Free Course",
+      "metaDescription": "Two free in-depth workshops: design a landing page with vibe coding, then connect automated payments and a sales CRM.",
+      "title": "Vibe Coding Sale Page",
+      "heroTitle": "Build your own sale page with",
+      "heroHighlight": "Vibe Coding",
+      "shortDescription": "Two focused workshops take you from a persuasive landing page to an automated payment and CRM workflow.",
+      "description": "A practical course for anyone who wants to build a complete sale page: a persuasive interface, payment collection, and automated CRM capture — without a dedicated engineering team.",
+      "coverAlt": "Landing page connected to automated payments and a CRM system",
+      "free": "100% free",
+      "format": "Hands-on workshop",
+      "level": "Beginner friendly",
+      "lessonCount": "2 in-depth workshops",
+      "selfPaced": "Self-paced",
+      "language": "Vietnamese video",
+      "startLearning": "Start learning",
+      "outcomesEyebrow": "Course outcomes",
+      "outcomesTitle": "Build a complete sales workflow yourself",
+      "outcomes": [
+        "Plan and design a conversion-focused landing page.",
+        "Use vibe coding to turn an idea into a working interface.",
+        "Connect an automated checkout flow for a product or service.",
+        "Send customer data into a CRM for follow-up and nurturing."
+      ],
+      "curriculumEyebrow": "Course content",
+      "curriculumTitle": "Two workshops, one complete workflow",
+      "curriculumDescription": "Move from the customer-facing sales page to the operational workflow behind it. Videos are delivered in Vietnamese via Fathom.",
+      "watchOnFathom": "Open on Fathom",
+      "workshopLabel": "Workshop",
+      "unavailableTitle": "Workshop 2 video is being updated",
+      "unavailableDescription": "The current Fathom link is no longer publicly accessible. The video will appear here after a new link is verified.",
+      "unavailableLinkLabel": "Try the current link",
+      "lessons": [
+        {
+          "title": "Design a landing page with Vibe Coding",
+          "description": "Build the foundation of a clear, persuasive sale page that is ready to publish.",
+          "topics": ["Sale page structure", "UI/UX", "Vibe coding", "Conversion"]
+        },
+        {
+          "title": "Automated payments & CRM",
+          "description": "Connect the sale page to payment collection and a customer management workflow.",
+          "topics": ["Checkout", "Payment automation", "CRM", "Sales automation"]
+        }
+      ]
+    }
+  },
   "metadata": {
-    "siteTitle": "Tony Hoang - AI Educator | Teaching AI for Beginners",
-    "siteDescription": "Tony Hoang teaches how to use AI so that anyone can do it. No coding required. No technical pressure.",
-    "ogTitle": "Tony Hoang - AI Educator",
-    "ogDescription": "Teaching AI for beginners. Simple, easy to understand, practical.",
-    "twitterDescription": "Teaching AI for beginners"
+    "siteTitle": "Tony Hoang | Practical AI for work and business",
+    "siteDescription": "Courses, learning paths, and guides that help Vietnamese professionals use AI for work, marketing, and digital products.",
+    "ogTitle": "Tony Hoang — Learn AI by doing real work",
+    "ogDescription": "Practical, step-by-step AI focused on useful workflows and products.",
+    "twitterDescription": "Practical AI for work, marketing, and digital products."
   }
 }

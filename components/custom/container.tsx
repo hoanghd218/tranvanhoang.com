@@ -3,11 +3,12 @@ import { cn } from "@/lib/utils"
 
 interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
-   * Container max-width (default: "6xl")
+   * Container max-width (default: "6xl" = the 1200px content max)
    */
   size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "full"
   /**
-   * Horizontal padding (default: "6")
+   * Horizontal padding override. Unset uses the page gutter (32px, 24px on
+   * small screens; 64px on full-bleed large surfaces).
    */
   padding?: "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "12" | "16" | "20"
   /**
@@ -18,11 +19,13 @@ interface ContainerProps extends React.HTMLAttributes<HTMLDivElement> {
 
 interface SectionProps extends React.HTMLAttributes<HTMLElement> {
   /**
-   * Vertical padding (default: "16" = py-16)
+   * Vertical padding override. Unset uses the 96px section rhythm
+   * (48px on small screens).
    */
   padding?: "0" | "4" | "8" | "12" | "16" | "20" | "24"
 }
 
+/** 1200px is the content max; the smaller steps stay on the Tailwind scale. */
 const sizeClasses: Record<NonNullable<ContainerProps["size"]>, string> = {
   sm: "max-w-sm",
   md: "max-w-md",
@@ -32,8 +35,8 @@ const sizeClasses: Record<NonNullable<ContainerProps["size"]>, string> = {
   "3xl": "max-w-3xl",
   "4xl": "max-w-4xl",
   "5xl": "max-w-5xl",
-  "6xl": "max-w-6xl",
-  "7xl": "max-w-7xl",
+  "6xl": "max-w-[var(--max-width-content)]",
+  "7xl": "max-w-[var(--max-width-content)]",
   full: "max-w-full",
 }
 
@@ -54,11 +57,16 @@ const paddingClasses: Record<NonNullable<ContainerProps["padding"]>, string> = {
   "20": "px-20",
 }
 
+/** 24px on phones, 32px page gutter from `sm` up. */
+const defaultGutter = "px-[var(--space-5)] sm:px-[var(--gutter-page)]"
+/** Full-bleed surfaces breathe wider on large screens. */
+const largeSurfaceGutter = "lg:px-[var(--gutter-page-lg)]"
+
 function Container({
   className,
   children,
   size = "6xl",
-  padding = "6",
+  padding,
   center = true,
   ...props
 }: ContainerProps) {
@@ -67,7 +75,8 @@ function Container({
       className={cn(
         center && "mx-auto",
         sizeClasses[size],
-        paddingClasses[padding],
+        padding ? paddingClasses[padding] : defaultGutter,
+        !padding && size === "full" && largeSurfaceGutter,
         className
       )}
       {...props}
@@ -88,17 +97,20 @@ const sectionPaddingClasses: Record<NonNullable<SectionProps["padding"]>, string
 }
 
 /**
- * Section component with consistent vertical spacing
+ * Section wrapper carrying the 96px vertical rhythm between sections.
  */
 function Section({
   className,
   children,
-  padding = "16",
+  padding,
   ...props
 }: SectionProps) {
   return (
     <section
-      className={cn(sectionPaddingClasses[padding], className)}
+      className={cn(
+        padding ? sectionPaddingClasses[padding] : "section-spacing",
+        className
+      )}
       {...props}
     >
       {children}

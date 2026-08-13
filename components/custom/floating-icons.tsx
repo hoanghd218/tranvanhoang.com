@@ -5,48 +5,45 @@ import { Brain, Sparkles, Lightbulb, Zap, Target, Wand2 } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface FloatingIconProps {
-    icon: React.ComponentType<{ className?: string }>
+    icon: React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>
     className?: string
     animationClass?: string
     size?: "sm" | "md" | "lg"
+    tone?: "accent" | "silver"
 }
 
+/** Icon sizes are 16 / 20 / 24 only. */
+const iconPx = { sm: 16, md: 20, lg: 24 } as const
+
+const toneClasses = {
+    accent: "text-rocket/70",
+    silver: "text-silver/45",
+} as const
+
+/**
+ * A bare glyph drifting on the void — no box, no blur, no gradient chrome.
+ * Motion is a short vertical float; there is no rotation and no parallax.
+ */
 function FloatingIcon({
     icon: Icon,
     className,
     animationClass = "animate-float-1",
-    size = "md"
+    size = "md",
+    tone = "accent",
 }: FloatingIconProps) {
-    const sizeClasses = {
-        sm: "w-8 h-8",
-        md: "w-12 h-12",
-        lg: "w-16 h-16"
-    }
-
-    const iconSizes = {
-        sm: "w-4 h-4",
-        md: "w-6 h-6",
-        lg: "w-8 h-8"
-    }
-
     return (
-        <div
-            className={cn(
-                "absolute rounded-xl bg-gradient-to-br from-coral/20 to-bronze/10 backdrop-blur-sm",
-                "flex items-center justify-center border border-coral/20",
-                sizeClasses[size],
-                animationClass,
-                className
-            )}
+        <span
+            className={cn("absolute", animationClass, toneClasses[tone], className)}
+            aria-hidden="true"
         >
-            <Icon className={cn("text-coral/80", iconSizes[size])} />
-        </div>
+            <Icon size={iconPx[size]} strokeWidth={1.75} />
+        </span>
     )
 }
 
 export function FloatingIcons() {
     return (
-        <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
             {/* Top left area */}
             <FloatingIcon
                 icon={Brain}
@@ -61,6 +58,7 @@ export function FloatingIcons() {
                 className="top-[15%] right-[15%]"
                 animationClass="animate-float-2"
                 size="sm"
+                tone="silver"
             />
 
             {/* Middle left */}
@@ -77,6 +75,7 @@ export function FloatingIcons() {
                 className="top-[40%] right-[8%]"
                 animationClass="animate-float-1 delay-300"
                 size="md"
+                tone="silver"
             />
 
             {/* Bottom left */}
@@ -85,6 +84,7 @@ export function FloatingIcons() {
                 className="bottom-[20%] left-[12%]"
                 animationClass="animate-float-2 delay-200"
                 size="sm"
+                tone="silver"
             />
 
             {/* Bottom right */}

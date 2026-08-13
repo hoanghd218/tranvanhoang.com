@@ -16,6 +16,8 @@ export const routing = defineRouting({
     "/learn-ai/ai-for-marketing": "/learn-ai/ai-for-marketing",
     "/learn-ai/ai-for-work": "/learn-ai/ai-for-work",
     "/learn-ai/[path]/[module]": "/learn-ai/[path]/[module]",
+    "/courses": "/courses",
+    "/courses/[slug]": "/courses/[slug]",
     "/tai-nguyen": {
       vi: "/tai-nguyen",
       en: "/resources",

@@ -7,7 +7,7 @@
 'use client';
 
 import * as React from 'react';
-import { Bot, Code, Sparkles } from 'lucide-react';
+import { Bot, Check, Code, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GiftOption, GiftOptionData } from '@/types/email-popup';
 
@@ -55,8 +55,9 @@ export function GiftSelector({ value = [], onChange, error }: GiftSelectorProps)
 
   return (
     <div className="space-y-3">
-      <label className="text-sm font-medium">
-        Chọn quà tặng <span className="text-muted-foreground font-normal">(có thể chọn nhiều)</span>
+      <label className="text-[length:var(--size-body-s)] font-medium text-text-primary">
+        Chọn quà tặng{' '}
+        <span className="font-normal text-text-secondary">(có thể chọn nhiều)</span>
       </label>
       <div className="grid gap-3">
         {giftOptions.map((option) => {
@@ -68,36 +69,43 @@ export function GiftSelector({ value = [], onChange, error }: GiftSelectorProps)
               key={option.id}
               type="button"
               onClick={() => toggleSelection(option.id)}
+              aria-pressed={isSelected}
               className={cn(
-                'relative flex items-start gap-3 rounded-lg border p-4 text-left transition-all',
-                'hover:bg-accent/50 focus:outline-none focus:ring-2 focus:ring-coral/50',
+                // Selected is a purple tint plus a purple hairline — never a solid fill.
+                'relative flex items-start gap-3 rounded-[var(--radius-md)] border p-[var(--space-4)] pr-[var(--space-7)] text-left',
+                'transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)]',
                 isSelected
-                  ? 'border-coral bg-coral/5'
-                  : 'border-border bg-card'
+                  ? 'border-hairline-accent bg-[var(--purple-a12)]'
+                  : 'border-hairline bg-surface-card hover:border-hairline-accent hover:bg-surface-overlay'
               )}
             >
-              <div
-                className={cn(
-                  'flex h-10 w-10 shrink-0 items-center justify-center rounded-lg',
-                  isSelected ? 'bg-coral/20 text-coral' : 'bg-muted text-muted-foreground'
-                )}
-              >
-                <Icon className="h-5 w-5" />
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-surface-inset">
+                <Icon
+                  size={20}
+                  strokeWidth={1.75}
+                  className={isSelected ? 'text-rocket' : 'text-text-secondary'}
+                />
               </div>
               <div className="flex-1">
-                <div className="font-medium text-foreground">{option.title}</div>
-                <div className="text-sm text-muted-foreground">{option.description}</div>
+                <div className="font-medium text-text-primary">{option.title}</div>
+                <div className="text-[length:var(--size-body-s)] text-text-secondary">
+                  {option.description}
+                </div>
               </div>
               {isSelected && (
-                <div className="absolute right-4 top-4">
-                  <div className="h-2 w-2 rounded-full bg-coral" />
-                </div>
+                <Check
+                  size={16}
+                  strokeWidth={1.75}
+                  className="absolute top-4 right-4 text-rocket"
+                />
               )}
             </button>
           );
         })}
       </div>
-      {error && <p className="text-sm text-destructive">{error}</p>}
+      {error && (
+        <p className="text-[length:var(--size-body-s)] text-status-critical">{error}</p>
+      )}
     </div>
   );
 }

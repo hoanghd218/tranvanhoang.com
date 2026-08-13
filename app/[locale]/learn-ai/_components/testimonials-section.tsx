@@ -2,7 +2,6 @@
 
 import { useTranslations } from "next-intl"
 import { Container, Section } from "@/components/custom/container"
-import { SectionHeader } from "@/components/custom/section-header"
 import { TestimonialCard } from "@/components/learning/testimonial-card"
 import { ScrollReveal } from "@/components/custom/scroll-reveal"
 
@@ -28,18 +27,17 @@ export function TestimonialsSection() {
   ]
 
   return (
-    <Section className="py-16">
+    <Section className="py-16 md:py-24">
       <Container>
         <ScrollReveal>
-          <SectionHeader
-            title={t("testimonialsTitle")}
-            description={t("testimonialsSubtitle")}
-            centered
-          />
+          <div className="max-w-2xl">
+            <h2 className="heading-md">{t("testimonialsTitle")}</h2>
+            <p className="mt-4 text-text-secondary">{t("testimonialsSubtitle")}</p>
+          </div>
         </ScrollReveal>
-        <div className="grid md:grid-cols-3 gap-6 mt-12">
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <ScrollReveal key={testimonial.name} delay={index * 150}>
+            <ScrollReveal key={testimonial.name} delay={index * 150} className="h-full">
               <TestimonialCard {...testimonial} />
             </ScrollReveal>
           ))}

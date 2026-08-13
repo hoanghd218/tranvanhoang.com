@@ -6,8 +6,7 @@ export function PersonSchema() {
     "@type": "Person",
     "name": "Tony Hoang",
     "url": "https://tranvanhoang.com",
-    "jobTitle": "AI Educator",
-    "description": "Người dạy AI cho người mới bắt đầu, giúp hàng nghìn người tiếp cận công nghệ một cách đơn giản.",
+    "description": "Chia sẻ cách ứng dụng AI vào công việc, marketing và sản phẩm số bằng các quy trình thực hành.",
     "sameAs": [
       "https://www.facebook.com/hoanghd218/",
       "https://www.youtube.com/@tony-hoang-ai-automation",

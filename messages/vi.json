@@ -1,7 +1,7 @@
 {
   "common": {
     "siteName": "Tony Hoang",
-    "siteTagline": "Dạy AI cho người mới bắt đầu. Không cần code. Không áp lực kỹ thuật.",
+    "siteTagline": "AI thực chiến cho công việc, marketing và sản phẩm số.",
     "skipToContent": "Bỏ qua đến nội dung chính",
     "readingTime": "{minutes} phút đọc",
     "loading": "Đang tải...",
@@ -21,10 +21,10 @@
     "courses": "Khoá học",
     "resources": "Tài nguyên",
     "life": "Cuộc sống",
-    "freeGift": "Nhận quà miễn phí"
+    "freeGift": "Học miễn phí"
   },
   "footer": {
-    "tagline": "Dạy AI cho người mới bắt đầu. Không cần code. Không áp lực kỹ thuật.",
+    "tagline": "Chia sẻ cách biến AI thành quy trình làm việc có thể áp dụng ngay.",
     "quickLinks": "Liên kết nhanh",
     "resources": "Tài nguyên",
     "newsletter": "Nhận bài viết mới",
@@ -39,100 +39,83 @@
     "contact": "Liên hệ"
   },
   "home": {
-    "heroTitle": "Tony Hoang chia sẻ cách dùng AI sao cho",
-    "heroTitleHighlight": "người chưa biết gì",
-    "heroTitleEnd": "cũng làm được",
-    "heroDescription": "Không cần code. Không áp lực kỹ thuật. Chỉ giải thích từ bản chất để bạn hiểu và áp dụng được ngay.",
-    "heroCta": "Nhận bộ AI cho người mới",
-    "heroCtaSecondary": "Xem lộ trình học AI",
-    "heroDecorativeText": "AI cho mọi người",
-    "audienceTitle": "Tôi",
-    "audienceTitleHighlight": "giúp ai?",
-    "audienceSubtitle": "Dù bạn ở đâu, ở mức độ nào, tôi đều có lộ trình phù hợp để bạn bắt đầu với AI một cách tự tin.",
-    "audiencePainPointsLabel": "Vấn đề gặp phải",
-    "audienceBenefitsLabel": "Lợi ích khi học",
+    "heroTitle": "Biến AI thành",
+    "heroTitleHighlight": "cách làm việc",
+    "heroTitleEnd": "hiệu quả hơn",
+    "heroDescription": "Tôi chia sẻ lộ trình, khóa học và bài hướng dẫn giúp người Việt dùng AI vào công việc, marketing và sản phẩm số — theo từng bước, không cần nền tảng kỹ thuật.",
+    "heroCta": "Học khóa miễn phí",
+    "heroCtaSecondary": "Đọc bài thực chiến",
+    "heroDecorativeText": "Tony Hoang · AI thực chiến cho người Việt",
+    "audienceTitle": "Bắt đầu từ",
+    "audienceTitleHighlight": "việc bạn cần làm",
+    "audienceSubtitle": "Không học AI một cách chung chung. Chọn đúng tình huống của bạn và đi theo lộ trình ngắn nhất để tạo ra kết quả đầu tiên.",
+    "audiencePainPointsLabel": "Bạn đang cần",
+    "audienceBenefitsLabel": "Bạn sẽ bắt đầu với",
     "audienceCards": [
       {
-        "title": "Người chưa biết gì về AI",
-        "painPoints": ["Sợ công nghệ phức tạp", "Ngại thuật ngữ chuyên môn", "Không biết bắt đầu từ đâu"],
-        "benefits": ["Giải thích từ bản chất, dễ hiểu", "Không cần kiến thức trước", "Áp dụng được ngay lập tức"]
+        "title": "Dùng AI đúng cách từ đầu",
+        "painPoints": ["Chưa biết chọn công cụ nào", "Nhận kết quả chung chung", "Dễ bị ngợp bởi thuật ngữ"],
+        "benefits": ["Hiểu AI bằng ngôn ngữ đơn giản", "Viết yêu cầu rõ và có ngữ cảnh", "Áp dụng vào một việc thật mỗi ngày"],
+        "cta": "Xem lộ trình nền tảng"
       },
       {
-        "title": "Marketer & Content Creator",
-        "painPoints": ["Tốn nhiều thời gian viết content", "Thiếu ý tưởng mới", "Cạnh tranh khốc liệt"],
-        "benefits": ["Làm việc nhanh hơn 10x", "Có ý tưởng không ngừng", "Content chất lượng hơn"]
+        "title": "Làm marketing nhanh và nhất quán",
+        "painPoints": ["Mất thời gian từ ý tưởng đến nội dung", "Khó giữ đúng giọng thương hiệu", "Quy trình rời rạc qua nhiều công cụ"],
+        "benefits": ["Tạo brief và nội dung có cấu trúc", "Xây workflow tái sử dụng", "Dành thời gian cho quyết định quan trọng"],
+        "cta": "Xem lộ trình marketing"
       },
       {
-        "title": "Chủ doanh nghiệp nhỏ",
-        "painPoints": ["Ngân sách hạn chế", "Thiếu nhân sự kỹ thuật", "Cần hiệu quả tức thì"],
-        "benefits": ["Tối ưu chi phí với AI", "Tự làm được mọi việc", "ROI rõ ràng, đo lường được"]
+        "title": "Giảm việc lặp lại trong công việc",
+        "painPoints": ["Sao chép và tổng hợp thủ công", "Báo cáo tốn nhiều giờ", "Thông tin nằm rải rác"],
+        "benefits": ["Nhận diện việc nên tự động hóa", "Thiết kế quy trình từng bước", "Tạo trợ lý AI phù hợp công việc"],
+        "cta": "Xem lộ trình công việc"
       }
     ],
-    "teachingTitle": "Tôi",
-    "teachingTitleHighlight": "dạy gì?",
-    "teachingSubtitle": "Các lộ trình học được thiết kế practical, có thể áp dụng ngay vào công việc thực tế.",
-    "teachingKeyContent": "Nội dung chính",
-    "teachingViewDetail": "Xem chi tiết",
-    "teachingViewAll": "Xem tất cả lộ trình →",
-    "teachingPaths": [
-      {
-        "title": "AI cho người mới bắt đầu",
-        "slug": "ai-cho-nguoi-moi",
-        "description": "Từ con số 0 đến tự tin sử dụng AI trong công việc hàng ngày",
-        "modules": ["AI là gì?", "ChatGPT cơ bản", "Prompt hiệu quả", "Thực hành ứng dụng"],
-        "duration": "2-4 tuần"
-      },
-      {
-        "title": "AI cho Marketing",
-        "slug": "ai-marketing",
-        "description": "Áp dụng AI để tăng 10x hiệu quả marketing và content",
-        "modules": ["AI viết content", "Email marketing", "Social media", "Quảng cáo thông minh"],
-        "duration": "3-5 tuần"
-      },
-      {
-        "title": "AI cho công việc",
-        "slug": "ai-cong-viec",
-        "description": "Tăng năng suất và tự động hóa công việc với AI",
-        "modules": ["Automation cơ bản", "Phân tích dữ liệu", "Trợ lý AI cá nhân", "Workflow tự động"],
-        "duration": "4-6 tuần"
-      }
-    ],
-    "trustTitle": "Tại sao",
-    "trustTitleHighlight": "tin tôi?",
-    "trustSubtitle": "Tôi không chỉ dạy lý thuyết - tôi đã áp dụng AI vào thực tế và giúp hàng ngàn người làm được điều tương tự.",
-    "trustStats": [
-      { "value": "5+", "label": "Năm kinh nghiệm", "description": "Trong lĩnh vực AI và công nghệ" },
-      { "value": "10K+", "label": "Học viên", "description": "Đã tham gia các khóa học" },
-      { "value": "50+", "label": "Bài viết", "description": "Về AI cho người mới" },
-      { "value": "4.9/5", "label": "Đánh giá", "description": "Từ học viên" }
-    ],
-    "ctaTitle": "Sẵn sàng để bắt đầu",
-    "ctaTitleHighlight": "hành trình AI",
-    "ctaTitleEnd": "của bạn?",
-    "ctaSubtitle": "Nhận ngay bộ quà tặng miễn phí dành cho người mới bắt đầu: checklist, prompt templates, và video hướng dẫn chi tiết.",
-    "ctaButton": "Nhận quà miễn phí ngay",
-    "ctaFeatures": ["Checklist 10 bước", "50+ Prompt templates", "Video hướng dẫn"],
-    "ctaTrust": "Đã có <highlight>2,500+</highlight> người nhận quà • Không cần thẻ tín dụng • Hủy đăng ký bất cứ lúc nào"
+    "teachingEyebrow": "Khóa học nổi bật",
+    "teachingTitle": "Học bằng một",
+    "teachingTitleHighlight": "sản phẩm thật",
+    "teachingSubtitle": "Bắt đầu bằng workshop đang mở và tự tay dựng một landing page có thể đưa vào sử dụng.",
+    "teachingDescription": "Workshop đầu tiên hướng dẫn bạn lên cấu trúc, thiết kế và dùng vibe coding để dựng một landing page tập trung vào chuyển đổi.",
+    "teachingCoverAlt": "Minh họa giao diện landing page của khóa học Vibe Coding Sale Page",
+    "teachingAvailability": "Workshop 1 đang mở · Workshop 2 về thanh toán và CRM sẽ cập nhật sau",
+    "teachingCta": "Vào học miễn phí",
+    "proofEyebrow": "Bài viết mới",
+    "proofTitle": "Đọc các",
+    "proofTitleHighlight": "bài viết AI mới nhất",
+    "proofSubtitle": "Đọc các bài mới nhất về nền tảng AI, marketing và những cách ứng dụng đáng chú ý.",
+    "contentLanguageNote": "Bài viết và video hiện được trình bày bằng tiếng Việt.",
+    "resourceLanguageNote": "Thư viện tài nguyên và biểu mẫu hiện được trình bày bằng tiếng Việt.",
+    "aboutEyebrow": "Về Tony Hoang",
+    "aboutTitle": "Học, làm và chia sẻ lại quy trình có thể dùng ngay",
+    "aboutDescription": "Tôi tập trung vào việc làm cho AI bớt mơ hồ: chia nhỏ bài toán, thử bằng công cụ thật và trình bày lại để người khác có thể tự làm.",
+    "aboutCta": "Đọc câu chuyện của tôi",
+    "ctaTitle": "Cần một tài nguyên để",
+    "ctaTitleHighlight": "bắt tay vào làm",
+    "ctaTitleEnd": "ngay?",
+    "ctaSubtitle": "Chọn bộ tài nguyên miễn phí phù hợp với việc bạn đang làm. Mỗi tài nguyên đi thẳng vào một nhu cầu cụ thể.",
+    "ctaButton": "Xem thư viện tài nguyên miễn phí",
+    "ctaFeatures": ["AI Marketing Automation", "Landing page chuẩn sale", "Claude Code workflow"],
+    "ctaNote": "Xem trước nội dung và tự chọn tài nguyên phù hợp — không cần thẻ tín dụng."
   },
   "about": {
     "title": "Về tôi",
-    "metaTitle": "Về Tony Hoang - AI Educator",
-    "metaDescription": "Tìm hiểu về Tony Hoang — người dạy AI cho người mới bắt đầu.",
+    "metaTitle": "Về Tony Hoang - AI thực chiến cho người Việt",
+    "metaDescription": "Tìm hiểu cách Tony Hoang học, thử nghiệm và chia sẻ các quy trình AI có thể áp dụng vào công việc.",
     "heroGreeting": "Xin chào, tôi là",
     "heroName": "Tony Hoang",
-    "heroIntro": "Tôi dành sức mình để giúp những người chưa biết gì về AI có thể bắt đầu và ứng dụng AI vào công việc, cuộc sống một cách tự tin.",
-    "stat1Value": "10,000+",
-    "stat1Label": "Học viên",
-    "stat2Value": "50+",
-    "stat2Label": "Khóa học",
-    "stat3Value": "5 năm",
-    "stat3Label": "Kinh nghiệm",
-    "stat4Value": "100%",
-    "stat4Label": "Tận tâm",
+    "heroIntro": "Tôi giúp người Việt biến AI từ một khái niệm mơ hồ thành quy trình có thể tự làm trong công việc, marketing và sản phẩm số.",
+    "stat1Value": "3",
+    "stat1Label": "Lộ trình ứng dụng",
+    "stat2Value": "1",
+    "stat2Label": "Khóa học miễn phí",
+    "stat3Value": "5",
+    "stat3Label": "Bài hướng dẫn",
+    "stat4Value": "VI/EN",
+    "stat4Label": "Nội dung song ngữ",
     "storyTitle": "Câu chuyện của tôi",
-    "storyP1": "Tôi bắt đầu hành trình với AI vào năm 2020, khi ChatGPT vừa ra mắt. Như nhiều người khác, tôi cũng hoang mang và không biết bắt đầu từ đâu.",
-    "storyP2": "Sau nhiều năm học hỏi, thử nghiệm, và có những thành công (thất bại), tôi nhận ra rằng AI không phải là thứ gì đó xa vời. Nó có thể giúp mọi người tiết kiệm hàng giờ mỗi ngày, nếu biết cách sử dụng đúng.",
-    "storyP3": "Từ đó, tôi quyết định biến những gì mình học được thành các khóa học, chia sẻ miễn phí để giúp nhiều người tiếp cận AI hơn. Không phức tạp. Không áp lực. Chỉ đơn giản và thực tế.",
+    "storyP1": "Tôi đến với AI từ một nhu cầu rất thực tế: làm sao giải quyết công việc nhanh hơn mà vẫn hiểu mình đang làm gì, thay vì chạy theo từng công cụ mới.",
+    "storyP2": "Qua quá trình học và thử nghiệm, tôi nhận ra giá trị không nằm ở việc biết thật nhiều công cụ. Giá trị nằm ở cách chia nhỏ bài toán, cung cấp đúng ngữ cảnh và thiết kế một quy trình có thể lặp lại.",
+    "storyP3": "Vì vậy, tôi ghi lại những gì đã thử thành bài hướng dẫn, lộ trình và khóa học miễn phí. Mục tiêu là để bạn không chỉ xem AI làm được gì, mà có thể tự tay làm ra một kết quả hữu ích.",
     "valuesTitle": "Giá trị tôi theo đuổi",
     "value1Title": "Đơn giản hóa",
     "value1Desc": "Mọi thứ phức tạp đều có thể giải thích đơn giản. Tôi tin rằng ai cũng có thể học được.",
@@ -144,7 +127,7 @@
     "value4Desc": "Mỗi người có nhịp độ học riêng. Tôi không vội vàng, chỉ cần bạn sẵn sàng bắt đầu.",
     "infoTitle": "Một vài điều về tôi",
     "infoLocation": "Based in Vietnam",
-    "infoTeachingSince": "Teaching since 2020",
+    "infoTeachingSince": "Chia sẻ từ trải nghiệm thực hành",
     "infoCollaboration": "Open for collaboration and teaching opportunities",
     "ctaTitle": "Cùng nhau học AI",
     "ctaSubtitle": "Sẵn sàng bắt đầu hành trình với AI? Tôi sẽ đồng hành cùng bạn.",
@@ -153,7 +136,7 @@
   },
   "blog": {
     "title": "Blog",
-    "metaTitle": "Blog - Tony Hoang AI Educator",
+    "metaTitle": "Blog - Tony Hoang",
     "metaDescription": "Bài viết về AI, marketing, công cụ và trải nghiệm.",
     "heroTitle": "Blog",
     "heroTitleHighlight": "AI & Marketing",
@@ -194,7 +177,7 @@
   },
   "learnAi": {
     "title": "Học AI",
-    "metaTitle": "Học AI - Tony Hoang AI Educator",
+    "metaTitle": "Học AI - Tony Hoang",
     "metaDescription": "Lộ trình học AI cho người mới bắt đầu, marketing và công việc.",
     "heroTitle": "Lộ trình",
     "heroTitleHighlight": "học AI",
@@ -346,7 +329,7 @@
   },
   "resources": {
     "title": "Tài nguyên",
-    "metaTitle": "Tài nguyên - Tony Hoang AI Educator",
+    "metaTitle": "Tài nguyên - Tony Hoang",
     "metaDescription": "Tài nguyên miễn phí về AI: templates, guides, tools.",
     "heroTitle": "Tài nguyên",
     "heroTitleHighlight": "miễn phí",
@@ -416,7 +399,7 @@
     "successMessage": "Quà tặng sẽ được gửi đến email của bạn trong vài phút."
   },
   "giftClaim": {
-    "metaTitle": "Nhận quà tặng AI miễn phí - Tony Hoang AI Educator",
+    "metaTitle": "Nhận quà tặng AI miễn phí - Tony Hoang",
     "metaDescription": "Điền thông tin để nhận ngay bộ tài nguyên AI miễn phí: templates, prompts, checklist và nhiều hơn nữa."
   },
   "zaloAgents": {
@@ -427,11 +410,69 @@
     "fallbackLink": "Mở nhóm Zalo",
     "fallbackHint": "Nếu trang không tự chuyển, hãy nhấn nút trên."
   },
+  "courses": {
+    "breadcrumbHome": "Trang chủ",
+    "breadcrumbLabel": "Đường dẫn điều hướng",
+    "catalog": {
+      "metaTitle": "Khóa học miễn phí về AI & Vibe Coding",
+      "metaDescription": "Khám phá các khóa học thực chiến miễn phí của Tony Hoang về AI, vibe coding, landing page, thanh toán tự động và CRM.",
+      "eyebrow": "Thư viện khóa học",
+      "title": "Học để làm được,",
+      "titleHighlight": "không chỉ để biết",
+      "subtitle": "Các khóa học ngắn, thực tế và đi thẳng vào quy trình giúp bạn tạo ra sản phẩm có thể dùng ngay.",
+      "viewCourse": "Học miễn phí ngay"
+    },
+    "course": {
+      "metaTitle": "Vibe Coding Sale Page — Khóa học miễn phí",
+      "metaDescription": "2 buổi chuyên sâu miễn phí: thiết kế landing page bằng vibe coding, tích hợp thanh toán tự động và CRM bán hàng.",
+      "title": "Vibe Coding Sale Page",
+      "heroTitle": "Tự xây sale page bằng",
+      "heroHighlight": "Vibe Coding",
+      "shortDescription": "Hai buổi chuyên sâu giúp bạn đi từ một landing page thuyết phục đến quy trình thanh toán và CRM tự động.",
+      "description": "Khóa học thực chiến dành cho người muốn tự tạo một sale page hoàn chỉnh: giao diện thuyết phục, nhận thanh toán và tự động đưa khách hàng vào CRM — không cần xây một đội kỹ thuật riêng.",
+      "coverAlt": "Minh họa landing page kết nối thanh toán tự động và hệ thống CRM",
+      "free": "Miễn phí 100%",
+      "format": "Workshop thực chiến",
+      "level": "Dễ bắt đầu",
+      "lessonCount": "2 buổi chuyên sâu",
+      "selfPaced": "Học theo tốc độ riêng",
+      "language": "Video tiếng Việt",
+      "startLearning": "Bắt đầu học",
+      "outcomesEyebrow": "Kết quả sau khóa học",
+      "outcomesTitle": "Bạn sẽ tự tay hoàn thiện một quy trình bán hàng",
+      "outcomes": [
+        "Lên cấu trúc và thiết kế landing page tập trung vào chuyển đổi.",
+        "Dùng vibe coding để biến ý tưởng thành giao diện hoạt động được.",
+        "Kết nối quy trình thanh toán tự động cho sản phẩm hoặc dịch vụ.",
+        "Đưa dữ liệu khách hàng vào CRM để theo dõi và chăm sóc tiếp."
+      ],
+      "curriculumEyebrow": "Nội dung khóa học",
+      "curriculumTitle": "2 buổi, một quy trình hoàn chỉnh",
+      "curriculumDescription": "Học lần lượt từ phần giao diện bán hàng đến phần vận hành phía sau. Video được phát trực tiếp từ Fathom.",
+      "watchOnFathom": "Mở trên Fathom",
+      "workshopLabel": "Buổi",
+      "unavailableTitle": "Video Buổi 2 đang được cập nhật",
+      "unavailableDescription": "Link Fathom hiện chưa còn truy cập công khai. Video sẽ xuất hiện tại đây ngay khi đường dẫn mới được xác minh.",
+      "unavailableLinkLabel": "Thử mở link hiện tại",
+      "lessons": [
+        {
+          "title": "Thiết kế landing page bằng Vibe Coding",
+          "description": "Xây nền tảng của một sale page rõ ràng, thuyết phục và sẵn sàng đưa vào sử dụng.",
+          "topics": ["Cấu trúc sale page", "UI/UX", "Vibe coding", "Tối ưu chuyển đổi"]
+        },
+        {
+          "title": "Thanh toán tự động & CRM",
+          "description": "Nối sale page với hệ thống thanh toán và luồng quản lý, chăm sóc khách hàng.",
+          "topics": ["Checkout", "Thanh toán tự động", "CRM", "Sales automation"]
+        }
+      ]
+    }
+  },
   "metadata": {
-    "siteTitle": "Tony Hoang - AI Educator | Dạy AI cho người mới bắt đầu",
-    "siteDescription": "Tony Hoang chia sẻ cách dùng AI sao cho người chưa biết gì cũng làm được. Không cần code. Không áp lực kỹ thuật.",
-    "ogTitle": "Tony Hoang - AI Educator",
-    "ogDescription": "Dạy AI cho người mới. Đơn giản, dễ hiểu, thực tế.",
-    "twitterDescription": "Dạy AI cho người mới bắt đầu"
+    "siteTitle": "Tony Hoang | AI thực chiến cho công việc và kinh doanh",
+    "siteDescription": "Khóa học, lộ trình và bài hướng dẫn giúp người Việt dùng AI vào công việc, marketing và sản phẩm số.",
+    "ogTitle": "Tony Hoang — Học AI để làm được việc thật",
+    "ogDescription": "AI thực chiến, theo từng bước, tập trung vào công việc và sản phẩm có thể sử dụng.",
+    "twitterDescription": "AI thực chiến cho công việc, marketing và sản phẩm số."
   }
 }

@@ -39,11 +39,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/learn-ai/ai-for-beginners", lastModified: new Date("2026-02-01") },
     { path: "/learn-ai/ai-for-marketing", lastModified: new Date("2026-02-01") },
     { path: "/learn-ai/ai-for-work", lastModified: new Date("2026-02-01") },
+    { path: "/courses", lastModified: new Date("2026-08-13") },
+    { path: "/courses/vibe-coding-sale-page", lastModified: new Date("2026-08-13") },
     { path: "/blog", lastModified: new Date("2026-03-16") },
     { path: "/tai-nguyen", lastModified: new Date("2026-01-15") },
     { path: "/qua", lastModified: new Date("2026-01-15") },
     { path: "/life", lastModified: new Date("2026-03-01") },
-    { path: "/courses/ai-automation-bim", lastModified: new Date("2026-02-15") },
   ]
 
   // Static routes — both vi and en versions

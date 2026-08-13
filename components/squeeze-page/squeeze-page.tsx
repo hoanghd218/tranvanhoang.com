@@ -5,7 +5,9 @@ import Image from "next/image"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { Loader2, CheckCircle } from "lucide-react"
+import { Check, Loader2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 import type {
   SqueezePageProps,
@@ -23,6 +25,11 @@ const emailSchema = z.object({
 type EmailFormData = z.infer<typeof emailSchema>
 
 // ─── Main Component ───
+/**
+ * Conversion page shell. Void black ground, one 42° field on the hero,
+ * left-aligned copy, exactly one primary pill CTA.
+ * `bgColor` stays supported as an explicit override; unset means void black.
+ */
 export function SqueezePage({
   avatar,
   title,
@@ -30,55 +37,49 @@ export function SqueezePage({
   form,
   testimonial,
   profile,
-  bgColor = "#EDF0F5",
+  bgColor,
   className,
 }: SqueezePageProps) {
   const [submitted, setSubmitted] = React.useState(false)
 
   return (
     <div
-      className={cn("min-h-screen", className)}
-      style={{ backgroundColor: bgColor }}
+      className={cn("min-h-screen", !bgColor && "rk-field", className)}
+      style={bgColor ? { backgroundColor: bgColor } : undefined}
     >
-      <div className="mx-auto max-w-[900px] px-5 py-16 md:py-24">
+      <div className="mx-auto max-w-[900px] px-[var(--space-5)] py-[var(--space-9)] sm:px-[var(--gutter-page)]">
         {/* ── Avatar ── */}
         {avatar && <SqueezeAvatar avatar={avatar} />}
 
         {/* ── Title ── */}
-        <h1 className="mt-6 text-center text-[clamp(1.75rem,5vw,3.5rem)] font-bold leading-[1.1] tracking-tight text-[#0C1115]">
-          {title}
-        </h1>
+        <h1 className="heading-xl mt-[var(--space-5)]">{title}</h1>
 
         {/* ── Video ── */}
-        <div className="mt-10">
+        <div className="mt-[var(--space-7)]">
           <SqueezeVideoEmbed video={video} />
         </div>
 
         {/* ── Form ── */}
-        <div className="mt-10">
+        <div className="mt-[var(--space-7)]">
           {!submitted ? (
-            <SqueezeOptInForm
-              form={form}
-              onSuccess={() => setSubmitted(true)}
-            />
+            <SqueezeOptInForm form={form} onSuccess={() => setSubmitted(true)} />
           ) : (
             <SqueezeSuccess
-              message={form.successMessage ?? "Check your inbox — it's on the way!"}
-              accentColor={form.accentColor}
+              message={form.successMessage ?? "Check your inbox — it's on the way."}
             />
           )}
         </div>
 
         {/* ── Testimonial ── */}
         {testimonial && (
-          <div className="mt-12">
+          <div className="mt-[var(--space-8)]">
             <SqueezeTestimonialCard testimonial={testimonial} />
           </div>
         )}
 
         {/* ── Profile ── */}
         {profile && (
-          <div className="mt-12">
+          <div className="mt-[var(--space-8)]">
             <SqueezeProfileCard profile={profile} />
           </div>
         )}
@@ -89,27 +90,25 @@ export function SqueezePage({
 
 // ─── Sub-components ───
 
-/** Small circular avatar above the title */
+/** Small avatar above the title. */
 function SqueezeAvatar({ avatar }: { avatar: SqueezePageAvatar }) {
   return (
-    <div className="flex justify-center">
-      <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-white shadow-lg">
-        <Image
-          src={avatar.src}
-          alt={avatar.alt}
-          fill
-          className="object-cover"
-          sizes="64px"
-          priority
-        />
-      </div>
+    <div className="relative h-16 w-16 overflow-hidden rounded-[var(--radius-md)] border border-hairline">
+      <Image
+        src={avatar.src}
+        alt={avatar.alt}
+        fill
+        className="object-cover"
+        sizes="64px"
+        priority
+      />
     </div>
   )
 }
 
 function SqueezeVideoEmbed({ video }: { video: SqueezePageVideo }) {
   return (
-    <div className="overflow-hidden rounded-xl shadow-lg">
+    <div className="overflow-hidden rounded-[var(--radius-lg)] border border-hairline bg-surface-card">
       <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
         <iframe
           src={video.embedUrl}
@@ -130,7 +129,6 @@ function SqueezeOptInForm({
   form: SqueezePageForm
   onSuccess: () => void
 }) {
-  const accentColor = form.accentColor ?? "#FCDD8D"
   const [submitError, setSubmitError] = React.useState<string | null>(null)
 
   const {
@@ -164,46 +162,36 @@ function SqueezeOptInForm({
   }
 
   return (
-    <div className="mx-auto max-w-xl">
+    <div className="max-w-xl">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div
-          className="flex items-center gap-3 rounded-lg border-2 p-2 transition-all focus-within:shadow-md"
-          style={{
-            borderColor: accentColor,
-            backgroundColor: "#ffffff",
-          }}
-        >
-          {/* Email input */}
-          <input
+        <div className="flex flex-col gap-3 sm:flex-row">
+          <Input
             id="squeeze-email"
             type="email"
             placeholder={form.placeholder ?? "Email address"}
-            className="flex-1 border-0 bg-transparent px-4 py-3 text-base text-[#0C1115] outline-none placeholder:text-gray-400"
+            aria-label={form.placeholder ?? "Email address"}
+            aria-invalid={!!errors.email}
+            className="flex-1"
             {...register("email")}
           />
 
-          {/* CTA button */}
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="shrink-0 rounded-md px-6 py-3 text-sm font-bold text-[#0C1115] transition-all hover:brightness-95 active:scale-[0.97] disabled:opacity-60 md:text-base"
-            style={{ backgroundColor: accentColor }}
-          >
+          {/* The one primary CTA on this page */}
+          <Button type="submit" shape="pill" className="shrink-0" disabled={isSubmitting}>
             {isSubmitting ? (
-              <Loader2 className="mx-auto h-5 w-5 animate-spin" />
+              <Loader2 size={16} strokeWidth={1.75} className="animate-spin" />
             ) : (
               form.buttonText
             )}
-          </button>
+          </Button>
         </div>
 
         {errors.email && (
-          <p className="mt-2 text-center text-sm text-red-500">
+          <p className="mt-2 text-[length:var(--size-body-s)] text-status-critical">
             {errors.email.message}
           </p>
         )}
         {submitError && (
-          <p className="mt-2 text-center text-sm text-red-500">
+          <p className="mt-2 text-[length:var(--size-body-s)] text-status-critical">
             {submitError}
           </p>
         )}
@@ -212,32 +200,13 @@ function SqueezeOptInForm({
   )
 }
 
-function SqueezeSuccess({
-  message,
-  accentColor,
-}: {
-  message: string
-  accentColor?: string
-}) {
+function SqueezeSuccess({ message }: { message: string }) {
   return (
-    <div className="mx-auto max-w-md animate-fade-in text-center">
-      <div
-        className="rounded-xl border p-6 shadow-sm"
-        style={{
-          borderColor: accentColor ?? "#FCDD8D",
-          backgroundColor: "#ffffff",
-        }}
-      >
-        <div
-          className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full"
-          style={{ backgroundColor: `${accentColor ?? "#FCDD8D"}33` }}
-        >
-          <CheckCircle className="h-7 w-7 text-green-600" />
-        </div>
-        <p className="text-lg font-semibold text-[#0C1115]">
-          {message}
-        </p>
+    <div className="rk-card animate-fade-in max-w-md p-[var(--space-5)]">
+      <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-surface-inset">
+        <Check size={24} strokeWidth={1.75} className="text-status-positive" />
       </div>
+      <p className="text-[length:var(--size-body-l)] font-medium text-text-primary">{message}</p>
     </div>
   )
 }
@@ -248,10 +217,10 @@ function SqueezeTestimonialCard({
   testimonial: SqueezePageTestimonial
 }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
-      <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
+    <div className="rk-card overflow-hidden p-[var(--space-5)] md:p-[var(--space-7)]">
+      <div className="flex flex-col gap-[var(--space-5)] md:flex-row md:items-start">
         {/* Avatar */}
-        <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-full md:h-44 md:w-44">
+        <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-[var(--radius-lg)] border border-hairline md:h-44 md:w-44">
           <Image
             src={testimonial.avatar.src}
             alt={testimonial.avatar.alt}
@@ -262,16 +231,16 @@ function SqueezeTestimonialCard({
         </div>
 
         {/* Quote + attribution */}
-        <div className="flex flex-col justify-center text-center md:text-left">
-          <blockquote className="text-base leading-relaxed text-gray-700 md:text-lg [&_mark]:bg-[#FCDD8D] [&_mark]:px-0.5 [&_mark]:text-inherit">
+        <div className="flex flex-col justify-center">
+          <blockquote className="text-[length:var(--size-body-l)] leading-[var(--leading-loose)] text-text-secondary [&_mark]:bg-[var(--purple-a24)] [&_mark]:px-0.5 [&_mark]:text-text-primary">
             {testimonial.quote}
           </blockquote>
 
-          <div className="mt-5">
-            <p className="text-xl font-bold text-[#0C1115] md:text-2xl">
+          <div className="mt-[var(--space-5)]">
+            <p className="text-[length:var(--size-h4)] font-bold text-text-primary">
               {testimonial.name}
             </p>
-            <p className="mt-0.5 text-sm text-gray-500">
+            <p className="mt-0.5 text-[length:var(--size-body-s)] text-text-tertiary">
               {testimonial.title}
             </p>
           </div>
@@ -281,16 +250,12 @@ function SqueezeTestimonialCard({
   )
 }
 
-function SqueezeProfileCard({
-  profile,
-}: {
-  profile: SqueezePageProfile
-}) {
+function SqueezeProfileCard({ profile }: { profile: SqueezePageProfile }) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
-      <div className="flex flex-col items-center gap-6 md:flex-row md:items-start">
+    <div className="rk-card overflow-hidden p-[var(--space-5)] md:p-[var(--space-7)]">
+      <div className="flex flex-col gap-[var(--space-5)] md:flex-row md:items-start">
         {/* Avatar */}
-        <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-full md:h-44 md:w-44">
+        <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-[var(--radius-lg)] border border-hairline md:h-44 md:w-44">
           <Image
             src={profile.avatar.src}
             alt={profile.avatar.alt}
@@ -301,14 +266,14 @@ function SqueezeProfileCard({
         </div>
 
         {/* Name + bio */}
-        <div className="flex flex-col justify-center text-center md:text-left">
-          <p className="text-xl font-bold text-[#0C1115] md:text-2xl">
+        <div className="flex flex-col justify-center">
+          <p className="text-[length:var(--size-h4)] font-bold text-text-primary">
             {profile.name}
           </p>
-          <p className="mt-0.5 text-sm font-medium text-gray-500">
+          <p className="mt-0.5 text-[length:var(--size-body-s)] font-medium text-text-tertiary">
             {profile.tagline}
           </p>
-          <div className="mt-4 text-base leading-relaxed text-gray-700">
+          <div className="mt-[var(--space-4)] text-[length:var(--size-body-l)] leading-[var(--leading-loose)] text-text-secondary">
             {profile.bio}
           </div>
         </div>

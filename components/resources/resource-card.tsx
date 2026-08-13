@@ -1,15 +1,15 @@
 /**
  * Resource Card Component
  *
- * Displays a resource in either card view (full) or grid view (compact)
+ * Displays a resource in either card view (full) or grid view (compact).
+ * Rocket AI: carbon card, one hairline, purple hairline + small glow on hover.
  */
 "use client"
 
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import { Resource, ResourceType } from "@/types/resource"
-import { ResourceIcon } from "./resource-icon"
-import { GradientText } from "@/components/custom/gradient-text"
+import { ResourceIcon, resourceTypeIcons } from "./resource-icon"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Download, Play } from "lucide-react"
 
@@ -28,131 +28,116 @@ export function ResourceCard({ resource, viewMode, className }: ResourceCardProp
 }
 
 /**
- * Card View - Full metadata with hover effects
+ * Card View — full metadata.
  */
 function CardViewCard({ resource, className }: { resource: Resource; className?: string }) {
+  const TypeIcon = resourceTypeIcons[resource.type]
+
   return (
     <article className={cn("group h-full", className)}>
       <Link
         href={getResourceUrl(resource)}
-        className="flex flex-col h-full bg-card border border-border rounded-xl overflow-hidden transition-all duration-300 hover:border-coral/50 hover:shadow-lg"
+        className="rk-card rk-card-interactive flex h-full flex-col p-[var(--space-5)]"
         target={resource.type === "article" ? "_self" : "_blank"}
         rel={resource.type !== "article" ? "noopener noreferrer" : undefined}
       >
-        {/* Thumbnail */}
-        <div className="aspect-video bg-gradient-to-br from-coral/10 to-bronze/10 relative overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <ResourceIcon type={resource.type} className="w-12 h-12" />
-          </div>
-
-          {/* Type Badge */}
-          <div className="absolute top-3 left-3">
-            <span className="px-2.5 py-1 text-xs font-medium rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center gap-1.5">
-              <ResourceIcon type={resource.type} className="w-3 h-3" />
-              {getTypeLabel(resource.type)}
-            </span>
-          </div>
+        {/* Icon tile + type badge */}
+        <div className="mb-[var(--space-5)] flex items-start justify-between gap-3">
+          <ResourceIcon type={resource.type} />
+          <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-hairline bg-surface-overlay px-2.5 py-1 text-[length:var(--size-caption)] text-text-secondary">
+            <TypeIcon size={16} strokeWidth={1.75} />
+            {getTypeLabel(resource.type)}
+          </span>
         </div>
 
-        {/* Content */}
-        <div className="flex flex-col flex-1 p-5">
-          {/* Category */}
-          <p className="text-xs text-coral font-medium mb-2">{getCategoryLabel(resource.category)}</p>
+        {/* Category */}
+        <p className="eyebrow mb-2">{getCategoryLabel(resource.category)}</p>
 
-          {/* Title */}
-          <h3 className="text-lg font-semibold mb-2 group-hover:text-coral transition-colors line-clamp-2">
-            <GradientText>{resource.title}</GradientText>
-          </h3>
+        {/* Title */}
+        <h3 className="mb-2 line-clamp-2 text-[length:var(--size-h4)] font-semibold text-text-primary transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] group-hover:text-text-accent">
+          {resource.title}
+        </h3>
 
-          {/* Description */}
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-2 flex-1">
-            {resource.description}
-          </p>
+        {/* Description */}
+        <p className="mb-[var(--space-4)] line-clamp-2 flex-1 text-[length:var(--size-body-s)] text-text-secondary">
+          {resource.description}
+        </p>
 
-          {/* Meta Info */}
-          <div className="flex items-center justify-between text-xs text-muted-foreground mb-3">
-            <span>{resource.date}</span>
-            <span>{getMetaInfo(resource)}</span>
+        {/* Meta Info */}
+        <div className="mb-3 flex items-center justify-between text-[length:var(--size-caption)] text-text-tertiary">
+          <span>{resource.date}</span>
+          <span>{getMetaInfo(resource)}</span>
+        </div>
+
+        {/* Tags */}
+        {resource.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {resource.tags.slice(0, 3).map((tag) => (
+              <span key={tag} className={tagClass}>
+                {tag}
+              </span>
+            ))}
+            {resource.tags.length > 3 && (
+              <span className={tagClass}>+{resource.tags.length - 3}</span>
+            )}
           </div>
+        )}
 
-          {/* Tags */}
-          {resource.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5">
-              {resource.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-0.5 text-xs rounded-full bg-muted text-muted-foreground"
-                >
-                  {tag}
-                </span>
-              ))}
-              {resource.tags.length > 3 && (
-                <span className="px-2 py-0.5 text-xs rounded-full bg-muted text-muted-foreground">
-                  +{resource.tags.length - 3}
-                </span>
-              )}
-            </div>
-          )}
-
-          {/* Action Button */}
-          <div className="mt-4 pt-4 border-t border-border/50">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="w-full group-hover:bg-coral/10 group-hover:text-coral transition-colors"
-            >
+        {/* Action */}
+        <div className="mt-[var(--space-4)] border-t border-hairline pt-[var(--space-4)]">
+          <Button variant="ghost" size="sm" className="w-full justify-between" asChild>
+            <span>
               {getActionLabel(resource.type)}
-              <ArrowRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
+              <ArrowRight size={16} strokeWidth={1.75} />
+            </span>
+          </Button>
         </div>
       </Link>
     </article>
   )
 }
 
+const tagClass =
+  "rounded-[var(--radius-pill)] border border-hairline bg-surface-overlay px-2 py-0.5 text-[length:var(--size-caption)] text-text-secondary"
+
 /**
- * Grid View - Compact card with essential info only
+ * Grid View — compact list row.
  */
 function GridViewCard({ resource, className }: { resource: Resource; className?: string }) {
+  const ActionIcon =
+    resource.type === "download" ? Download : resource.type === "video" ? Play : ArrowRight
+
   return (
     <article className={cn("group h-full", className)}>
       <Link
         href={getResourceUrl(resource)}
-        className="flex items-center gap-3 p-3 bg-card border border-border rounded-lg transition-all duration-200 hover:border-coral hover:bg-card/80"
+        className="flex items-center gap-3 rounded-[var(--radius-md)] border border-hairline bg-surface-card p-3 transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:border-hairline-accent"
         target={resource.type === "article" ? "_self" : "_blank"}
         rel={resource.type !== "article" ? "noopener noreferrer" : undefined}
       >
-        {/* Icon */}
-        <ResourceIcon type={resource.type} className="w-10 h-10 shrink-0" />
+        <ResourceIcon type={resource.type} size={20} className="h-10 w-10 shrink-0" />
 
-        {/* Content */}
-        <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs text-coral font-medium">{getCategoryLabel(resource.category)}</span>
-            <span className="text-xs text-muted-foreground">•</span>
-            <span className="text-xs text-muted-foreground">{resource.date}</span>
+        <div className="min-w-0 flex-1">
+          <div className="mb-1 flex items-center gap-2 text-[length:var(--size-caption)] text-text-tertiary">
+            <span className="text-text-accent">{getCategoryLabel(resource.category)}</span>
+            <span>·</span>
+            <span>{resource.date}</span>
           </div>
 
-          <h3 className="font-medium text-sm line-clamp-1 group-hover:text-coral transition-colors">
+          <h3 className="line-clamp-1 text-[length:var(--size-body-s)] font-medium text-text-primary transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] group-hover:text-text-accent">
             {resource.title}
           </h3>
 
-          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">
+          <p className="mt-0.5 line-clamp-1 text-[length:var(--size-caption)] text-text-secondary">
             {resource.description}
           </p>
         </div>
 
-        {/* Action Icon */}
-        <div className="shrink-0">
-          {resource.type === "download" ? (
-            <Download className="w-4 h-4 text-muted-foreground group-hover:text-coral transition-colors" />
-          ) : resource.type === "video" ? (
-            <Play className="w-4 h-4 text-muted-foreground group-hover:text-coral transition-colors" />
-          ) : (
-            <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-coral transition-colors" />
-          )}
-        </div>
+        <ActionIcon
+          size={16}
+          strokeWidth={1.75}
+          className="shrink-0 text-text-tertiary transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] group-hover:text-text-accent"
+        />
       </Link>
     </article>
   )

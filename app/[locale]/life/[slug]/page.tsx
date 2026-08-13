@@ -54,28 +54,31 @@ export default async function StoryPage({ params }: StoryPageProps) {
   return (
     <>
       {/* Breadcrumb */}
-      <Section className="py-6 bg-life-card/30">
+      <Section className="border-b border-hairline py-6">
         <Container>
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Link href="/life" className="hover:text-life-sage transition-colors">
+          <nav className="flex items-center gap-[var(--space-2)] text-[length:var(--size-body-s)] text-text-tertiary">
+            <Link
+              href="/life"
+              className="transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
+            >
               {t("breadcrumbLife")}
             </Link>
-            <span>/</span>
-            <span className="text-foreground truncate max-w-[200px]">
+            <span aria-hidden="true">/</span>
+            <span className="max-w-[200px] truncate text-text-secondary">
               {story.metadata.title}
             </span>
           </nav>
         </Container>
       </Section>
 
-      {/* Hero */}
-      <Section className="py-12">
+      {/* Hero — the one 42° field on this screen, at its dimmer setting */}
+      <Section className="rk-field rk-field-soft py-12 md:py-16">
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="mx-auto max-w-3xl">
             {/* Date and reading time */}
-            <div className="flex items-center justify-center gap-4 text-sm text-life-sand mb-6">
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
+            <div className="mb-[var(--space-5)] flex flex-wrap items-center gap-[var(--space-4)] text-[length:var(--size-body-s)] text-text-tertiary">
+              <div className="flex items-center gap-[var(--space-2)]">
+                <Calendar size={16} strokeWidth={1.75} aria-hidden="true" />
                 <time dateTime={story.metadata.date}>
                   {new Date(story.metadata.date).toLocaleDateString(dateLocale, {
                     year: "numeric",
@@ -84,21 +87,19 @@ export default async function StoryPage({ params }: StoryPageProps) {
                   })}
                 </time>
               </div>
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
+              <div className="flex items-center gap-[var(--space-2)]">
+                <Clock size={16} strokeWidth={1.75} aria-hidden="true" />
                 <span>{readingMinutes} {t("minutesRead")}</span>
               </div>
             </div>
 
             {/* Title */}
-            <h1 className="heading-serif text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight">
+            <h1 className="heading-serif-lg mb-[var(--space-5)] text-text-primary">
               {story.metadata.title}
             </h1>
 
             {/* Description */}
-            <p className="body-serif text-lg text-muted-foreground">
-              {story.metadata.description}
-            </p>
+            <p className="body-serif">{story.metadata.description}</p>
           </div>
         </Container>
       </Section>
@@ -114,20 +115,18 @@ export default async function StoryPage({ params }: StoryPageProps) {
               className="mb-12"
             />
 
-            {/* MDX Content */}
-            <div className="prose prose-lg prose-invert max-w-none">
-              <div className="mdx-content whitespace-pre-wrap font-sans text-base leading-relaxed text-muted-foreground">
-                {story.content}
-              </div>
+            {/* MDX Content — 64ch reading column */}
+            <div className="mdx-content max-w-[var(--max-width-prose)] whitespace-pre-wrap font-sans text-[length:var(--size-body-l)] leading-[var(--leading-loose)] text-text-secondary">
+              {story.content}
             </div>
 
             {/* Back link */}
-            <div className="mt-16 pt-8 border-t border-life-border">
+            <div className="mt-16 border-t border-hairline pt-8">
               <Link
                 href="/life"
-                className="inline-flex items-center gap-2 text-life-sage hover:text-life-sand transition-colors"
+                className="inline-flex items-center gap-[var(--space-2)] text-[length:var(--size-body-s)] font-medium text-purple-300 transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
               >
-                <ChevronLeft className="w-4 h-4" />
+                <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
                 <span>{t("backToLife")}</span>
               </Link>
             </div>

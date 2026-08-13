@@ -19,47 +19,44 @@ export function StoryCard({
   readTime,
 }: StoryCardProps) {
   return (
-    <article className="group relative">
-      {/* Card background with life colors */}
-      <div className="h-full p-6 md:p-8 rounded-2xl bg-life-card border border-life-border transition-all duration-300 hover:border-life-sage/50 hover:shadow-lg hover:shadow-life-sage/5">
+    <article className="group h-full">
+      <div className="rk-card rk-card-interactive flex h-full flex-col p-[var(--space-6)] md:p-[var(--space-7)]">
         {/* Date */}
-        <div className="flex items-center gap-2 text-sm text-life-sage mb-4">
-          <Calendar className="w-4 h-4" />
+        <div className="mb-[var(--space-4)] flex items-center gap-[var(--space-2)] text-[length:var(--size-caption)] text-text-tertiary">
+          <Calendar size={16} strokeWidth={1.75} aria-hidden="true" />
           <time dateTime={date}>{date}</time>
           {readTime && (
             <>
-              <span className="text-life-border">•</span>
+              <span aria-hidden="true" className="h-1 w-1 rounded-[var(--radius-pill)] bg-hairline-strong" />
               <span>{readTime}</span>
             </>
           )}
         </div>
 
-        {/* Category tag (optional) */}
+        {/* Category chip */}
         {category && (
-          <span className="inline-block px-3 py-1 text-xs rounded-full bg-life-sage/10 text-life-sage mb-3">
+          <span className="mb-[var(--space-3)] inline-flex w-fit items-center rounded-[var(--radius-pill)] border border-hairline bg-surface-overlay px-[var(--space-3)] py-[var(--space-1)] text-[length:var(--size-caption)] text-text-secondary">
             {category}
           </span>
         )}
 
         {/* Title */}
-        <h3 className="heading-serif text-xl md:text-2xl mb-3 text-foreground group-hover:text-life-sage transition-colors">
-          <Link href={`/life/${slug}`}>
-            {title}
-          </Link>
+        <h3 className="heading-serif mb-[var(--space-3)] text-[length:var(--size-h3)] leading-[var(--leading-snug)] text-text-primary transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] group-hover:text-purple-300">
+          <Link href={`/life/${slug}`}>{title}</Link>
         </h3>
 
         {/* Excerpt */}
-        <p className="body-serif text-muted-foreground mb-6 line-clamp-3">
+        <p className="mb-[var(--space-6)] line-clamp-3 text-[length:var(--size-body-l)] leading-[var(--leading-loose)] text-text-secondary">
           {excerpt}
         </p>
 
-        {/* Read more link */}
+        {/* Read more */}
         <Link
           href={`/life/${slug}`}
-          className="inline-flex items-center gap-2 text-sm font-medium text-life-sage hover:text-life-sand transition-colors"
+          className="mt-auto inline-flex items-center gap-[var(--space-2)] text-[length:var(--size-body-s)] font-medium text-purple-300 transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
         >
           <span>Đọc tiếp</span>
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight size={16} strokeWidth={1.75} aria-hidden="true" />
         </Link>
       </div>
     </article>

@@ -4,10 +4,10 @@ export function OrganizationSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Tony Hoang - AI Educator",
+    "name": "Tony Hoang",
     "url": "https://tranvanhoang.com",
     "logo": "https://tranvanhoang.com/icon.svg",
-    "description": "Dạy AI cho người mới bắt đầu",
+    "description": "Nội dung thực hành về AI cho công việc, marketing và sản phẩm số",
     "founder": {
       "@type": "Person",
       "name": "Tony Hoang"

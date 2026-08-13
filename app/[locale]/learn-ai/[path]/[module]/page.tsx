@@ -38,73 +38,73 @@ export default async function ModulePage({ params }: ModulePageProps) {
   return (
     <>
       {/* Breadcrumb */}
-      <Section className="py-6 bg-card/30">
+      <Section className="py-6">
         <Container>
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Link href="/learn-ai" className="hover:text-coral transition-colors">
+          <nav className="flex items-center gap-2 text-sm text-text-tertiary">
+            <Link
+              href="/learn-ai"
+              className="transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
+            >
               Học AI
             </Link>
-            <span>/</span>
+            <span aria-hidden="true">/</span>
             <Link
               href={`/learn-ai/${path}`}
-              className="hover:text-coral transition-colors"
+              className="transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
             >
               {pathNames[path]}
             </Link>
-            <span>/</span>
-            <span className="text-foreground">Module {moduleNumber}</span>
+            <span aria-hidden="true">/</span>
+            <span className="text-text-primary">Module {moduleNumber}</span>
           </nav>
         </Container>
       </Section>
 
-      {/* Hero */}
-      <Section className="py-12">
+      {/* Hero — reading column */}
+      <Section className="py-10 md:py-14">
         <Container>
-          <div className="max-w-3xl">
-            <h1 className="heading-xl mb-4">Module {moduleNumber}</h1>
-            <p className="text-lg text-muted-foreground mb-6">
+          <div className="max-w-[var(--max-width-prose)]">
+            <p className="eyebrow mb-4">{pathNames[path]}</p>
+            <h1 className="heading-lg">Module {moduleNumber}</h1>
+            <p className="body-serif mt-5">
               Nội dung module đang được phát triển. Hãy quay lại sau để xem chi tiết.
             </p>
 
-            <div className="flex flex-wrap gap-6 mb-8">
-              <div className="flex items-center gap-2 text-sm">
-                <Clock className="w-4 h-4 text-coral" />
-                <span>3-5 ngày học</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <BookOpen className="w-4 h-4 text-coral" />
-                <span>5 bài học</span>
-              </div>
+            <div className="mt-8 flex flex-wrap gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-hairline bg-surface-overlay px-3 py-1 text-xs text-text-secondary">
+                <Clock size={16} strokeWidth={1.75} aria-hidden="true" />
+                3-5 ngày học
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-hairline bg-surface-overlay px-3 py-1 text-xs text-text-secondary">
+                <BookOpen size={16} strokeWidth={1.75} aria-hidden="true" />
+                5 bài học
+              </span>
             </div>
           </div>
         </Container>
       </Section>
 
-      {/* Coming Soon Content */}
-      <Section className="py-12">
+      {/* Coming soon */}
+      <Section className="py-8 md:py-12">
         <Container>
-          <div className="max-w-3xl">
-            <div className="bg-card border border-border rounded-2xl p-8 text-center">
-              <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center">
-                <BookOpen className="w-10 h-10 text-muted-foreground" />
-              </div>
+          <div className="rk-card max-w-[var(--max-width-prose)] p-8">
+            <BookOpen size={24} strokeWidth={1.75} className="text-rocket" aria-hidden="true" />
 
-              <h2 className="text-2xl font-semibold mb-4">
-                Nội dung đang được phát triển 🚧
-              </h2>
+            <h2 className="font-display mt-5 text-2xl font-bold tracking-tight text-text-primary">
+              Nội dung đang được phát triển.
+            </h2>
 
-              <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-                Module này đang trong quá trình hoàn thiện. Đăng ký email để
-                nhận thông báo khi có更新.
-              </p>
+            <p className="mt-3 text-text-secondary">
+              Module này đang trong quá trình hoàn thiện. Đăng ký email để nhận thông báo khi có cập
+              nhật.
+            </p>
 
-              <Link
-                href="/qua"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-coral text-white font-medium hover:bg-coral-dark transition-colors"
-              >
-                <span>Đăng ký nhận thông báo</span>
-              </Link>
-            </div>
+            <Link
+              href="/qua"
+              className="mt-7 inline-flex h-11 items-center gap-2 rounded-[var(--radius-sm)] bg-rocket px-[var(--space-5)] font-medium text-stone transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:bg-rocket-hover hover:shadow-glow-sm active:scale-[var(--press-scale)] active:bg-rocket-press"
+            >
+              Đăng ký nhận thông báo
+            </Link>
           </div>
         </Container>
       </Section>
@@ -112,21 +112,21 @@ export default async function ModulePage({ params }: ModulePageProps) {
       {/* Navigation */}
       <Section className="py-12">
         <Container>
-          <div className="flex items-center justify-between max-w-3xl">
+          <div className="flex max-w-[var(--max-width-prose)] items-center justify-between gap-6 border-t border-hairline pt-6">
             <Link
               href={`/learn-ai/${path}`}
-              className="flex items-center gap-2 text-muted-foreground hover:text-coral transition-colors"
+              className="flex items-center gap-2 text-sm text-text-secondary transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft size={16} strokeWidth={1.75} aria-hidden="true" />
               <span>Quay lại lộ trình</span>
             </Link>
 
             <Link
               href={`/learn-ai/${path}/module-${moduleNumber + 1}`}
-              className="flex items-center gap-2 text-muted-foreground hover:text-coral transition-colors"
+              className="flex items-center gap-2 text-sm text-text-secondary transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
             >
               <span>Module tiếp theo</span>
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight size={16} strokeWidth={1.75} aria-hidden="true" />
             </Link>
           </div>
         </Container>

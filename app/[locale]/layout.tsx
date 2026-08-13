@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next"
 import Script from "next/script"
-import { Inter, Merriweather } from "next/font/google"
+import { Be_Vietnam_Pro, Space_Grotesk } from "next/font/google"
 import { NextIntlClientProvider } from "next-intl"
 import { getMessages, getTranslations, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
@@ -12,23 +12,29 @@ import { Footer } from "@/components/layout/footer"
 import { OrganizationSchema } from "@/components/seo/organization-schema"
 import { WebsiteSchema } from "@/components/seo/website-schema"
 import { PersonSchema } from "@/components/seo/person-schema"
-import { EmailCapturePopupClient } from "@/components/email-capture/email-capture-popup-client"
 import { Providers } from "@/components/providers"
 import { routing } from "@/i18n/routing"
 
-const inter = Inter({
-  variable: "--font-inter",
+// Be Vietnam Pro is purpose-built for Vietnamese body/UI copy. Space Grotesk
+// stays as the display face so the brand keeps its geometric character.
+const beVietnamPro = Be_Vietnam_Pro({
+  variable: "--font-be-vietnam-pro",
   subsets: ["latin", "vietnamese"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
+  preload: false,
 })
 
-const merriweather = Merriweather({
-  variable: "--font-merriweather",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin", "vietnamese"],
   display: "swap",
-  weight: ["300", "400", "700", "900"],
+  weight: "variable",
 })
+
+// Applies the saved scope before first paint so the void-black ground never
+// flashes stone (and vice versa for readers who chose the light scope).
+const themeInitScript = `(function(){try{var t=localStorage.getItem("theme");if(t==="light"){document.documentElement.classList.add("light")}}catch(e){}})()`
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
@@ -56,13 +62,13 @@ export async function generateMetadata({
       description: t("ogDescription"),
       locale: locale === "vi" ? "vi_VN" : "en_US",
       type: "website",
-      siteName: "Tony Hoang AI Educator",
+      siteName: "Tony Hoang",
       images: [
         {
           url: "https://tranvanhoang.com/og-image.png",
           width: 1200,
           height: 630,
-          alt: "Tony Hoang - AI Educator",
+          alt: "Tony Hoang",
         },
       ],
     },
@@ -83,7 +89,8 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#D97757",
+  // Void black is the ground, not a theme.
+  themeColor: "#0A0A0D",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -106,7 +113,11 @@ export default async function LocaleLayout({
   const t = await getTranslations({ locale, namespace: "common" })
 
   return (
-    <html lang={locale} className={`${inter.variable} ${merriweather.variable}`} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={`${beVietnamPro.variable} ${spaceGrotesk.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -124,6 +135,9 @@ export default async function LocaleLayout({
         </Script>
       </head>
       <body className="antialiased min-h-screen flex flex-col">
+        {/* First child of <body> on purpose: React reorders raw <script> tags
+            placed in <head>, which desyncs the JSON-LD blocks on hydration. */}
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <OrganizationSchema />
@@ -132,7 +146,7 @@ export default async function LocaleLayout({
 
             <a
               href="#main-content"
-              className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:bg-background focus:text-foreground"
+              className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:p-4 focus:rounded-[var(--radius-sm)] focus:bg-surface-raised focus:text-text-primary"
             >
               {t("skipToContent")}
             </a>
@@ -145,7 +159,6 @@ export default async function LocaleLayout({
 
             <Footer />
 
-            <EmailCapturePopupClient />
           </Providers>
         </NextIntlClientProvider>
       </body>

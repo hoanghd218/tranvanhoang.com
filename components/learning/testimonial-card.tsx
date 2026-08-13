@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { Quote, Star } from "lucide-react"
+import { Star } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 interface TestimonialCardProps {
@@ -28,39 +28,31 @@ export function TestimonialCard({
     .slice(0, 2)
 
   return (
-    <div className="h-full p-6 bg-card border border-border rounded-xl hover:border-coral/30 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-      {/* Quote icon */}
-      <Quote className="w-8 h-8 text-coral/20 mb-4" />
-
-      {/* Rating stars */}
-      <div className="flex gap-1 mb-4">
+    <div className="rk-card flex h-full flex-col p-6">
+      {/* Rating — Lucide stars only, never emoji */}
+      <div className="flex gap-1" aria-label={`${rating}/5`}>
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
             key={i}
-            className={cn(
-              "w-4 h-4",
-              i < rating ? "text-coral fill-coral" : "text-muted-foreground"
-            )}
+            size={16}
+            strokeWidth={1.75}
+            aria-hidden="true"
+            className={cn(i < rating ? "text-rocket fill-rocket" : "text-text-tertiary")}
           />
         ))}
       </div>
 
-      {/* Content */}
-      <p className="text-muted-foreground mb-6 leading-relaxed">
-        &ldquo;{content}&rdquo;
-      </p>
+      <p className="mt-5 leading-relaxed text-text-primary">&ldquo;{content}&rdquo;</p>
 
-      {/* Author */}
-      <div className="flex items-center gap-3">
-        {/* Avatar or initials */}
-        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-coral to-bronze flex items-center justify-center text-white font-medium text-sm">
+      <div className="mt-auto flex items-center gap-3 pt-6">
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-hairline bg-surface-overlay text-sm font-medium text-text-secondary">
           {avatar ? (
             <Image
               src={avatar}
               alt={name}
               width={40}
               height={40}
-              className="w-full h-full rounded-full object-cover"
+              className="h-full w-full object-cover"
             />
           ) : (
             initials
@@ -68,8 +60,8 @@ export function TestimonialCard({
         </div>
 
         <div>
-          <p className="font-semibold">{name}</p>
-          <p className="text-sm text-muted-foreground">{role}</p>
+          <p className="font-medium text-text-primary">{name}</p>
+          <p className="text-sm text-text-tertiary">{role}</p>
         </div>
       </div>
     </div>

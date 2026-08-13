@@ -1,639 +1,568 @@
-# Design Guidelines
+# Design Guidelines — Rocket AI Design System
 
 **Project**: AI Educator Website
-**Phase**: 2 - Core Layout & Navigation
-**Last Updated**: 2025-01-25
+**System**: Rocket AI (Dark-first, void-black ground)
+**Last Updated**: 2026-08-13
 
-## Overview
+## Brand Foundation
 
-This document provides guidelines for using the design system components and maintaining visual consistency across the AI Educator Website. The design system is built on a coral-bronze color palette with a dark theme foundation.
+**Brand idea**: Human ambition should have no ceiling. **Visual constant**: the 42° trajectory.
 
-## Brand Identity
+**Tagline**: MAKE THE FUTURE POSSIBLE.
 
-### Core Values
+**Core principle**: Void black is the ground, not a theme. Dark is `:root`. `.light` on `<html>` is the opt-in "stone" scope.
 
-- **Professional yet approachable** - Clean design with warm accent colors
-- **Performance-first** - Minimal JavaScript, optimized assets
-- **Accessibility** - WCAG 2.1 AA compliant
-- **Consistency** - Unified component language
+**Product positioning**: Tony Hoang helps Vietnamese professionals turn AI into practical workflows for work, marketing, and digital products. Communication leads with a concrete job and outcome; courses and current content establish context before lead capture.
 
-### Color System
+**Homepage hierarchy**: Positioning → three job-based entry points → featured free course → latest articles → Tony's approach → free resources. The primary CTA is learning; the gift CTA belongs at the end of the journey.
 
-#### Primary Colors
+---
+
+## Hard Rules
+
+1. **Colour ratio is fixed: 75–80% void black, 15–20% rocket purple / indigo, 5% everything else.** Purple appears only as: a single accent word in a headline, the fill on the ONE primary button per view, a hairline on an active surface, and the bloom in the background. Never as a large flat UI area, no purple section backgrounds, no purple-filled cards.
+
+2. **No raw hex, no raw px, no arbitrary colours.** Use tokens only. Prefer Tailwind aliases; fall back to `var(--token)` in arbitrary values like `rounded-[var(--radius-lg)]`.
+
+3. **Two faces only.** Space Grotesk (display/headings) + Be Vietnam Pro (body/UI). No serif, no monospace. `font-display` = Space Grotesk; `font-sans` = Be Vietnam Pro.
+
+4. **No emoji anywhere.** Meaning carried by Lucide icons only (sizes 16/20/24px, `strokeWidth={1.75}`, `currentColor`). One icon per row or label at most.
+
+5. **Motion: one curve.** `var(--ease-trajectory)` — fades and short translations only. No bounce, no overshoot, no spring, no parallax, no rotation on hover.
+
+6. **Shadow vs glow are separate.** Shadows give depth (modals, floating panels). Purple glow gives emphasis (primary button hover, focus ring, active tab). Never both on the same element at rest.
+
+7. **Blur (18px) in exactly three places:** the sticky site header, a bottom tab bar, and the dialog scrim. Everything else is opaque.
+
+8. **Vietnamese typography**: Leading auto-loosens under `[lang="vi"]` for stacked tone marks. Do not hard-code heights on blocks holding Vietnamese copy — use flex/grid and let content set height.
+
+---
+
+## Colour System
+
+### Core Palette
 
 | Token | Hex | Usage |
 |-------|-----|-------|
-| `--coral` | `#D97757` | Primary actions, links, highlights |
-| `--bronze` | `#D4A27C` | Secondary accents, gradients |
+| `--void-black` | `#0A0A0D` | Ground (`:root`) |
+| `--stone` | `#F5F6F7` | Primary text on dark, bg on light |
+| `--rocket-purple` | `#8C25FF` | Accent word, primary button, active state |
+| `--indigo` | `#332BFF` | Complementary gradient, status |
+| `--silver` | `#A7A7B3` | Secondary text |
 
-#### Dark Theme
+### Semantic Surfaces
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--background` | `#0E0E0E` | Page backgrounds |
-| `--foreground` | `#EDEDED` | Primary text |
-| `--card` | `#18181B` | Card backgrounds |
-| `--border` | `#27272A` | Borders, dividers |
-| `--muted` | `#52525B` | Secondary text |
-| `--muted-foreground` | `#A1A1AA` | Muted text |
+Use these in order of precedence:
 
-#### Interaction States
+| Token | Dark Value | Light Value | Purpose |
+|-------|-----------|-------------|---------|
+| `--surface-base` | `#0A0A0D` | `#F5F6F7` | Page background |
+| `--surface-raised` | `#111318` | `#FFFFFF` | Modals, popovers |
+| `--surface-card` | `#14141A` | `#FFFFFF` | Cards, items |
+| `--surface-inset` | `#1C1C24` | `#E6E6E8` | Input, form fill |
+| `--surface-overlay` | 4% white | 3% black | Hover fill, subtle wash |
 
-| State | Color | Token |
-|-------|-------|-------|
-| Hover (primary) | `#C45F3F` | `--coral-dark` |
-| Hover (secondary) | `#B8895F` | `--bronze-dark` |
-| Focus ring | `#D97757` | `--coral` |
+### Borders
+
+| Token | Opacity | Usage |
+|-------|---------|-------|
+| `--border-subtle` | 8% white (dark) | Default hairline |
+| `--border-strong` | 20% white (dark) | Divider emphasis |
+| `--border-accent` | 40% purple | Active state, focus |
+
+### Tailwind Aliases (in app/globals.css)
+
+```css
+text-text-primary       /* Stone on dark, void black on light */
+text-text-secondary     /* Silver / subdued */
+text-text-tertiary      /* Muted, lowest priority */
+text-text-accent        /* Purple */
+text-rocket / bg-rocket /* Primary action */
+bg-rocket-hover / bg-rocket-press
+bg-surface / bg-surface-raised / bg-surface-card
+border-hairline / border-hairline-strong / border-hairline-accent
+```
+
+**Legacy aliases still resolve** (text-coral, bg-card, etc.) but migrate new code to the real names.
+
+---
 
 ## Typography
 
-### Font Family
+### Font Faces
 
-```css
---font-sans: var(--font-inter), system-ui, sans-serif;
---font-heading: var(--font-inter), system-ui, sans-serif;
-```
+- **Display**: Space Grotesk (headings, wordmark)
+- **Body**: Be Vietnam Pro (paragraphs, buttons, labels)
+- Both carry full Vietnamese subset (no fallback substitution)
+- No serif, no monospace
 
-### Heading Scale
+### Type Scale
 
-| Element | Size | Weight |
-|---------|------|--------|
-| `h1` / `.heading-xl` | 3.75rem | 700 |
-| `h2` / `.heading-lg` | 3rem | 700 |
-| `h3` / `.heading-md` | 2.25rem | 700 |
-| Body | 1rem / 16px | 400 |
+| Element | Token | Size | Weight | Usage |
+|---------|-------|------|--------|-------|
+| Display XL | `.heading-xl` | clamp(2.5rem, 6vw, 76px) | 700 | Hero titles |
+| Display L | `.heading-lg` | clamp(2rem, 5vw, 56px) | 700 | Section titles |
+| Display M | `.heading-md` | clamp(1.75rem, 4vw, 44px) | 700 | Subsection titles |
+| Heading 1 | `h1` | 44px | 700 | `--size-h1` |
+| Heading 2 | `h2` | 32px | 700 | `--size-h2` |
+| Heading 3 | `h3` | 24px | 700 | `--size-h3` |
+| Heading 4 | `h4` | 20px | 700 | `--size-h4` |
+| Body Large | `--size-body-l` | 18px | 400 | Long-form text |
+| Body | Base | 16px | 400 | Standard text |
+| Body Small | `--size-body-s` | 14px | 400 | Secondary text |
+| Eyebrow | `.eyebrow` | 11px | 600 | Labels, ALL CAPS |
+| Caption | `--size-caption` | 12px | 400 | Fine print |
+
+### Leading (Line Height)
+
+Vietnamese auto-loosens to prevent stacked tone mark collision:
+
+| Scope | Tight | Snug | Normal | Loose |
+|-------|-------|------|--------|-------|
+| English | 1.04 | 1.18 | 1.5 | 1.7 |
+| Vietnamese `[lang="vi"]` | 1.16 | 1.3 | 1.65 | 1.78 |
 
 ### Text Gradient
 
-Use the `.text-gradient` class for coral-bronze gradient text:
+For the **single accent word** in a headline:
 
 ```tsx
-<span className="text-gradient">Gradient Text</span>
+<span className="text-gradient">featured</span>
 ```
 
-Or use the `GradientText` component for more control.
+Gradient: stone → purple-300 (dark); void black → purple-600 (light).
 
-## Component Usage
+### Wordmark & Eyebrow
 
-### Custom Components
+```css
+.wordmark
+  font-family: var(--font-display)
+  text-transform: uppercase
+  letter-spacing: .34em
 
-Custom components are located in `components/custom/` and use the brand design tokens directly.
-
-#### GradientText
-
-Gradient text with coral-bronze gradient.
-
-```tsx
-import { GradientText } from "@/components/custom/gradient-text"
-
-// Default: coral to bronze gradient
-<GradientText>Featured Content</GradientText>
-
-// Custom gradient colors
-<GradientText from="#FF6B6B" to="#4ECDC4">Custom Colors</GradientText>
-
-// Hover effect disabled
-<GradientText hover={false}>Static Text</GradientText>
-```
-
-**Props:**
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `direction` | number | `135` | Gradient angle in degrees |
-| `from` | string | `var(--coral)` | Start color |
-| `to` | string | `var(--bronze)` | End color |
-| `hover` | boolean | `true` | Enable hover brightness effect |
-
----
-
-#### BrandCard
-
-Card component with optional coral hover border.
-
-```tsx
-import { BrandCard } from "@/components/custom/brand-card"
-
-<BrandCard>
-  <h3>Card Title</h3>
-  <p>Card content here</p>
-</BrandCard>
-
-// No hover border
-<BrandCard hoverBorder={false}>
-  Static card
-</BrandCard>
-
-// Custom padding
-<BrandCard padding="lg">
-  More padding
-</BrandCard>
-```
-
-**Props:**
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `hoverBorder` | boolean | `true` | Show coral border on hover |
-| `padding` | `"sm" \| "md" \| "lg" \| "none"` | `"md"` | Card padding size |
-
-**CSS Classes:** `bg-card`, `rounded-xl`, `border`, `border-border`
-
----
-
-#### CTAButton
-
-Primary call-to-action button with variants.
-
-```tsx
-import { CTAButton } from "@/components/custom/cta-button"
-
-// Primary button
-<CTAButton>Get Started</CTAButton>
-
-// Secondary variant
-<CTAButton variant="secondary">Learn More</CTAButton>
-
-// Outline variant
-<CTAButton variant="outline">View Details</CTAButton>
-
-// Ghost variant
-<CTAButton variant="ghost">Cancel</CTAButton>
-
-// Sizes
-<CTAButton size="sm">Small</CTAButton>
-<CTAButton size="lg">Large</CTAButton>
-
-// Loading state
-<CTAButton loading>Processing...</CTAButton>
-
-// As link (using Slot)
-<CTAButton asChild>
-  <Link href="/signup">Sign Up</Link>
-</CTAButton>
-```
-
-**Variants:**
-
-| Variant | Purpose |
-|---------|---------|
-| `default` | Primary actions (coral background) |
-| `secondary` | Secondary actions (bronze background) |
-| `outline` | Tertiary actions (border only) |
-| `ghost` | Low-emphasis actions |
-
-**Sizes:**
-
-| Size | Height | Padding |
-|------|--------|---------|
-| `sm` | 2rem | px-4, text-xs |
-| `default` | 2.5rem | px-5 |
-| `lg` | 3rem | px-8 |
-| `icon` | 2.5rem | square |
-
-**CSS Classes:** `rounded-lg`, `font-semibold`, `transition-all`, `focus-visible:ring-coral`
-
----
-
-#### Container & Section
-
-Layout components for consistent spacing.
-
-```tsx
-import { Container, Section } from "@/components/custom/container"
-
-// Default container (max-w-6xl, centered)
-<Container>
-  <Section>
-    <h2>Section Title</h2>
-    <p>Section content</p>
-  </Section>
-</Container>
-
-// Small container
-<Container size="md">
-  <Section padding="12">
-    <p>Content</p>
-  </Section>
-</Container>
-
-// No center alignment
-<Container center={false}>
-  Full-width content
-</Container>
-```
-
-**Container Props:**
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `"sm"` to `"7xl"` \| `"full"` | `"6xl"` | Max-width |
-| `padding` | Tailwind px scale | `"6"` | Horizontal padding |
-| `center` | boolean | `true` | Center container |
-
-**Section Props:**
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `padding` | `"0"` to `"24"` | `"16"` | Vertical padding (py-) |
-
----
-
-### UI Components
-
-UI components are located in `components/ui/` and wrap Radix UI primitives with consistent styling.
-
-#### Tabs
-
-```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-<Tabs defaultValue="tab1">
-  <TabsList>
-    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-  </TabsList>
-  <TabsContent value="tab1">Content 1</TabsContent>
-  <TabsContent value="tab2">Content 2</TabsContent>
-</Tabs>
+.eyebrow
+  font-size: 11px
+  font-weight: 600
+  letter-spacing: .18em /* .10em under [lang="vi"] */
+  text-transform: uppercase
+  color: var(--text-secondary)
 ```
 
 ---
 
-#### Accordion
+## Component Recipes
+
+### Primary Button
+
+**Occurs once per view. Never two primary buttons on the same screen.**
 
 ```tsx
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+<button
+  className="
+    bg-rocket text-stone rounded-[var(--radius-sm)]
+    px-[var(--space-5)] h-11 font-medium
+    transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)]
+    hover:bg-rocket-hover hover:shadow-glow-sm
+    active:scale-[var(--press-scale)] active:bg-rocket-press
+  "
+>
+  Button text
+</button>
+```
 
-<Accordion type="single" collapsible>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Section 1</AccordionTrigger>
-    <AccordionContent>Content for section 1</AccordionContent>
-  </AccordionItem>
-</Accordion>
+**States:**
+- Rest: Rocket purple bg, stone text
+- Hover: Lighter purple bg + small purple glow (no shadow)
+- Press: Scale 0.98 + darker purple bg
+- Focus: 2px purple ring at 2px offset (global)
+- Disabled: 40% opacity (no colour change)
+
+### Secondary Button
+
+Transparent fill, hairline border.
+
+```tsx
+<button
+  className="
+    border border-hairline-strong text-text-primary
+    hover:bg-surface-overlay hover:border-hairline-accent
+  "
+>
+  Secondary action
+</button>
+```
+
+### Ghost Button
+
+No border, hover takes 8% white wash.
+
+```tsx
+<button className="hover:bg-surface-overlay">
+  Ghost action
+</button>
+```
+
+### Card
+
+`.rk-card` — carbon fill, 16px radius, 1px hairline, no shadow at rest.
+
+```tsx
+<div className="rk-card">
+  Card content
+</div>
+```
+
+**Interactive variant**: Add `.rk-card-interactive` for hover effects (lift 2px + purple hairline + small glow).
+
+```tsx
+<div className="rk-card rk-card-interactive">
+  Clickable card
+</div>
+```
+
+### Badge / Chip / Tag
+
+Pill radius, subtle background, hairline border.
+
+```tsx
+<div className="
+  inline-flex items-center px-3 h-7
+  bg-surface-overlay border border-hairline rounded-[var(--radius-pill)]
+  text-text-secondary text-sm
+">
+  Tag
+</div>
+
+/* Accent variant */
+<div className="
+  border-hairline-accent text-text-accent bg-[var(--purple-a12)]
+">
+  Accent tag
+</div>
+```
+
+### Input Field
+
+```tsx
+<input
+  className="
+    bg-surface-inset border border-hairline
+    rounded-[var(--radius-sm)] h-11
+    placeholder:text-text-tertiary
+    focus:border-hairline-accent focus-visible:ring-2 ring-[var(--focus-ring)]
+  "
+  placeholder="Placeholder text"
+/>
+```
+
+### Dialog / Modal
+
+**Scrim**: Void black at 72% + 18px blur. **Panel**: `bg-surface-raised`, 24px radius, hairline border, large shadow.
+
+```tsx
+<div className="fixed inset-0 bg-black/72 backdrop-blur-[18px]">
+  <div className="
+    bg-surface-raised border border-hairline
+    rounded-[var(--radius-xl)] shadow-lg
+  ">
+    Modal content
+  </div>
+</div>
+```
+
+### Navigation Bar
+
+Fixed, translucent (`.rk-glass` + hairline border). Active item uses purple underline hairline, not filled pill.
+
+```tsx
+<nav className="fixed top-0 left-0 right-0 rk-glass border-b border-hairline">
+  <a
+    href="/"
+    className="
+      hover:text-rocket
+      border-b-[2px] border-transparent
+      data-active:border-hairline-accent data-active:text-text-accent
+    "
+  >
+    Active item
+  </a>
+</nav>
 ```
 
 ---
 
-#### Avatar
+## The 42° Possibility Field
+
+`.rk-field` — one per screen maximum. Signature background for heroes, covers, section breaks.
 
 ```tsx
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+<section className="rk-field">
+  <div className="relative z-10">
+    <h1 className="text-gradient">Hero Title</h1>
+    <p>Supporting text</p>
+  </div>
+</section>
+```
 
-<Avatar>
-  <AvatarImage src="/avatar.jpg" alt="User" />
-  <AvatarFallback>TVH</AvatarFallback>
-</Avatar>
+**Anatomy:**
+1. Radial bloom: Purple + indigo gradient, centre-biased, 62% opacity
+2. Beam: 1px line at 42° angle with purple glow (medium), 40% opacity
+3. Subtle variant: `.rk-field-soft` dims bloom to 55% + beam glow to small
+
+**Content inside must be `relative z-10`** to sit above the pseudo-elements.
+
+### Glass Surface (`.rk-glass`)
+
+4% white + 18px blur. Used **only** in:
+- Sticky site header
+- Bottom tab bar (if present)
+- Dialog scrim
+
+```tsx
+<header className="rk-glass border-b border-hairline">
+  Header content
+</header>
+```
+
+### Protection Gradient (`.rk-protect`)
+
+Fade from transparent to void black (dark) or stone (light). Use under copy that crosses photography.
+
+```tsx
+<div className="relative">
+  <img src="hero.jpg" alt="" />
+  <div className="absolute inset-0 rk-protect" />
+  <div className="relative z-10 text-stone">
+    <h1>Text over image</h1>
+  </div>
+</div>
 ```
 
 ---
 
-#### Sonner (Toasts)
+## Layout & Spacing
+
+### Container
+
+1200px max width, 32px gutter, centered.
 
 ```tsx
-import { Toaster } from "@/components/ui/sonner"
-
-// In layout
-<Toaster />
-
-// In component
-import { toast } from "sonner"
-
-toast.success("Operation successful")
-toast.error("Something went wrong")
+<div className="container-custom">
+  {/* max-w-[1200px] mx-auto px-[var(--gutter-page)] */}
+  Content
+</div>
 ```
+
+### Sections
+
+96px vertical spacing between sections (96px top + bottom on mobile reduced to 48px).
+
+```tsx
+<section className="section-spacing">
+  {/* py-[var(--section-y)] = py-24 (96px) */}
+  Content
+</section>
+```
+
+### Spacing Tokens
+
+| Token | Value |
+|-------|-------|
+| `--space-1` | 4px |
+| `--space-2` | 8px |
+| `--space-3` | 12px |
+| `--space-4` | 16px |
+| `--space-5` | 24px |
+| `--space-6` | 32px |
+| `--space-7` | 48px |
+| `--space-8` | 64px |
+| `--space-9` | 96px (section y) |
+| `--space-10` | 128px |
+| `--space-11` | 160px |
 
 ---
 
-#### Form
+## Motion & Animation
 
-Forms use React Hook Form with Zod validation.
+### Animations Available
 
-```tsx
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+| Class | Effect | Duration |
+|-------|--------|----------|
+| `.animate-fade-in` | Fade + up 16px | slow (420ms) |
+| `.animate-fade-in-delay-{1\|2\|3}` | Staggered fade-in | slow + delay |
+| `.animate-bloom` | Field glow settling | cinematic (900ms) |
+| `.animate-float` | Subtle up/down bob | 5s (looped) |
+| `.animate-glow-pulse` | Glow pulse | 2.4s |
+| `.shimmer-border` | Beam sweep on card edge | 1.5s on hover |
+| `.animate-draw-line` | Trajectory line draw | slow |
 
-// Define schema
-const schema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(8, "Minimum 8 characters"),
-})
+### Easing
 
-function MyForm() {
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: { email: "", password: "" },
-  })
+Only one curve:
 
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="email@example.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
-  )
-}
+```css
+--ease-trajectory: cubic-bezier(.2, .8, .2, 1);
+```
+
+Used for all transitions (buttons, cards, fades). Feels confident, forward-looking.
+
+### Transition Durations
+
+```css
+--duration-instant: 90ms      /* Micro-interactions */
+--duration-fast: 160ms        /* Hover states */
+--duration-base: 240ms        /* Card transitions */
+--duration-slow: 420ms        /* Page fades, stagger delays */
+--duration-cinematic: 900ms   /* Hero blooms, settling */
 ```
 
 ---
-
-## Navigation Patterns
-
-### Navigation Configuration (`lib/navigation.ts`)
-
-Centralized navigation structure for consistent routing across header and footer.
-
-```typescript
-import { mainNavItems, ctaItem, footerNavItems } from "@/lib/navigation"
-```
-
-**Types:**
-
-```typescript
-type NavItem = {
-  title: string
-  href: string
-  description?: string      // Dropdown description
-  children?: NavItem[]      // Nested navigation items
-}
-```
-
-**Main Navigation Items:**
-
-| Route | Path | Children |
-|-------|------|----------|
-| Về tôi | `/about` | - |
-| Học AI | `/learn` | AI cho người mới, AI cho Marketing, AI cho công việc |
-| Blog | `/blog` | - |
-| Tài nguyên | `/resources` | - |
-| Cuộc sống | `/life` | - |
-
-**Footer Columns:**
-
-| Column | Items |
-|--------|-------|
-| Brand | Logo, tagline |
-| Quick Links | Về tôi, Học AI, Blog, Tài nguyên |
-| Resources | Free Gift, Cuộc sống, Newsletter, Liên hệ |
-| Connect | Email, Facebook, YouTube |
-
-### Header Component (`components/layout/header.tsx`)
-
-Responsive navigation header with desktop and mobile layouts.
-
-```tsx
-import { Header } from "@/components/layout/header"
-
-// In layout.tsx
-<Header />
-```
-
-**Features:**
-
-| Feature | Desktop | Mobile |
-|---------|---------|--------|
-| Navigation | Horizontal `nav` | Sheet drawer |
-| Logo | GradientText | GradientText |
-| CTA Button | Full text | Icon only |
-| Menu Toggle | N/A | Hamburger icon |
-
-**Behavior:**
-- Sticky header with `backdrop-blur-md` on scroll
-- Active route highlighted in coral color
-- Hover state transitions to coral
-- Mobile menu closes on navigation
-
-**Accessibility:**
-- Skip-to-content link (see `app/layout.tsx`)
-- `aria-label` on menu toggle button
-- `sr-only` text for icon-only elements
-- Focus-visible outlines in coral
-
-### Footer Component (`components/layout/footer.tsx`)
-
-4-column footer with newsletter signup and social links.
-
-```tsx
-import { Footer } from "@/components/layout/footer"
-
-// In layout.tsx
-<Footer />
-```
-
-**Layout:**
-
-```
-Mobile: 1 column          Tablet: 2 columns          Desktop: 4 columns
-┌─────────────────┐       ┌─────────────────┐       ┌────┬────┬────┬────┐
-│ Brand           │       │ Brand           │       │ Brand | QL | Res | News│
-│ Quick Links     │   →   │ Quick Links     │   →   └────┴────┴────┴────┘
-│ Resources       │       │ Resources       │
-│ Newsletter      │       │ Newsletter      │
-└─────────────────┘       └─────────────────┘
-```
-
-**Newsletter Form:**
-- Email input with validation
-- Loading state during submission
-- Success message in Vietnamese
-- Styled with `bg-muted/50`
-
-**External Links:**
-- `target="_blank"` for new tab
-- `rel="noopener noreferrer"` for security
-- `aria-label` for screen readers
-
-### Responsive Breakpoints
-
-| Breakpoint | Header | Footer |
-|------------|--------|--------|
-| `< md` | Sheet menu | 1 column |
-| `md - lg` | Sheet menu | 2 columns |
-| `>= lg` | Desktop nav | 4 columns |
-
-### Accessibility Guidelines
-
-#### Skip Link
-
-Required in `app/layout.tsx`:
-
-```tsx
-<a href="#main-content" className="sr-only focus:not-sr-only ...">
-  Skip to main content
-</a>
-```
-
-#### ARIA Labels
-
-| Element | Label |
-|---------|-------|
-| Mobile menu toggle | "Toggle menu" |
-| Mobile menu close | "Close menu" |
-| External social links | Social platform name |
-| Newsletter submit | "Đăng ký" context |
-
-#### Focus Management
-
-- Skip link appears on focus
-- Focus-visible ring: `2px solid var(--coral)`
-- Mobile menu traps focus within sheet
-- Dialog/Sheet uses Radix UI focus trap
-
-### File Organization
-
-```
-components/
-└── layout/                 # Layout components
-    ├── header.tsx         # Responsive header
-    └── footer.tsx         # 4-column footer
-```
-
----
-
-## Spacing System
-
-### Container Layout
-
-```tsx
-<Container size="6xl" padding="6">
-  {/* max-w-6xl, px-6, mx-auto */}
-  <Section padding="16">
-    {/* py-16 */}
-    Content
-  </Section>
-</Container>
-```
-
-### Section Spacing Scale
-
-| Token | Padding | Usage |
-|-------|---------|-------|
-| `0` | py-0 | No spacing |
-| `4` | py-4 | Tight sections |
-| `8` | py-8 | Compact sections |
-| `12` | py-12 | Standard sections |
-| `16` | py-16 | Default sections |
-| `20` | py-20 | Large sections |
-| `24` | py-24 | Hero sections |
-
-## Responsive Design
-
-### Breakpoints
-
-Tailwind 4 default breakpoints apply:
-- `sm`: 640px
-- `md`: 768px
-- `lg`: 1024px
-- `xl`: 1280px
-- `2xl`: 1536px
-
-### Container Widths
-
-| Size | Max-Width | Use Case |
-|------|-----------|----------|
-| `sm` | 24rem | Cards, forms |
-| `md` | 28rem | Narrow content |
-| `lg` | 32rem | Text columns |
-| `xl` | 36rem | Wide forms |
-| `2xl` | 42rem | Standard content |
-| `4xl` | 56rem | Wide layouts |
-| `6xl` | 72rem | Full content |
-| `7xl` | 80rem | Maximum width |
-| `full` | 100vw | Full-width sections |
 
 ## Accessibility
 
-### Focus States
+### Focus Rings
 
-All interactive elements have visible focus states:
+Global, automatic (in `@layer base`):
 
 ```css
 *:focus-visible {
-  outline: 2px solid var(--coral);
+  outline: 2px solid var(--rocket-purple);
   outline-offset: 2px;
 }
 ```
 
-### Color Contrast
+### Colour Contrast
 
-- `--coral` on dark: 4.5:1+ (AA compliant)
-- `--foreground` on `--background`: 15:1+ (AAA compliant)
-- `--muted-foreground` on `--card`: 4.5:1+ (AA compliant)
+All text meets or exceeds WCAG AA (4.5:1):
+- Stone on void black: 14:1 (AAA)
+- Stone on purple (button): 5:1 (AA)
+- Silver on void black: 5.5:1 (AA)
+- Stone on light: 13:1 (AAA)
 
 ### Semantic HTML
 
-- Use `<section>` for major content areas
-- Use `<header>`, `<nav>`, `<main>`, `<footer>` landmarks
 - Use `<button>` for actions, `<a>` for navigation
-- Use ARIA labels for icon-only buttons
+- Use `<section>`, `<header>`, `<nav>`, `<main>`, `<footer>` landmarks
+- Use ARIA labels on icon-only buttons
+
+```tsx
+<button aria-label="Close dialog" onClick={onClose}>
+  <X className="w-5 h-5" />
+</button>
+```
+
+### Skip Link
+
+Include in every layout:
+
+```tsx
+<a href="#main-content" className="sr-only focus:not-sr-only">
+  Skip to main content
+</a>
+```
+
+---
+
+## Icon Usage
+
+**Lucide React only.** Sizes: 16px (dense), 20px (standard), 24px (prominent).
+
+Always use `strokeWidth={1.75}` and `currentColor`.
+
+```tsx
+import { ArrowRight } from 'lucide-react'
+
+<button className="text-rocket">
+  <ArrowRight className="w-5 h-5" strokeWidth={1.75} />
+  Action
+</button>
+```
+
+**Placement**: One icon per row/label at most. Icons carry meaning, never decoration.
+
+---
+
+## Responsive Breakpoints
+
+Tailwind 4 defaults:
+
+| Breakpoint | Width | Use Case |
+|------------|-------|----------|
+| `sm` | 640px | Mobile |
+| `md` | 768px | Tablet |
+| `lg` | 1024px | Desktop |
+| `xl` | 1280px | Wide desktop |
+| `2xl` | 1536px | Ultra-wide |
+
+**Container**: 32px gutter below `md`, 64px on larger screens.
+
+---
+
+## Copy Rules
+
+When you touch visible strings:
+
+- **Voice**: Confident, clear, forward-looking. Short declaratives, often paired — *claim + consequence*.
+- **Case**: Sentence case with full stops, including fragments. ALL CAPS only for: wordmark, eyebrow labels, poster display type.
+- **Buttons**: Sentence case, 1–3 words. Never caps.
+- **Numbers**: Abbreviated and unqualified when strong (`1.2M`, `92%`). Deltas only when real (`+18%`).
+- **Vietnamese**: Display copy is sentence case, not ALL CAPS (stacked marks read as noise at size).
+- **Claims need evidence**: publish statistics, testimonials, experience, ratings, or performance claims only with a verifiable source. Prefer neutral descriptions when evidence is unavailable.
+
+---
 
 ## Best Practices
 
 ### Do
 
-- Use `Container` and `Section` for consistent layout
-- Use `CTAButton` for all call-to-action elements
-- Use `BrandCard` for card-based content
-- Apply coral/bronze colors via design tokens
-- Use semantic HTML elements
+- Use `.rk-field` for hero backgrounds (one per page)
+- Use `.rk-card` + `.rk-card-interactive` for clickable content
+- Use `.rk-glass` only for sticky header, tab bar, dialog scrim
+- Apply motion via `--ease-trajectory` + duration tokens only
+- Use semantic HTML + ARIA labels
+- Test in light scope (add `.light` class to `<html>`)
+- Keep primary button to one per view
+- Left-align content by default; centre only for closing/statement layouts
 
 ### Don't
 
-- Hardcode color values (use CSS variables)
-- Use inline styles for layout
-- Mix custom and shadcn/ui patterns inconsistently
-- Create new components without checking existing ones
+- Hardcode colour values; use CSS variables
+- Use inline styles for layout or motion
+- Create two primary buttons per view
+- Put large purple areas or coloured section backgrounds
+- Use emoji; use Lucide icons instead
+- Use multiple easing curves or custom animations
+- Combine shadow + glow on the same element at rest
+- Hard-code heights on blocks with Vietnamese text
+- Use monospace or serif fonts
 
-### Adding New Components
-
-1. Identify if component is brand-specific (`custom/`) or generic (`ui/`)
-2. Use design tokens for colors, spacing
-3. Follow existing component patterns
-4. Add JSDoc comments for props
-5. Export from component index if applicable
-6. Document in this file
+---
 
 ## File Organization
 
 ```
 components/
-├── custom/                 # Brand-specific components
-│   ├── index.ts           # Barrel export
-│   ├── gradient-text.tsx
-│   ├── brand-card.tsx
-│   ├── cta-button.tsx
-│   └── container.tsx
-├── layout/                 # Layout components (Phase 2)
-│   ├── header.tsx         # Responsive header
-│   └── footer.tsx         # 4-column footer
-└── ui/                    # Generic UI components
-    ├── index.ts           # Barrel export
-    ├── tabs.tsx
-    ├── accordion.tsx
-    ├── avatar.tsx
-    ├── sonner.tsx
-    ├── form.tsx
-    └── ...               # Other primitives
+├── custom/              # Brand components
+│   ├── theme-provider.tsx
+│   ├── container.tsx
+│   └── ...
+├── layout/              # Header, footer
+├── ui/                  # Radix/shadcn primitives
+└── seo/                 # JSON-LD schemas
+
+app/
+├── globals.css          # Token layer (do not edit)
+├── layout.tsx           # Root (pass-through)
+└── [locale]/
+    └── layout.tsx       # Document root (owns <html>, <body>)
 ```
+
+---
 
 ## Related Documentation
 
-- [Codebase Summary](./codebase-summary.md)
-- [Code Standards](./code-standards.md)
-- [System Architecture](./system-architecture.md)
-- [Project Roadmap](./project-roadmap.md)
+- [Codebase Summary](./codebase-summary.md) — Project structure & components
+- [System Architecture](./system-architecture.md) — Technical layers & data flow
+- [Code Standards](./code-standards.md) — Coding conventions
+- [Project Roadmap](./project-roadmap.md) — Timeline & phases
+- [Design System Brief](../plans/260813-1127-rocket-ai-design-system-rollout/design-system-brief.md) — Full specification

@@ -1,12 +1,12 @@
 # tranvanhoang.com - Project Roadmap
 
-**Last Updated:** 2026-03-03
-**Current Version:** 3.0.0
+**Last Updated:** 2026-08-13
+**Current Version:** 3.3.0
 **Repository:** https://github.com/hoangtran/tranvanhoang.com
 
 ## Executive Summary
 
-tranvanhoang.com is a modern personal website and content platform for an AI educator, featuring bilingual support (Vietnamese + English), blog system, learning paths, and course management. The project emphasizes accessibility, performance, and maintainable component architecture using Next.js 16 with Tailwind CSS and Radix UI.
+tranvanhoang.com is a modern personal website and content platform for an AI educator, featuring bilingual support (Vietnamese + English), blog, learning paths, and a localized course catalog. The project emphasizes accessibility, performance, and maintainable component architecture using Next.js 16 with Tailwind CSS and Radix UI.
 
 ---
 
@@ -57,11 +57,11 @@ Full bilingual support (Vietnamese + English) using next-intl v4 with localized 
 - ✅ Dual locale support: Vietnamese (default) + English
 - ✅ Translated route slugs: `/tai-nguyen` (vi) ↔ `/resources` (en)
 - ✅ Full UI translation: ~240 keys in messages/vi.json & messages/en.json
-- ✅ Middleware-based locale detection (Accept-Language header support)
+- ✅ Middleware-based locale routing with deterministic Vietnamese default
 - ✅ LocaleSwitcher component with Globe icon
 - ✅ All pages moved under `app/[locale]/` structure
 - ✅ Locale-aware metadata generation with hreflang alternates
-- ✅ `/courses/*` excluded from i18n (separate hand-rolled system)
+- ✅ Course routes integrated into `app/[locale]` and next-intl (`/courses`, `/en/courses`)
 - ✅ MDX blog content remains Vietnamese-only (culturally specific)
 - ✅ TypeScript locale types for type-safe routing
 
@@ -79,6 +79,84 @@ Full bilingual support (Vietnamese + English) using next-intl v4 with localized 
 - `messages/vi.json` - Vietnamese translations
 - `messages/en.json` - English translations
 - `components/layout/locale-switcher.tsx` - Language toggle UI
+
+---
+
+### Phase 3.1: Bilingual Course Catalog (COMPLETE)
+**Status:** ✅ Complete | **Completion:** 2026-08-13
+**Progress:** 100%
+
+Opened a reusable bilingual course area and published the free “Vibe Coding Sale Page” course.
+
+**Key Achievements:**
+- ✅ Localized catalog at `/courses` and `/en/courses`
+- ✅ Localized detail page at `/courses/vibe-coding-sale-page` and its `/en` variant
+- ✅ Central technical course data in `lib/courses.ts`; localized copy remains in `messages/{locale}.json`
+- ✅ Fathom Workshop 1 embedded responsively with lazy loading and an external fallback link
+- ✅ Workshop 2 shown as unavailable because its current public share URL returns 404; no broken iframe is rendered
+- ✅ Generated local WebP cover used by catalog, hero, Open Graph, and Twitter metadata
+- ✅ Course/Breadcrumb JSON-LD, canonical/hreflang metadata, bilingual sitemap entries
+- ✅ Course link added to localized header and footer navigation
+
+---
+
+### Phase 3.2: Rocket AI Design System Migration (COMPLETE)
+**Status:** ✅ Complete | **Completion:** 2026-08-13
+**Progress:** 100%
+
+Migrated from coral-bronze design system to Rocket AI Design System: dark-first theming on void-black ground, Space Grotesk + Be Vietnam Pro typefaces, 42° trajectory signature, purple accent system, and hard composition rules.
+
+**Key Achievements:**
+- ✅ Rocket AI token layer in `app/globals.css` (core palette, surfaces, borders, typography, spacing, radius, motion)
+- ✅ Dark-first theming model: `:root` = void black, `.light` on `<html>` = opt-in light scope
+- ✅ Pre-paint inline script in `app/[locale]/layout.tsx` prevents theme flash
+- ✅ Typography: Space Grotesk (display) + Be Vietnam Pro (body/UI), Vietnamese leading and tracking tuned by locale
+- ✅ Component recipes: `.rk-field`, `.rk-card`, `.rk-glass`, `.rk-protect`, primary/secondary buttons
+- ✅ Motion system: Single ease curve (trajectory), fades + translations only
+- ✅ Utility classes: `.heading-xl/lg/md`, `.eyebrow`, `.wordmark`, `.text-gradient`, `.animate-*`
+- ✅ Layout restructure: Root layout is pass-through, `app/[locale]/layout.tsx` owns document
+- ✅ Documentation updates: `codebase-summary.md`, `system-architecture.md`, `design-guidelines.md`
+
+**Files Modified:**
+- `app/globals.css` - Full token layer (root, light scope, @theme, @layer base/components)
+- `app/layout.tsx` - Pass-through root layout (no document rendering)
+- `app/[locale]/layout.tsx` - Owns `<html>`, `<body>`, fonts (Space Grotesk + Be Vietnam Pro), pre-paint script
+- `components/custom/theme-provider.tsx` - Dark-first default, `.light` class management
+- Docs: `codebase-summary.md`, `system-architecture.md`, `design-guidelines.md`
+
+**Design Rules Enforced:**
+- Colour ratio: 75–80% void black, 15–20% purple/indigo, 5% rest
+- One primary button per view, one 42° field per screen max
+- No emoji (Lucide icons only, 16/20/24px, strokeWidth 1.75)
+- No multiple easing curves, no bounce/spring/rotation
+- Blur (18px) in sticky header, tab bar, dialog scrim only
+- Shadow and glow never both on same element at rest
+
+---
+
+### Phase 3.3: Practical AI Homepage Positioning (COMPLETE)
+**Status:** ✅ Complete
+**Progress:** 100%
+
+Repositioned the homepage around practical AI for work, marketing, and digital products. Learning now precedes lead capture: job-based paths, the real free course, and live blog content provide proof before the free-resource CTA. Unsupported counters are no longer rendered, and blog discovery reads only `content/blog`.
+
+**Key Achievements:**
+- ✅ Hero identifies Tony's practical-AI focus and routes first to `/courses`, then `/blog`
+- ✅ Three job-based entry points route to the existing beginner, marketing, and work paths
+- ✅ Featured course uses `lib/courses.ts` and localized course copy
+- ✅ Three recent articles use live MDX data instead of hard-coded proof counts
+- ✅ Tony introduction and `/about` link follow the content proof
+- ✅ Free-resource `/qua` CTA closes the journey
+- ✅ VI/EN homepage and metadata copy share the same positioning
+- ✅ Homepage CTA clicks emit a position-specific GA4 event for baseline measurement
+- ✅ Removed the automatic email popup so it cannot interrupt the positioning/proof sequence or report a false submission
+
+**Files Modified:**
+- `app/[locale]/page.tsx` - Homepage section hierarchy
+- `components/home/*.tsx` - Hero, job paths, featured course, proof, about, and closing CTA
+- `messages/vi.json`, `messages/en.json` - Localized homepage and metadata copy
+- `lib/mdx.ts` - Blog discovery rooted at `content/blog`
+- Docs: `design-guidelines.md`, `codebase-summary.md`, `project-roadmap.md`
 
 ---
 
@@ -133,26 +211,32 @@ User analytics, engagement tracking, and content performance insights.
 
 ## Current Development Focus
 
-### 1. i18n Consolidation (Current Phase 3)
+### 1. Course Content Operations (Current)
+- ✅ Bilingual catalog and first free course released
+- ✅ Workshop 1 Fathom embed verified and published
+- 📋 Replace Workshop 2 link after a new public Fathom share URL is provided
+- 📋 Add future courses through the shared catalog/data pattern
+
+### 2. i18n Consolidation
 - ✅ next-intl v4 integration complete
 - ✅ Locale switching UI implemented
 - ✅ Message translations complete (~240 keys)
-- 📋 Testing across different Accept-Language headers
+- 📋 Regression testing for locale-prefixed and default-locale routes
 - 📋 Performance metrics per locale
 
-### 2. Content System Enhancements
+### 3. Content System Enhancements
 - 📋 MDX blog translation support (Phase 4)
 - 📋 Learning path localization
 - 📋 Course content organization
 - 📋 Timeline/Life story management
 
-### 3. SEO & Performance
-- 📋 Sitemap generation for all locales
+### 4. SEO & Performance
+- ✅ Bilingual sitemap entries for the course catalog and detail page
 - 📋 hreflang tag validation
 - 📋 Image optimization pipeline
 - 📋 Core Web Vitals monitoring
 
-### 4. User Experience
+### 5. User Experience
 - 📋 Locale preference persistence (cookie/localStorage)
 - 📋 Content recommendation by locale
 - 📋 Enhanced search functionality
@@ -162,7 +246,7 @@ User analytics, engagement tracking, and content performance insights.
 
 ## Milestone Tracking
 
-### Q1 2026 Milestones (Current)
+### Q1 2026 Milestones (Complete)
 | Milestone | Status | Due Date | Progress |
 |-----------|--------|----------|----------|
 | Phase 1: Foundation | ✅ Complete | 2025-01-15 | 100% |
@@ -180,6 +264,8 @@ User analytics, engagement tracking, and content performance insights.
 ### Q3 2026 Milestones
 | Milestone | Status | Due Date | Progress |
 |-----------|--------|----------|----------|
+| Bilingual Course Catalog | ✅ Complete | 2026-08-13 | 100% |
+| Practical AI Homepage Positioning | 🟡 Measurement pending | 2026-08-13 | 90% |
 | Phase 5: Performance & SEO | 📋 Planned | 2026-09-30 | 0% |
 | Analytics Integration | 📋 Planned | 2026-09-30 | 0% |
 
@@ -246,11 +332,42 @@ User analytics, engagement tracking, and content performance insights.
 - ✅ Dual locale support (vi + en)
 - ✅ Translated route slugs (/tai-nguyen ↔ /resources)
 - ✅ Full UI translation (~240 keys)
-- ✅ Middleware-based locale routing
+- ✅ Middleware-based locale routing (`localeDetection: false`)
 - ✅ LocaleSwitcher component
 - ✅ Locale-aware metadata with hreflang
-- ✅ Courses excluded from i18n system
+- ✅ Course routes supported by the shared next-intl routing system
 - ✅ Blog content Vietnamese-only (intentional)
+
+### Phase 3.1 Features (COMPLETE - 2026-08-13)
+- ✅ Bilingual `/courses` catalog
+- ✅ Bilingual `/courses/vibe-coding-sale-page` detail page
+- ✅ Central course media/status configuration in `lib/courses.ts`
+- ✅ Responsive Fathom embed with external-link fallback
+- ✅ Explicit unavailable state for an invalid video link
+- ✅ Local course cover and localized social metadata
+- ✅ Course and breadcrumb structured data
+- ✅ Sitemap, header, and footer course discovery
+
+### Phase 3.2 Features (COMPLETE - 2026-08-13)
+- ✅ Rocket AI Design System token layer (palette, surfaces, borders, typography, motion, radius)
+- ✅ Dark-first theming model with pre-paint flash prevention
+- ✅ Space Grotesk + Be Vietnam Pro typefaces (no serif/monospace)
+- ✅ Component recipes (.rk-field, .rk-card, .rk-glass, .rk-protect, button variants)
+- ✅ 42° Possibility Field with radial bloom + 42° beam
+- ✅ Motion system (single trajectory ease, fades + translations only)
+- ✅ Accessibility utilities (focus rings, colour contrast, semantic HTML)
+- ✅ Documentation: design-guidelines.md, codebase-summary.md, system-architecture.md updates
+- ✅ Layout restructure (root layout pass-through, locale layout owns document)
+- ✅ Hard rules enforcement (colour ratio, one primary button/field per screen)
+
+### Phase 3.3 Features (IMPLEMENTED - 2026-08-13)
+- ✅ Practical-AI positioning for work, marketing, and digital products
+- ✅ Learning-first CTA order: courses, blog, then closing free resources
+- ✅ Three job-based learning-path entry points
+- ✅ Featured real course plus three recent MDX article cards
+- ✅ Unsupported counters removed from the rendered homepage
+- ✅ VI/EN positioning and metadata alignment
+- ✅ Position-specific CTA analytics event coverage
 
 ### Phase 4 Features (PLANNED)
 - 📋 MDX blog translation support
@@ -294,7 +411,7 @@ User analytics, engagement tracking, and content performance insights.
 - Vercel Analytics (planned)
 - Newsletter service (TBD)
 - SEO tools: JSON-LD schemas
-- Fonts: Google Fonts (Inter, Merriweather)
+- Fonts: Google Fonts (Space Grotesk, Be Vietnam Pro)
 
 ---
 
@@ -303,8 +420,8 @@ User analytics, engagement tracking, and content performance insights.
 ### Technical
 - Static export only (no dynamic rendering/SSR)
 - MDX blog content not compiled at runtime (limitation noted)
-- Locale detection relies on Accept-Language header or URL prefix
-- Course system has separate locale handling (not integrated with next-intl)
+- Automatic locale detection is disabled; Vietnamese is the default and English uses the `/en` prefix
+- Workshop 2 cannot be embedded until a valid public Fathom share URL is provided
 
 ### Content
 - Blog posts are Vietnamese-only (cultural choice, not technical limitation)
@@ -405,7 +522,47 @@ User analytics, engagement tracking, and content performance insights.
 
 ## Release History
 
-### Version 3.0.0 (Current - 2026-03-03)
+### Version 3.3.0 (Current - 2026-08-13)
+**Status**: Practical AI homepage core experience implemented; CTA measurement pending
+
+#### Features
+- ✅ Learning-first homepage hierarchy and bilingual positioning
+- ✅ Real course and live MDX content used as proof
+- ✅ Unsupported homepage counters removed from rendering
+- 📋 Position-specific GA4 CTA events remain follow-up work
+
+---
+
+### Version 3.2.0 (Previous - 2026-08-13)
+**Status**: Rocket AI Design System Migration Complete
+
+#### Features
+- ✅ Complete token layer migration (palette, surfaces, borders, typography, motion, radius)
+- ✅ Dark-first theming model with void-black ground
+- ✅ Space Grotesk + Be Vietnam Pro typeface system
+- ✅ 42° Possibility Field and component recipes
+- ✅ Layout restructure (root pass-through, locale owns document)
+- ✅ Comprehensive documentation updates
+
+#### Documentation Updates
+- ✅ `design-guidelines.md` - Complete rewrite (Rocket AI system)
+- ✅ `codebase-summary.md` - Updated brand design system section
+- ✅ `system-architecture.md` - Updated theming, colors, typography sections
+
+---
+
+### Version 3.1.0 (Previous - 2026-08-13)
+**Status**: Bilingual Course Catalog Complete
+
+#### Features
+- ✅ Localized course catalog and Vibe Coding Sale Page course
+- ✅ Shared course data model and localized VI/EN content
+- ✅ Verified Fathom embed/fallback behavior
+- ✅ Generated course cover, social metadata, JSON-LD, sitemap, and navigation entries
+
+---
+
+### Version 3.0.0 (Previous - 2026-03-03)
 **Status**: Phase 3 Complete - Internationalization
 
 #### Features
@@ -414,7 +571,7 @@ User analytics, engagement tracking, and content performance insights.
 - ✅ ~240 UI translation keys
 - ✅ Translated route slugs (/tai-nguyen ↔ /resources)
 - ✅ LocaleSwitcher component
-- ✅ Middleware-based locale detection
+- ✅ Middleware-based locale routing
 
 #### Documentation
 - ✅ System architecture updated with i18n section
@@ -448,7 +605,7 @@ User analytics, engagement tracking, and content performance insights.
 
 ## Changelog
 
-### Version 2.2.0-beta.4 (Current - 2025-12-28)
+### Legacy Template Notes: Version 2.2.0-beta.4 (2025-12-28)
 
 #### Documentation Updates
 - **Version Alignment**: Updated all docs to v2.2.0-beta.4
@@ -491,11 +648,11 @@ User analytics, engagement tracking, and content performance insights.
 1. **Blog Translation Strategy**: Should English blog posts be machine-generated first, then edited? Or handle manually?
 2. **Analytics Platform**: Which analytics service (Vercel, Plausible, or self-hosted)?
 3. **Newsletter Service**: Which provider integrates best with i18n? (Substack, Convertkit, etc.)
-4. **Course Locale Sync**: Should /courses/* integrate with next-intl or maintain separate system?
+4. **Workshop 2 Video**: What is the replacement public Fathom share URL? The current URL returns 404.
 5. **SEO Priority**: Which locale should be prioritized for search ranking (vi vs en)?
 
 ---
 
 **Maintained By:** tranvanhoang.com Team
-**Last Review:** 2026-03-03
-**Next Review Target:** 2026-06-03
+**Last Review:** 2026-08-13
+**Next Review Target:** 2026-09-13

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Calendar, ArrowRight } from "lucide-react";
+import { ArrowRight, Calendar } from "lucide-react";
 
 interface TimelineItemProps {
   slug: string;
@@ -9,6 +9,10 @@ interface TimelineItemProps {
   readTime?: string;
 }
 
+/**
+ * Timeline row. The rail is a hairline; the node is a purple dot with a small
+ * glow. Row surface uses the list-row radius.
+ */
 export function TimelineItem({
   slug,
   title,
@@ -17,47 +21,54 @@ export function TimelineItem({
   readTime,
 }: TimelineItemProps) {
   return (
-    <article className="relative pl-8 md:pl-12 pb-12 last:pb-0">
-      {/* Timeline line */}
-      <div className="absolute left-0 top-0 bottom-0 w-px bg-life-border" />
+    <article className="group relative pb-12 pl-8 last:pb-0 md:pl-12">
+      {/* Timeline rail — a hairline, nothing heavier */}
+      <div aria-hidden="true" className="absolute bottom-0 left-0 top-0 w-px bg-hairline" />
 
-      {/* Timeline dot */}
-      <div className="absolute left-[-4px] top-2 w-2.5 h-2.5 rounded-full bg-life-sage ring-4 ring-life-background" />
+      {/* Node */}
+      <div
+        aria-hidden="true"
+        className="absolute left-[-3px] top-[14px] h-[7px] w-[7px] rounded-[var(--radius-pill)] bg-purple-300 shadow-glow-sm transition-shadow duration-[var(--duration-base)] ease-[var(--ease-trajectory)] group-hover:shadow-glow-md"
+      />
 
-      {/* Date */}
-      <div className="flex items-center gap-2 text-sm text-life-sand mb-2">
-        <Calendar className="w-3.5 h-3.5" />
-        <time dateTime={date}>{date}</time>
-        {readTime && (
-          <>
-            <span className="text-life-border">•</span>
-            <span>{readTime}</span>
-          </>
-        )}
-      </div>
+      {/* List row */}
+      <div className="-mx-[var(--space-3)] rounded-[var(--radius-md)] px-[var(--space-3)] py-[var(--space-3)] transition-colors duration-[var(--duration-base)] ease-[var(--ease-trajectory)] group-hover:bg-surface-overlay">
+        {/* Date */}
+        <div className="mb-[var(--space-2)] flex items-center gap-[var(--space-2)] text-[length:var(--size-caption)] text-text-tertiary">
+          <Calendar size={16} strokeWidth={1.75} aria-hidden="true" />
+          <time dateTime={date}>{date}</time>
+          {readTime && (
+            <>
+              <span aria-hidden="true" className="h-1 w-1 rounded-[var(--radius-pill)] bg-hairline-strong" />
+              <span>{readTime}</span>
+            </>
+          )}
+        </div>
 
-      {/* Content */}
-      <h3 className="heading-serif text-lg md:text-xl mb-2">
+        {/* Title */}
+        <h3 className="heading-serif mb-[var(--space-2)] text-[length:var(--size-h4)] leading-[var(--leading-snug)] text-text-primary md:text-[length:var(--size-h3)]">
+          <Link
+            href={`/life/${slug}`}
+            className="transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-purple-300"
+          >
+            {title}
+          </Link>
+        </h3>
+
+        {/* Excerpt */}
+        <p className="mb-[var(--space-3)] max-w-[var(--max-width-prose)] text-[length:var(--size-body)] leading-[var(--leading-loose)] text-text-secondary md:text-[length:var(--size-body-l)]">
+          {excerpt}
+        </p>
+
+        {/* Read more */}
         <Link
           href={`/life/${slug}`}
-          className="hover:text-life-sage transition-colors"
+          className="inline-flex items-center gap-[var(--space-2)] text-[length:var(--size-body-s)] font-medium text-purple-300 transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
         >
-          {title}
+          <span>Đọc tiếp</span>
+          <ArrowRight size={16} strokeWidth={1.75} aria-hidden="true" />
         </Link>
-      </h3>
-
-      <p className="body-serif text-muted-foreground text-sm md:text-base mb-3">
-        {excerpt}
-      </p>
-
-      {/* Read more */}
-      <Link
-        href={`/life/${slug}`}
-        className="inline-flex items-center gap-1 text-sm font-medium text-life-sage hover:text-life-sand transition-colors"
-      >
-        <span>Đọc tiếp</span>
-        <ArrowRight className="w-3.5 h-3.5" />
-      </Link>
+      </div>
     </article>
   );
 }
