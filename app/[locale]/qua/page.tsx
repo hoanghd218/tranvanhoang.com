@@ -1,5 +1,4 @@
 import { getTranslations, setRequestLocale } from "next-intl/server"
-import { Container, Section } from "@/components/custom/container"
 import { GiftClaimPageClient } from "@/components/gift/gift-claim-page-client"
 import { getAllGifts } from "@/lib/gifts"
 

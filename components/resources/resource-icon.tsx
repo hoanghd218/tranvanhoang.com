@@ -1,55 +1,46 @@
 /**
  * Resource Icon
  *
- * Displays an icon based on resource type (article, download, video)
+ * Rocket AI recipe: a Lucide glyph in rocket purple on a neutral inset tile.
+ * No emoji, no filled icon sets, no coloured tiles.
  */
 import { FileText, Download, Video, LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ResourceType } from "@/types/resource"
 
+/** Shared type → glyph map so callers can render a bare icon without a tile. */
+export const resourceTypeIcons: Record<ResourceType, LucideIcon> = {
+  article: FileText,
+  download: Download,
+  video: Video,
+}
+
+const resourceTypeLabels: Record<ResourceType, string> = {
+  article: "Bài viết",
+  download: "Tải về",
+  video: "Video",
+}
+
 interface ResourceIconProps {
   type: ResourceType
+  /** Tile size utilities (w-/h-). Defaults to a 48px tile. */
   className?: string
+  /** Glyph size — DS allows 16 / 20 / 24 only. */
+  size?: 16 | 20 | 24
 }
 
-const typeConfig: Record<
-  ResourceType,
-  { icon: LucideIcon; label: string; bgColor: string; iconColor: string }
-> = {
-  article: {
-    icon: FileText,
-    label: "Bài viết",
-    bgColor: "bg-coral/10",
-    iconColor: "text-coral",
-  },
-  download: {
-    icon: Download,
-    label: "Tải về",
-    bgColor: "bg-bronze/10",
-    iconColor: "text-bronze",
-  },
-  video: {
-    icon: Video,
-    label: "Video",
-    bgColor: "bg-blue-500/10",
-    iconColor: "text-blue-500",
-  },
-}
-
-export function ResourceIcon({ type, className }: ResourceIconProps) {
-  const config = typeConfig[type]
-  const Icon = config.icon
+export function ResourceIcon({ type, className, size = 24 }: ResourceIconProps) {
+  const Icon = resourceTypeIcons[type]
 
   return (
     <div
       className={cn(
-        "inline-flex items-center justify-center rounded-lg",
-        config.bgColor,
+        "inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-surface-inset",
         className
       )}
-      title={config.label}
+      title={resourceTypeLabels[type]}
     >
-      <Icon className={cn("w-4 h-4", config.iconColor)} />
+      <Icon size={size} strokeWidth={1.75} className="text-rocket" />
     </div>
   )
 }

@@ -9,10 +9,7 @@ interface TimelineNavProps {
   currentYear: string;
 }
 
-export function TimelineNav({
-  years,
-  currentYear,
-}: TimelineNavProps) {
+export function TimelineNav({ years, currentYear }: TimelineNavProps) {
   const [scrollPosition, setScrollPosition] = useState(0);
   const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -35,23 +32,26 @@ export function TimelineNav({
     }
   };
 
+  const arrowClass =
+    "flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border border-hairline-strong text-text-secondary transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:border-hairline-accent hover:bg-surface-overlay disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:border-hairline-strong disabled:hover:bg-transparent";
+
   return (
-    <div className="sticky top-0 z-10 bg-life-background/95 backdrop-blur-sm border-b border-life-border py-4 mb-8">
-      <div className="flex items-center justify-between gap-4">
-        {/* Previous button */}
+    <div className="sticky top-0 z-10 mb-8 border-b border-hairline bg-surface py-[var(--space-4)]">
+      <div className="container-custom flex items-center gap-[var(--space-4)]">
+        {/* Previous */}
         <button
           onClick={() => scrollBy(-200)}
           disabled={scrollPosition <= 0}
-          className="p-2 rounded-lg border border-life-border bg-life-card hover:border-life-sage/50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className={arrowClass}
           aria-label="Scroll left"
         >
-          <ChevronLeft className="w-5 h-5 text-muted-foreground" />
+          <ChevronLeft size={20} strokeWidth={1.75} aria-hidden="true" />
         </button>
 
-        {/* Years navigation */}
+        {/* Years */}
         <div
           ref={scrollRef}
-          className="flex-1 flex items-center justify-center gap-2 overflow-x-auto scrollbar-hide px-4"
+          className="scrollbar-hide flex flex-1 items-center gap-[var(--space-2)] overflow-x-auto"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           <style jsx>{`
@@ -59,29 +59,33 @@ export function TimelineNav({
               display: none;
             }
           `}</style>
-          {years.map((year) => (
-            <button
-              key={year}
-              onClick={() => handleYearClick(year)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap ${
-                year === currentYear
-                  ? "bg-life-sage text-white"
-                  : "text-muted-foreground hover:text-foreground hover:bg-life-card"
-              }`}
-            >
-              {year}
-            </button>
-          ))}
+          {years.map((year) => {
+            const isActive = year === currentYear;
+            return (
+              <button
+                key={year}
+                onClick={() => handleYearClick(year)}
+                aria-current={isActive ? "true" : undefined}
+                className={`min-h-11 whitespace-nowrap rounded-[var(--radius-pill)] border px-[var(--space-4)] py-[var(--space-2)] text-[length:var(--size-body-s)] font-medium transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] ${
+                  isActive
+                    ? "border-hairline-accent bg-[var(--purple-a12)] text-text-accent"
+                    : "border-hairline bg-surface-overlay text-text-secondary hover:border-hairline-strong hover:text-text-primary"
+                }`}
+              >
+                {year}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Next button */}
+        {/* Next */}
         <button
           onClick={() => scrollBy(200)}
           disabled={scrollPosition >= maxScroll}
-          className="p-2 rounded-lg border border-life-border bg-life-card hover:border-life-sage/50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className={arrowClass}
           aria-label="Scroll right"
         >
-          <ChevronRight className="w-5 h-5 text-muted-foreground" />
+          <ChevronRight size={20} strokeWidth={1.75} aria-hidden="true" />
         </button>
       </div>
     </div>

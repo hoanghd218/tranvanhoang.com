@@ -1,52 +1,34 @@
 "use client"
 
-import * as React from "react"
+import type { LucideIcon } from "lucide-react"
 
 interface StepCardProps {
   number: number
   title: string
   description: string
-  icon: React.ComponentType<{ className?: string }>
+  icon: LucideIcon
+  /** Kept for API compatibility — the trajectory rule is drawn by the section. */
   isLast?: boolean
 }
 
-export function StepCard({
-  number,
-  title,
-  description,
-  icon: Icon,
-  isLast = false,
-}: StepCardProps) {
+/**
+ * Numbered step. The section draws one continuous hairline above the row (the
+ * trajectory); on mobile each step carries its own rule. The number is the accent.
+ */
+export function StepCard({ number, title, description, icon: Icon }: StepCardProps) {
   return (
-    <div className="relative">
-      {/* Connector line (hidden on mobile, hidden for last item) */}
-      {!isLast && (
-        <div className="hidden md:block absolute top-7 left-[calc(50%+2rem)] right-0 h-0.5">
-          <div className="h-full bg-gradient-to-r from-coral/30 to-transparent" />
-        </div>
-      )}
+    <div className="flex h-full flex-col border-t border-hairline pt-6 md:border-t-0 md:pt-0">
+      <span className="font-display text-3xl leading-none font-bold text-rocket">
+        {String(number).padStart(2, "0")}
+      </span>
 
-      <div className="text-center relative z-10">
-        {/* Icon container */}
-        <div className="relative inline-flex items-center justify-center w-14 h-14 mb-4">
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-coral to-bronze opacity-10" />
-          <div className="absolute inset-0 rounded-2xl bg-coral/10" />
-          <Icon className="w-6 h-6 text-coral relative z-10" />
-        </div>
+      <Icon size={24} strokeWidth={1.75} className="mt-6 text-text-secondary" aria-hidden="true" />
 
-        {/* Step number */}
-        <div className="text-sm font-medium text-coral mb-2">
-          Bước {number}
-        </div>
+      <h3 className="font-display mt-4 text-lg font-bold tracking-tight text-text-primary">
+        {title}
+      </h3>
 
-        {/* Title */}
-        <h3 className="font-semibold mb-2">{title}</h3>
-
-        {/* Description */}
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          {description}
-        </p>
-      </div>
+      <p className="mt-2 text-sm leading-relaxed text-text-secondary">{description}</p>
     </div>
   )
 }

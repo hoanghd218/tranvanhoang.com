@@ -52,7 +52,7 @@ export default async function LifePage({ params }: { params: Promise<{ locale: s
       {/* Stories by Year */}
       <Section className="py-8">
         <Container>
-          <div className="max-w-3xl mx-auto">
+          <div className="mx-auto max-w-3xl">
             {/* Quote Highlight */}
             <QuoteHighlight
               quote={t("pageQuote")}
@@ -65,10 +65,11 @@ export default async function LifePage({ params }: { params: Promise<{ locale: s
               {years.map((year) => (
                 <div key={year} className="relative">
                   {/* Year header */}
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="h-px bg-life-sage/30 flex-1" />
-                    <h2 className="heading-serif text-2xl text-life-sage">{year}</h2>
-                    <div className="h-px bg-life-sage/30 flex-1" />
+                  <div className="mb-8 flex items-center gap-[var(--space-4)]">
+                    <h2 className="heading-serif text-[length:var(--size-h3)] text-text-tertiary">
+                      {year}
+                    </h2>
+                    <div aria-hidden="true" className="h-px flex-1 bg-hairline" />
                   </div>
 
                   {/* Stories for this year */}
@@ -89,8 +90,8 @@ export default async function LifePage({ params }: { params: Promise<{ locale: s
 
             {/* Empty State */}
             {stories.length === 0 && (
-              <div className="text-center py-16">
-                <p className="body-serif text-muted-foreground">
+              <div className="py-16">
+                <p className="body-serif">
                   {t("emptyState")}
                   <br />
                   {t("emptyStateSubtitle")}
@@ -101,17 +102,21 @@ export default async function LifePage({ params }: { params: Promise<{ locale: s
         </Container>
       </Section>
 
-      {/* Footer CTA */}
-      <Section className="py-16 bg-life-card/50">
+      {/* Footer CTA — the one primary action on this screen */}
+      <Section className="border-t border-hairline py-16">
         <Container>
-          <div className="max-w-2xl mx-auto text-center">
-            <h2 className="heading-serif text-2xl mb-4">{t("ctaTitle")}</h2>
-            <p className="body-serif text-muted-foreground mb-6">{t("ctaSubtitle")}</p>
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="heading-serif mb-[var(--space-4)] text-[length:var(--size-h2)] leading-[var(--leading-snug)] text-text-primary">
+              {t("ctaTitle")}
+            </h2>
+            <p className="mx-auto mb-[var(--space-6)] max-w-[var(--max-width-prose)] text-[length:var(--size-body-l)] leading-[var(--leading-loose)] text-text-secondary">
+              {t("ctaSubtitle")}
+            </p>
             <Link
               href="/qua"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-life-sage text-white font-medium hover:bg-life-sage-dark transition-colors"
+              className="inline-flex h-11 items-center justify-center rounded-[var(--radius-pill)] bg-rocket px-[var(--space-5)] font-medium text-stone transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:bg-rocket-hover hover:shadow-glow-sm active:scale-[var(--press-scale)] active:bg-rocket-press"
             >
-              <span>{t("ctaButton")}</span>
+              {t("ctaButton")}
             </Link>
           </div>
         </Container>

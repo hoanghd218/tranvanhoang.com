@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl"
 import { Map, BookOpen, Target, Award } from "lucide-react"
 import { Container, Section } from "@/components/custom/container"
-import { SectionHeader } from "@/components/custom/section-header"
 import { StepCard } from "@/components/learning/step-card"
 import { ScrollReveal } from "@/components/custom/scroll-reveal"
 
@@ -18,18 +17,21 @@ export function HowItWorksSection() {
   ]
 
   return (
-    <Section className="py-16 bg-card/30">
+    <Section className="py-16 md:py-24">
       <Container>
         <ScrollReveal>
-          <SectionHeader
-            title={t("howItWorksTitle")}
-            description={t("howItWorksSubtitle")}
-            centered
-          />
+          <div className="max-w-2xl">
+            <h2 className="heading-md">{t("howItWorksTitle")}</h2>
+            <p className="mt-4 text-text-secondary">{t("howItWorksSubtitle")}</p>
+          </div>
         </ScrollReveal>
-        <div className="grid md:grid-cols-4 gap-8 mt-12">
+
+        {/* The trajectory: one continuous hairline above the step row */}
+        <div className="mt-12 hidden h-px w-full bg-hairline md:block" />
+
+        <div className="grid gap-10 md:grid-cols-4 md:gap-8 mt-10 md:mt-8">
           {steps.map((step, index) => (
-            <ScrollReveal key={step.number} delay={index * 150}>
+            <ScrollReveal key={step.number} delay={index * 150} className="h-full">
               <StepCard
                 number={step.number}
                 title={step.title}

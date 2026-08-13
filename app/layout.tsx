@@ -1,23 +1,17 @@
 import type { Metadata, Viewport } from "next"
-import { Inter, Merriweather } from "next/font/google"
-import "./globals.css"
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin", "vietnamese"],
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
-})
-
-const merriweather = Merriweather({
-  variable: "--font-merriweather",
-  subsets: ["latin", "vietnamese"],
-  display: "swap",
-  weight: ["300", "400", "700", "900"],
-})
+/**
+ * Pass-through root layout.
+ *
+ * `app/[locale]/layout.tsx` owns the real document — <html>, <body>, fonts,
+ * providers and globals.css. A root layout that rendered its own <html>/<body>
+ * would nest a second document inside that one, which React 19 reports as a
+ * hydration error and which breaks node removal on client navigation.
+ * This is the documented next-intl layout shape for a `[locale]` segment.
+ */
 
 export const metadata: Metadata = {
-  title: "Tony Hoang - AI Educator",
+  title: "Tony Hoang - AI thực chiến cho công việc và kinh doanh",
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: ["/icon.svg"],
@@ -26,7 +20,8 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#D97757",
+  // Void black is the ground, not a theme.
+  themeColor: "#0A0A0D",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -37,11 +32,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  return (
-    <html lang="vi" className={`${inter.variable} ${merriweather.variable}`} suppressHydrationWarning>
-      <body className="antialiased min-h-screen flex flex-col">
-        {children}
-      </body>
-    </html>
-  )
+  return children
 }

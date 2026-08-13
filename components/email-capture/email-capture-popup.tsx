@@ -93,35 +93,35 @@ export function EmailCapturePopup({
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent
-        className="sm:max-w-[500px] bg-card border-border p-0 gap-0 overflow-hidden"
+        className="gap-0 overflow-hidden p-0 sm:max-w-[500px]"
         showCloseButton={false}
       >
-        {/* Header with gradient background */}
-        <div className="relative bg-gradient-to-br from-coral/20 to-bronze/20 px-6 py-8">
+        {/* Header — flat surface, one hairline. No coloured chrome. */}
+        <div className="relative border-b border-hairline px-[var(--space-5)] pt-[var(--space-5)] pb-[var(--space-4)]">
           <button
             onClick={handleClose}
-            className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+            className="absolute top-4 right-4 rounded-[var(--radius-sm)] p-1 text-text-tertiary transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:bg-surface-overlay hover:text-text-primary"
           >
-            <X className="h-4 w-4" />
+            <X size={16} strokeWidth={1.75} />
             <span className="sr-only">Close</span>
           </button>
 
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-coral/20">
-            <Gift className="h-8 w-8 text-coral" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)] bg-surface-inset">
+            <Gift size={24} strokeWidth={1.75} className="text-rocket" />
           </div>
 
-          <DialogHeader className="mt-4 text-center">
-            <DialogTitle className="text-2xl font-bold">
-              Nhận quà miễn phí!
+          <DialogHeader className="mt-[var(--space-4)] text-left sm:text-left">
+            <DialogTitle className="text-[length:var(--size-h3)] font-bold">
+              Nhận quà miễn phí.
             </DialogTitle>
-            <DialogDescription className="text-muted-foreground mt-2">
-              Điền thông tin để nhận tài nguyên AI hữu ích
+            <DialogDescription className="text-text-secondary">
+              Điền thông tin để nhận tài nguyên AI hữu ích.
             </DialogDescription>
           </DialogHeader>
         </div>
 
         {/* Form or Success content */}
-        <div className="px-6 py-6">
+        <div className="px-[var(--space-5)] py-[var(--space-5)]">
           {showSuccess && submittedData ? (
             <SuccessView
               giftSelections={submittedData.giftSelections}
@@ -133,37 +133,39 @@ export function EmailCapturePopup({
               {/* Name field */}
               <div className="space-y-2">
                 <Label htmlFor="name">
-                  Tên của bạn <span className="text-destructive">*</span>
+                  Tên của bạn <span className="text-status-critical">*</span>
                 </Label>
                 <Input
                   id="name"
                   placeholder="Nguyễn Văn A"
                   {...register('name')}
-                  className={cn(
-                    errors.name && 'border-destructive focus-visible:ring-destructive'
-                  )}
+                  aria-invalid={!!errors.name}
+                  className={cn(errors.name && 'border-[var(--status-critical)]')}
                 />
                 {errors.name && (
-                  <p className="text-sm text-destructive">{errors.name.message}</p>
+                  <p className="text-[length:var(--size-body-s)] text-status-critical">
+                    {errors.name.message}
+                  </p>
                 )}
               </div>
 
               {/* Email field */}
               <div className="space-y-2">
                 <Label htmlFor="email">
-                  Email <span className="text-destructive">*</span>
+                  Email <span className="text-status-critical">*</span>
                 </Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="you@example.com"
                   {...register('email')}
-                  className={cn(
-                    errors.email && 'border-destructive focus-visible:ring-destructive'
-                  )}
+                  aria-invalid={!!errors.email}
+                  className={cn(errors.email && 'border-[var(--status-critical)]')}
                 />
                 {errors.email && (
-                  <p className="text-sm text-destructive">{errors.email.message}</p>
+                  <p className="text-[length:var(--size-body-s)] text-status-critical">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
 
@@ -174,12 +176,8 @@ export function EmailCapturePopup({
                 error={errors.giftSelections?.message}
               />
 
-              {/* Submit button */}
-              <Button
-                type="submit"
-                className="w-full bg-coral hover:bg-coral-dark text-white"
-                disabled={isSubmitting}
-              >
+              {/* The one primary button in this view */}
+              <Button type="submit" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? 'Đang xử lý...' : 'Nhận quà ngay'}
               </Button>
 
@@ -187,7 +185,7 @@ export function EmailCapturePopup({
               <button
                 type="button"
                 onClick={handleClose}
-                className="w-full text-center text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="w-full text-center text-[length:var(--size-body-s)] text-text-secondary transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
               >
                 Để sau
               </button>

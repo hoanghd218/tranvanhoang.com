@@ -3,7 +3,27 @@ import path from "path";
 import matter from "gray-matter";
 import slugify from "slugify";
 
-const contentDirectory = path.join(process.cwd(), "content");
+const contentDirectory = path.join(process.cwd(), "content", "blog");
+const publicDirectory = path.join(process.cwd(), "public");
+
+/**
+ * Returns a frontmatter image path only when the file actually exists under
+ * `public/`. Several posts reference images that were never added, and an
+ * unresolvable path renders as a broken image rather than falling back to the
+ * card's no-image layout. Remote URLs are passed through untouched.
+ */
+function resolvePublicAsset(assetPath?: string): string | undefined {
+  if (!assetPath) return undefined;
+  if (/^https?:\/\//.test(assetPath)) return assetPath;
+
+  const relativePath = assetPath.replace(/^\/+/, "");
+  const absolutePath = path.join(publicDirectory, relativePath);
+
+  // Guard against frontmatter escaping public/ via "../".
+  if (!absolutePath.startsWith(publicDirectory + path.sep)) return undefined;
+
+  return fs.existsSync(absolutePath) ? assetPath : undefined;
+}
 
 export type PostMetadata = {
   title: string;
@@ -99,9 +119,11 @@ function parsePost(filePath: string): BlogPost | null {
     const fileName = path.basename(filePath, path.extname(filePath));
     const slug = slugifyVi(data.slug || data.title || fileName);
 
-    // Calculate reading time
+    // Calculate reading time. Bare minute count — the unit is localised at the
+    // render site via the `common.readingTime` message, so English pages don't
+    // inherit a hard-coded Vietnamese "phút".
     const wordCount = content.split(/\s+/g).length;
-    const readingTime = `${Math.ceil(wordCount / 200)} phút`;
+    const readingTime = String(Math.ceil(wordCount / 200));
 
     return {
       slug,
@@ -114,7 +136,7 @@ function parsePost(filePath: string): BlogPost | null {
         category: data.category,
         author: data.author || "Tony Hoang",
         readingTime,
-        featuredImage: data.featuredImage,
+        featuredImage: resolvePublicAsset(data.featuredImage),
         draft: data.draft || false,
       },
       content,

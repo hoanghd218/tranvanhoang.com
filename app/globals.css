@@ -1,76 +1,328 @@
 @import "tailwindcss";
 
-/* Light Theme (Default) */
+/* ============================================================================
+   ROCKET AI DESIGN SYSTEM — token layer
+   Source: Claude Design project "Rocket AI Design System"
+   Brand rule: void black is the ground, not a theme. Dark is the default scope;
+   `.light` is the opt-in "stone" scope (docs / print / light sections).
+   ========================================================================== */
+
+/* Tailwind `dark:` utilities follow our class strategy, not the OS.
+   Dark applies everywhere EXCEPT inside the `.light` scope. */
+@custom-variant dark (&:where(:not(.light) *, :not(.light)));
+
 :root {
-  /* Brand Colors */
-  --background: #FAFAFA;
-  --foreground: #0f172a;
-  --muted: #94a3b8;
-  --muted-foreground: #64748b;
+  /* ---- Core palette (Brand Guideline 2.0) ---- */
+  --void-black: #0A0A0D;
+  --stone: #F5F6F7;
+  --rocket-purple: #8C25FF;
+  --indigo: #332BFF;
+  --silver: #A7A7B3;
 
-  /* Accent Colors */
-  --coral: #D97757;
-  --bronze: #D4A27F;
-  --coral-dark: #c45f3f;
-  --bronze-dark: #b8895f;
+  /* ---- Extended neutrals ---- */
+  --deep-charcoal: #111318;
+  --soft-gray: #E6E6E8;
+  --carbon: #14141A;
+  --graphite: #1C1C24;
+  --ash: #2A2A33;
 
-  /* UI Colors */
-  --border: #e2e8f0;
-  --border-hover: var(--coral);
-  --card: #ffffff;
-  --card-foreground: #0f172a;
+  /* ---- Legacy accent (Guideline 1.0) — critical status only ---- */
+  --ignition-orange: #FF4B1C;
 
-  /* Gradient values */
-  --gradient-from: var(--coral);
-  --gradient-to: var(--bronze);
+  /* ---- Purple ramp ---- */
+  --purple-100: #EDE2FF;
+  --purple-300: #C79BFF;
+  --purple-500: #8C25FF;
+  --purple-600: #7A18E8;
+  --purple-700: #5E10B4;
+  --purple-900: #2A0857;
 
-  /* Life Page Colors - Calming, Nature-Inspired */
-  --life-sage: #7C9A92;
-  --life-sage-dark: #5c7a70;
-  --life-sand: #D4B996;
-  --life-sand-dark: #b89a6e;
-  --life-lavender: #9B8AA8;
-  --life-moss: #5a6b55;
-  --life-background: #f8fafc;
-  --life-card: #ffffff;
-  --life-border: #e2e8f0;
-  --life-gradient-from: var(--life-sage);
-  --life-gradient-to: var(--life-sand);
+  /* ---- Alpha utilities ---- */
+  --white-a04: rgba(245, 246, 247, .04);
+  --white-a08: rgba(245, 246, 247, .08);
+  --white-a12: rgba(245, 246, 247, .12);
+  --white-a20: rgba(245, 246, 247, .20);
+  --purple-a12: rgba(140, 37, 255, .12);
+  --purple-a24: rgba(140, 37, 255, .24);
+  --purple-a40: rgba(140, 37, 255, .40);
+
+  /* ---- Semantic: surfaces ---- */
+  --surface-base: var(--void-black);
+  --surface-raised: var(--deep-charcoal);
+  --surface-card: var(--carbon);
+  --surface-inset: var(--graphite);
+  --surface-overlay: var(--white-a04);
+  --surface-inverse: var(--stone);
+
+  /* ---- Semantic: text ---- */
+  --text-primary: var(--stone);
+  --text-secondary: var(--silver);
+  --text-tertiary: rgba(167, 167, 179, .62);
+  --text-accent: var(--rocket-purple);
+  --text-inverse: var(--void-black);
+  --text-on-accent: var(--stone);
+
+  /* ---- Semantic: borders ---- */
+  --border-subtle: var(--white-a08);
+  --border-default: var(--white-a12);
+  --border-strong: var(--white-a20);
+  --border-accent: var(--purple-a40);
+
+  /* ---- Semantic: interactive ---- */
+  --action-primary: var(--rocket-purple);
+  --action-primary-hover: #9B41FF;
+  --action-primary-press: var(--purple-600);
+  --action-ghost-hover: var(--white-a08);
+  --focus-ring: var(--rocket-purple);
+
+  /* ---- Status ---- */
+  --status-positive: #3ED598;
+  --status-warning: #FFB020;
+  --status-critical: var(--ignition-orange);
+  --status-info: var(--indigo);
+
+  /* ---- Signature gradients: the 42° trajectory ---- */
+  --gradient-trajectory: linear-gradient(42deg, var(--indigo) 0%, var(--rocket-purple) 55%, var(--stone) 100%);
+  --gradient-beam: linear-gradient(42deg, transparent 0%, var(--purple-a40) 40%, var(--stone) 62%, var(--purple-a40) 80%, transparent 100%);
+  --gradient-ink: linear-gradient(180deg, var(--void-black) 0%, #0D0A16 100%);
+  --gradient-protect: linear-gradient(180deg, rgba(10, 10, 13, 0) 0%, rgba(10, 10, 13, .72) 55%, var(--void-black) 100%);
+  --gradient-text: linear-gradient(92deg, var(--stone) 0%, var(--purple-300) 100%);
+
+  /* ---- Typography ---- */
+  --font-display: var(--font-space-grotesk), "Rocket Sans", system-ui, sans-serif;
+  --font-text: var(--font-be-vietnam-pro), system-ui, sans-serif;
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --size-display-xl: 76px;
+  --size-display-l: 56px;
+  --size-h1: 44px;
+  --size-h2: 32px;
+  --size-h3: 24px;
+  --size-h4: 20px;
+  --size-body-l: 18px;
+  --size-body: 16px;
+  --size-body-s: 14px;
+  --size-caption: 12px;
+  --size-eyebrow: 11px;
+
+  /* Locale overrides below give stacked Vietnamese marks (ế ộ ữ ằ) enough
+     vertical room without making body copy feel disconnected. */
+  --leading-tight: 1.04;
+  --leading-snug: 1.18;
+  --leading-normal: 1.5;
+  --leading-loose: 1.7;
+
+  --tracking-display: -.03em;
+  --tracking-h1: -.02em;
+  --tracking-h2: 0em;
+  --tracking-body: 0em;
+  --tracking-wide: .08em;
+  --tracking-eyebrow: .18em;
+  --tracking-wordmark: .34em;
+
+  /* Bridge Tailwind's semantic utilities back to locale-aware design tokens. */
+  --leading-relaxed: var(--leading-loose);
+  --tracking-tight: var(--tracking-h1);
+
+  /* ---- Spacing / layout ---- */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-11: 160px;
+
+  --gutter-page: 32px;
+  --gutter-page-lg: 64px;
+  --max-width-prose: 64ch;
+  --max-width-content: 1200px;
+  --section-y: var(--space-9);
+
+  /* ---- Radius ---- */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-app-icon: 22%;
+  --radius-pill: 999px;
+
+  /* ---- Elevation: shadows give depth, purple glow gives emphasis.
+     Never both on the same element at rest. ---- */
+  --shadow-none: none;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, .4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, .45);
+  --shadow-lg: 0 24px 64px rgba(0, 0, 0, .55);
+  --shadow-inset-hairline: inset 0 1px 0 rgba(245, 246, 247, .06);
+  --glow-purple-sm: 0 0 16px rgba(140, 37, 255, .35);
+  --glow-purple-md: 0 0 40px rgba(140, 37, 255, .45);
+  --glow-purple-lg: 0 0 96px rgba(140, 37, 255, .40);
+  --blur-glass: blur(18px);
+  --noise-opacity: .035;
+
+  /* ---- Motion: one curve for UI. No bounce, no spring, no parallax. ---- */
+  --ease-trajectory: cubic-bezier(.2, .8, .2, 1);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+  --ease-in-out: cubic-bezier(.65, 0, .35, 1);
+  --duration-instant: 90ms;
+  --duration-fast: 160ms;
+  --duration-base: 240ms;
+  --duration-slow: 420ms;
+  --duration-cinematic: 900ms;
+  --lift-hover: translateY(-2px);
+  --press-scale: .98;
+  --trajectory-angle: 42deg;
+
+  /* ==========================================================================
+     Compatibility layer — existing component classes (bg-card, text-coral,
+     border-border …) keep working and now resolve to Rocket AI values.
+     ======================================================================== */
+  --background: var(--surface-base);
+  --foreground: var(--text-primary);
+  --muted: var(--text-tertiary);
+  --muted-foreground: var(--text-secondary);
+
+  --coral: var(--rocket-purple);
+  --bronze: var(--indigo);
+  --coral-dark: var(--action-primary-press);
+  --bronze-dark: #2620CC;
+
+  --border: var(--border-subtle);
+  --border-hover: var(--rocket-purple);
+  --card: var(--surface-card);
+  --card-foreground: var(--text-primary);
+
+  --gradient-from: var(--rocket-purple);
+  --gradient-to: var(--indigo);
+
+  /* Life page — same system, muted purple/indigo end of the ramp */
+  --life-sage: var(--purple-300);
+  --life-sage-dark: var(--purple-500);
+  --life-sand: var(--silver);
+  --life-sand-dark: #7C7C88;
+  --life-lavender: #A78BFA;
+  --life-moss: var(--purple-700);
+  --life-background: var(--surface-base);
+  --life-card: var(--surface-card);
+  --life-border: var(--border-subtle);
+  --life-gradient-from: var(--purple-300);
+  --life-gradient-to: var(--silver);
 }
 
-/* Dark Theme */
-.dark {
-  --background: #0E0E0E;
-  --foreground: #ededed;
-  --muted: #52525b;
-  --muted-foreground: #a1a1aa;
+/* Vietnamese scope — every leading token loosens for stacked tone marks. */
+[lang="vi"] {
+  --leading-tight: 1.16;
+  --leading-snug: 1.3;
+  --leading-normal: 1.65;
+  --leading-loose: 1.78;
+  --tracking-display: -.01em;
+  --tracking-h1: 0em;
+  --tracking-eyebrow: .1em;
+}
 
-  --border: #27272a;
-  --card: #18181b;
-  --card-foreground: #fafafa;
+/* Light "stone" scope — print, docs, and light sections of the site. */
+.light {
+  --surface-base: var(--stone);
+  --surface-raised: #FFFFFF;
+  --surface-card: #FFFFFF;
+  --surface-inset: var(--soft-gray);
+  --surface-overlay: rgba(10, 10, 13, .03);
+  --surface-inverse: var(--void-black);
 
-  --life-background: #0f0f0f;
-  --life-card: #1a1a1e;
-  --life-border: #2a2a2e;
+  --text-primary: var(--void-black);
+  --text-secondary: #55555F;
+  --text-tertiary: #8A8A94;
+  --text-inverse: var(--stone);
+
+  --border-subtle: rgba(10, 10, 13, .10);
+  --border-default: rgba(10, 10, 13, .16);
+  --border-strong: rgba(10, 10, 13, .28);
+  --action-ghost-hover: rgba(10, 10, 13, .06);
+
+  --gradient-text: linear-gradient(92deg, var(--void-black) 0%, var(--purple-600) 100%);
+  --gradient-protect: linear-gradient(180deg, rgba(245, 246, 247, 0) 0%, rgba(245, 246, 247, .72) 55%, var(--stone) 100%);
+
+  --shadow-sm: 0 1px 2px rgba(10, 10, 13, .06);
+  --shadow-md: 0 8px 24px rgba(10, 10, 13, .10);
+  --shadow-lg: 0 24px 64px rgba(10, 10, 13, .14);
+  --shadow-inset-hairline: inset 0 1px 0 rgba(10, 10, 13, .04);
+
+  --life-sage: var(--purple-600);
+  --life-sage-dark: var(--purple-700);
+  --life-sand: #55555F;
+  --life-sand-dark: #3A3A44;
+  --life-lavender: #6D28D9;
+  --life-moss: var(--purple-900);
 }
 
 @theme inline {
-  /* Color System */
+  /* ---- Rocket AI palette ---- */
+  --color-void: var(--void-black);
+  --color-stone: var(--stone);
+  --color-silver: var(--silver);
+  --color-carbon: var(--carbon);
+  --color-graphite: var(--graphite);
+  --color-ash: var(--ash);
+  --color-charcoal: var(--deep-charcoal);
+  --color-rocket: var(--rocket-purple);
+  --color-rocket-hover: var(--action-primary-hover);
+  --color-rocket-press: var(--action-primary-press);
+  --color-brand-indigo: var(--indigo);
+
+  --color-purple-100: var(--purple-100);
+  --color-purple-300: var(--purple-300);
+  --color-purple-500: var(--purple-500);
+  --color-purple-600: var(--purple-600);
+  --color-purple-700: var(--purple-700);
+  --color-purple-900: var(--purple-900);
+
+  /* ---- Semantic ---- */
+  --color-surface: var(--surface-base);
+  --color-surface-raised: var(--surface-raised);
+  --color-surface-card: var(--surface-card);
+  --color-surface-inset: var(--surface-inset);
+  --color-surface-overlay: var(--surface-overlay);
+  --color-surface-inverse: var(--surface-inverse);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-tertiary: var(--text-tertiary);
+  --color-text-accent: var(--text-accent);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-hairline: var(--border-subtle);
+  --color-hairline-strong: var(--border-strong);
+  --color-hairline-accent: var(--border-accent);
+
+  --color-status-positive: var(--status-positive);
+  --color-status-warning: var(--status-warning);
+  --color-status-critical: var(--status-critical);
+  --color-status-info: var(--status-info);
+
+  /* ---- Compatibility aliases (existing markup) ---- */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-
   --color-coral: var(--coral);
   --color-coral-dark: var(--coral-dark);
   --color-bronze: var(--bronze);
   --color-bronze-dark: var(--bronze-dark);
-
   --color-border: var(--border);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
 
-  /* Life Page Colors */
   --color-life-sage: var(--life-sage);
   --color-life-sage-dark: var(--life-sage-dark);
   --color-life-sand: var(--life-sand);
@@ -81,150 +333,333 @@
   --color-life-card: var(--life-card);
   --color-life-border: var(--life-border);
 
-  /* Typography */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-merriweather), Georgia, serif;
+  /* ---- Typography: two faces only, no third face and no monospace ---- */
+  --font-sans: var(--font-text);
+  --font-display: var(--font-display);
+  --font-heading: var(--font-display);
+  --font-serif: var(--font-display);
 
-  /* Spacing - Generous padding like ClaudeKit */
-  --spacing-section: 4rem;
-  /* py-16 */
-  --spacing-container: 1.5rem;
-  /* px-6 */
+  /* ---- Spacing ---- */
+  --spacing-section: var(--space-9);
+  --spacing-container: var(--gutter-page);
 
-  /* Border Radius */
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-xl: 1rem;
+  /* ---- Radius (DS scale) ---- */
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-pill: var(--radius-pill);
 
-  /* Transitions */
-  --transition-base: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* ---- Elevation ---- */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-glow-sm: var(--glow-purple-sm);
+  --shadow-glow-md: var(--glow-purple-md);
+  --shadow-glow-lg: var(--glow-purple-lg);
+
+  /* ---- Motion ---- */
+  --ease-trajectory: var(--ease-trajectory);
+  --transition-base: var(--duration-fast) var(--ease-trajectory);
+  --transition-smooth: var(--duration-base) var(--ease-trajectory);
 }
 
-/* Base Styles */
-* {
-  border-color: var(--border);
+/* ============================================================================
+   Base element defaults
+   Layered so any Tailwind utility can override them.
+   ========================================================================== */
+
+@layer base {
+  * {
+  border-color: var(--border-subtle);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--surface-base);
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+  background: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-text);
+  font-size: var(--size-body);
+  line-height: var(--leading-normal);
+  font-kerning: normal;
+  font-synthesis: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Utility Classes */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-h1);
+  line-height: var(--leading-snug);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: var(--purple-a40);
+  color: var(--stone);
+}
+
+/* Focus is a 2px rocket-purple ring at 2px offset. */
+*:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+}
+
+/* ============================================================================
+   Signature background: the 42° Possibility Field.
+   One purple/indigo radial bloom + one 1px beam rotated to 42°.
+   One per screen, never two.
+
+   Everything from here down sits in @layer components so a Tailwind utility
+   (border-0, text-stone, rounded-none …) can always override it at a call site.
+   ========================================================================== */
+
+@layer components {
+
+.rk-field {
+  position: relative;
+  background: var(--void-black);
+  overflow: hidden;
+}
+
+.rk-field::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(42% 34% at 62% 46%, rgba(140, 37, 255, .42) 0%, rgba(140, 37, 255, 0) 68%),
+    radial-gradient(28% 22% at 68% 40%, rgba(51, 43, 255, .34) 0%, rgba(51, 43, 255, 0) 70%);
+  pointer-events: none;
+}
+
+.rk-field::after {
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: 50%;
+  height: 1px;
+  transform: rotate(-42deg);
+  background: var(--gradient-beam);
+  box-shadow: var(--glow-purple-md);
+  pointer-events: none;
+}
+
+.rk-field>* {
+  position: relative;
+}
+
+/* Subtle variant — for section breaks that sit under body copy. */
+.rk-field-soft::before {
+  opacity: .55;
+}
+
+.rk-field-soft::after {
+  opacity: .4;
+  box-shadow: var(--glow-purple-sm);
+}
+
+/* Protection gradient for copy that crosses imagery. */
+.rk-protect {
+  background: var(--gradient-protect);
+}
+
+/* ============================================================================
+   Utility classes
+   ========================================================================== */
+
 .text-gradient {
-  background: linear-gradient(135deg, var(--gradient-from) 0%, var(--gradient-to) 100%);
+  background: var(--gradient-text);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-life-gradient {
-  background: linear-gradient(135deg, var(--life-sage) 0%, var(--life-sand) 100%);
+  background: linear-gradient(92deg, var(--stone) 0%, var(--purple-300) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .text-life-gradient-alt {
-  background: linear-gradient(135deg, var(--life-lavender) 0%, var(--life-sage) 100%);
+  background: linear-gradient(92deg, var(--purple-300) 0%, var(--silver) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .border-coral-hover {
-  transition: border-color var(--transition-base);
+  transition: border-color var(--duration-fast) var(--ease-trajectory);
 }
 
 .border-coral-hover:hover {
-  border-color: var(--border-hover);
+  border-color: var(--border-accent);
 }
 
 .container-custom {
-  max-width: 72rem;
-  /* max-w-6xl */
+  max-width: var(--max-width-content);
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--spacing-container);
-  padding-right: var(--spacing-container);
+  padding-left: var(--gutter-page);
+  padding-right: var(--gutter-page);
+}
+
+@media (max-width: 640px) {
+  .container-custom {
+    padding-left: var(--space-5);
+    padding-right: var(--space-5);
+  }
 }
 
 .section-spacing {
-  padding-top: var(--spacing-section);
-  padding-bottom: var(--spacing-section);
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
 }
 
-/* Typography Utilities */
+@media (max-width: 640px) {
+  .section-spacing {
+    padding-top: var(--space-7);
+    padding-bottom: var(--space-7);
+  }
+}
+
+/* ---- Surfaces ---- */
+
+/* Card: carbon fill, 16px radius, one hairline at 8% white, no shadow at rest. */
+.rk-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition:
+    transform var(--duration-base) var(--ease-trajectory),
+    border-color var(--duration-base) var(--ease-trajectory),
+    box-shadow var(--duration-base) var(--ease-trajectory);
+}
+
+/* Emphasis is a purple hairline plus a small glow — never a coloured left
+   border and never a gradient fill. */
+.rk-card-interactive:hover {
+  transform: var(--lift-hover);
+  border-color: var(--border-accent);
+  box-shadow: var(--glow-purple-sm);
+}
+
+/* Glass: 4% white + 18px blur. Allowed in exactly three places — the sticky
+   site header, a bottom tab bar, and the dialog scrim.
+   Prefixed property must come first; Lightning CSS drops the standard one when
+   the -webkit- variant follows it, which silently disables the blur. */
+.rk-glass {
+  background: var(--surface-overlay);
+  -webkit-backdrop-filter: var(--blur-glass);
+  backdrop-filter: var(--blur-glass);
+  border: 1px solid var(--border-subtle);
+}
+
+/* ---- Typography utilities ---- */
+
 .heading-xl {
-  font-size: clamp(2rem, 5vw, 3.75rem);
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, var(--size-display-xl));
+  line-height: var(--leading-tight);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-display);
 }
 
 .heading-lg {
-  font-size: clamp(1.75rem, 4vw, 3rem);
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, var(--size-display-l));
+  line-height: var(--leading-tight);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-display);
 }
 
 .heading-md {
-  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
-  line-height: 1.1;
-  font-weight: 700;
-  letter-spacing: -0.025em;
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, var(--size-h1));
+  line-height: var(--leading-snug);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-h1);
 }
 
-/* Life Page Serif Headings */
+/* Life page headings share the display face — the system has two faces only. */
 .heading-serif {
-  font-family: var(--font-serif);
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-h1);
 }
 
 .heading-serif-lg {
-  font-family: var(--font-serif);
-  font-size: 2.5rem;
-  line-height: 1.2;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.5vw, var(--size-display-l));
+  line-height: var(--leading-snug);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-h1);
 }
 
 .heading-serif-md {
-  font-family: var(--font-serif);
-  font-size: 1.875rem;
-  line-height: 1.25;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3.5vw, var(--size-h2));
+  line-height: var(--leading-snug);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-h2);
 }
 
 .body-serif {
-  font-family: var(--font-serif);
-  line-height: 1.8;
-  max-width: 65ch;
+  font-family: var(--font-text);
+  font-size: var(--size-body-l);
+  line-height: var(--leading-loose);
+  max-width: var(--max-width-prose);
+  color: var(--text-secondary);
 }
 
-/* Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
+/* Eyebrow label — ALL CAPS is reserved for the wordmark, eyebrows and
+   poster display type. In Vietnamese the tracking drops to .1em. */
+.eyebrow {
+  font-family: var(--font-text);
+  font-size: var(--size-eyebrow);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-eyebrow);
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--text-secondary);
 }
 
-/* Focus Styles for Accessibility */
-*:focus-visible {
-  outline: 2px solid var(--coral);
-  outline-offset: 2px;
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-wordmark);
+  text-transform: uppercase;
 }
 
-/* Animation Utilities */
+/* ============================================================================
+   Animation utilities
+   Fades and short translations only. No bounce, no overshoot, no spring.
+   ========================================================================== */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
 
   to {
@@ -233,98 +668,57 @@ html {
   }
 }
 
-@keyframes fadeInDelay1 {
+.animate-fade-in {
+  animation: fadeIn var(--duration-slow) var(--ease-trajectory) forwards;
+}
+
+.animate-fade-in-delay-1 {
+  animation: fadeIn var(--duration-slow) var(--ease-trajectory) 120ms forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-2 {
+  animation: fadeIn var(--duration-slow) var(--ease-trajectory) 240ms forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-delay-3 {
+  animation: fadeIn var(--duration-slow) var(--ease-trajectory) 360ms forwards;
+  opacity: 0;
+}
+
+/* Cinematic bloom — the field's glow settling in on first paint. */
+@keyframes bloomIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }
 
-@keyframes fadeInDelay2 {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInDelay3 {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.animate-bloom {
+  animation: bloomIn var(--duration-cinematic) var(--ease-out) forwards;
 }
 
 @keyframes pulseSlow {
 
   0%,
   100% {
-    transform: scale(1);
     opacity: 1;
   }
 
   50% {
-    transform: scale(1.05);
-    opacity: 0.8;
+    opacity: .72;
   }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-fade-in-delay-1 {
-  animation: fadeIn 0.6s ease-out 0.15s forwards;
-  opacity: 0;
-}
-
-.animate-fade-in-delay-2 {
-  animation: fadeIn 0.6s ease-out 0.3s forwards;
-  opacity: 0;
-}
-
-.animate-fade-in-delay-3 {
-  animation: fadeIn 0.6s ease-out 0.45s forwards;
-  opacity: 0;
 }
 
 .animate-pulse-slow {
-  animation: pulseSlow 3s ease-in-out infinite;
+  animation: pulseSlow 3s var(--ease-in-out) infinite;
 }
 
-/* Gradient background animation */
-@keyframes gradient-shift {
-
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-.animate-gradient-shift {
-  background-size: 200% 200%;
-  animation: gradient-shift 8s ease infinite;
-}
-
-/* Line draw animation */
+/* Line draw — the trajectory extending. */
 @keyframes draw-line {
   from {
     transform: scaleX(0);
@@ -338,10 +732,10 @@ html {
 }
 
 .animate-draw-line {
-  animation: draw-line 0.8s ease-out forwards;
+  animation: draw-line var(--duration-slow) var(--ease-trajectory) forwards;
 }
 
-/* Float animation */
+/* Float — reduced to a short translation; no rotation, per motion rules. */
 @keyframes float {
 
   0%,
@@ -350,15 +744,22 @@ html {
   }
 
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+.animate-float,
+.animate-float-1 {
+  animation: float 5s var(--ease-in-out) infinite;
 }
 
-/* ===== MOTION-DRIVEN ANIMATIONS ===== */
+.animate-float-2 {
+  animation: float 6s var(--ease-in-out) infinite .5s;
+}
+
+.animate-float-3 {
+  animation: float 7s var(--ease-in-out) infinite 1s;
+}
 
 /* Typewriter cursor blink */
 @keyframes blink {
@@ -378,7 +779,7 @@ html {
   animation: blink 0.8s step-end infinite;
 }
 
-/* Shimmer border sweep */
+/* Shimmer border sweep — the beam crossing a card edge. */
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -400,87 +801,35 @@ html {
   inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(90deg,
-      transparent 0%,
-      var(--coral) 50%,
-      transparent 100%);
+  background: linear-gradient(92deg, transparent 0%, var(--rocket-purple) 50%, transparent 100%);
   background-size: 200% 100%;
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   opacity: 0;
-  transition: opacity 0.3s;
+  transition: opacity var(--duration-base) var(--ease-trajectory);
 }
 
 .shimmer-border:hover::before {
   opacity: 1;
-  animation: shimmer 1.5s ease-in-out infinite;
+  animation: shimmer 1.5s var(--ease-in-out) infinite;
 }
 
-/* Glow pulse */
+/* Glow pulse — emphasis only, never combined with a shadow at rest. */
 @keyframes glow-pulse {
 
   0%,
   100% {
-    box-shadow: 0 0 20px rgba(217, 119, 87, 0.3), 0 0 40px rgba(217, 119, 87, 0.1);
+    box-shadow: var(--glow-purple-sm);
   }
 
   50% {
-    box-shadow: 0 0 30px rgba(217, 119, 87, 0.5), 0 0 60px rgba(217, 119, 87, 0.2);
+    box-shadow: var(--glow-purple-md);
   }
 }
 
 .animate-glow-pulse {
-  animation: glow-pulse 2s ease-in-out infinite;
-}
-
-/* Float animations with different speeds */
-@keyframes float-1 {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-15px) rotate(5deg);
-  }
-}
-
-@keyframes float-2 {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-10px) rotate(-3deg);
-  }
-}
-
-@keyframes float-3 {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(0deg);
-  }
-
-  50% {
-    transform: translateY(-20px) rotate(8deg);
-  }
-}
-
-.animate-float-1 {
-  animation: float-1 4s ease-in-out infinite;
-}
-
-.animate-float-2 {
-  animation: float-2 5s ease-in-out infinite 0.5s;
-}
-
-.animate-float-3 {
-  animation: float-3 6s ease-in-out infinite 1s;
+  animation: glow-pulse 2.4s var(--ease-in-out) infinite;
 }
 
 /* Marquee scroll */
@@ -495,65 +844,34 @@ html {
 }
 
 .animate-marquee {
-  animation: marquee 20s linear infinite;
+  animation: marquee 24s linear infinite;
 }
 
 .animate-marquee:hover {
   animation-play-state: paused;
 }
 
-/* Gradient mesh animation */
-@keyframes gradient-mesh {
+/* Gradient drift — used only on the field bloom, never on UI chrome. */
+@keyframes gradient-shift {
 
   0%,
   100% {
     background-position: 0% 50%;
-    opacity: 0.5;
   }
 
   50% {
     background-position: 100% 50%;
-    opacity: 0.7;
   }
+}
+
+.animate-gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 12s var(--ease-in-out) infinite;
 }
 
 .animate-gradient-mesh {
   background-size: 400% 400%;
-  animation: gradient-mesh 8s ease infinite;
-}
-
-/* Magnetic button effect (needs JS for full effect) */
-.magnetic-button {
-  transition: transform 0.2s ease-out;
-}
-
-/* Button ripple effect */
-@keyframes ripple {
-  to {
-    transform: scale(4);
-    opacity: 0;
-  }
-}
-
-.btn-ripple {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-ripple::after {
-  content: '';
-  position: absolute;
-  width: 100px;
-  height: 100px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  transform: scale(0);
-  opacity: 1;
-  pointer-events: none;
-}
-
-.btn-ripple:active::after {
-  animation: ripple 0.6s ease-out;
+  animation: gradient-shift 12s var(--ease-in-out) infinite;
 }
 
 /* Stagger delay utilities */
@@ -577,53 +895,84 @@ html {
   animation-delay: 500ms;
 }
 
-/* Icon pop on hover */
+/* Hover lifts a card 2px; press scales to .98 and darkens — never a colour change. */
+.magnetic-button {
+  transition: transform var(--duration-fast) var(--ease-trajectory);
+}
+
+.magnetic-button:active {
+  transform: scale(var(--press-scale));
+}
+
 .icon-pop {
-  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--duration-base) var(--ease-trajectory);
 }
 
 .icon-pop:hover {
-  transform: scale(1.15) rotate(5deg);
+  transform: translateY(-2px);
 }
 
-/* Card 3D tilt effect */
 .card-tilt {
-  transition: transform 0.3s ease;
-  transform-style: preserve-3d;
+  transition: transform var(--duration-base) var(--ease-trajectory), box-shadow var(--duration-base) var(--ease-trajectory);
 }
 
 .card-tilt:hover {
-  transform: perspective(1000px) rotateX(2deg) rotateY(-2deg) scale(1.02);
+  transform: var(--lift-hover);
+  box-shadow: var(--glow-purple-sm);
 }
 
-/* Reduced Motion Support */
+/* Ripple removed — press state is scale + darken, per the DS state rules. */
+.btn-ripple {
+  position: relative;
+  transition: transform var(--duration-instant) var(--ease-trajectory);
+}
+
+.btn-ripple:active {
+  transform: scale(var(--press-scale));
+}
+
+}
+
+/* ============================================================================
+   Reduced motion — every duration zeroes.
+   Unlayered on purpose so it wins over any utility.
+   ========================================================================== */
+
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+    --duration-cinematic: 0ms;
+  }
 
   .animate-fade-in,
   .animate-fade-in-delay-1,
   .animate-fade-in-delay-2,
   .animate-fade-in-delay-3,
+  .animate-bloom,
+  .animate-float,
   .animate-float-1,
   .animate-float-2,
   .animate-float-3,
   .animate-glow-pulse,
   .animate-marquee,
   .animate-blink,
+  .animate-pulse-slow,
+  .animate-gradient-shift,
+  .animate-gradient-mesh,
   .shimmer-border::before {
     animation: none;
     opacity: 1;
   }
 
-  .animate-pulse-slow {
-    animation: none;
-  }
-
   .card-tilt:hover,
-  .icon-pop:hover {
+  .icon-pop:hover,
+  .rk-card-interactive:hover {
     transform: none;
   }
 
-  /* Disable scroll reveal animations */
   [data-scroll-reveal] {
     opacity: 1 !important;
     transform: none !important;

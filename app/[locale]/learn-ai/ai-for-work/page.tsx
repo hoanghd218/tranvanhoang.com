@@ -1,8 +1,8 @@
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Link } from "@/i18n/navigation"
-import { Clock, Users, BookOpen, CheckCircle, ArrowRight } from "lucide-react"
+import { ArrowRight, BookOpen, Check, Clock, Users } from "lucide-react"
 import { Container, Section } from "@/components/custom/container"
-import { GradientText } from "@/components/custom/gradient-text"
+import { PathMetaChip, PathModuleRow, type PathModule } from "../_components/path-page-parts"
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 }
 
-const modules = [
+const modules: PathModule[] = [
   {
     number: 1,
     title: "AI Personal Assistant",
@@ -80,55 +80,51 @@ export default async function WorkPathPage({ params }: { params: Promise<{ local
 
   return (
     <>
-      {/* Hero */}
-      <Section className="py-12 md:py-16">
+      {/* Hero — the one field on this route */}
+      <Section className="rk-field py-14 md:py-20">
         <Container>
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <Link href="/learn-ai" className="hover:text-coral transition-colors">
+          <nav className="mb-8 flex items-center gap-2 text-sm text-text-tertiary">
+            <Link
+              href="/learn-ai"
+              className="transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
+            >
               {t("aiForWork.breadcrumbLearnAi")}
             </Link>
-            <span>/</span>
-            <span className="text-foreground">{t("aiForWork.breadcrumbCurrent")}</span>
+            <span aria-hidden="true">/</span>
+            <span className="text-text-primary">{t("aiForWork.breadcrumbCurrent")}</span>
           </nav>
 
           <div className="max-w-3xl">
-            <h1 className="heading-xl mb-4">
-              {t("aiForWork.heroTitle")} <GradientText>{t("aiForWork.heroTitleHighlight")}</GradientText>
+            <h1 className="heading-xl">
+              {t("aiForWork.heroTitle")}{" "}
+              <span className="text-gradient">{t("aiForWork.heroTitleHighlight")}</span>
             </h1>
-            <p className="text-lg text-muted-foreground mb-8">
-              {t("aiForWork.heroSubtitle")}
-            </p>
+            <p className="body-serif mt-6">{t("aiForWork.heroSubtitle")}</p>
 
-            {/* Stats */}
-            <div className="flex flex-wrap gap-6 mb-8">
-              <div className="flex items-center gap-2 text-sm">
-                <Clock className="w-4 h-4 text-green-500" />
-                <span>{t("aiForWork.statDuration")}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <BookOpen className="w-4 h-4 text-green-500" />
-                <span>{t("aiForWork.statModules")}</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm">
-                <Users className="w-4 h-4 text-green-500" />
-                <span>{t("aiForWork.statStudents")}</span>
-              </div>
+            <div className="mt-8 flex flex-wrap gap-2">
+              <PathMetaChip icon={Clock} label={t("aiForWork.statDuration")} />
+              <PathMetaChip icon={BookOpen} label={t("aiForWork.statModules")} />
+              <PathMetaChip icon={Users} label={t("aiForWork.statStudents")} />
             </div>
           </div>
         </Container>
       </Section>
 
       {/* What you'll learn */}
-      <Section className="py-8 bg-card/30">
+      <Section className="py-12 md:py-16">
         <Container>
           <div className="max-w-3xl">
-            <h2 className="text-2xl font-semibold mb-6">{t("aiForWork.whatYoullLearnTitle")}</h2>
-            <div className="grid md:grid-cols-2 gap-4">
+            <h2 className="heading-md mb-8">{t("aiForWork.whatYoullLearnTitle")}</h2>
+            <div className="grid gap-4 md:grid-cols-2">
               {outcomes.map((outcome, index) => (
                 <div key={index} className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500 shrink-0 mt-0.5" />
-                  <span>{outcome}</span>
+                  <Check
+                    size={20}
+                    strokeWidth={1.75}
+                    className="mt-0.5 shrink-0 text-status-positive"
+                    aria-hidden="true"
+                  />
+                  <span className="text-text-secondary">{outcome}</span>
                 </div>
               ))}
             </div>
@@ -137,76 +133,54 @@ export default async function WorkPathPage({ params }: { params: Promise<{ local
       </Section>
 
       {/* Curriculum */}
-      <Section className="py-12">
+      <Section className="py-12 md:py-16">
         <Container>
-          <h2 className="text-2xl font-semibold mb-8">{t("aiForWork.curriculumTitle")}</h2>
-          <div className="space-y-4 max-w-3xl">
+          <h2 className="heading-md mb-8">{t("aiForWork.curriculumTitle")}</h2>
+          <div className="max-w-3xl space-y-3">
             {modules.map((module) => (
-              <div
-                key={module.number}
-                className="p-5 bg-card border border-border rounded-xl hover:border-green-500/50 transition-colors"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center text-green-500 font-bold shrink-0">
-                    {module.number}
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold mb-2">{module.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">{module.description}</p>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {module.topics.map((topic) => (
-                        <span
-                          key={topic}
-                          className="px-2 py-1 text-xs rounded-full bg-muted text-muted-foreground"
-                        >
-                          {topic}
-                        </span>
-                      ))}
-                    </div>
-                    <span className="text-xs text-muted-foreground">⏱ {module.duration}</span>
-                  </div>
-                </div>
-              </div>
+              <PathModuleRow key={module.number} module={module} />
             ))}
           </div>
         </Container>
       </Section>
 
       {/* ROI */}
-      <Section className="py-12 bg-card/30">
+      <Section className="py-12 md:py-16">
         <Container>
-          <h2 className="text-2xl font-semibold mb-8">{t("aiForWork.roiTitle")}</h2>
-          <div className="grid md:grid-cols-3 gap-6">
-            {roiMetrics.map((metric, index) => (
-              <div key={index} className="p-6 bg-card border border-border rounded-xl text-center">
-                <p className="text-3xl font-bold text-green-500 mb-2">{metric.value}</p>
-                <p className="font-semibold">{metric.label}</p>
-                <p className="text-sm text-muted-foreground">{metric.description}</p>
+          <h2 className="heading-md mb-8">{t("aiForWork.roiTitle")}</h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            {roiMetrics.map((metric) => (
+              <div key={metric.label} className="rk-card flex h-full flex-col gap-3 p-6">
+                <p className="eyebrow">{metric.label}</p>
+                <p className="font-display text-4xl leading-none font-bold text-text-primary md:text-[length:var(--size-display-l)]">
+                  {metric.value}
+                </p>
+                <p className="text-sm leading-relaxed text-text-secondary">{metric.description}</p>
               </div>
             ))}
           </div>
         </Container>
       </Section>
 
-      {/* CTA */}
-      <Section className="py-16">
+      {/* Closing */}
+      <Section className="py-20 md:py-28">
         <Container>
-          <div className="max-w-2xl mx-auto text-center p-8 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-border">
-            <h2 className="text-2xl font-semibold mb-4">{t("aiForWork.ctaTitle")}</h2>
-            <p className="text-muted-foreground mb-6">{t("aiForWork.ctaSubtitle")}</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="heading-md">{t("aiForWork.ctaTitle")}</h2>
+            <p className="mt-5 text-text-secondary">{t("aiForWork.ctaSubtitle")}</p>
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
               <Link
                 href="/qua"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-green-500 text-white font-medium hover:bg-green-600 transition-colors"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-rocket px-[var(--space-5)] font-medium text-stone transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:bg-rocket-hover hover:shadow-glow-sm active:scale-[var(--press-scale)] active:bg-rocket-press"
               >
                 {t("aiForWork.ctaRegisterBtn")}
               </Link>
               <Link
                 href={{ pathname: "/learn-ai/[path]/[module]", params: { path: "ai-for-work", module: "module-1" } }}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg border-2 border-green-500 text-green-500 font-medium hover:bg-green-500/10 transition-colors"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-hairline-strong px-[var(--space-5)] font-medium text-text-primary transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:border-hairline-accent hover:bg-surface-overlay active:scale-[var(--press-scale)]"
               >
                 {t("aiForWork.ctaModule1Btn")}
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight size={16} strokeWidth={1.75} aria-hidden="true" />
               </Link>
             </div>
           </div>

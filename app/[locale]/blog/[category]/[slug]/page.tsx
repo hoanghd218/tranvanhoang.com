@@ -3,7 +3,6 @@ import { notFound } from "next/navigation"
 import { Link } from "@/i18n/navigation"
 import NextLink from "next/link"
 import { getPostBySlug, getRelatedPosts, getAllCategories } from "@/lib/mdx"
-import { GradientText } from "@/components/custom/gradient-text"
 import { Container, Section } from "@/components/custom/container"
 import { PostCard } from "@/components/blog/post-card"
 import { ArticleSchema } from "@/components/seo/article-schema"
@@ -74,10 +73,14 @@ export async function generateStaticParams() {
   return params
 }
 
+const SHARE_BUTTON_CLASS =
+  "inline-flex h-11 items-center justify-center rounded-[var(--radius-sm)] border border-hairline-strong px-[var(--space-5)] text-[length:var(--size-body-s)] font-medium text-text-primary transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:border-hairline-accent hover:bg-surface-overlay"
+
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { locale, category, slug } = await params
   setRequestLocale(locale)
   const t = await getTranslations({ locale, namespace: "blog" })
+  const tCommon = await getTranslations({ locale, namespace: "common" })
 
   const post = getPostBySlug(category, slug)
 
@@ -114,53 +117,61 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         ]}
       />
 
-      {/* Hero */}
-      <Section className="py-12 md:py-16">
+      {/* Post header — the one 42° field on this screen */}
+      <Section className="rk-field py-12 md:py-16">
         <Container>
           {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <Link href="/blog" className="hover:text-coral transition-colors">
+          <nav className="mb-[var(--space-6)] flex items-center gap-[var(--space-2)] text-[length:var(--size-body-s)] text-text-tertiary">
+            <Link
+              href="/blog"
+              className="transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
+            >
               {t("breadcrumbBlog")}
             </Link>
-            <span>/</span>
+            <span aria-hidden="true">/</span>
             {currentCategory && (
               <>
                 <Link
                   href={{ pathname: "/blog/[category]", params: { category } }}
-                  className="hover:text-coral transition-colors"
+                  className="transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:text-text-primary"
                 >
                   {currentCategory.name}
                 </Link>
-                <span>/</span>
+                <span aria-hidden="true">/</span>
               </>
             )}
-            <span className="text-foreground truncate max-w-[200px]">{post.metadata.title}</span>
+            <span className="max-w-[200px] truncate text-text-secondary">{post.metadata.title}</span>
           </nav>
 
-          {/* Title & Meta */}
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="heading-lg mb-4">
-              <GradientText>{post.metadata.title}</GradientText>
+          {/* Title & meta */}
+          <div className="max-w-3xl">
+            <h1 className="heading-md mb-[var(--space-4)] text-text-primary">
+              {post.metadata.title}
             </h1>
-            <p className="text-xl text-muted-foreground mb-6">{post.metadata.description}</p>
+            <p className="mb-[var(--space-6)] max-w-[var(--max-width-prose)] text-[length:var(--size-body-l)] leading-[var(--leading-loose)] text-text-secondary">
+              {post.metadata.description}
+            </p>
 
-            {/* Meta Info */}
-            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
+            <div className="flex flex-wrap items-center gap-[var(--space-3)] text-[length:var(--size-body-s)] text-text-tertiary">
               <span>{post.metadata.date}</span>
-              <span className="w-1 h-1 rounded-full bg-muted-foreground" />
-              <span>{post.readingTime} {t("minutesRead")}</span>
-              <span className="w-1 h-1 rounded-full bg-muted-foreground" />
+              {post.readingTime && (
+                <>
+                  <span aria-hidden="true" className="h-1 w-1 rounded-[var(--radius-pill)] bg-hairline-strong" />
+                  <span>{tCommon("readingTime", { minutes: post.readingTime })}</span>
+                </>
+              )}
+              <span aria-hidden="true" className="h-1 w-1 rounded-[var(--radius-pill)] bg-hairline-strong" />
               <span>{post.metadata.author}</span>
             </div>
 
             {/* Tags */}
             {post.metadata.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 justify-center mt-6">
+              <div className="mt-[var(--space-5)] flex flex-wrap gap-[var(--space-2)]">
                 {post.metadata.tags.map((tag) => (
                   <NextLink
                     key={tag}
                     href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="px-3 py-1 rounded-full bg-muted text-sm text-muted-foreground hover:bg-coral/10 hover:text-coral transition-colors"
+                    className="rounded-[var(--radius-pill)] border border-hairline bg-surface-overlay px-[var(--space-3)] py-[var(--space-1)] text-[length:var(--size-caption)] text-text-secondary transition-colors duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:border-hairline-accent hover:text-text-accent"
                   >
                     #{tag}
                   </NextLink>
@@ -171,52 +182,51 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </Container>
       </Section>
 
-      {/* Featured Image Placeholder */}
-      <Section className="py-4">
-        <Container>
-          <div className="max-w-4xl mx-auto aspect-video rounded-2xl bg-gradient-to-br from-coral/10 to-bronze/10 flex items-center justify-center">
-            <span className="text-6xl">📝</span>
-          </div>
-        </Container>
-      </Section>
+      {/* Featured image — only when the post actually has one */}
+      {post.metadata.featuredImage && (
+        <Section className="py-4">
+          <Container>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={post.metadata.featuredImage}
+              alt=""
+              className="mx-auto w-full max-w-4xl rounded-[var(--radius-lg)] border border-hairline object-cover"
+            />
+          </Container>
+        </Section>
+      )}
 
-      {/* Content */}
+      {/* Content — 64ch reading column */}
       <Section className="py-8">
         <Container>
-          <article className="max-w-3xl mx-auto prose prose-lg prose-muted">
-            <div className="mdx-content">
-              <pre className="whitespace-pre-wrap font-sans text-base leading-relaxed text-muted-foreground">
-                {post.content}
-              </pre>
+          <article className="mdx-content max-w-[var(--max-width-prose)]">
+            <div className="whitespace-pre-wrap font-sans text-[length:var(--size-body-l)] leading-[var(--leading-loose)] text-text-secondary">
+              {post.content}
             </div>
           </article>
 
           {/* Share */}
-          <div className="max-w-3xl mx-auto mt-12 pt-8 border-t border-border">
-            <p className="text-center text-sm text-muted-foreground mb-4">
+          <div className="mt-12 max-w-[var(--max-width-prose)] border-t border-hairline pt-8">
+            <p className="mb-[var(--space-4)] text-[length:var(--size-body-s)] text-text-tertiary">
               {t("shareThis")}
             </p>
-            <div className="flex justify-center gap-3">
-              <button className="px-4 py-2 rounded-lg bg-[#1877F2] text-white text-sm font-medium hover:opacity-90 transition-opacity">
-                Facebook
-              </button>
-              <button className="px-4 py-2 rounded-lg bg-[#1DA1F2] text-white text-sm font-medium hover:opacity-90 transition-opacity">
-                Twitter
-              </button>
-              <button className="px-4 py-2 rounded-lg bg-[#0A66C2] text-white text-sm font-medium hover:opacity-90 transition-opacity">
-                LinkedIn
-              </button>
+            <div className="flex flex-wrap gap-[var(--space-3)]">
+              <button className={SHARE_BUTTON_CLASS}>Facebook</button>
+              <button className={SHARE_BUTTON_CLASS}>Twitter</button>
+              <button className={SHARE_BUTTON_CLASS}>LinkedIn</button>
             </div>
           </div>
         </Container>
       </Section>
 
-      {/* Related Posts */}
+      {/* Related posts — 3-up */}
       {relatedPosts.length > 0 && (
-        <Section className="py-12 bg-card/30">
+        <Section className="border-t border-hairline py-12">
           <Container>
-            <h2 className="text-2xl font-semibold text-center mb-8">{t("relatedPosts")}</h2>
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <h2 className="font-display mb-[var(--space-6)] text-[length:var(--size-h3)] font-bold text-text-primary">
+              {t("relatedPosts")}
+            </h2>
+            <div className="grid gap-[var(--space-5)] md:grid-cols-2 lg:grid-cols-3">
               {relatedPosts.map((relatedPost) => (
                 <PostCard key={relatedPost.slug} post={relatedPost} />
               ))}
@@ -225,15 +235,19 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </Section>
       )}
 
-      {/* CTA */}
+      {/* CTA — the one primary action on this screen */}
       <Section className="py-16">
         <Container>
-          <div className="max-w-2xl mx-auto text-center p-8 rounded-2xl bg-gradient-to-br from-coral/10 to-bronze/10 border border-border">
-            <h2 className="text-2xl font-semibold mb-4">{t("readyToLearnAi")}</h2>
-            <p className="text-muted-foreground mb-6">{t("readyToLearnAiDesc")}</p>
+          <div className="rk-card mx-auto max-w-2xl p-[var(--space-7)] text-center">
+            <h2 className="font-display mb-[var(--space-4)] text-[length:var(--size-h2)] font-bold leading-[var(--leading-snug)] text-text-primary">
+              {t("readyToLearnAi")}
+            </h2>
+            <p className="mx-auto mb-[var(--space-6)] max-w-[var(--max-width-prose)] text-[length:var(--size-body)] leading-[var(--leading-loose)] text-text-secondary">
+              {t("readyToLearnAiDesc")}
+            </p>
             <Link
               href="/qua"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-coral text-white font-medium hover:bg-coral-dark transition-colors"
+              className="inline-flex h-11 items-center justify-center rounded-[var(--radius-pill)] bg-rocket px-[var(--space-5)] font-medium text-stone transition-all duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] hover:bg-rocket-hover hover:shadow-glow-sm active:scale-[var(--press-scale)] active:bg-rocket-press"
             >
               {t("getFreeGift")}
             </Link>

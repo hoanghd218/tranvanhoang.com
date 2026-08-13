@@ -1,4 +1,5 @@
 import { SqueezePage } from "@/components/squeeze-page/squeeze-page"
+import { GradientText } from "@/components/custom/gradient-text"
 
 export const metadata = {
   title: "Skill Claude AI Tạo Sách Coloring Book Bán Amazon KDP",
@@ -17,11 +18,10 @@ export default function ColoringBookSkillPage() {
     <SqueezePage
       title={
         <>
-          Skill Claude AI
+          Skill Claude AI tạo sách{" "}
+          <GradientText>coloring book</GradientText>
           <br />
-          Tạo Sách Coloring Book
-          <br />
-          Bán Amazon KDP
+          bán trên Amazon KDP.
         </>
       }
       video={{
@@ -29,16 +29,16 @@ export default function ColoringBookSkillPage() {
         title: "Hướng dẫn tạo sách coloring book bán Amazon KDP với Claude AI",
       }}
       form={{
-        buttonText: "Nhận Skill Miễn Phí",
+        buttonText: "Nhận skill miễn phí",
         placeholder: "Email của bạn",
         webhookUrl:
           "https://n8n.bimspeed.net/webhook/6135553c-02ef-4ad6-b05a-c1b431c4f182",
-        successMessage: "Đã gửi! Kiểm tra email của bạn nhé 🎉",
+        successMessage: "Đã gửi. Kiểm tra email của bạn nhé.",
       }}
       profile={{
         avatar: { src: "/hoang-profile.webp", alt: "Tony Hoang" },
         name: "Tony Hoang",
-        tagline: "AI Educator & Content Creator",
+        tagline: "AI practitioner & content creator",
         bio: (
           <>
             Mình là Tony — mình chia sẻ cách dùng AI để tạo thu nhập online.

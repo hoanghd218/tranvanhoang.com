@@ -4,9 +4,9 @@ export function WebsiteSchema() {
   const schema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Tony Hoang - AI Educator",
+    "name": "Tony Hoang",
     "url": "https://tranvanhoang.com",
-    "description": "Dạy AI cho người mới bắt đầu",
+    "description": "Chia sẻ cách ứng dụng AI vào công việc, marketing và sản phẩm số",
     "inLanguage": "vi",
     "potentialAction": {
       "@type": "SearchAction",

@@ -6,10 +6,22 @@ import { GradientText } from "./gradient-text"
 interface SectionHeaderProps {
   title: string
   description?: string
+  /**
+   * Centring is opt-in. Content is left-aligned by default; only closing or
+   * statement layouts centre.
+   */
   centered?: boolean
   className?: string
   titleClassName?: string
+  /**
+   * The single accent word inside `title`, rendered with the text gradient.
+   */
   highlightText?: string
+  /**
+   * Optional eyebrow label above the heading. Caps + wide tracking; the
+   * tracking drops automatically under `lang="vi"`.
+   */
+  eyebrow?: string
 }
 
 export function SectionHeader({
@@ -19,6 +31,7 @@ export function SectionHeader({
   className,
   titleClassName,
   highlightText,
+  eyebrow,
 }: SectionHeaderProps) {
   const renderTitle = () => {
     if (!highlightText) return title
@@ -34,11 +47,19 @@ export function SectionHeader({
 
   return (
     <div className={cn(centered && "text-center", className)}>
-      <h2 className={cn("text-2xl md:text-3xl font-semibold mb-4", titleClassName)}>
+      {eyebrow && (
+        <p className={cn("eyebrow mb-[var(--space-3)]")}>{eyebrow}</p>
+      )}
+      <h2 className={cn("heading-md text-text-primary", titleClassName)}>
         {renderTitle()}
       </h2>
       {description && (
-        <p className="text-muted-foreground max-w-2xl mx-auto">
+        <p
+          className={cn(
+            "mt-[var(--space-4)] max-w-[64ch] text-text-secondary",
+            centered && "mx-auto"
+          )}
+        >
           {description}
         </p>
       )}
