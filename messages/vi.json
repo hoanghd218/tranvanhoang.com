@@ -419,6 +419,14 @@
     "metaTitle": "Nhận quà tặng AI miễn phí - Tony Hoang AI Educator",
     "metaDescription": "Điền thông tin để nhận ngay bộ tài nguyên AI miễn phí: templates, prompts, checklist và nhiều hơn nữa."
   },
+  "zaloAgents": {
+    "metaTitle": "Tham gia nhóm Zalo Agents - Tony Hoang",
+    "metaDescription": "Đang chuyển bạn đến nhóm Zalo Agents.",
+    "title": "Đang mở nhóm Zalo Agents",
+    "redirecting": "Đang chuyển bạn đến nhóm Zalo…",
+    "fallbackLink": "Mở nhóm Zalo",
+    "fallbackHint": "Nếu trang không tự chuyển, hãy nhấn nút trên."
+  },
   "metadata": {
     "siteTitle": "Tony Hoang - AI Educator | Dạy AI cho người mới bắt đầu",
     "siteDescription": "Tony Hoang chia sẻ cách dùng AI sao cho người chưa biết gì cũng làm được. Không cần code. Không áp lực kỹ thuật.",

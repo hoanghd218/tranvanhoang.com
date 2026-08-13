@@ -419,6 +419,14 @@
     "metaTitle": "Claim Free AI Gifts - Tony Hoang AI Educator",
     "metaDescription": "Fill in your info to receive free AI resources: templates, prompts, checklists and more."
   },
+  "zaloAgents": {
+    "metaTitle": "Join the Zalo Agents Group - Tony Hoang",
+    "metaDescription": "Redirecting you to the Zalo Agents group.",
+    "title": "Opening the Zalo Agents group",
+    "redirecting": "Redirecting you to Zalo…",
+    "fallbackLink": "Open Zalo group",
+    "fallbackHint": "If you are not redirected automatically, use the button above."
+  },
   "metadata": {
     "siteTitle": "Tony Hoang - AI Educator | Teaching AI for Beginners",
     "siteDescription": "Tony Hoang teaches how to use AI so that anyone can do it. No coding required. No technical pressure.",

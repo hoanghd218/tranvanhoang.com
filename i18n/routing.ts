@@ -27,6 +27,7 @@ export const routing = defineRouting({
     },
     "/life": "/life",
     "/life/[slug]": "/life/[slug]",
+    "/zalo-agents": "/zalo-agents",
   },
 })
 
