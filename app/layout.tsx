@@ -1,23 +1,26 @@
 import type { Metadata, Viewport } from "next"
-import { Inter, Merriweather } from "next/font/google"
+import { Be_Vietnam_Pro, Noto_Serif, Allura } from "next/font/google"
 import "./globals.css"
+import { getLocale } from "next-intl/server"
 
-const inter = Inter({
+const inter = Be_Vietnam_Pro({
   variable: "--font-inter",
   subsets: ["latin", "vietnamese"],
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
 })
 
-const merriweather = Merriweather({
+const merriweather = Noto_Serif({
   variable: "--font-merriweather",
   subsets: ["latin", "vietnamese"],
   display: "swap",
-  weight: ["300", "400", "700", "900"],
+  weight: ["400", "500", "600", "700"],
 })
 
+const signature = Allura({ variable: "--font-signature", subsets: ["latin"], weight: "400", display: "swap" })
+
 export const metadata: Metadata = {
-  title: "Tony Hoang - AI Educator",
+  title: "Tony Hoang",
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
     shortcut: ["/icon.svg"],
@@ -26,19 +29,20 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#D97757",
+  themeColor: "#F5F3E9",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const locale = await getLocale()
   return (
-    <html lang="vi" className={`${inter.variable} ${merriweather.variable}`} suppressHydrationWarning>
+    <html lang={locale} className={`${inter.variable} ${merriweather.variable} ${signature.variable}`} suppressHydrationWarning>
       <body className="antialiased min-h-screen flex flex-col">
         {children}
       </body>

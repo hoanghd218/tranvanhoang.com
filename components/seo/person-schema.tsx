@@ -6,8 +6,8 @@ export function PersonSchema() {
     "@type": "Person",
     "name": "Tony Hoang",
     "url": "https://tranvanhoang.com",
-    "jobTitle": "AI Educator",
-    "description": "Người dạy AI cho người mới bắt đầu, giúp hàng nghìn người tiếp cận công nghệ một cách đơn giản.",
+    "jobTitle": "Systems Architect",
+    "description": "Kiến trúc sư thiết kế hệ thống, kết hợp con người, công nghệ và AI.",
     "sameAs": [
       "https://www.facebook.com/hoanghd218/",
       "https://www.youtube.com/@tony-hoang-ai-automation",
@@ -15,10 +15,10 @@ export function PersonSchema() {
     ],
     "knowsAbout": [
       "Artificial Intelligence",
-      "Machine Learning",
-      "Prompt Engineering",
-      "AI for Marketing",
-      "AI for Work"
+      "Systems Architecture",
+      "Systems Design",
+      "AI Agents",
+      "Process Design"
     ],
     "image": "https://tranvanhoang.com/hoang-profile.webp",
     "areaServed": "Vietnam"

@@ -1,7 +1,7 @@
 {
   "common": {
     "siteName": "Tony Hoang",
-    "siteTagline": "Teaching AI for beginners. No coding required. No technical pressure.",
+    "siteTagline": "Systems Architect",
     "skipToContent": "Skip to main content",
     "readingTime": "{minutes} min read",
     "loading": "Loading...",
@@ -24,7 +24,7 @@
     "freeGift": "Free Gift"
   },
   "footer": {
-    "tagline": "Teaching AI for beginners. No coding required. No technical pressure.",
+    "tagline": "Systems Architect",
     "quickLinks": "Quick Links",
     "resources": "Resources",
     "newsletter": "Newsletter",
@@ -54,18 +54,42 @@
     "audienceCards": [
       {
         "title": "People new to AI",
-        "painPoints": ["Afraid of complex technology", "Intimidated by jargon", "Don't know where to start"],
-        "benefits": ["Explained from fundamentals, easy to understand", "No prior knowledge needed", "Apply immediately"]
+        "painPoints": [
+          "Afraid of complex technology",
+          "Intimidated by jargon",
+          "Don't know where to start"
+        ],
+        "benefits": [
+          "Explained from fundamentals, easy to understand",
+          "No prior knowledge needed",
+          "Apply immediately"
+        ]
       },
       {
         "title": "Marketers & Content Creators",
-        "painPoints": ["Spending too much time on content", "Running out of ideas", "Fierce competition"],
-        "benefits": ["Work 10x faster", "Endless ideas", "Higher quality content"]
+        "painPoints": [
+          "Spending too much time on content",
+          "Running out of ideas",
+          "Fierce competition"
+        ],
+        "benefits": [
+          "Work 10x faster",
+          "Endless ideas",
+          "Higher quality content"
+        ]
       },
       {
         "title": "Small business owners",
-        "painPoints": ["Limited budget", "Lack of technical staff", "Need immediate results"],
-        "benefits": ["Optimize costs with AI", "Do everything yourself", "Clear, measurable ROI"]
+        "painPoints": [
+          "Limited budget",
+          "Lack of technical staff",
+          "Need immediate results"
+        ],
+        "benefits": [
+          "Optimize costs with AI",
+          "Do everything yourself",
+          "Clear, measurable ROI"
+        ]
       }
     ],
     "teachingTitle": "What do I",
@@ -79,21 +103,36 @@
         "title": "AI for Beginners",
         "slug": "ai-cho-nguoi-moi",
         "description": "From zero to confident using AI in daily work",
-        "modules": ["What is AI?", "ChatGPT basics", "Effective prompts", "Practical applications"],
+        "modules": [
+          "What is AI?",
+          "ChatGPT basics",
+          "Effective prompts",
+          "Practical applications"
+        ],
         "duration": "2-4 weeks"
       },
       {
         "title": "AI for Marketing",
         "slug": "ai-marketing",
         "description": "Apply AI to 10x your marketing and content efficiency",
-        "modules": ["AI content writing", "Email marketing", "Social media", "Smart advertising"],
+        "modules": [
+          "AI content writing",
+          "Email marketing",
+          "Social media",
+          "Smart advertising"
+        ],
         "duration": "3-5 weeks"
       },
       {
         "title": "AI for Work",
         "slug": "ai-cong-viec",
         "description": "Boost productivity and automate work with AI",
-        "modules": ["Basic automation", "Data analysis", "Personal AI assistant", "Automated workflows"],
+        "modules": [
+          "Basic automation",
+          "Data analysis",
+          "Personal AI assistant",
+          "Automated workflows"
+        ],
         "duration": "4-6 weeks"
       }
     ],
@@ -101,17 +140,37 @@
     "trustTitleHighlight": "trust me?",
     "trustSubtitle": "I don't just teach theory — I've applied AI in practice and helped thousands do the same.",
     "trustStats": [
-      { "value": "5+", "label": "Years of experience", "description": "In AI and technology" },
-      { "value": "10K+", "label": "Students", "description": "Have joined courses" },
-      { "value": "50+", "label": "Articles", "description": "About AI for beginners" },
-      { "value": "4.9/5", "label": "Rating", "description": "From students" }
+      {
+        "value": "5+",
+        "label": "Years of experience",
+        "description": "In AI and technology"
+      },
+      {
+        "value": "10K+",
+        "label": "Students",
+        "description": "Have joined courses"
+      },
+      {
+        "value": "50+",
+        "label": "Articles",
+        "description": "About AI for beginners"
+      },
+      {
+        "value": "4.9/5",
+        "label": "Rating",
+        "description": "From students"
+      }
     ],
     "ctaTitle": "Ready to start your",
     "ctaTitleHighlight": "AI journey",
     "ctaTitleEnd": "?",
     "ctaSubtitle": "Get the free gift pack for beginners: checklist, prompt templates, and detailed video guides.",
     "ctaButton": "Get Free Gift Now",
-    "ctaFeatures": ["10-step checklist", "50+ Prompt templates", "Video guides"],
+    "ctaFeatures": [
+      "10-step checklist",
+      "50+ Prompt templates",
+      "Video guides"
+    ],
     "ctaTrust": "<highlight>2,500+</highlight> people have received gifts • No credit card needed • Unsubscribe anytime"
   },
   "about": {
@@ -120,7 +179,7 @@
     "metaDescription": "Learn about Tony Hoang — teaching AI for beginners.",
     "heroGreeting": "Hello, I'm",
     "heroName": "Tony Hoang",
-    "heroIntro": "I dedicate my efforts to helping people who know nothing about AI get started and apply AI to their work and life with confidence.",
+    "heroIntro": "I am a systems architect. I start with the current state and desired outcome, then connect people, processes, technology and AI to design how the system works.",
     "stat1Value": "10,000+",
     "stat1Label": "Students",
     "stat2Value": "50+",
@@ -149,7 +208,8 @@
     "ctaTitle": "Let's learn AI together",
     "ctaSubtitle": "Ready to start your journey with AI? I'll be with you every step of the way.",
     "ctaLearnBtn": "Explore learning paths",
-    "ctaGiftBtn": "Get Free Gift"
+    "ctaGiftBtn": "Get Free Gift",
+    "role": "Systems Architect"
   },
   "blog": {
     "title": "Blog",
@@ -179,10 +239,22 @@
     "getFreeGift": "🎁 Get free gift",
     "postNotFound": "Post not found",
     "categories": {
-      "ai-co-ban": { "name": "AI Basics", "description": "Foundational AI knowledge for beginners" },
-      "ai-marketing": { "name": "AI for Marketing", "description": "Applying AI in marketing and business" },
-      "tool-prompt": { "name": "Tools & Prompts", "description": "AI tools guides and effective prompt writing" },
-      "goc-trai-nghiem": { "name": "Experiences", "description": "Real-world experiences with AI" }
+      "ai-co-ban": {
+        "name": "AI Basics",
+        "description": "Foundational AI knowledge for beginners"
+      },
+      "ai-marketing": {
+        "name": "AI for Marketing",
+        "description": "Applying AI in marketing and business"
+      },
+      "tool-prompt": {
+        "name": "Tools & Prompts",
+        "description": "AI tools guides and effective prompt writing"
+      },
+      "goc-trai-nghiem": {
+        "name": "Experiences",
+        "description": "Real-world experiences with AI"
+      }
     },
     "breadcrumbHome": "Home",
     "breadcrumbBlog": "Blog",
@@ -428,10 +500,10 @@
     "fallbackHint": "If you are not redirected automatically, use the button above."
   },
   "metadata": {
-    "siteTitle": "Tony Hoang - AI Educator | Teaching AI for Beginners",
-    "siteDescription": "Tony Hoang teaches how to use AI so that anyone can do it. No coding required. No technical pressure.",
-    "ogTitle": "Tony Hoang - AI Educator",
-    "ogDescription": "Teaching AI for beginners. Simple, easy to understand, practical.",
-    "twitterDescription": "Teaching AI for beginners"
+    "siteTitle": "Tony Hoang — Systems Architect",
+    "siteDescription": "Tony Hoang designs systems connecting people, technology and AI. Explore his products, writing and systems-building journey.",
+    "ogTitle": "Tony Hoang — Systems Architect",
+    "ogDescription": "Tony Hoang designs systems connecting people, technology and AI. Explore his products, writing and systems-building journey.",
+    "twitterDescription": "Tony Hoang designs systems connecting people, technology and AI. Explore his products, writing and systems-building journey."
   }
 }

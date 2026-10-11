@@ -1,245 +1,91 @@
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { notFound } from "next/navigation"
 import { Link } from "@/i18n/navigation"
-import NextLink from "next/link"
-import { getPostBySlug, getRelatedPosts, getAllCategories } from "@/lib/mdx"
-import { GradientText } from "@/components/custom/gradient-text"
-import { Container, Section } from "@/components/custom/container"
+import { getPostBySlug, getRelatedPosts, getAllCategories, getAllPosts } from "@/lib/mdx"
+import { renderArticle } from "@/lib/article-reader"
+import type { Locale } from "@/i18n/routing"
 import { PostCard } from "@/components/blog/post-card"
 import { ArticleSchema } from "@/components/seo/article-schema"
 import { BreadcrumbSchema } from "@/components/seo/breadcrumb-schema"
 
 interface BlogPostPageProps {
-  params: Promise<{
-    locale: string
-    category: string
-    slug: string
-  }>
+  params: Promise<{ locale: Locale; category: string; slug: string }>
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps) {
   const { locale, category, slug } = await params
-  const t = await getTranslations({ locale, namespace: "blog" })
   const post = getPostBySlug(category, slug)
-
-  if (!post) {
-    return { title: t("postNotFound") }
-  }
-
-  const ogImage = post.metadata.featuredImage || "https://tranvanhoang.com/images/og-default.png"
-
+  if (!post) return { title: "Tony Hoang" }
+  const url = `https://tranvanhoang.com${locale === "en" ? "/en" : ""}/blog/${category}/${slug}`
   return {
     title: post.metadata.title,
     description: post.metadata.description,
     openGraph: {
-      title: post.metadata.title,
-      description: post.metadata.description,
-      type: "article",
-      publishedTime: post.metadata.date,
-      authors: [post.metadata.author || "Tony Hoang"],
-      tags: post.metadata.tags,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: post.metadata.title }],
+      title: post.metadata.title, description: post.metadata.description, type: "article",
+      publishedTime: post.metadata.date, authors: [post.metadata.author || "Tony Hoang"], tags: post.metadata.tags,
     },
-    twitter: {
-      card: "summary_large_image",
-      title: post.metadata.title,
-      description: post.metadata.description,
-      images: [ogImage],
-    },
-    alternates: {
-      canonical: `https://tranvanhoang.com/blog/${category}/${slug}`,
-      languages: {
-        vi: `https://tranvanhoang.com/blog/${category}/${slug}`,
-        en: `https://tranvanhoang.com/en/blog/${category}/${slug}`,
-      },
-    },
+    alternates: { canonical: url, languages: {
+      vi: `https://tranvanhoang.com/blog/${category}/${slug}`,
+      en: `https://tranvanhoang.com/en/blog/${category}/${slug}`,
+    } },
   }
 }
 
-export async function generateStaticParams() {
-  const categories = getAllCategories()
-  const params: { category: string; slug: string }[] = []
-
-  for (const category of categories) {
-    const { getPostsByCategory } = await import("@/lib/mdx")
-    const posts = getPostsByCategory(category.slug)
-    for (const post of posts) {
-      params.push({
-        category: post.category,
-        slug: post.slug,
-      })
-    }
-  }
-
-  return params
+export function generateStaticParams() {
+  return getAllPosts().map(post => ({ category: post.category, slug: post.slug }))
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { locale, category, slug } = await params
   setRequestLocale(locale)
   const t = await getTranslations({ locale, namespace: "blog" })
-
   const post = getPostBySlug(category, slug)
-
-  if (!post) {
-    notFound()
-  }
-
+  if (!post) notFound()
   const relatedPosts = getRelatedPosts(category, slug, 3)
-  const categories = getAllCategories()
-  const currentCategory = categories.find((c) => c.slug === category)
+  const currentCategory = getAllCategories().find(item => item.slug === category)
+  const { content, headings } = await renderArticle(post.content, locale)
+  const baseUrl = `https://tranvanhoang.com${locale === "en" ? "/en" : ""}`
+  const categoryHref = `/blog?category=${encodeURIComponent(category)}` as const
+  const date = new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "vi-VN", {
+    day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+  }).format(new Date(post.metadata.date))
 
-  const baseUrl = "https://tranvanhoang.com"
-
-  return (
-    <>
-      {/* JSON-LD Structured Data */}
-      <ArticleSchema
-        title={post.metadata.title}
-        description={post.metadata.description}
-        datePublished={post.metadata.date}
-        author={post.metadata.author || "Tony Hoang"}
-        url={`${baseUrl}/blog/${category}/${slug}`}
-        tags={post.metadata.tags}
-        image={post.metadata.featuredImage}
-      />
-      <BreadcrumbSchema
-        items={[
-          { name: t("breadcrumbHome"), url: baseUrl },
-          { name: t("breadcrumbBlog"), url: `${baseUrl}/blog` },
-          ...(currentCategory
-            ? [{ name: currentCategory.name, url: `${baseUrl}/blog/${category}` }]
-            : []),
-          { name: post.metadata.title, url: `${baseUrl}/blog/${category}/${slug}` },
-        ]}
-      />
-
-      {/* Hero */}
-      <Section className="py-12 md:py-16">
-        <Container>
-          {/* Breadcrumb */}
-          <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <Link href="/blog" className="hover:text-coral transition-colors">
-              {t("breadcrumbBlog")}
-            </Link>
-            <span>/</span>
-            {currentCategory && (
-              <>
-                <Link
-                  href={{ pathname: "/blog/[category]", params: { category } }}
-                  className="hover:text-coral transition-colors"
-                >
-                  {currentCategory.name}
-                </Link>
-                <span>/</span>
-              </>
-            )}
-            <span className="text-foreground truncate max-w-[200px]">{post.metadata.title}</span>
+  return <div className="reader-page">
+    <ArticleSchema title={post.metadata.title} description={post.metadata.description}
+      datePublished={post.metadata.date} author={post.metadata.author || "Tony Hoang"}
+      url={`${baseUrl}/blog/${category}/${slug}`} tags={post.metadata.tags} image={post.metadata.featuredImage} />
+    <BreadcrumbSchema items={[
+      { name: t("breadcrumbHome"), url: baseUrl },
+      { name: t("breadcrumbBlog"), url: `${baseUrl}/blog` },
+      ...(currentCategory ? [{ name: currentCategory.name, url: `${baseUrl}${categoryHref}` }] : []),
+      { name: post.metadata.title, url: `${baseUrl}/blog/${category}/${slug}` },
+    ]} />
+    <div className="editorial-container">
+      <nav className="reader-breadcrumb" aria-label={locale === "en" ? "Breadcrumb" : "Đường dẫn"}>
+        <Link href="/blog">{t("breadcrumbBlog")}</Link><span aria-hidden="true">/</span>
+        <Link href={{ pathname: "/blog", query: { category } }}>{currentCategory?.name || category}</Link>
+      </nav>
+      <header className="reader-header">
+        <p className="eyebrow">{currentCategory?.name || category}</p>
+        <h1>{post.metadata.title}</h1>
+        <p className="reader-description">{post.metadata.description}</p>
+        <div className="reader-meta"><time dateTime={post.metadata.date}>{date}</time><span>{post.readingTime}</span><span>{post.metadata.author}</span></div>
+        <ul className="reader-tags" aria-label={locale === "en" ? "Topics" : "Chủ đề"}>{post.metadata.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+      </header>
+      <div className="reader-layout">
+        {headings.length > 0 && <aside className="reader-toc">
+          <nav aria-label={locale === "en" ? "Table of contents" : "Mục lục"}>
+            <h2>{locale === "en" ? "Contents" : "Mục lục"}</h2>
+            <ol>{headings.map(heading => <li key={heading.id} className={heading.level === 3 ? "reader-toc-nested" : undefined}><a href={`#${heading.id}`}>{heading.title}</a></li>)}</ol>
           </nav>
-
-          {/* Title & Meta */}
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="heading-lg mb-4">
-              <GradientText>{post.metadata.title}</GradientText>
-            </h1>
-            <p className="text-xl text-muted-foreground mb-6">{post.metadata.description}</p>
-
-            {/* Meta Info */}
-            <div className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
-              <span>{post.metadata.date}</span>
-              <span className="w-1 h-1 rounded-full bg-muted-foreground" />
-              <span>{post.readingTime} {t("minutesRead")}</span>
-              <span className="w-1 h-1 rounded-full bg-muted-foreground" />
-              <span>{post.metadata.author}</span>
-            </div>
-
-            {/* Tags */}
-            {post.metadata.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 justify-center mt-6">
-                {post.metadata.tags.map((tag) => (
-                  <NextLink
-                    key={tag}
-                    href={`/blog/tags/${tag.toLowerCase().replace(/\s+/g, "-")}`}
-                    className="px-3 py-1 rounded-full bg-muted text-sm text-muted-foreground hover:bg-coral/10 hover:text-coral transition-colors"
-                  >
-                    #{tag}
-                  </NextLink>
-                ))}
-              </div>
-            )}
-          </div>
-        </Container>
-      </Section>
-
-      {/* Featured Image Placeholder */}
-      <Section className="py-4">
-        <Container>
-          <div className="max-w-4xl mx-auto aspect-video rounded-2xl bg-gradient-to-br from-coral/10 to-bronze/10 flex items-center justify-center">
-            <span className="text-6xl">📝</span>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Content */}
-      <Section className="py-8">
-        <Container>
-          <article className="max-w-3xl mx-auto prose prose-lg prose-muted">
-            <div className="mdx-content">
-              <pre className="whitespace-pre-wrap font-sans text-base leading-relaxed text-muted-foreground">
-                {post.content}
-              </pre>
-            </div>
-          </article>
-
-          {/* Share */}
-          <div className="max-w-3xl mx-auto mt-12 pt-8 border-t border-border">
-            <p className="text-center text-sm text-muted-foreground mb-4">
-              {t("shareThis")}
-            </p>
-            <div className="flex justify-center gap-3">
-              <button className="px-4 py-2 rounded-lg bg-[#1877F2] text-white text-sm font-medium hover:opacity-90 transition-opacity">
-                Facebook
-              </button>
-              <button className="px-4 py-2 rounded-lg bg-[#1DA1F2] text-white text-sm font-medium hover:opacity-90 transition-opacity">
-                Twitter
-              </button>
-              <button className="px-4 py-2 rounded-lg bg-[#0A66C2] text-white text-sm font-medium hover:opacity-90 transition-opacity">
-                LinkedIn
-              </button>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Related Posts */}
-      {relatedPosts.length > 0 && (
-        <Section className="py-12 bg-card/30">
-          <Container>
-            <h2 className="text-2xl font-semibold text-center mb-8">{t("relatedPosts")}</h2>
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-              {relatedPosts.map((relatedPost) => (
-                <PostCard key={relatedPost.slug} post={relatedPost} />
-              ))}
-            </div>
-          </Container>
-        </Section>
-      )}
-
-      {/* CTA */}
-      <Section className="py-16">
-        <Container>
-          <div className="max-w-2xl mx-auto text-center p-8 rounded-2xl bg-gradient-to-br from-coral/10 to-bronze/10 border border-border">
-            <h2 className="text-2xl font-semibold mb-4">{t("readyToLearnAi")}</h2>
-            <p className="text-muted-foreground mb-6">{t("readyToLearnAiDesc")}</p>
-            <Link
-              href="/qua"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg bg-coral text-white font-medium hover:bg-coral-dark transition-colors"
-            >
-              {t("getFreeGift")}
-            </Link>
-          </div>
-        </Container>
-      </Section>
-    </>
-  )
+        </aside>}
+        <article className="reader-content" aria-label={post.metadata.title}>{content}</article>
+      </div>
+      <div className="reader-return"><Link href={{ pathname: "/blog", query: { category } }}>← {currentCategory?.name || t("breadcrumbBlog")}</Link></div>
+      {relatedPosts.length > 0 && <section className="reader-related" aria-labelledby="related-title">
+        <h2 id="related-title">{t("relatedPosts")}</h2>
+        <div className="article-grid">{relatedPosts.map(related => <PostCard key={related.slug} post={related} />)}</div>
+      </section>}
+    </div>
+  </div>
 }

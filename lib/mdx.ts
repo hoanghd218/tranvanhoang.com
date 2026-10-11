@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import slugify from "slugify";
 
-const contentDirectory = path.join(process.cwd(), "content");
+const contentDirectory = path.join(process.cwd(), "content", "blog");
 
 export type PostMetadata = {
   title: string;

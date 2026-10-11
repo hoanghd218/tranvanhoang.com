@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tony Hoang
 
-## Getting Started
+Personal website positioning Tony Hoang as a systems architect, alongside published writing, activities and owned digital products: AI skills, software, Chrome extensions and mobile apps. Built with Next.js 16, React 19, TypeScript and Tailwind CSS 4; Vietnamese and English routes use `next-intl`.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000). Browse `/`, `/blog`, `/life`, `/products` and `/about`; English routes use `/en`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Editing content
 
-## Learn More
+- `lib/editorial-content.ts`: homepage copy, navigation and social links.
+- `content/blog/*.mdx`: article content and frontmatter; root files and nested folders are supported. The blog supports query-based search/category filtering and individual MDX readers.
+- `content/life/`: personal activity entries.
+- `lib/products.ts`: verified owned products. Set optional price/currency and action links; choose `available` or `coming-soon` status. The catalog contains RocketFlow, RocketListing and RocketSpy Chrome extensions plus the free Coloring Book AI Skill. Extension logos/screenshots live in `public/images/products/`; the skill links to the existing resource page.
 
-To learn more about Next.js, take a look at the following resources:
+The creator catalog uses local file data with no new database/backend. Product assets came from the existing `rocketflow-extension` source; source repositories remain untouched.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Extension plans and QR checkout
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Extension pricing comes from `lib/data/extension-plans.json`. Product pages read this static snapshot; available plan SKUs link to the existing QR checkout at `https://api-edu.ainexus.vn/pay/SKU`, served by the `rocket-ai-edu-all` backend. No payment is simulated on this site.
 
-## Deploy on Vercel
+The `/ext/v1` API allows extension origins through CORS, so the website does not fetch it in the browser. Refresh the public catalog with Node:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run sync:products
+npm run build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`scripts/sync-extension-plans.mjs` requests plans for all three extensions with `X-Ext-Version`, validates every response, then atomically replaces the snapshot. A failed sync preserves the previous snapshot. After publishing plans in the existing administration system, run sync, rebuild and redeploy the site. The current snapshot has empty plan lists for all three extensions; pages show a real contact action without invented prices or checkout SKUs. Keep administration links out of the public website.
+
+## Product media
+
+`npm run media:prepare` (or `node scripts/prepare-product-media.mjs`) prepares the existing sibling `rocketflow-extension` documentation library and ZIP. Override inputs with `--source`, `--archive` and `--output`. The ignored `.media/` staging directory contains 67 original PNGs, 67 full WebPs, 67 thumbnails, the HTML library/README/capture manifest and ZIP: 205 upload objects. Full images shrink from 6.09 MiB PNG to 2.79 MiB WebP. Source repositories remain untouched.
+
+```bash
+npm run media:prepare
+CLOUDFLARE_ACCOUNT_ID=your-account-id npm run media:publish
+```
+
+Publishing uses the existing Wrangler OAuth session and the isolated `tony-hoang-media` R2 bucket; `CLOUDFLARE_ACCOUNT_ID` is mandatory for uploads. The live public media domain is `https://media.ainexus.vn`. All 205 objects have been publicly verified, and the active manifest contains 67 image URLs. Supply this origin during upload with `--base-url`, or verify already uploaded objects later:
+
+```bash
+npm run media:publish -- --verify-only --base-url https://media.ainexus.vn
+```
+
+Activation verifies every public object's bytes/hash and content type, plus ZIP download disposition, before atomically updating `lib/data/product-media.json`. Content-derived collection paths support immutable caching. Rebuild after activation; Next.js remote image patterns allow only the manifest's exact host and collection.
+
+`lib/product-media.ts` supplies each product gallery with its image subset, original/library links and ZIP URL. The gallery serves preoptimized WebPs directly from the media CDN through `next/Image` with `unoptimized`, avoiding an additional Next.js image-optimization request. It renders one full image at a time with lazy thumbnails, keyboard-accessible selection and explicit **Dữ liệu demo** labeling. Missing media retains the local screenshot fallback. Logos and hero artwork remain local.
+
+These commands use Node/npm; existing dependencies were installed using pinned pnpm 11. Use that same pinned version when maintaining the dependency installation.
+
+## Extension detail pages
+
+Each extension detail hero shows an actual interface screenshot, followed by a curated three-feature tour. Page anchors link to overview, features, screenshot library, plans and installation. The gallery's group filter narrows the visible thumbnails without removing access to the complete library.
+
+RocketFlow, RocketListing and RocketSpy each have a distinct local decorative AI cover for product discovery. Covers are visual metaphors; interface previews and feature tours use verified screenshots labeled **Dữ liệu demo**. See [product visuals](docs/product-visuals.md) for exact generation prompts and asset paths. This page refresh reuses all 67 screenshots and the existing content-hashed collection; it requires no new R2 upload.
+
+Lint covers application code; vendored `.claude`, `.opencode`, `.agents` tooling and the generated route file are excluded. Run `npm run lint` before committing application changes.
+
+## Theme
+
+Warm ivory, emerald and gold editorial styling uses Be Vietnam Pro, Noto Serif and an Allura signature. Tokens and responsive rules live in `app/editorial.css`; reusable components live in `components/editorial/`. See [design guidelines](docs/design-guidelines.md).
+
+The homepage bridge illustration at `public/images/editorial/hero-bridge.webp` portrays the same Hoang at present and in a desired future, connected through systems, technology and AI. It is an AI-generated visual metaphor, not documentation of an actual event. Only the final generated artwork is included in the site. The 3:2 image uses `next/Image` with `fill` and `object-fit: contain` so both endpoints remain visible; heading and caption stay editable HTML in `lib/editorial-content.ts`.
+
+Project UI/UX tooling: [.agents/skills/ui-ux-pro-max/SKILL.md](.agents/skills/ui-ux-pro-max/SKILL.md).

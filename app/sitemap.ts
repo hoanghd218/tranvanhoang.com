@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next"
+import { products } from "@/lib/products"
 import { getAllPosts } from "@/lib/mdx"
 import { getAllLifeStories } from "@/lib/life-mdx"
 
@@ -9,7 +10,8 @@ const defaultLocale = "vi"
 /** Build full URL — default locale has no prefix */
 function localizedUrl(path: string, locale: string): string {
   if (locale === defaultLocale) return `${baseUrl}${path}`
-  return `${baseUrl}/${locale}${path}`
+  const translated = path === "/tai-nguyen" ? "/resources" : path === "/qua" ? "/gifts" : path
+  return `${baseUrl}/${locale}${translated}`
 }
 
 /** Build alternates map for a given path */
@@ -43,7 +45,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/tai-nguyen", lastModified: new Date("2026-01-15") },
     { path: "/qua", lastModified: new Date("2026-01-15") },
     { path: "/life", lastModified: new Date("2026-03-01") },
-    { path: "/courses/ai-automation-bim", lastModified: new Date("2026-02-15") },
+    { path: "/products", lastModified: new Date("2026-10-11") },
+    { path: "/coloring-book-kdp", lastModified: new Date("2026-10-11") },
   ]
 
   // Static routes — both vi and en versions
@@ -65,5 +68,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return bilingualEntries(path, new Date(story.metadata.date))
   })
 
-  return [...staticRoutes, ...blogRoutes, ...lifeRoutes]
+  const productRoutes = products.flatMap(product => bilingualEntries(`/products/${product.slug}`, new Date("2026-10-11")))
+  return [...staticRoutes, ...productRoutes, ...blogRoutes, ...lifeRoutes]
 }

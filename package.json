@@ -6,11 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:products": "node scripts/sync-extension-plans.mjs",
+    "media:prepare": "node scripts/prepare-product-media.mjs",
+    "media:publish": "node scripts/upload-product-media.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
     "@mdx-js/loader": "^3.1.1",
+    "@mdx-js/mdx": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@next/mdx": "^16.1.4",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -49,7 +53,9 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
+    "sharp": "0.34.5",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.149.0"
   }
 }

@@ -1,639 +1,95 @@
-# Design Guidelines
+# Tony Hoang — Design Guidelines
 
-**Project**: AI Educator Website
-**Phase**: 2 - Core Layout & Navigation
-**Last Updated**: 2025-01-25
+Updated: 2026-10-11. Systems architect positioning within a premium editorial theme: warm, bright, spacious, with serif typography and restrained emerald/gold artwork. Preserve the handwritten “Tony Hoang” identity; do not substitute a monogram.
 
-## Overview
+## Source of truth
 
-This document provides guidelines for using the design system components and maintaining visual consistency across the AI Educator Website. The design system is built on a coral-bronze color palette with a dark theme foundation.
+- `app/editorial.css`: editorial tokens, component styles and responsive rules.
+- `app/globals.css`: shared semantic tokens; legacy coral/bronze names alias emerald/gold for existing components.
+- `app/layout.tsx`: self-hosted fonts via `next/font/google`.
+- `lib/editorial-content.ts`: shared navigation, homepage copy, social links and locale-aware paths.
+- `content/blog/*.mdx`: real blog articles (including files directly in this root); `lib/mdx.ts` reads frontmatter and content.
+- `content/life/`: personal activity entries, read by `lib/life-mdx.ts`.
+- `lib/products.ts`: owned digital product catalog, category definitions and destination links.
+- `lib/data/extension-plans.json`: validated public extension plan snapshot; `lib/extension-checkout.ts` resolves plans and checkout destinations.
+- `public/images/products/`: real extension logos and screenshots.
+- `components/blog/blog-explorer.tsx`: query-based article search and category filters.
+- `app/[locale]/products/`: product catalog/detail pages; `app/[locale]/blog/` and `app/[locale]/life/`: listing/detail readers.
+- `components/editorial/home.tsx`: section composition.
+- `components/editorial/primitives.tsx`: signature, primary/secondary/text link, section heading, artwork, tag and divider.
+- `components/editorial/article.tsx`: featured/compact article and reusable uniform `ArticleGrid`.
+- `components/layout/header.tsx`, `components/layout/footer.tsx`: shared navigation and footer.
 
-## Brand Identity
+## Color tokens
 
-### Core Values
+| Token | Value | Use |
+|---|---|---|
+| `--ivory` | `#F5F3E9` | Main background |
+| `--soft-white` | `#FCFBF7` | Light surfaces |
+| `--emerald` | `#1E765D` | Primary buttons, links, focus |
+| `--forest` | `#123C32` | Main text, footer |
+| `--gold` | `#E4B445` | Small decorative details, footer CTA |
+| `--sage` | `#E8EDE0` | Framework background |
+| `--gray-green` | `#667168` | Secondary text, metadata |
+| `--warm-border` | `#DDDCCF` | Thin dividers |
 
-- **Professional yet approachable** - Clean design with warm accent colors
-- **Performance-first** - Minimal JavaScript, optimized assets
-- **Accessibility** - WCAG 2.1 AA compliant
-- **Consistency** - Unified component language
+Aim for 70% ivory/white, 20% green and 10% accents. Gold is decorative; darker gold `#946B19` supports legible icons and numerals on light surfaces. Avoid heavy shadows, neon gradients, pervasive glass effects and boxed card layouts.
 
-### Color System
+## Typography and spacing
 
-#### Primary Colors
+- Headings: Noto Serif, weights 400–700; `--font-serif` maps to legacy variable `--font-merriweather`.
+- Body/UI: Be Vietnam Pro, weights 400–800; `--font-sans` maps to legacy variable `--font-inter`.
+- Signature: Allura, `--font-signature`; render as real text.
+- Hero: up to 72px desktop, 38–46px mobile; line-height 1.15.
+- Section headings: 28–42px; line-height 1.2. Compact article titles: 22–23px.
+- Body: 16–17px hero, line-height 1.75. Metadata: 11px with restrained tracking.
+- Spacing tokens: `--space-8`, `--space-12`, `--space-16`, `--space-24`, `--space-32`, `--space-48`, `--space-64`, `--space-96` (pixel values match names).
+- `--theme-container`: 1280px; `--theme-radius`: 8px; `--theme-duration`: 220ms.
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--coral` | `#D97757` | Primary actions, links, highlights |
-| `--bronze` | `#D4A27C` | Secondary accents, gradients |
+## Layout and responsive behavior
 
-#### Dark Theme
+The homepage uses `.architect-hero` with a `.85fr / 1.15fr` text/artwork grid, product discovery, published writing, personal activities, an open two-column about section and a forest footer. Reusable framework styles retain a three-column variant. Use thin dividers and whitespace to establish hierarchy. Uniform article grids use three columns.
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--background` | `#0E0E0E` | Page backgrounds |
-| `--foreground` | `#EDEDED` | Primary text |
-| `--card` | `#18181B` | Card backgrounds |
-| `--border` | `#27272A` | Borders, dividers |
-| `--muted` | `#52525B` | Secondary text |
-| `--muted-foreground` | `#A1A1AA` | Muted text |
+Container padding is 64px desktop, 32px at widths up to 1100px, and 24px up to 760px. At 760px, the header becomes an expandable menu; hero, article grid, framework and about sections stack. Categories scroll horizontally within their strip. Compact articles retain an image/text split. Framework column separators become horizontal rules. Main section spacing is 80–96px desktop and 48–56px mobile.
 
-#### Interaction States
+Validate at 360px and wide desktop widths. Keep Vietnamese accents visible, use `min-width: 0` for grid children, and preserve artwork focal points when cropping.
 
-| State | Color | Token |
-|-------|-------|-------|
-| Hover (primary) | `#C45F3F` | `--coral-dark` |
-| Hover (secondary) | `#B8895F` | `--bronze-dark` |
-| Focus ring | `#D97757` | `--coral` |
+## Content, artwork and interaction
 
-## Typography
+The site presents Tony’s activities, published writing and owned digital products: AI skills, software, Chrome extensions and mobile apps. Use verified existing content and links; do not invent product availability, testimonials or statistics. Keep content in local files rather than embedding it in layout components. No new database or backend is required.
 
-### Font Family
+The catalog contains three owned Chrome extensions—RocketFlow, RocketListing and RocketSpy—with real logos/screenshots from `rocketflow-extension`, plus the free Coloring Book AI Skill linking to `/coloring-book-kdp`. Source repositories remain untouched. Product records accept optional `price`, `currency` and `action`, with status `available` or `coming-soon`.
 
-```css
---font-sans: var(--font-inter), system-ui, sans-serif;
---font-heading: var(--font-inter), system-ui, sans-serif;
-```
+Extension pages read `lib/data/extension-plans.json`; returned plan SKUs open the existing QR checkout at `https://api-edu.ainexus.vn/pay/SKU` on the `rocket-ai-edu-all` backend. The current snapshot contains empty plan lists, so use the real contact CTA and show no invented prices. Other paid products may provide a verified external checkout in `action.href`. Do not simulate payment, completion or delivery.
 
-### Heading Scale
+The `/ext/v1` API has extension-only browser CORS. Keep its requests out of website client code. `npm run sync:products` runs `scripts/sync-extension-plans.mjs` through Node with `X-Ext-Version`, validates all three catalogs and atomically replaces the static snapshot; failure preserves previous data. After plans are published in the existing administration system, sync, rebuild and redeploy. No new database/backend or public administration link is required.
 
-| Element | Size | Weight |
-|---------|------|--------|
-| `h1` / `.heading-xl` | 3.75rem | 700 |
-| `h2` / `.heading-lg` | 3rem | 700 |
-| `h3` / `.heading-md` | 2.25rem | 700 |
-| Body | 1rem / 16px | 400 |
+Artwork lives under `public/images/editorial/`. The hero uses `hero-bridge.webp`, generated from approved real likeness references and an existing systems-design scene. Both figures must depict the same Hoang in a plain black tee: present and desired future linked by a modular bridge, technology and AI. This is a visual metaphor, not an actual event. Include only the final generated asset; do not copy private source material into the site.
 
-### Text Gradient
+`components/editorial/home.tsx` renders the hero as a semantic figure with `next/Image`, `fill`, a 3:2 wrapper and `object-fit: contain`. Preserve both figures and bridge endpoints without cropping. Mobile stacks copy and artwork; the HTML caption puts endpoints on its first row and the connecting method below. Heading, alt text and caption are editable in `lib/editorial-content.ts`.
 
-Use the `.text-gradient` class for coral-bronze gradient text:
+Supporting artwork may use luminous emerald glass, matte gold, ivory ceramics and abstract mechanical structures in cream architecture. Use the real owner photograph for the about section. Keep all UI text in HTML. The reference layout is guidance, not a page background.
 
-```tsx
-<span className="text-gradient">Gradient Text</span>
-```
+`ThemeLink` renders a Next.js link for internal routes, an anchor for external destinations and a disabled button when no destination exists. Show unavailable product actions as disabled or coming soon. Navigation reaches real pages; blog search and category filters preserve query state, and article links open the MDX reader. Mobile menu supports open/close and keyboard use; icon-only controls need accessible labels. Preserve semantic landmarks, the skip link and visible focus outlines (emerald on light surfaces, gold in the footer). Interactive targets are at least 44px high.
 
-Or use the `GradientText` component for more control.
+Hover changes color subtly and moves arrows approximately 3px over 220ms. Avoid continuous motion and reading delays. Honor `prefers-reduced-motion`, including disabling smooth scrolling and hover transforms.
 
-## Component Usage
+## Project design tooling
 
-### Custom Components
+The project-local UI/UX skill is installed at `.agents/skills/ui-ux-pro-max/SKILL.md`. Use it for design and accessibility guidance while preserving this palette and editorial direction.
 
-Custom components are located in `components/custom/` and use the brand design tokens directly.
+## Product media gallery and publishing
 
-#### GradientText
+`components/products/product-gallery.tsx` and scoped `app/product-media.css` provide each extension's full screenshot collection. `lib/product-media.ts` resolves the active `lib/data/product-media.json` manifest. Deliver preoptimized WebPs directly from the media CDN using `next/Image` with `unoptimized`; do not route these assets through the Next.js image optimizer. Show one contained full image at a time (maximum height 640px), horizontally scrolling lazy thumbnails, pressed-state buttons with native keyboard navigation, bounded previous/next controls and a polite current-title announcement. Preserve originals without cropping. Label screenshots **Dữ liệu demo**; they are interface examples, not evidence of actual outcomes. Provide original-image, library and ZIP links. Keep local screenshot fallback, logos and hero artwork.
 
-Gradient text with coral-bronze gradient.
+Run `npm run media:prepare` to stage the existing sibling documentation library in ignored `.media/`: 67 PNG originals, 67 full WebPs, 67 thumbnails, HTML/README/capture manifest and ZIP (205 objects). Full WebPs total 2.79 MiB versus 6.09 MiB PNG. The Node script accepts source/archive/output overrides; source repositories are not modified.
 
-```tsx
-import { GradientText } from "@/components/custom/gradient-text"
+`CLOUDFLARE_ACCOUNT_ID=your-account-id npm run media:publish` uses existing Wrangler OAuth and bucket `tony-hoang-media`. Supply `-- --base-url https://media.ainexus.vn` when the public origin is selected, or later run `npm run media:publish -- --verify-only --base-url https://media.ainexus.vn`. The custom domain `media.ainexus.vn` is live on the isolated `tony-hoang-media` bucket. All 205 public objects passed byte/SHA-256, content-type and ZIP attachment checks; the active manifest contains 67 image URLs. Every public object's hash/bytes and content type, plus ZIP attachment disposition, must pass before the manifest is atomically activated. Content-derived collection paths make immutable caching safe. Next.js allows only that exact remote host/collection; rebuild after activation. Commands support Node/npm; existing dependencies were installed with pinned pnpm 11.
 
-// Default: coral to bronze gradient
-<GradientText>Featured Content</GradientText>
+## Extension detail presentation
 
-// Custom gradient colors
-<GradientText from="#FF6B6B" to="#4ECDC4">Custom Colors</GradientText>
+Use an actual extension screenshot in each detail hero, with a curated three-feature tour using verified interface images. `components/products/product-tour.tsx` supplies preview/tour components; page anchors connect overview, features, library, plans and installation. The gallery group selector filters thumbnails and resets selection while retaining the full library under “Tất cả ảnh”. Keep screenshots contained and explicitly labeled as demo data.
 
-// Hover effect disabled
-<GradientText hover={false}>Static Text</GradientText>
-```
+Product discovery uses three distinct local decorative covers: `rocketflow-cover.webp`, `rocketlisting-cover.webp` and `rocketspy-cover.webp` under `public/images/products/`. These AI artworks are metaphors, never generated interface evidence; labels and logos remain separate HTML/assets. Exact prompts and generation details are recorded in [product visuals](./product-visuals.md). The refresh reuses all 67 screenshots and the same content-hashed media collection without another R2 upload.
 
-**Props:**
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `direction` | number | `135` | Gradient angle in degrees |
-| `from` | string | `var(--coral)` | Start color |
-| `to` | string | `var(--bronze)` | End color |
-| `hover` | boolean | `true` | Enable hover brightness effect |
-
----
-
-#### BrandCard
-
-Card component with optional coral hover border.
-
-```tsx
-import { BrandCard } from "@/components/custom/brand-card"
-
-<BrandCard>
-  <h3>Card Title</h3>
-  <p>Card content here</p>
-</BrandCard>
-
-// No hover border
-<BrandCard hoverBorder={false}>
-  Static card
-</BrandCard>
-
-// Custom padding
-<BrandCard padding="lg">
-  More padding
-</BrandCard>
-```
-
-**Props:**
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `hoverBorder` | boolean | `true` | Show coral border on hover |
-| `padding` | `"sm" \| "md" \| "lg" \| "none"` | `"md"` | Card padding size |
-
-**CSS Classes:** `bg-card`, `rounded-xl`, `border`, `border-border`
-
----
-
-#### CTAButton
-
-Primary call-to-action button with variants.
-
-```tsx
-import { CTAButton } from "@/components/custom/cta-button"
-
-// Primary button
-<CTAButton>Get Started</CTAButton>
-
-// Secondary variant
-<CTAButton variant="secondary">Learn More</CTAButton>
-
-// Outline variant
-<CTAButton variant="outline">View Details</CTAButton>
-
-// Ghost variant
-<CTAButton variant="ghost">Cancel</CTAButton>
-
-// Sizes
-<CTAButton size="sm">Small</CTAButton>
-<CTAButton size="lg">Large</CTAButton>
-
-// Loading state
-<CTAButton loading>Processing...</CTAButton>
-
-// As link (using Slot)
-<CTAButton asChild>
-  <Link href="/signup">Sign Up</Link>
-</CTAButton>
-```
-
-**Variants:**
-
-| Variant | Purpose |
-|---------|---------|
-| `default` | Primary actions (coral background) |
-| `secondary` | Secondary actions (bronze background) |
-| `outline` | Tertiary actions (border only) |
-| `ghost` | Low-emphasis actions |
-
-**Sizes:**
-
-| Size | Height | Padding |
-|------|--------|---------|
-| `sm` | 2rem | px-4, text-xs |
-| `default` | 2.5rem | px-5 |
-| `lg` | 3rem | px-8 |
-| `icon` | 2.5rem | square |
-
-**CSS Classes:** `rounded-lg`, `font-semibold`, `transition-all`, `focus-visible:ring-coral`
-
----
-
-#### Container & Section
-
-Layout components for consistent spacing.
-
-```tsx
-import { Container, Section } from "@/components/custom/container"
-
-// Default container (max-w-6xl, centered)
-<Container>
-  <Section>
-    <h2>Section Title</h2>
-    <p>Section content</p>
-  </Section>
-</Container>
-
-// Small container
-<Container size="md">
-  <Section padding="12">
-    <p>Content</p>
-  </Section>
-</Container>
-
-// No center alignment
-<Container center={false}>
-  Full-width content
-</Container>
-```
-
-**Container Props:**
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `"sm"` to `"7xl"` \| `"full"` | `"6xl"` | Max-width |
-| `padding` | Tailwind px scale | `"6"` | Horizontal padding |
-| `center` | boolean | `true` | Center container |
-
-**Section Props:**
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `padding` | `"0"` to `"24"` | `"16"` | Vertical padding (py-) |
-
----
-
-### UI Components
-
-UI components are located in `components/ui/` and wrap Radix UI primitives with consistent styling.
-
-#### Tabs
-
-```tsx
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-<Tabs defaultValue="tab1">
-  <TabsList>
-    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-  </TabsList>
-  <TabsContent value="tab1">Content 1</TabsContent>
-  <TabsContent value="tab2">Content 2</TabsContent>
-</Tabs>
-```
-
----
-
-#### Accordion
-
-```tsx
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-
-<Accordion type="single" collapsible>
-  <AccordionItem value="item-1">
-    <AccordionTrigger>Section 1</AccordionTrigger>
-    <AccordionContent>Content for section 1</AccordionContent>
-  </AccordionItem>
-</Accordion>
-```
-
----
-
-#### Avatar
-
-```tsx
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-
-<Avatar>
-  <AvatarImage src="/avatar.jpg" alt="User" />
-  <AvatarFallback>TVH</AvatarFallback>
-</Avatar>
-```
-
----
-
-#### Sonner (Toasts)
-
-```tsx
-import { Toaster } from "@/components/ui/sonner"
-
-// In layout
-<Toaster />
-
-// In component
-import { toast } from "sonner"
-
-toast.success("Operation successful")
-toast.error("Something went wrong")
-```
-
----
-
-#### Form
-
-Forms use React Hook Form with Zod validation.
-
-```tsx
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-
-// Define schema
-const schema = z.object({
-  email: z.string().email("Invalid email"),
-  password: z.string().min(8, "Minimum 8 characters"),
-})
-
-function MyForm() {
-  const form = useForm({
-    resolver: zodResolver(schema),
-    defaultValues: { email: "", password: "" },
-  })
-
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="email@example.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      </form>
-    </Form>
-  )
-}
-```
-
----
-
-## Navigation Patterns
-
-### Navigation Configuration (`lib/navigation.ts`)
-
-Centralized navigation structure for consistent routing across header and footer.
-
-```typescript
-import { mainNavItems, ctaItem, footerNavItems } from "@/lib/navigation"
-```
-
-**Types:**
-
-```typescript
-type NavItem = {
-  title: string
-  href: string
-  description?: string      // Dropdown description
-  children?: NavItem[]      // Nested navigation items
-}
-```
-
-**Main Navigation Items:**
-
-| Route | Path | Children |
-|-------|------|----------|
-| Về tôi | `/about` | - |
-| Học AI | `/learn` | AI cho người mới, AI cho Marketing, AI cho công việc |
-| Blog | `/blog` | - |
-| Tài nguyên | `/resources` | - |
-| Cuộc sống | `/life` | - |
-
-**Footer Columns:**
-
-| Column | Items |
-|--------|-------|
-| Brand | Logo, tagline |
-| Quick Links | Về tôi, Học AI, Blog, Tài nguyên |
-| Resources | Free Gift, Cuộc sống, Newsletter, Liên hệ |
-| Connect | Email, Facebook, YouTube |
-
-### Header Component (`components/layout/header.tsx`)
-
-Responsive navigation header with desktop and mobile layouts.
-
-```tsx
-import { Header } from "@/components/layout/header"
-
-// In layout.tsx
-<Header />
-```
-
-**Features:**
-
-| Feature | Desktop | Mobile |
-|---------|---------|--------|
-| Navigation | Horizontal `nav` | Sheet drawer |
-| Logo | GradientText | GradientText |
-| CTA Button | Full text | Icon only |
-| Menu Toggle | N/A | Hamburger icon |
-
-**Behavior:**
-- Sticky header with `backdrop-blur-md` on scroll
-- Active route highlighted in coral color
-- Hover state transitions to coral
-- Mobile menu closes on navigation
-
-**Accessibility:**
-- Skip-to-content link (see `app/layout.tsx`)
-- `aria-label` on menu toggle button
-- `sr-only` text for icon-only elements
-- Focus-visible outlines in coral
-
-### Footer Component (`components/layout/footer.tsx`)
-
-4-column footer with newsletter signup and social links.
-
-```tsx
-import { Footer } from "@/components/layout/footer"
-
-// In layout.tsx
-<Footer />
-```
-
-**Layout:**
-
-```
-Mobile: 1 column          Tablet: 2 columns          Desktop: 4 columns
-┌─────────────────┐       ┌─────────────────┐       ┌────┬────┬────┬────┐
-│ Brand           │       │ Brand           │       │ Brand | QL | Res | News│
-│ Quick Links     │   →   │ Quick Links     │   →   └────┴────┴────┴────┘
-│ Resources       │       │ Resources       │
-│ Newsletter      │       │ Newsletter      │
-└─────────────────┘       └─────────────────┘
-```
-
-**Newsletter Form:**
-- Email input with validation
-- Loading state during submission
-- Success message in Vietnamese
-- Styled with `bg-muted/50`
-
-**External Links:**
-- `target="_blank"` for new tab
-- `rel="noopener noreferrer"` for security
-- `aria-label` for screen readers
-
-### Responsive Breakpoints
-
-| Breakpoint | Header | Footer |
-|------------|--------|--------|
-| `< md` | Sheet menu | 1 column |
-| `md - lg` | Sheet menu | 2 columns |
-| `>= lg` | Desktop nav | 4 columns |
-
-### Accessibility Guidelines
-
-#### Skip Link
-
-Required in `app/layout.tsx`:
-
-```tsx
-<a href="#main-content" className="sr-only focus:not-sr-only ...">
-  Skip to main content
-</a>
-```
-
-#### ARIA Labels
-
-| Element | Label |
-|---------|-------|
-| Mobile menu toggle | "Toggle menu" |
-| Mobile menu close | "Close menu" |
-| External social links | Social platform name |
-| Newsletter submit | "Đăng ký" context |
-
-#### Focus Management
-
-- Skip link appears on focus
-- Focus-visible ring: `2px solid var(--coral)`
-- Mobile menu traps focus within sheet
-- Dialog/Sheet uses Radix UI focus trap
-
-### File Organization
-
-```
-components/
-└── layout/                 # Layout components
-    ├── header.tsx         # Responsive header
-    └── footer.tsx         # 4-column footer
-```
-
----
-
-## Spacing System
-
-### Container Layout
-
-```tsx
-<Container size="6xl" padding="6">
-  {/* max-w-6xl, px-6, mx-auto */}
-  <Section padding="16">
-    {/* py-16 */}
-    Content
-  </Section>
-</Container>
-```
-
-### Section Spacing Scale
-
-| Token | Padding | Usage |
-|-------|---------|-------|
-| `0` | py-0 | No spacing |
-| `4` | py-4 | Tight sections |
-| `8` | py-8 | Compact sections |
-| `12` | py-12 | Standard sections |
-| `16` | py-16 | Default sections |
-| `20` | py-20 | Large sections |
-| `24` | py-24 | Hero sections |
-
-## Responsive Design
-
-### Breakpoints
-
-Tailwind 4 default breakpoints apply:
-- `sm`: 640px
-- `md`: 768px
-- `lg`: 1024px
-- `xl`: 1280px
-- `2xl`: 1536px
-
-### Container Widths
-
-| Size | Max-Width | Use Case |
-|------|-----------|----------|
-| `sm` | 24rem | Cards, forms |
-| `md` | 28rem | Narrow content |
-| `lg` | 32rem | Text columns |
-| `xl` | 36rem | Wide forms |
-| `2xl` | 42rem | Standard content |
-| `4xl` | 56rem | Wide layouts |
-| `6xl` | 72rem | Full content |
-| `7xl` | 80rem | Maximum width |
-| `full` | 100vw | Full-width sections |
-
-## Accessibility
-
-### Focus States
-
-All interactive elements have visible focus states:
-
-```css
-*:focus-visible {
-  outline: 2px solid var(--coral);
-  outline-offset: 2px;
-}
-```
-
-### Color Contrast
-
-- `--coral` on dark: 4.5:1+ (AA compliant)
-- `--foreground` on `--background`: 15:1+ (AAA compliant)
-- `--muted-foreground` on `--card`: 4.5:1+ (AA compliant)
-
-### Semantic HTML
-
-- Use `<section>` for major content areas
-- Use `<header>`, `<nav>`, `<main>`, `<footer>` landmarks
-- Use `<button>` for actions, `<a>` for navigation
-- Use ARIA labels for icon-only buttons
-
-## Best Practices
-
-### Do
-
-- Use `Container` and `Section` for consistent layout
-- Use `CTAButton` for all call-to-action elements
-- Use `BrandCard` for card-based content
-- Apply coral/bronze colors via design tokens
-- Use semantic HTML elements
-
-### Don't
-
-- Hardcode color values (use CSS variables)
-- Use inline styles for layout
-- Mix custom and shadcn/ui patterns inconsistently
-- Create new components without checking existing ones
-
-### Adding New Components
-
-1. Identify if component is brand-specific (`custom/`) or generic (`ui/`)
-2. Use design tokens for colors, spacing
-3. Follow existing component patterns
-4. Add JSDoc comments for props
-5. Export from component index if applicable
-6. Document in this file
-
-## File Organization
-
-```
-components/
-├── custom/                 # Brand-specific components
-│   ├── index.ts           # Barrel export
-│   ├── gradient-text.tsx
-│   ├── brand-card.tsx
-│   ├── cta-button.tsx
-│   └── container.tsx
-├── layout/                 # Layout components (Phase 2)
-│   ├── header.tsx         # Responsive header
-│   └── footer.tsx         # 4-column footer
-└── ui/                    # Generic UI components
-    ├── index.ts           # Barrel export
-    ├── tabs.tsx
-    ├── accordion.tsx
-    ├── avatar.tsx
-    ├── sonner.tsx
-    ├── form.tsx
-    └── ...               # Other primitives
-```
-
-## Related Documentation
-
-- [Codebase Summary](./codebase-summary.md)
-- [Code Standards](./code-standards.md)
-- [System Architecture](./system-architecture.md)
-- [Project Roadmap](./project-roadmap.md)
+Application lint excludes vendored `.claude`, `.opencode`, `.agents` tooling and the generated route file. Run the application lint command before committing; exclusions do not replace checks of changed application code.

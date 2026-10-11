@@ -1,67 +1,21 @@
-"use client";
+"use client"
 
-import Link from "next/link";
-import { BlogPost } from "@/lib/mdx";
-import { GradientText } from "@/components/custom/gradient-text";
+import Link from "next/link"
+import { useLocale } from "next-intl"
+import { ArrowUpRight, Brain, Compass, Layers3, PenLine } from "lucide-react"
+import type { BlogPost } from "@/lib/mdx"
 
-export function PostCard({ post }: { post: BlogPost }) {
-  return (
-    <article className="group">
-      <Link
-        href={`/blog/${post.category}/${post.slug}`}
-        className="block bg-card border border-border rounded-xl overflow-hidden transition-all duration-300 hover:border-coral/50 hover:shadow-lg"
-      >
-        {/* Featured Image Placeholder */}
-        <div className="aspect-video bg-gradient-to-br from-coral/10 to-bronze/10 relative overflow-hidden">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-4xl">📝</span>
-          </div>
-          {/* Category Badge */}
-          <div className="absolute top-3 left-3">
-            <span className="px-2 py-1 text-xs font-medium rounded-full bg-background/80 backdrop-blur-sm border border-border">
-              {post.metadata.category}
-            </span>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-5">
-          {/* Title */}
-          <h3 className="text-lg font-semibold mb-2 group-hover:text-coral transition-colors line-clamp-2">
-            <GradientText>{post.metadata.title}</GradientText>
-          </h3>
-
-          {/* Description */}
-          <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-            {post.metadata.description}
-          </p>
-
-          {/* Meta */}
-          <div className="flex items-center justify-between text-xs text-muted-foreground">
-            <span>{post.metadata.date}</span>
-            <span>{post.readingTime}</span>
-          </div>
-
-          {/* Tags */}
-          {post.metadata.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1.5 mt-3">
-              {post.metadata.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-0.5 text-xs rounded-full bg-muted text-muted-foreground"
-                >
-                  {tag}
-                </span>
-              ))}
-              {post.metadata.tags.length > 3 && (
-                <span className="px-2 py-0.5 text-xs rounded-full bg-muted text-muted-foreground">
-                  +{post.metadata.tags.length - 3}
-                </span>
-              )}
-            </div>
-          )}
-        </div>
-      </Link>
-    </article>
-  );
+const icons = [Brain, Layers3, Compass, PenLine]
+export function PostCard({ post, heading: Heading = "h2" }: { post: BlogPost; heading?: "h2" | "h3" }) {
+  const locale = useLocale()
+  const prefix = locale === "en" ? "/en" : ""
+  const Icon = icons[Array.from(post.category).reduce((sum, char) => sum + char.charCodeAt(0), 0) % icons.length]
+  const date = new Date(post.metadata.date)
+  const readableDate = Number.isNaN(date.getTime()) ? post.metadata.date : new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "vi-VN", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(date)
+  return <article className="blog-post-card">
+    <Link href={`${prefix}/blog/${post.category}/${post.slug}`} className="blog-post-link">
+      <div className={`blog-post-visual blog-post-visual--${icons.indexOf(Icon)}`} aria-hidden="true"><span className="blog-orbit" /><span className="blog-orbit blog-orbit--second" /><Icon size={64} strokeWidth={1} /><ArrowUpRight className="blog-visual-arrow" size={24} strokeWidth={1.2} /></div>
+      <div className="blog-post-copy"><p className="editorial-tag">{post.metadata.category}</p><Heading>{post.metadata.title}</Heading>{post.metadata.description && <p className="blog-post-description">{post.metadata.description}</p>}<div className="blog-post-meta"><time dateTime={post.metadata.date}>{readableDate}</time>{post.readingTime && <span>{locale === "en" ? post.readingTime.replace("phút", "min read") : post.readingTime}</span>}</div></div>
+    </Link>
+  </article>
 }

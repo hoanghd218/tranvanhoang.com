@@ -1,24 +1,29 @@
 @import "tailwindcss";
+@import "./editorial.css";
+@import "./blog.css";
+@import "./reader.css";
+@import "./creator.css";
+@import "./product-media.css";
 
 /* Light Theme (Default) */
 :root {
   /* Brand Colors */
-  --background: #FAFAFA;
-  --foreground: #0f172a;
-  --muted: #94a3b8;
-  --muted-foreground: #64748b;
+  --background: #F5F3E9;
+  --foreground: #123C32;
+  --muted: #E8EDE0;
+  --muted-foreground: #667168;
 
   /* Accent Colors */
-  --coral: #D97757;
-  --bronze: #D4A27F;
-  --coral-dark: #c45f3f;
-  --bronze-dark: #b8895f;
+  --coral: #1E765D;
+  --bronze: #E4B445;
+  --coral-dark: #123C32;
+  --bronze-dark: #946B19;
 
   /* UI Colors */
-  --border: #e2e8f0;
+  --border: #DDDCCF;
   --border-hover: var(--coral);
-  --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card: #FCFBF7;
+  --card-foreground: #123C32;
 
   /* Gradient values */
   --gradient-from: var(--coral);
@@ -32,8 +37,8 @@
   --life-lavender: #9B8AA8;
   --life-moss: #5a6b55;
   --life-background: #f8fafc;
-  --life-card: #ffffff;
-  --life-border: #e2e8f0;
+  --life-card: #FCFBF7;
+  --life-border: #DDDCCF;
   --life-gradient-from: var(--life-sage);
   --life-gradient-to: var(--life-sand);
 }
@@ -83,7 +88,7 @@
 
   /* Typography */
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-heading: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-merriweather), Georgia, serif;
   --font-serif: var(--font-merriweather), Georgia, serif;
 
   /* Spacing - Generous padding like ClaudeKit */
@@ -598,6 +603,7 @@ html {
 
 /* Reduced Motion Support */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 
   .animate-fade-in,
   .animate-fade-in-delay-1,

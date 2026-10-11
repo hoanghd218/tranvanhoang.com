@@ -64,7 +64,7 @@ export default async function TaiNguyenPage({ params }: { params: Promise<{ loca
               {categories.map((category) => (
                 <Link
                   key={category.slug}
-                  href={{ pathname: "/tai-nguyen", query: { category: category.slug } } as any}
+                  href={{ pathname: "/tai-nguyen", query: { category: category.slug } }}
                   className="px-4 py-2 rounded-full bg-card border border-border text-sm font-medium text-muted-foreground transition-colors hover:border-coral hover:text-foreground"
                 >
                   {category.name}

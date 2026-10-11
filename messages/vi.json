@@ -1,7 +1,7 @@
 {
   "common": {
     "siteName": "Tony Hoang",
-    "siteTagline": "Dạy AI cho người mới bắt đầu. Không cần code. Không áp lực kỹ thuật.",
+    "siteTagline": "Kiến trúc sư thiết kế hệ thống",
     "skipToContent": "Bỏ qua đến nội dung chính",
     "readingTime": "{minutes} phút đọc",
     "loading": "Đang tải...",
@@ -24,7 +24,7 @@
     "freeGift": "Nhận quà miễn phí"
   },
   "footer": {
-    "tagline": "Dạy AI cho người mới bắt đầu. Không cần code. Không áp lực kỹ thuật.",
+    "tagline": "Kiến trúc sư thiết kế hệ thống",
     "quickLinks": "Liên kết nhanh",
     "resources": "Tài nguyên",
     "newsletter": "Nhận bài viết mới",
@@ -54,18 +54,42 @@
     "audienceCards": [
       {
         "title": "Người chưa biết gì về AI",
-        "painPoints": ["Sợ công nghệ phức tạp", "Ngại thuật ngữ chuyên môn", "Không biết bắt đầu từ đâu"],
-        "benefits": ["Giải thích từ bản chất, dễ hiểu", "Không cần kiến thức trước", "Áp dụng được ngay lập tức"]
+        "painPoints": [
+          "Sợ công nghệ phức tạp",
+          "Ngại thuật ngữ chuyên môn",
+          "Không biết bắt đầu từ đâu"
+        ],
+        "benefits": [
+          "Giải thích từ bản chất, dễ hiểu",
+          "Không cần kiến thức trước",
+          "Áp dụng được ngay lập tức"
+        ]
       },
       {
         "title": "Marketer & Content Creator",
-        "painPoints": ["Tốn nhiều thời gian viết content", "Thiếu ý tưởng mới", "Cạnh tranh khốc liệt"],
-        "benefits": ["Làm việc nhanh hơn 10x", "Có ý tưởng không ngừng", "Content chất lượng hơn"]
+        "painPoints": [
+          "Tốn nhiều thời gian viết content",
+          "Thiếu ý tưởng mới",
+          "Cạnh tranh khốc liệt"
+        ],
+        "benefits": [
+          "Làm việc nhanh hơn 10x",
+          "Có ý tưởng không ngừng",
+          "Content chất lượng hơn"
+        ]
       },
       {
         "title": "Chủ doanh nghiệp nhỏ",
-        "painPoints": ["Ngân sách hạn chế", "Thiếu nhân sự kỹ thuật", "Cần hiệu quả tức thì"],
-        "benefits": ["Tối ưu chi phí với AI", "Tự làm được mọi việc", "ROI rõ ràng, đo lường được"]
+        "painPoints": [
+          "Ngân sách hạn chế",
+          "Thiếu nhân sự kỹ thuật",
+          "Cần hiệu quả tức thì"
+        ],
+        "benefits": [
+          "Tối ưu chi phí với AI",
+          "Tự làm được mọi việc",
+          "ROI rõ ràng, đo lường được"
+        ]
       }
     ],
     "teachingTitle": "Tôi",
@@ -79,21 +103,36 @@
         "title": "AI cho người mới bắt đầu",
         "slug": "ai-cho-nguoi-moi",
         "description": "Từ con số 0 đến tự tin sử dụng AI trong công việc hàng ngày",
-        "modules": ["AI là gì?", "ChatGPT cơ bản", "Prompt hiệu quả", "Thực hành ứng dụng"],
+        "modules": [
+          "AI là gì?",
+          "ChatGPT cơ bản",
+          "Prompt hiệu quả",
+          "Thực hành ứng dụng"
+        ],
         "duration": "2-4 tuần"
       },
       {
         "title": "AI cho Marketing",
         "slug": "ai-marketing",
         "description": "Áp dụng AI để tăng 10x hiệu quả marketing và content",
-        "modules": ["AI viết content", "Email marketing", "Social media", "Quảng cáo thông minh"],
+        "modules": [
+          "AI viết content",
+          "Email marketing",
+          "Social media",
+          "Quảng cáo thông minh"
+        ],
         "duration": "3-5 tuần"
       },
       {
         "title": "AI cho công việc",
         "slug": "ai-cong-viec",
         "description": "Tăng năng suất và tự động hóa công việc với AI",
-        "modules": ["Automation cơ bản", "Phân tích dữ liệu", "Trợ lý AI cá nhân", "Workflow tự động"],
+        "modules": [
+          "Automation cơ bản",
+          "Phân tích dữ liệu",
+          "Trợ lý AI cá nhân",
+          "Workflow tự động"
+        ],
         "duration": "4-6 tuần"
       }
     ],
@@ -101,17 +140,37 @@
     "trustTitleHighlight": "tin tôi?",
     "trustSubtitle": "Tôi không chỉ dạy lý thuyết - tôi đã áp dụng AI vào thực tế và giúp hàng ngàn người làm được điều tương tự.",
     "trustStats": [
-      { "value": "5+", "label": "Năm kinh nghiệm", "description": "Trong lĩnh vực AI và công nghệ" },
-      { "value": "10K+", "label": "Học viên", "description": "Đã tham gia các khóa học" },
-      { "value": "50+", "label": "Bài viết", "description": "Về AI cho người mới" },
-      { "value": "4.9/5", "label": "Đánh giá", "description": "Từ học viên" }
+      {
+        "value": "5+",
+        "label": "Năm kinh nghiệm",
+        "description": "Trong lĩnh vực AI và công nghệ"
+      },
+      {
+        "value": "10K+",
+        "label": "Học viên",
+        "description": "Đã tham gia các khóa học"
+      },
+      {
+        "value": "50+",
+        "label": "Bài viết",
+        "description": "Về AI cho người mới"
+      },
+      {
+        "value": "4.9/5",
+        "label": "Đánh giá",
+        "description": "Từ học viên"
+      }
     ],
     "ctaTitle": "Sẵn sàng để bắt đầu",
     "ctaTitleHighlight": "hành trình AI",
     "ctaTitleEnd": "của bạn?",
     "ctaSubtitle": "Nhận ngay bộ quà tặng miễn phí dành cho người mới bắt đầu: checklist, prompt templates, và video hướng dẫn chi tiết.",
     "ctaButton": "Nhận quà miễn phí ngay",
-    "ctaFeatures": ["Checklist 10 bước", "50+ Prompt templates", "Video hướng dẫn"],
+    "ctaFeatures": [
+      "Checklist 10 bước",
+      "50+ Prompt templates",
+      "Video hướng dẫn"
+    ],
     "ctaTrust": "Đã có <highlight>2,500+</highlight> người nhận quà • Không cần thẻ tín dụng • Hủy đăng ký bất cứ lúc nào"
   },
   "about": {
@@ -120,7 +179,7 @@
     "metaDescription": "Tìm hiểu về Tony Hoang — người dạy AI cho người mới bắt đầu.",
     "heroGreeting": "Xin chào, tôi là",
     "heroName": "Tony Hoang",
-    "heroIntro": "Tôi dành sức mình để giúp những người chưa biết gì về AI có thể bắt đầu và ứng dụng AI vào công việc, cuộc sống một cách tự tin.",
+    "heroIntro": "Tôi là kiến trúc sư thiết kế hệ thống. Tôi bắt đầu từ hiện trạng và đích đến, kết hợp con người, quy trình, công nghệ và AI để xây dựng cách vận hành phù hợp.",
     "stat1Value": "10,000+",
     "stat1Label": "Học viên",
     "stat2Value": "50+",
@@ -149,7 +208,8 @@
     "ctaTitle": "Cùng nhau học AI",
     "ctaSubtitle": "Sẵn sàng bắt đầu hành trình với AI? Tôi sẽ đồng hành cùng bạn.",
     "ctaLearnBtn": "Khám phá lộ trình học",
-    "ctaGiftBtn": "Nhận Free Gift"
+    "ctaGiftBtn": "Nhận Free Gift",
+    "role": "Kiến trúc sư thiết kế hệ thống"
   },
   "blog": {
     "title": "Blog",
@@ -179,10 +239,22 @@
     "getFreeGift": "🎁 Nhận quà miễn phí",
     "postNotFound": "Bài viết không tồn tại",
     "categories": {
-      "ai-co-ban": { "name": "AI Cơ Bản", "description": "Kiến thức nền tảng về AI cho người mới bắt đầu" },
-      "ai-marketing": { "name": "AI cho Marketing", "description": "Ứng dụng AI trong marketing và kinh doanh" },
-      "tool-prompt": { "name": "Tools & Prompts", "description": "Hướng dẫn sử dụng công cụ AI và viết prompt hiệu quả" },
-      "goc-trai-nghiem": { "name": "Góc Trải Nghiệm", "description": "Chia sẻ trải nghiệm thực tế với AI" }
+      "ai-co-ban": {
+        "name": "AI Cơ Bản",
+        "description": "Kiến thức nền tảng về AI cho người mới bắt đầu"
+      },
+      "ai-marketing": {
+        "name": "AI cho Marketing",
+        "description": "Ứng dụng AI trong marketing và kinh doanh"
+      },
+      "tool-prompt": {
+        "name": "Tools & Prompts",
+        "description": "Hướng dẫn sử dụng công cụ AI và viết prompt hiệu quả"
+      },
+      "goc-trai-nghiem": {
+        "name": "Góc Trải Nghiệm",
+        "description": "Chia sẻ trải nghiệm thực tế với AI"
+      }
     },
     "breadcrumbHome": "Trang chủ",
     "breadcrumbBlog": "Blog",
@@ -428,10 +500,10 @@
     "fallbackHint": "Nếu trang không tự chuyển, hãy nhấn nút trên."
   },
   "metadata": {
-    "siteTitle": "Tony Hoang - AI Educator | Dạy AI cho người mới bắt đầu",
-    "siteDescription": "Tony Hoang chia sẻ cách dùng AI sao cho người chưa biết gì cũng làm được. Không cần code. Không áp lực kỹ thuật.",
-    "ogTitle": "Tony Hoang - AI Educator",
-    "ogDescription": "Dạy AI cho người mới. Đơn giản, dễ hiểu, thực tế.",
-    "twitterDescription": "Dạy AI cho người mới bắt đầu"
+    "siteTitle": "Tony Hoang — Kiến trúc sư thiết kế hệ thống",
+    "siteDescription": "Tony Hoang thiết kế hệ thống kết hợp con người, công nghệ và AI. Khám phá sản phẩm, bài viết và hành trình xây dựng hệ thống.",
+    "ogTitle": "Tony Hoang — Kiến trúc sư thiết kế hệ thống",
+    "ogDescription": "Tony Hoang thiết kế hệ thống kết hợp con người, công nghệ và AI. Khám phá sản phẩm, bài viết và hành trình xây dựng hệ thống.",
+    "twitterDescription": "Tony Hoang thiết kế hệ thống kết hợp con người, công nghệ và AI. Khám phá sản phẩm, bài viết và hành trình xây dựng hệ thống."
   }
 }

@@ -1,10 +1,14 @@
 import type { NextConfig } from "next";
 import createMDX from "@next/mdx";
 import createNextIntlPlugin from "next-intl/plugin";
+import media from "./lib/data/product-media.json";
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: media.baseUrl ? [new URL(`${media.baseUrl}/${media.collection}/**`)] : [],
+  },
   pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
   experimental: {
     mdxRs: true,

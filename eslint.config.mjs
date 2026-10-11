@@ -12,6 +12,10 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "types/routes.d.ts", // Generated Next.js route declarations.
+    ".claude/**", // Vendored coding-agent tooling has its own checks.
+    ".opencode/**",
+    ".agents/**",
   ]),
 ]);
 
