@@ -3,11 +3,12 @@ import { cn } from "@/lib/utils"
 
 interface GradientTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   /**
-   * Gradient direction in degrees (default: 135)
+   * Gradient angle in degrees. Only applied when `from`/`to` are supplied.
    */
   direction?: number
   /**
-   * Custom CSS gradient stops
+   * Optional gradient stops. Leave unset to use the design-system text
+   * gradient (`--gradient-text`, stone -> purple-300).
    */
   from?: string
   to?: string
@@ -17,25 +18,37 @@ interface GradientTextProps extends React.HTMLAttributes<HTMLSpanElement> {
   hover?: boolean
 }
 
+/**
+ * The accent word in a headline. Exactly ONE per headline — the gradient is an
+ * emphasis device, not a body-copy treatment.
+ */
 function GradientText({
   className,
   children,
-  direction = 135,
-  from = "var(--coral)",
-  to = "var(--bronze)",
+  direction = 92,
+  from,
+  to,
   hover = true,
   ...props
 }: GradientTextProps) {
+  const custom = from && to
+
   return (
     <span
       className={cn(
-        "bg-gradient-to-br bg-clip-text text-transparent",
-        hover && "transition-all duration-300 hover:brightness-110",
+        !custom && "text-gradient",
+        custom && "bg-clip-text text-transparent",
+        hover &&
+          "transition-[filter] duration-[var(--duration-base)] ease-[var(--ease-trajectory)] hover:brightness-110",
         className
       )}
-      style={{
-        backgroundImage: `linear-gradient(${direction}deg, ${from} 0%, ${to} 100%)`,
-      }}
+      style={
+        custom
+          ? {
+              backgroundImage: `linear-gradient(${direction}deg, ${from} 0%, ${to} 100%)`,
+            }
+          : undefined
+      }
       {...props}
     >
       {children}

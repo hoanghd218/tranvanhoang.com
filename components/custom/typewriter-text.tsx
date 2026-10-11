@@ -12,6 +12,17 @@ interface TypewriterTextProps {
     pauseOnComplete?: number
 }
 
+function prefersReducedMotion() {
+    return (
+        typeof window !== "undefined" &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+}
+
+/**
+ * Types a single line, then holds. Reduced motion renders the full string at
+ * once and drops the cursor — no partial states, no blink.
+ */
 export function TypewriterText({
     text,
     className,
@@ -22,8 +33,15 @@ export function TypewriterText({
 }: TypewriterTextProps) {
     const [displayedText, setDisplayedText] = React.useState("")
     const [isTyping, setIsTyping] = React.useState(false)
+    const [isStatic, setIsStatic] = React.useState(false)
 
     React.useEffect(() => {
+        if (prefersReducedMotion()) {
+            setIsStatic(true)
+            setDisplayedText(text)
+            return
+        }
+
         let timeout: NodeJS.Timeout
         let charIndex = 0
         let isDeleting = false
@@ -74,13 +92,15 @@ export function TypewriterText({
     return (
         <span className={cn("inline-flex", className)}>
             <span>{displayedText}</span>
-            <span
-                className={cn(
-                    "inline-block w-[2px] h-[1em] bg-coral ml-1 translate-y-[0.1em]",
-                    isTyping || loop ? "animate-blink" : "opacity-0"
-                )}
-                aria-hidden="true"
-            />
+            {!isStatic && (
+                <span
+                    className={cn(
+                        "ml-1 inline-block h-[1em] w-[2px] translate-y-[0.1em] bg-rocket",
+                        isTyping || loop ? "animate-blink" : "opacity-0"
+                    )}
+                    aria-hidden="true"
+                />
+            )}
         </span>
     )
 }

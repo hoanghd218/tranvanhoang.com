@@ -36,7 +36,7 @@ export function ArticleSchema({
     },
     publisher: {
       "@type": "Organization",
-      name: "Tony Hoang - AI Educator",
+      name: "Tony Hoang",
       url: "https://tranvanhoang.com",
       logo: {
         "@type": "ImageObject",

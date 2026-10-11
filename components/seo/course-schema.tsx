@@ -6,14 +6,18 @@ interface CourseSchemaProps {
   url: string;
   provider?: string;
   language?: string;
+  isFree?: boolean;
+  lessons?: { name: string; description: string }[];
 }
 
 export function CourseSchema({
   name,
   description,
   url,
-  provider = "Tony Hoang - AI Educator",
+  provider = "Tony Hoang",
   language = "vi",
+  isFree,
+  lessons = [],
 }: CourseSchemaProps) {
   const schema = {
     "@context": "https://schema.org",
@@ -22,6 +26,19 @@ export function CourseSchema({
     description,
     url,
     inLanguage: language,
+    ...(isFree !== undefined && { isAccessibleForFree: isFree }),
+    ...(lessons.length > 0 && {
+      hasCourseInstance: {
+        "@type": "CourseInstance",
+        courseMode: "online",
+        hasPart: lessons.map((lesson, index) => ({
+          "@type": "LearningResource",
+          position: index + 1,
+          name: lesson.name,
+          description: lesson.description,
+        })),
+      },
+    }),
     provider: {
       "@type": "Organization",
       name: provider,

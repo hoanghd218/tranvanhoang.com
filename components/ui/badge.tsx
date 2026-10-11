@@ -5,19 +5,23 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center justify-center rounded-full border border-transparent px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  // Pill radius, caption size, surface-overlay fill with one hairline.
+  "inline-flex items-center justify-center rounded-[var(--radius-pill)] border border-transparent px-2 py-0.5 text-[length:var(--size-caption)] font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none transition-[color,background-color,border-color,box-shadow] duration-[var(--duration-fast)] ease-[var(--ease-trajectory)] overflow-hidden",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
+        default:
+          "bg-surface-overlay border-hairline text-text-secondary [a&]:hover:border-hairline-accent [a&]:hover:text-text-primary",
+        // Accent tone: purple tint, purple hairline, purple text — never a solid purple fill.
         secondary:
-          "bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+          "bg-[var(--purple-a12)] border-hairline-accent text-text-accent [a&]:hover:bg-[var(--purple-a24)]",
         destructive:
-          "bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+          "bg-surface-overlay border-[var(--status-critical)] text-status-critical [a&]:hover:bg-[var(--action-ghost-hover)]",
         outline:
-          "border-border text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
-        ghost: "[a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 [a&]:hover:underline",
+          "border-hairline-strong text-text-primary [a&]:hover:bg-surface-overlay [a&]:hover:border-hairline-accent",
+        ghost:
+          "text-text-secondary [a&]:hover:bg-surface-overlay [a&]:hover:text-text-primary",
+        link: "text-text-accent underline-offset-4 [a&]:hover:underline",
       },
     },
     defaultVariants: {

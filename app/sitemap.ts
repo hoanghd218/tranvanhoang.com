@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next"
 import { products } from "@/lib/products"
+import { courses } from "@/lib/courses"
 import { getAllPosts } from "@/lib/mdx"
 import { getAllLifeStories } from "@/lib/life-mdx"
 
@@ -45,6 +46,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/tai-nguyen", lastModified: new Date("2026-01-15") },
     { path: "/qua", lastModified: new Date("2026-01-15") },
     { path: "/life", lastModified: new Date("2026-03-01") },
+    { path: "/courses", lastModified: new Date("2026-08-13") },
     { path: "/products", lastModified: new Date("2026-10-11") },
     { path: "/coloring-book-kdp", lastModified: new Date("2026-10-11") },
   ]
@@ -69,5 +71,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   })
 
   const productRoutes = products.flatMap(product => bilingualEntries(`/products/${product.slug}`, new Date("2026-10-11")))
-  return [...staticRoutes, ...productRoutes, ...blogRoutes, ...lifeRoutes]
+  const courseRoutes = courses.flatMap(course => bilingualEntries(`/courses/${course.slug}`, new Date("2026-08-13")))
+  return [...staticRoutes, ...productRoutes, ...courseRoutes, ...blogRoutes, ...lifeRoutes]
 }

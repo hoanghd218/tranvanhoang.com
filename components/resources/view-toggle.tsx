@@ -30,9 +30,14 @@ function getStoredViewMode(defaultView: ViewMode): ViewMode {
 // Loading placeholder for client-only rendering
 function ViewToggleSkeleton({ className }: { className?: string }) {
   return (
-    <div className={cn("flex gap-1", className)}>
-      <div className="w-8 h-8" />
-      <div className="w-8 h-8" />
+    <div
+      className={cn(
+        "inline-flex items-center gap-1 rounded-[var(--radius-pill)] border border-hairline bg-surface-inset p-1",
+        className
+      )}
+    >
+      <div className="h-9 w-9" />
+      <div className="h-9 w-9" />
     </div>
   )
 }
@@ -52,43 +57,46 @@ function ViewToggleInner({
     onChange?.(newView)
   }
 
+  // Segmented control: hairline shell, pill radius. The selected segment takes a
+  // purple tint plus a purple hairline — never a solid purple fill.
+  const segment = (selected: boolean) =>
+    cn(
+      "h-9 w-9 rounded-[var(--radius-pill)] border",
+      selected
+        ? "border-hairline-accent bg-[var(--purple-a12)] text-text-accent"
+        : "border-transparent text-text-secondary hover:bg-surface-overlay hover:text-text-primary"
+    )
+
   return (
     <div
       className={cn(
-        "flex items-center gap-1 p-1 bg-card border border-border rounded-lg",
+        "inline-flex items-center gap-1 rounded-[var(--radius-pill)] border border-hairline bg-surface-inset p-1",
         className
       )}
+      role="group"
     >
       <Button
         variant="ghost"
-        size="icon"
+        size="icon-sm"
+        shape="pill"
         onClick={() => handleViewChange("card")}
-        className={cn(
-          "w-8 h-8 rounded-md transition-all",
-          view === "card"
-            ? "bg-coral text-white hover:bg-coral-dark"
-            : "text-muted-foreground hover:text-foreground"
-        )}
+        className={segment(view === "card")}
         aria-label="Card view"
         aria-pressed={view === "card"}
       >
-        <Grid3X3 className="w-4 h-4" />
+        <Grid3X3 size={16} strokeWidth={1.75} />
       </Button>
 
       <Button
         variant="ghost"
-        size="icon"
+        size="icon-sm"
+        shape="pill"
         onClick={() => handleViewChange("grid")}
-        className={cn(
-          "w-8 h-8 rounded-md transition-all",
-          view === "grid"
-            ? "bg-coral text-white hover:bg-coral-dark"
-            : "text-muted-foreground hover:text-foreground"
-        )}
+        className={segment(view === "grid")}
         aria-label="List view"
         aria-pressed={view === "grid"}
       >
-        <List className="w-4 h-4" />
+        <List size={16} strokeWidth={1.75} />
       </Button>
     </div>
   )

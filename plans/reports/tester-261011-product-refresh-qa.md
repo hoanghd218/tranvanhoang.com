@@ -23,3 +23,7 @@ Preview localhost:3200; extension-page-refresh plan.
 No blocking issues found. No implementation/remote state edits by tester.
 
 Unresolved questions: none.
+
+## Main integration verification
+
+Production build passed after remote main integration and final CTA cleanup. 12/12 tests pass. ESLint: 0 errors, 1 existing React Hook Form warning. Browser smoke passed 11 routes at 360px and 1440px: home, catalog, three extension details, course catalog/detail, learning hub, resources, gifts and English resources. No overflow, broken loaded images or console errors; real product heroes, gallery filter/Next, course contrast and independent spacing tokens confirmed. Final screenshots are local at `/tmp/tony-postmerge-qa/`.

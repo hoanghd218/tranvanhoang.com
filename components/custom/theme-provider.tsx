@@ -12,8 +12,10 @@ interface ThemeContextType {
     mounted: boolean
 }
 
+// Void black is the ground, not a theme — dark is the default scope and
+// `light` is the opt-in "stone" scope.
 const ThemeContext = React.createContext<ThemeContextType>({
-    theme: "light",
+    theme: "dark",
     toggleTheme: () => { },
     mounted: false,
 })
@@ -27,30 +29,29 @@ interface ThemeProviderProps {
     defaultTheme?: Theme
 }
 
-export function ThemeProvider({ children, defaultTheme = "light" }: ThemeProviderProps) {
+export function ThemeProvider({ children, defaultTheme = "dark" }: ThemeProviderProps) {
     const [theme, setTheme] = React.useState<Theme>(defaultTheme)
     const [mounted, setMounted] = React.useState(false)
 
-    // Load theme from localStorage on mount
+    // Load theme from localStorage on mount. Only an explicit saved choice
+    // moves off the brand default — the OS preference does not.
     React.useEffect(() => {
         setMounted(true)
         const savedTheme = localStorage.getItem("theme") as Theme | null
-        if (savedTheme) {
+        if (savedTheme === "light" || savedTheme === "dark") {
             setTheme(savedTheme)
-        } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            setTheme("dark")
         }
     }, [])
 
-    // Apply theme class to html element
+    // Apply the light scope class to <html>. Dark needs no class — it is :root.
     React.useEffect(() => {
         if (!mounted) return
 
         const root = document.documentElement
-        if (theme === "dark") {
-            root.classList.add("dark")
+        if (theme === "light") {
+            root.classList.add("light")
         } else {
-            root.classList.remove("dark")
+            root.classList.remove("light")
         }
         localStorage.setItem("theme", theme)
     }, [theme, mounted])
@@ -78,7 +79,7 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         return (
             <div
                 className={cn(
-                    "w-9 h-9 rounded-lg bg-card border border-border",
+                    "w-9 h-9 rounded-[var(--radius-sm)] bg-surface-card border border-hairline",
                     className
                 )}
             />
@@ -89,25 +90,28 @@ export function ThemeToggle({ className }: ThemeToggleProps) {
         <button
             onClick={toggleTheme}
             className={cn(
-                "relative inline-flex items-center justify-center w-9 h-9 rounded-lg",
-                "bg-card border border-border transition-all duration-300",
-                "hover:border-coral hover:bg-coral/10",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                "relative inline-flex items-center justify-center w-9 h-9 rounded-[var(--radius-sm)]",
+                "bg-surface-card border border-hairline",
+                "transition-[color,background-color,border-color,box-shadow] duration-[var(--duration-fast)] ease-[var(--ease-trajectory)]",
+                "hover:border-hairline-accent hover:bg-surface-overlay hover:shadow-glow-sm",
+                "active:scale-[var(--press-scale)]",
                 "cursor-pointer",
                 className
             )}
             aria-label={`Switch to ${theme === "light" ? "dark" : "light"} theme`}
         >
             <Sun
+                strokeWidth={1.75}
                 className={cn(
-                    "absolute w-5 h-5 text-coral transition-all duration-300",
-                    theme === "light" ? "opacity-100 rotate-0 scale-100" : "opacity-0 rotate-90 scale-0"
+                    "absolute w-5 h-5 text-rocket transition-all duration-[var(--duration-base)] ease-[var(--ease-trajectory)]",
+                    theme === "light" ? "opacity-100 scale-100" : "opacity-0 scale-90"
                 )}
             />
             <Moon
+                strokeWidth={1.75}
                 className={cn(
-                    "absolute w-5 h-5 text-coral transition-all duration-300",
-                    theme === "dark" ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-90 scale-0"
+                    "absolute w-5 h-5 text-rocket transition-all duration-[var(--duration-base)] ease-[var(--ease-trajectory)]",
+                    theme === "dark" ? "opacity-100 scale-100" : "opacity-0 scale-90"
                 )}
             />
         </button>

@@ -1,13 +1,15 @@
 # Codebase Summary
 
 **Project**: AI Educator Website
-**Phase**: 3 - Internationalization (i18n)
-**Last Updated**: 2026-03-03
-**Status**: Complete
+**Phase**: 3.3 - Practical AI Homepage Positioning
+**Last Updated**: 2026-10-11
+**Status**: Core implementation complete; CTA measurement pending
 
 ## Overview
 
-AI Educator Website is a modern personal portfolio site built with Next.js 16, featuring a custom design system with brand-specific components. The project emphasizes accessibility, performance, and maintainable code patterns.
+Tony Hoang's site is a bilingual systems architect and creator website built with Next.js 16. The editorial homepage presents owned digital products, published writing and activities. Retained courses, learning paths, resources and gifts use compatible styling within the same site.
+
+The homepage reads live blog data from `content/blog`, so proof cards and article routes stay aligned with published content rather than vanity counters or unverified claims.
 
 ## Project Structure
 
@@ -27,11 +29,13 @@ tranvanhoang.com/
 │   │   │   ├── ai-for-marketing/page.tsx
 │   │   │   ├── ai-for-work/page.tsx
 │   │   │   └── [path]/[module]/page.tsx
+│   │   ├── courses/
+│   │   │   ├── page.tsx                   # Bilingual course catalog
+│   │   │   └── [slug]/page.tsx            # Data-driven course detail
 │   │   ├── tai-nguyen/page.tsx             # /resources in English
 │   │   ├── free-gift/page.tsx
 │   │   ├── life/page.tsx
 │   │   └── life/[slug]/page.tsx
-│   ├── courses/                           # Excluded from i18n (separate locale system)
 │   ├── globals.css                        # Global styles & design tokens
 │   ├── layout.tsx                         # Root layout
 │   └── page.tsx                           # Catch-all redirect
@@ -40,25 +44,29 @@ tranvanhoang.com/
 │   │   ├── header.tsx                     # With locale switcher
 │   │   ├── footer.tsx
 │   │   └── locale-switcher.tsx            # NEW: Locale toggle button
+│   ├── courses/
+│   │   └── course-video-card.tsx           # Fathom player/unavailable state
 │   ├── custom/                            # Brand components
 │   ├── ui/                                # shadcn/ui primitives
 │   └── seo/                               # SEO schemas
 ├── i18n/                                  # NEW: i18n configuration
 │   ├── routing.ts                         # Locale routing + path mappings
-│   ├── request.ts                         # Request locale detection
+│   ├── request.ts                         # Request locale message loading
 │   └── navigation.ts                      # Locale-aware navigation
 ├── messages/                              # NEW: Translation files
 │   ├── vi.json                            # Vietnamese translations (~240 keys)
 │   └── en.json                            # English translations (~240 keys)
 ├── lib/
+│   ├── courses.ts                         # Course slug, cover, lesson URLs/status
 │   ├── utils.ts                           # cn() utility
 │   ├── mdx.ts                             # MDX content queries
 │   └── navigation.ts                      # Navigation config
 ├── content/                               # MDX blog posts (Vietnamese only)
 │   └── {category}/*.mdx
-├── middleware.ts                          # NEW: i18n middleware
+├── proxy.ts                          # Next.js 16 locale request proxy
 ├── types/                                 # TypeScript types
-├── public/                                # Static assets
+├── public/
+│   └── images/courses/                    # Local course cover assets
 └── docs/                                  # Documentation
 ```
 
@@ -75,42 +83,13 @@ tranvanhoang.com/
 | Notifications | Sonner |
 | Build | TypeScript 5 |
 
-## Brand Design System
+## Brand Design System — Tony Hoang
 
-### Color Palette
+The main shell uses a light premium editorial theme: warm ivory `#F5F3E9`, soft white `#FCFBF7`, emerald `#1E765D`, forest `#123C32`, gold `#E4B445`, pale sage `#E8EDE0`, gray green `#667168` and warm border `#DDDCCF`. Noto Serif headings, Be Vietnam Pro body/UI and the Allura signature are loaded in `app/layout.tsx`.
 
-| Variable | Value | Usage |
-|----------|-------|-------|
-| `--coral` | `#D97757` | Primary brand color |
-| `--bronze` | `#D4A27C` | Secondary brand color |
-| `--coral-dark` | `#C45F3F` | Hover/interaction state |
-| `--bronze-dark` | `#B8895F` | Hover/interaction state |
-| `--background` | `#0E0E0E` | Dark background |
-| `--foreground` | `#ededed` | Light text |
-| `--card` | `#18181B` | Card backgrounds |
-| `--border` | `#27272A` | Border color |
+`app/editorial.css` owns editorial tokens and responsive layout. `app/learning-compat.css` adapts retained courses, learning, resources and gifts UI (`rk-*` classes and semantic tokens) to the same palette/fonts; legacy purple token names resolve to emerald/forest. Dark forest accent sections are local surfaces, not a dark-first site theme.
 
-### Typography
-
-- **Font**: Inter (via `next/font`)
-- **Classes**: `--font-sans`, `--font-heading`
-- **Base size**: 16px / 1rem
-
-### Spacing System
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--spacing-container` | 1.5rem | Horizontal page padding |
-| `--spacing-section` | 4rem | Vertical section spacing |
-
-### Border Radius
-
-| Class | Value |
-|-------|-------|
-| `--radius-sm` | 0.375rem |
-| `--radius-md` | 0.5rem |
-| `--radius-lg` | 0.75rem |
-| `--radius-xl` | 1rem |
+Editorial spacing variables such as `--space-8` mean 8px. Retained learning layouts use separate indexed `--learning-space-N` tokens (for example, `--learning-space-8: 64px`, `--learning-space-9: 96px`) to avoid collisions. Container maximum is 1280px; editorial radius is 8px and transition duration 220ms. See `docs/design-guidelines.md` for the full system.
 
 ## Component Architecture
 
@@ -120,8 +99,8 @@ Brand-specific components using design tokens:
 
 | Component | File | Purpose |
 |-----------|------|---------|
-| `GradientText` | `gradient-text.tsx` | Gradient text with coral-bronze gradient |
-| `BrandCard` | `brand-card.tsx` | Card with hover coral border effect |
+| `GradientText` | `gradient-text.tsx` | Gradient text using emerald/gold aliases |
+| `BrandCard` | `brand-card.tsx` | Card with emerald hover border |
 | `CTAButton` | `cta-button.tsx` | Primary action button with variants |
 | `Container` | `container.tsx` | Constrained width container |
 | `Section` | `container.tsx` | Section wrapper with vertical padding |
@@ -179,6 +158,21 @@ const footerNavItems: {...}  // 4-column footer structure
 | `ctaItem` | Primary CTA button (Nhận quà miễn phí) |
 | `footerNavItems` | Footer columns: brand, quickLinks, resources, connect |
 
+The active localized header/footer navigation is assembled in `components/layout/header.tsx` and `components/layout/footer.tsx` from the `nav` message namespace. Both include `/courses` and use `@/i18n/navigation` links.
+
+### Course System
+
+| File | Responsibility |
+|------|----------------|
+| `app/[locale]/courses/page.tsx` | VI/EN catalog, localized metadata, course discovery card |
+| `app/[locale]/courses/[slug]/page.tsx` | Data-driven hero, outcomes, curriculum, Course/Breadcrumb JSON-LD |
+| `lib/courses.ts` | Stable technical data: slug, cover path, share/embed URLs, availability |
+| `components/courses/course-video-card.tsx` | Responsive lazy iframe, external fallback, unavailable state |
+| `messages/{locale}.json` | Localized catalog, course, lesson, metadata, and status copy |
+| `public/images/courses/vibe-coding-sale-page-cover.webp` | Local cover for UI and social previews |
+
+The first workshop uses Fathom's verified `/embed/{token}?autoplay=0` endpoint and always exposes the public share URL as a fallback. Workshop 2's supplied share URL returns 404, so `available: false` and `embedUrl: null` prevent a broken iframe while preserving its curriculum card.
+
 ### Layout Components (`components/layout/`)
 
 Responsive layout shell components (Phase 2):
@@ -192,7 +186,7 @@ Responsive layout shell components (Phase 2):
 - Sticky positioning with backdrop blur on scroll
 - Desktop: Horizontal nav with dropdown support
 - Mobile: Sheet-based slide-out menu
-- Active route highlighting with coral color
+- Active route highlighting with emerald color
 - Skip-to-content link for accessibility
 
 **Footer Features:**
@@ -240,8 +234,8 @@ Responsive layout shell components (Phase 2):
 
 :root {
   /* Design tokens */
-  --coral: #D97757;
-  --bronze: #D4A27C;
+  --coral: #1E765D; /* Legacy alias for emerald */
+  --bronze: #E4B445; /* Legacy alias for gold */
   /* ... */
 }
 
@@ -258,7 +252,7 @@ Responsive layout shell components (Phase 2):
 | Class | Purpose |
 |-------|---------|
 | `.text-gradient` | Gradient text effect |
-| `.border-coral-hover` | Coral hover border transition |
+| `.border-coral-hover` | Emerald hover border transition |
 | `.container-custom` | Centered container |
 | `.section-spacing` | Vertical section padding |
 
@@ -299,18 +293,39 @@ npm run lint     # Run ESLint
 - [x] External link security attributes
 - [x] Mobile sheet menu with nested navigation
 
-## Phase 3 Deliverables (Current)
+## Phase 3 Deliverables (Completed)
 
-- [x] next-intl integration (v4) with middleware routing
+- [x] next-intl integration (v4) with proxy routing
 - [x] Dual locale support: Vietnamese (default) + English
 - [x] Translated route slugs (/tai-nguyen ↔ /resources)
 - [x] Full UI translation (~240 keys in messages/vi.json & messages/en.json)
-- [x] Middleware-based locale detection and routing
+- [x] Middleware-based locale routing with deterministic default locale
 - [x] LocaleSwitcher component with Globe icon
 - [x] All pages moved under app/[locale]/ structure
 - [x] Locale-aware metadata generation
-- [x] /courses/* excluded from i18n (separate hand-rolled system)
+- [x] Course routes integrated with next-intl and `app/[locale]`
 - [x] MDX blog content remains Vietnamese-only
+
+## Phase 3.1 Deliverables (2026-08-13)
+
+- [x] Bilingual `/courses` catalog and `/courses/vibe-coding-sale-page` detail page
+- [x] Centralized course media/status data in `lib/courses.ts`
+- [x] Responsive Workshop 1 Fathom embed plus external fallback link
+- [x] Non-broken unavailable state for Workshop 2 pending a replacement URL
+- [x] Generated WebP cover used in catalog, hero, Open Graph, and Twitter cards
+- [x] Localized canonical/hreflang metadata, Course/Breadcrumb JSON-LD
+- [x] Bilingual sitemap entries and header/footer course links
+
+## Phase 3.3 Deliverables (2026-08-13)
+
+- [x] Homepage repositioned around practical AI for work, marketing, and digital products
+- [x] Automatic email popup removed; lead capture remains contextual at the end of the journey
+- [x] Hero CTAs prioritize `/courses`, then `/blog`; `/qua` moved to the closing section
+- [x] Three job-based learning-path entry points replace the broad audience matrix
+- [x] Featured course reads from `lib/courses.ts`; three recent proof cards read from `content/blog`
+- [x] Unsupported counters/testimonials removed from the rendered homepage
+- [x] VI/EN metadata and homepage messages aligned by meaning
+- [ ] Position-specific GA4 events for hero, featured content, and gift CTAs
 
 ## Next Phases
 

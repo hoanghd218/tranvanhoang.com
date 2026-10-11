@@ -4,6 +4,15 @@ import matter from "gray-matter";
 import slugify from "slugify";
 
 const contentDirectory = path.join(process.cwd(), "content", "blog");
+const publicDirectory = path.join(process.cwd(), "public");
+
+function resolvePublicAsset(assetPath?: string): string | undefined {
+  if (!assetPath) return undefined;
+  if (/^https?:\/\//.test(assetPath)) return assetPath;
+  const absolutePath = path.resolve(publicDirectory, assetPath.replace(/^\/+/, ""));
+  if (!absolutePath.startsWith(publicDirectory + path.sep)) return undefined;
+  return fs.existsSync(absolutePath) ? assetPath : undefined;
+}
 
 export type PostMetadata = {
   title: string;
@@ -99,7 +108,7 @@ function parsePost(filePath: string): BlogPost | null {
     const fileName = path.basename(filePath, path.extname(filePath));
     const slug = slugifyVi(data.slug || data.title || fileName);
 
-    // Calculate reading time
+    // Keep the existing reader/card reading-time contract.
     const wordCount = content.split(/\s+/g).length;
     const readingTime = `${Math.ceil(wordCount / 200)} phút`;
 
@@ -114,7 +123,7 @@ function parsePost(filePath: string): BlogPost | null {
         category: data.category,
         author: data.author || "Tony Hoang",
         readingTime,
-        featuredImage: data.featuredImage,
+        featuredImage: resolvePublicAsset(data.featuredImage),
         draft: data.draft || false,
       },
       content,

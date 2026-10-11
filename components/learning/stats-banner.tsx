@@ -15,21 +15,23 @@ interface StatsBannerProps {
   className?: string
 }
 
+/**
+ * StatCard row — carbon cards on flat void black.
+ * Label is an eyebrow, value sits in the display face at --size-display-l.
+ */
 export function StatsBanner({ stats, className }: StatsBannerProps) {
   return (
-    <div className={cn("border-y border-border bg-card/50", className)}>
+    <div className={cn("py-12 md:py-16", className)}>
       <Container>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8">
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
           {stats.map((stat, index) => (
-            <ScrollReveal
-              key={stat.label}
-              delay={index * 100}
-              className="text-center"
-            >
-              <div className="text-3xl md:text-4xl font-bold text-coral mb-1">
-                <AnimatedCounter value={stat.value} />
+            <ScrollReveal key={stat.label} delay={index * 100} className="h-full">
+              <div className="rk-card flex h-full flex-col gap-3 p-6">
+                <p className="eyebrow">{stat.label}</p>
+                <p className="font-display text-4xl leading-none font-bold text-text-primary md:text-[length:var(--size-display-l)]">
+                  <AnimatedCounter value={stat.value} />
+                </p>
               </div>
-              <div className="text-sm text-muted-foreground">{stat.label}</div>
             </ScrollReveal>
           ))}
         </div>
