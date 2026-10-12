@@ -13,7 +13,7 @@ Each page requires `src`, descriptive `alt`, `width`, `height`; optional `thumbn
 
 Desktop: separate cover followed by two-page spreads. Below 768px: single page with horizontal swipe; vertical scrolling and native pinch zoom remain available. Previous/next buttons, arrow keys while focus is inside the reader, page selector, thumbnails, 180% zoom and fullscreen are provided. Browsers without fullscreen show a message and retain zoom. Failed pages offer retry. Empty books show an empty state.
 
-Use `key={product.id}` when switching products to reset page/zoom/error state. No global keyboard handlers, URL rewriting or persistence; multiple readers can coexist. No third-party animation library or page curl. Import the component from any product page; this change does not publish a product or upload any assets.
+Use `key={product.id}` when switching products to reset page/zoom/error state. No global keyboard handlers, URL rewriting or persistence; multiple readers can coexist. Normal viewing uses StPageFlip (`page-flip` 2.0.7) for page curls, shadows and corner dragging. Zoom and reduced-motion use the static reader, retaining the selected page. Initialization/image failure falls back to the static reader with retry. The pinned engine has a checked-in pnpm patch that exposes renderer `stop()`; teardown cancels its RAF loop before destroying the engine. Import the component from any product page; this change does not publish a product or upload any assets.
 
 ## Public books
 

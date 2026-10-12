@@ -1,6 +1,6 @@
 # Reusable image book viewer
 
-2026-10-12 · Component implemented and verified; public REA publication in progress.
+2026-10-12 · Component implemented and verified; public REA release and realistic page flip tracked below.
 
 User scope: reusable view-only component, public Cloudflare image URLs, commit and push. Extended scope: attach the actual REA playbook to public `/playbooks/rea` and deploy.
 
@@ -8,7 +8,7 @@ User scope: reusable view-only component, public Cloudflare image URLs, commit a
 - [x] Native React reader: cover/spreads on desktop, single pages on mobile.
 - [x] Scoped keyboard, swipe, page selector, thumbnails, zoom, fullscreen.
 - [x] Bounds, empty state, image retry and responsive resize.
-- [x] Component CSS module; no dependency or backend.
+- [x] Initial component CSS module and static reader; no backend.
 - [x] Usage and Cloudflare integration documentation.
 - [x] Lint, TypeScript and production build passed; independent browser tests and review completed.
 - [ ] Commit and push only the viewer-related files, preserving unrelated working-tree changes.
@@ -25,6 +25,20 @@ User scope: reusable view-only component, public Cloudflare image URLs, commit a
 - [ ] Review focused diff, stage only relevant code/data/documentation and push. Preserve unrelated dirty KDSPY and configuration changes.
 - [ ] Deploy through existing project configuration, then verify public `/playbooks`, `/playbooks/rea` and image requests. Record actual production URL and deployment result; do not infer deployment success from push alone.
 
-See test-report.md for existing component browser evidence. Physical iOS/Safari gestures remain untested. Public release requires fresh route/CDN verification.
+## Realistic page flip
+
+User requires a visible book page curl rather than an immediate page replacement. Integrate StPageFlip directly through the `page-flip` package in HTML mode; no React wrapper.
+
+- [ ] Inspect official StPageFlip API/source for HTML initialization, events, resizing and destruction. Add dependency through the pinned package manager and retain lockfile consistency.
+- [ ] Isolate the imperative engine in a focused client adapter. Initialize after its real DOM pages mount, subscribe to current-page/orientation events, clean up listeners/engine on unmount and rebuild only when actual page data/layout require it. Avoid React and engine concurrently rearranging the same owned nodes.
+- [ ] Preserve actual HTML images, useful alt text, loading/failure state and retry behavior. Retain accessible previous/next, page selection and thumbnail controls; update status and selected page from engine events. Scope keyboard navigation to the viewer and keep hidden/offscreen page content out of keyboard focus.
+- [ ] Use cover/spreads on desktop and portrait single pages on mobile. Keep page aspect ratio and full-image containment, bound first/final page navigation, and retain current content across orientation changes.
+- [ ] Route controls through animated flip methods for ordinary reading. Ensure mobile touch dragging triggers page curl without fighting vertical document scrolling or existing duplicate swipe handlers.
+- [ ] Recalculate engine dimensions after container resize and fullscreen enter/exit. Keep zoom reading in the static viewer fallback so page transforms do not interfere with magnified pan/scroll. Preserve current page when entering/leaving zoom.
+- [ ] Honor `prefers-reduced-motion` with static immediate navigation. Keep a working static reader if engine initialization fails and preserve empty/one-page behavior without unnecessary animation.
+- [ ] Verify real animation visually on desktop and mobile; cover, forward/back through all ten pages, thumbnail jump, keyboard, drag, last-page bounds, fullscreen resize, zoom transitions, reduced motion, image error/retry and unmount/re-entry. Run lint, TypeScript/build and independent review before focused commit/push/deployment.
+- [ ] Update viewer documentation to describe dependency, accessible fallback behavior and confirmed limitations. Verify deployed REA reader actually curls pages before reporting completion.
+
+See test-report.md for existing static component browser evidence. Physical iOS/Safari gestures remain untested. Public release and page-flip integration require fresh route/CDN/browser verification.
 
 Unresolved questions: none; stop only if ten authentic completed images or required Cloudflare/deployment authorization are unavailable.

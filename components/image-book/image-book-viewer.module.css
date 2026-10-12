@@ -29,3 +29,7 @@
 }
 
 .page img { box-shadow: 0 3px 16px rgb(22 45 41 / 10%); }
+
+.flipHost { width: 100%; display: flex; justify-content: center; align-items: center; min-width: 0; }
+.flipPage { background: white; overflow: hidden; }
+.flipPage img { width: 100%; height: 100%; object-fit: contain; display: block; user-select: none; }

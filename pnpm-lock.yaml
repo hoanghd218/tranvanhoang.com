@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  page-flip@2.0.7:
+    hash: 4268a0c6f528e6da577c7a146f4aeae87a7a43f77604f58302a77cda0acdb164
+    path: patches/page-flip@2.0.7.patch
+
 importers:
 
   .:
@@ -71,6 +76,9 @@ importers:
       next-themes:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      page-flip:
+        specifier: 2.0.7
+        version: 2.0.7(patch_hash=4268a0c6f528e6da577c7a146f4aeae87a7a43f77604f58302a77cda0acdb164)
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -3694,6 +3702,9 @@ packages:
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
+
+  page-flip@2.0.7:
+    resolution: {integrity: sha512-96lQFUUz7r/LZzEUZJ3yBIMEKU9+m8HMFDzTvTdD6P7Ag/wXINjp9n0W7b4wanwnDbQETo4uNUoL3zMqpFxwGA==}
 
 snapshots:
 
@@ -7704,3 +7715,5 @@ snapshots:
   zod@4.3.6: {}
 
   zwitch@2.0.4: {}
+
+  page-flip@2.0.7(patch_hash=4268a0c6f528e6da577c7a146f4aeae87a7a43f77604f58302a77cda0acdb164): {}

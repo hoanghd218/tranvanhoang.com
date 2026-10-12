@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { type CSSProperties, useId, useRef, useState, useSyncExternalStore } from "react"
 import { ChevronLeft, ChevronRight, Maximize, ZoomIn, ZoomOut } from "lucide-react"
+import { FlipBookSurface } from "./flip-book-surface"
 import styles from "./image-book-viewer.module.css"
 
 export type ImageBookPage = {
@@ -22,9 +23,12 @@ export type ImageBookViewerProps = {
 /** View-only reader. Remount with key={productId} when switching books. */
 export function ImageBookViewer({ title, pages, className = "" }: ImageBookViewerProps) {
   const desktop = useSyncExternalStore(subscribeDesktop, () => window.matchMedia("(min-width: 768px)").matches, () => false)
+  const reducedMotion = useSyncExternalStore(subscribeMotion, () => window.matchMedia("(prefers-reduced-motion: reduce)").matches, () => true)
+  const [flipFailed, setFlipFailed] = useState(false)
   const [selected, setSelected] = useState(0)
   const [zoomed, setZoomed] = useState(false)
   const [error, setError] = useState("")
+  const animated = !zoomed && !reducedMotion && !flipFailed && pages.length > 1
   const root = useRef<HTMLElement>(null)
   const touch = useRef<{ x: number; y: number } | null>(null)
   const id = useId()
@@ -74,12 +78,12 @@ export function ImageBookViewer({ title, pages, className = "" }: ImageBookViewe
       onTouchEnd={event => {
         const from = touch.current
         touch.current = null
-        if (!from || zoomed || event.touches.length > 0) return
+        if (!from || zoomed || animated || event.touches.length > 0) return
         const point = event.changedTouches[0]
         const dx = point.clientX - from.x, dy = point.clientY - from.y
         if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) turn(dx < 0 ? 1 : -1)
       }}>
-      {Array.from(new Set([...spread, index])).map(i => <BookPage key={`${i}-${pages[i].src}`} page={pages[i]} number={i + 1}
+      {animated ? <FlipBookSurface pages={pages} selected={index} onSelect={setSelected} onFailure={() => setFlipFailed(true)} /> : Array.from(new Set([...spread, index])).map(i => <BookPage key={`${i}-${pages[i].src}`} page={pages[i]} number={i + 1}
         className={`${spread.includes(i) ? styles.spreadPage : ""} ${i === index ? styles.activePage : ""}`} />)}
     </div>
     <div className={styles.controls}>
@@ -108,6 +112,12 @@ function BookPage({ page, number, className }: { page: ImageBookPage; number: nu
 
 function subscribeDesktop(onChange: () => void) {
   const query = window.matchMedia("(min-width: 768px)")
+  query.addEventListener("change", onChange)
+  return () => query.removeEventListener("change", onChange)
+}
+
+function subscribeMotion(onChange: () => void) {
+  const query = window.matchMedia("(prefers-reduced-motion: reduce)")
   query.addEventListener("change", onChange)
   return () => query.removeEventListener("change", onChange)
 }
