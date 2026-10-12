@@ -48,6 +48,13 @@ User requires only the book, its controls and a home link on detail reader pages
 - [ ] Add optional `homeHref` to the reusable viewer and compact navigation containing the home link plus book controls. Supply the locale-appropriate home destination from the page.
 - [ ] Verify both locales: reader shows no global header/footer, catalog and regular pages retain them, home link navigates correctly, keyboard controls and page flip remain functional. Run lint/build and focused review before commit/push/deploy.
 
+## Clean mobile layout and reliable fullscreen
+
+- [ ] On narrow screens hide thumbnails and verbose status/help text; keep accessible page status and compact essential controls. Let the book occupy available viewport space while respecting browser UI and `env(safe-area-inset-*)`. Avoid horizontal overflow or controls covering page content.
+- [ ] Extract fullscreen handling into a focused hook: prefer native Fullscreen API, and enter a fixed viewport overlay if unsupported or if its request rejects. Keep fallback state distinct from native `fullscreenElement` and synchronize browser-triggered exit.
+- [ ] Provide visible exit and Escape handling for both modes. Lock body scrolling only while fallback overlay is open; restore previous body styles on exit and unmount. Restore focus and resize the page-flip engine after entering/leaving either mode. Preserve current page.
+- [ ] Browser-test native fullscreen plus forced unsupported/rejected fallback: enter, exit button, Escape, focus, body-scroll restoration, viewport resize and current-page preservation. Check mobile portrait/landscape and safe-area sizing; run lint/build and independent review.
+
 See test-report.md for existing static component browser evidence. Physical iOS/Safari gestures remain untested. Public release and page-flip integration require fresh route/CDN/browser verification.
 
 Unresolved questions: none; stop only if ten authentic completed images or required Cloudflare/deployment authorization are unavailable.

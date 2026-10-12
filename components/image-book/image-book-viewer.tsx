@@ -3,7 +3,8 @@
 import Link from "next/link"
 import Image from "next/image"
 import { type CSSProperties, useId, useRef, useState, useSyncExternalStore } from "react"
-import { ChevronLeft, ChevronRight, Maximize, ZoomIn, ZoomOut } from "lucide-react"
+import { ChevronLeft, ChevronRight, Maximize, Minimize, ZoomIn, ZoomOut } from "lucide-react"
+import { useBookFullscreen } from "./use-book-fullscreen"
 import { FlipBookSurface } from "./flip-book-surface"
 import styles from "./image-book-viewer.module.css"
 
@@ -32,6 +33,7 @@ export function ImageBookViewer({ title, pages, className = "", homeHref }: Imag
   const [error, setError] = useState("")
   const animated = !zoomed && !reducedMotion && !flipFailed && pages.length > 1
   const root = useRef<HTMLElement>(null)
+  const fullscreen = useBookFullscreen(root)
   const touch = useRef<{ x: number; y: number } | null>(null)
   const id = useId()
   const index = Math.min(selected, Math.max(0, pages.length - 1))
@@ -49,19 +51,9 @@ export function ImageBookViewer({ title, pages, className = "", homeHref }: Imag
     select(desktop ? direction > 0 ? start === 0 ? 1 : start + 2 : start <= 1 ? 0 : start - 2 : index + direction)
   }
 
-  async function fullscreen() {
-    try {
-      if (document.fullscreenElement === root.current) await document.exitFullscreen()
-      else if (root.current?.requestFullscreen) await root.current.requestFullscreen()
-      else setError("Trình duyệt chưa hỗ trợ toàn màn hình. Bạn vẫn có thể phóng to trang.")
-    } catch {
-      setError("Không mở được toàn màn hình. Vui lòng thử lại.")
-    }
-  }
-
   if (!pages.length) return <section className={`${styles.reader} ${className}`} aria-label={title}><p>Chưa có trang để xem.</p></section>
 
-  return <section ref={root} className={`${styles.reader} ${className}`} aria-label={title}
+  return <section ref={root} className={`${styles.reader} ${fullscreen.overlay ? styles.overlay : ""} ${className}`} aria-label={title}
     onKeyDown={event => {
       if (zoomed) return
       if (event.target instanceof HTMLElement && event.target.closest("input, select, textarea")) return
@@ -70,7 +62,7 @@ export function ImageBookViewer({ title, pages, className = "", homeHref }: Imag
         turn(event.key === "ArrowLeft" ? -1 : 1)
       }
     }}>
-    <header className={styles.header}>{homeHref ? <Link className={styles.homeLink} href={homeHref}>← Về trang chủ</Link> : <h2>{title}</h2>}<button type="button" onClick={fullscreen} aria-label="Bật hoặc tắt toàn màn hình"><Maximize size={20} aria-hidden="true" /></button></header>
+    <header className={styles.header}>{homeHref ? <Link className={styles.homeLink} href={homeHref}>← Về trang chủ</Link> : <h2>{title}</h2>}<button type="button" onClick={fullscreen.toggle} aria-pressed={fullscreen.expanded} aria-label={fullscreen.expanded ? "Thoát toàn màn hình" : "Xem toàn màn hình"}>{fullscreen.expanded ? <Minimize size={20} aria-hidden="true" /> : <Maximize size={20} aria-hidden="true" />}</button></header>
     <div id={id} className={`${styles.stage} ${zoomed ? styles.zoomed : ""}`} tabIndex={0} aria-label="Trang sách. Dùng phím mũi tên để chuyển trang."
       onTouchStart={event => {
         if (event.touches.length !== 1) { touch.current = null; return }
@@ -90,11 +82,11 @@ export function ImageBookViewer({ title, pages, className = "", homeHref }: Imag
     </div>
     <div className={styles.controls}>
       <button type="button" onClick={() => turn(-1)} disabled={index === 0} aria-controls={id} aria-label="Trang trước"><ChevronLeft aria-hidden="true" /></button>
-      <label>Trang <select aria-controls={id} value={index} onChange={event => select(Number(event.target.value))}>{pages.map((_, i) => <option key={i} value={i}>{i + 1}</option>)}</select> / {pages.length}</label>
+      <label><span className={styles.pageWord}>Trang</span> <select aria-label="Chọn trang" aria-controls={id} value={index} onChange={event => select(Number(event.target.value))}>{pages.map((_, i) => <option key={i} value={i}>{i + 1}</option>)}</select> / {pages.length}</label>
       <button type="button" onClick={() => turn(1)} disabled={index >= pages.length - 1 || (spread.at(-1) === pages.length - 1 && index > 0 && desktop)} aria-controls={id} aria-label="Trang tiếp"><ChevronRight aria-hidden="true" /></button>
       <button type="button" onClick={() => setZoomed(value => !value)} aria-pressed={zoomed} aria-controls={id} aria-label={zoomed ? "Thu về vừa trang" : "Phóng to trang"}>{zoomed ? <ZoomOut aria-hidden="true" /> : <ZoomIn aria-hidden="true" />}</button>
     </div>
-    <p className={styles.status} role="status">{error || `Trang ${index + 1} / ${pages.length} — ${pages[index].alt}`}</p>
+    <p className={`${styles.status} ${error ? styles.visibleStatus : ""}`} role="status">{error || `Trang ${index + 1} / ${pages.length} — ${pages[index].alt}`}</p>
     <nav className={styles.thumbnails} aria-label={`Chọn trang ${title}`}>
       {pages.map((page, i) => <button key={`${i}-${page.src}`} type="button" onClick={() => select(i)} aria-pressed={index === i} aria-controls={id} aria-label={`Trang ${i + 1}: ${page.alt}`}>
         <Image src={page.thumbnail || page.src} alt="" width={72} height={96} unoptimized loading="lazy" /><span>{i + 1}</span>

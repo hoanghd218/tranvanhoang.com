@@ -3,7 +3,10 @@ declare module "page-flip" {
     constructor(element: HTMLElement, settings: Record<string, number | string | boolean>)
     loadFromHTML(pages: HTMLElement[]): void
     on(event: string, callback: (event: { data: number | string }) => void): void
+    getCurrentPageIndex(): number
     flip(page: number): void
+    flipNext(): void
+    flipPrev(): void
     turnToPage(page: number): void
     getRender(): { stop(): void }
     destroy(): void

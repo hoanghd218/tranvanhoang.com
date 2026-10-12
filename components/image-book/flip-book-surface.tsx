@@ -16,7 +16,17 @@ export function FlipBookSurface({ pages, selected, onSelect, onFailure }: Props)
   useEffect(() => { callbacks.current = { onSelect, onFailure } }, [onSelect, onFailure])
   useEffect(() => {
     current.current = selected
-    engine.current?.flip(selected)
+    const book = engine.current
+    if (book) {
+      const before = book.getCurrentPageIndex()
+      if (before === selected) return
+      const desktop = window.matchMedia("(min-width: 768px)").matches
+      const next = desktop ? before === 0 ? 1 : before + 2 : before + 1
+      const previous = desktop ? before <= 1 ? 0 : before - 2 : before - 1
+      if (selected === next) book.flipNext()
+      else if (selected === previous) book.flipPrev()
+      else book.turnToPage(selected)
+    }
   }, [selected])
 
   useEffect(() => {
@@ -30,7 +40,7 @@ export function FlipBookSurface({ pages, selected, onSelect, onFailure }: Props)
       if (disposed) return
       const mount = () => {
         const desktop = window.matchMedia("(min-width: 768px)").matches
-        const width = Math.max(1, Math.floor(Math.min(parent.clientWidth / (desktop ? 2 : 1), window.innerHeight * .72 * pages[0].width / pages[0].height)))
+        const width = Math.max(1, Math.floor(Math.min(parent.clientWidth / (desktop ? 2 : 1), (desktop && window.innerHeight > 500 ? window.innerHeight * .72 : Math.max(1, (window.visualViewport?.height || window.innerHeight) - 132)) * pages[0].width / pages[0].height)))
         const height = Math.round(width * pages[0].height / pages[0].width)
         const size = `${width}-${height}-${desktop}`
         if (size === previousSize) return
@@ -51,16 +61,21 @@ export function FlipBookSurface({ pages, selected, onSelect, onFailure }: Props)
           element.append(node)
           return node
         })
+        const initialPage = current.current
+        let initializing = true
         const book = new PageFlip(element, { width, height, size: "fixed", showCover: true, usePortrait: !desktop,
           drawShadow: true, maxShadowOpacity: .28, flippingTime: 700, mobileScrollSupport: false,
           showPageCorners: true, useMouseEvents: true, startPage: current.current, autoSize: true })
         engine.current = book
         book.on("flip", event => {
-          current.current = Number(event.data)
+          if (initializing) return
+          const page = Number(event.data)
+          current.current = page
           callbacks.current.onSelect(current.current)
         })
         book.loadFromHTML(nodes)
-        book.turnToPage(current.current)
+        book.turnToPage(initialPage)
+        initializing = false
       }
       mount()
       const resize = () => { cancelAnimationFrame(frame); frame = requestAnimationFrame(mount) }
