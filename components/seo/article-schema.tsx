@@ -40,7 +40,7 @@ export function ArticleSchema({
       url: "https://tranvanhoang.com",
       logo: {
         "@type": "ImageObject",
-        url: "https://tranvanhoang.com/icon.svg",
+        url: "https://www.tranvanhoang.com/images/brand/robotic-system-mark.png",
       },
     },
     mainEntityOfPage: {

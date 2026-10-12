@@ -22,9 +22,9 @@ const signature = Allura({ variable: "--font-signature", subsets: ["latin"], wei
 export const metadata: Metadata = {
   title: "Tony Hoang",
   icons: {
-    icon: [{ url: "/images/brand/favicon-32.png", sizes: "32x32", type: "image/png" }, { url: "/images/brand/favicon-192.png", sizes: "192x192", type: "image/png" }],
-    shortcut: ["/images/brand/favicon-32.png"],
-    apple: [{ url: "/images/brand/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    icon: [{ url: "/images/brand/robotic-favicon-32.png", sizes: "32x32", type: "image/png" }, { url: "/images/brand/robotic-favicon-192.png", sizes: "192x192", type: "image/png" }],
+    shortcut: ["/images/brand/robotic-favicon-32.png"],
+    apple: [{ url: "/images/brand/robotic-apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
 }
 

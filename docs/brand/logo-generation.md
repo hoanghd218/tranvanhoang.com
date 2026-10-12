@@ -1,13 +1,12 @@
-# Tony Hoang logo
+# Robotic system logo
 
-Generated with the built-in imagegen tool. Transparent PNG master: `/images/brand/tony-hoang-logo-original.png`. Web mark and favicon sizes are resized derivatives preserving alpha.
+Built-in imagegen. Master: `public/images/brand/robotic-system-original.png`. Web mark: `public/images/brand/robotic-system-mark.png`. PNG derivatives preserve alpha. Replaces the TH monogram.
 
 ## Final prompt
 
 Use case: logo-brand
-Asset type: Tony Hoang personal AI technology brand symbol, website header and favicon.
-Primary request: Design one original, premium geometric TH monogram that subtly evokes a robotic intelligence core. Interlock the T and H into one bold, compact, distinctive silhouette using crisp engineered cuts and generous negative spaces. Sophisticated minimal tech identity.
-Style: flat vector-like graphic, solid vivid orange #E87811, clean precise edges, no gradients, no 3D, no shadows.
-Composition: one centered standalone symbol on genuinely transparent background, square canvas, symbol occupies 80% of canvas. Must remain legible at 24px. No enclosing badge.
-Text: no words, no caption, only the abstract TH monogram.
-Avoid: generic sparkles, circuit-board clutter, thin lines, green, gold, mockups, multiple options, watermark.
+Asset type: personal AI systems website logo and favicon.
+Primary request: One original iconic symbol representing a robotic system: a bold central square processing core connected to four compact modular nodes in a balanced, integrated geometric emblem. The overall silhouette should feel engineered, intelligent, and cohesive, not a diagram. No letters or monograms of any kind, especially no T or H.
+Style: premium minimal flat vector-like logo with broad solid shapes, clean negative space and precise rounded technical corners. Solid orange #E87811. No texture, no gradients, no shadows, no 3D.
+Composition: standalone centered symbol filling 80% of square canvas, genuinely transparent background. Readable at 24px. Four short, sturdy connections; avoid thin circuit traces and tiny details.
+Constraints: no text, no typography, no initials, no enclosing badge, no sparkles, no watermark, no mockup. One finished symbol only.

@@ -6,7 +6,7 @@ export function OrganizationSchema() {
     "@type": "Organization",
     "name": "Tony Hoang",
     "url": "https://tranvanhoang.com",
-    "logo": "https://tranvanhoang.com/icon.svg",
+    "logo": "https://www.tranvanhoang.com/images/brand/robotic-system-mark.png",
     "description": "Tony Hoang — Kiến trúc sư thiết kế hệ thống. Sản phẩm, công nghệ và AI.",
     "founder": {
       "@type": "Person",
