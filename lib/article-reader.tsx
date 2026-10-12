@@ -37,7 +37,7 @@ export async function renderArticle(source: string, locale: Locale) {
     if (/^(https?:\/\/|mailto:|tel:)/i.test(href)) return href
     if (!href.startsWith("/")) return undefined
     const url = new URL(href, "https://tranvanhoang.com")
-    if (articlePaths.has(url.pathname)) return `${locale === "en" ? "/en" : ""}${href}`
+    if (articlePaths.has(url.pathname)) return `${locale === "vi" ? "/vi" : ""}${href}`
     if (Object.hasOwn(routing.pathnames, url.pathname) && !url.pathname.includes("[")) {
       return `${getPathname({ locale, href: url.pathname as StaticPathname })}${url.search}${url.hash}`
     }

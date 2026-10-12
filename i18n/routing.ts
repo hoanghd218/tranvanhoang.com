@@ -1,13 +1,15 @@
 import { defineRouting } from "next-intl/routing"
 
 export const routing = defineRouting({
-  locales: ["vi", "en"],
-  defaultLocale: "vi",
+  locales: ["en", "vi"],
+  defaultLocale: "en",
   localePrefix: "as-needed",
   localeDetection: false,
   pathnames: {
     "/": "/",
     "/about": "/about",
+    "/privacy/kdspy-ai": "/privacy/kdspy-ai",
+    "/support/kdspy-ai": "/support/kdspy-ai",
     "/playbooks": "/playbooks",
     "/playbooks/[slug]": "/playbooks/[slug]",
     "/products": "/products",

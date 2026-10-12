@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   const { locale, category, slug } = await params
   const post = getPostBySlug(category, slug)
   if (!post) return { title: "Tony Hoang" }
-  const url = `https://tranvanhoang.com${locale === "en" ? "/en" : ""}/blog/${category}/${slug}`
+  const url = `https://tranvanhoang.com${locale === "vi" ? "/vi" : ""}/blog/${category}/${slug}`
   return {
     title: post.metadata.title,
     description: post.metadata.description,
@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
       publishedTime: post.metadata.date, authors: [post.metadata.author || "Tony Hoang"], tags: post.metadata.tags,
     },
     alternates: { canonical: url, languages: {
-      vi: `https://tranvanhoang.com/blog/${category}/${slug}`,
-      en: `https://tranvanhoang.com/en/blog/${category}/${slug}`,
+      vi: `https://tranvanhoang.com/vi/blog/${category}/${slug}`,
+      en: `https://tranvanhoang.com/blog/${category}/${slug}`,
     } },
   }
 }
@@ -44,7 +44,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const relatedPosts = getRelatedPosts(category, slug, 3)
   const currentCategory = getAllCategories().find(item => item.slug === category)
   const { content, headings } = await renderArticle(post.content, locale)
-  const baseUrl = `https://tranvanhoang.com${locale === "en" ? "/en" : ""}`
+  const baseUrl = `https://tranvanhoang.com${locale === "vi" ? "/vi" : ""}`
   const categoryHref = `/blog?category=${encodeURIComponent(category)}` as const
   const date = new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "vi-VN", {
     day: "numeric", month: "long", year: "numeric", timeZone: "UTC",

@@ -11,13 +11,13 @@ const baseUrl = "https://tranvanhoang.com"
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: "courses" })
-  const path = `${locale === "vi" ? "" : `/${locale}`}/courses`
+  const path = `${locale === "en" ? "" : `/${locale}`}/courses`
   return {
     title: t("catalog.metaTitle"),
     description: t("catalog.metaDescription"),
     alternates: {
       canonical: `${baseUrl}${path}`,
-      languages: { vi: `${baseUrl}/courses`, en: `${baseUrl}/en/courses`, "x-default": `${baseUrl}/courses` },
+      languages: { vi: `${baseUrl}/vi/courses`, en: `${baseUrl}/courses`, "x-default": `${baseUrl}/courses` },
     },
   }
 }

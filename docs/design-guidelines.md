@@ -1,6 +1,6 @@
 # Tony Hoang — Design Guidelines
 
-Updated: 2026-10-11. Systems architect positioning within a premium editorial theme: warm, bright, spacious, with serif typography and restrained emerald/gold artwork. Preserve the handwritten “Tony Hoang” identity; do not substitute a monogram.
+Updated: 2026-10-12. Systems architect positioning within a premium editorial theme: warm, bright, spacious, with serif typography and restrained emerald/gold artwork. Preserve the handwritten “Tony Hoang” identity; do not substitute a monogram.
 
 ## Source of truth
 
@@ -48,7 +48,7 @@ Aim for 70% ivory/white, 20% green and 10% accents. Gold is decorative; darker g
 
 ## Layout and responsive behavior
 
-The homepage uses `.architect-hero` with a `.85fr / 1.15fr` text/artwork grid, product discovery, published writing, personal activities, an open two-column about section and a forest footer. Reusable framework styles retain a three-column variant. Use thin dividers and whitespace to establish hierarchy. Uniform article grids use three columns.
+The retained editorial layout uses `.architect-hero` with a `.85fr / 1.15fr` text/artwork grid, product discovery, published writing, personal activities, an open two-column about section and a forest footer. Reusable framework styles retain a three-column variant. Use thin dividers and whitespace to establish hierarchy. Uniform article grids use three columns.
 
 Container padding is 64px desktop, 32px at widths up to 1100px, and 24px up to 760px. At 760px, the header becomes an expandable menu; hero, article grid, framework and about sections stack. Categories scroll horizontally within their strip. Compact articles retain an image/text split. Framework column separators become horizontal rules. Main section spacing is 80–96px desktop and 48–56px mobile.
 
@@ -90,6 +90,20 @@ Run `npm run media:prepare` to stage the existing sibling documentation library 
 
 Use an actual extension screenshot in each detail hero, with a curated three-feature tour using verified interface images. `components/products/product-tour.tsx` supplies preview/tour components; page anchors connect overview, features, library, plans and installation. The gallery group selector filters thumbnails and resets selection while retaining the full library under “Tất cả ảnh”. Keep screenshots contained and explicitly labeled as demo data.
 
-Product discovery uses three distinct local decorative covers: `rocketflow-cover.webp`, `rocketlisting-cover.webp` and `rocketspy-cover.webp` under `public/images/products/`. These AI artworks are metaphors, never generated interface evidence; labels and logos remain separate HTML/assets. Exact prompts and generation details are recorded in [product visuals](./product-visuals.md). The refresh reuses all 67 screenshots and the same content-hashed media collection without another R2 upload.
+Product discovery uses three distinct local decorative covers: `rocketflow-robotic-cover.webp`, `rocketlisting-robotic-cover.webp` and `rocketspy-robotic-cover.webp` under `public/images/products/`. These AI artworks are metaphors, never generated interface evidence; labels and logos remain separate HTML/assets. Asset paths and provenance notes are recorded in [product visuals](./product-visuals.md). The refresh reuses all 67 screenshots and the same content-hashed media collection without another R2 upload.
 
 Application lint excludes vendored `.claude`, `.opencode`, `.agents` tooling and the generated route file. Run the application lint command before committing; exclusions do not replace checks of changed application code.
+
+## RoboLabs theme — 2026-10-12
+
+This theme supersedes earlier homepage and product-layout guidance. Home, product catalog/details, book catalog and Coloring Book skill landing use near-black `#080808`, panels `#101010`, borders `#262626`, muted text `#a5a5a5` and orange `#E87811`. Use self-hosted Satoshi Medium at `public/fonts/satoshi-medium.woff2`, with Be Vietnam Pro fallback for Vietnamese glyphs. Satoshi is by Indian Type Foundry; source: https://www.fontshare.com/fonts/satoshi.
+
+Shared chrome lives in `components/editorial/robo-shell.tsx`. `SiteChrome` suppresses the editorial header/footer for these dark routes; book detail retains its focused reader. The homepage includes Services, Process and Solutions sections alongside Skills, Apps and Books catalogs. The sticky pill navigation reaches their actual anchors; inner-page links include the locale-aware homepage URL. All contact CTAs use `editorialContent.contactHref`, Tony’s LinkedIn. Facebook remains an optional social destination.
+
+English is canonical at `/`; Vietnamese is prefixed `/vi`. Legacy `/en/*` redirects to unprefixed English. Preserve translated paths `/resources` and `/gifts` versus `/vi/tai-nguyen` and `/vi/qua`. Use shared localization helpers rather than hardcoded language prefixes.
+
+`home.tsx` and `home-catalog.tsx` compose the homepage; `lib/home-content.ts` holds bilingual interface copy. Products reuse verified `lib/products.ts` data and the REA book uses `lib/playbooks.ts`. Do not invent inventory or product claims. Robotic covers are local decorative metaphors, with real screenshot tours and demo labels retained; see [product visuals](./product-visuals.md).
+
+Reference inspection found Services, Process and Solutions as homepage anchors and Contact as a separate page. Observed fade/reveal transitions and animated process illustrations inform the adaptation; no claim is made that every reference effect was reproduced. Local effects include progressive scroll reveals and finite decorative motion with reduced-motion support. Keep content visible without JavaScript, visible keyboard focus and mobile controls at least 44px high.
+
+Styles live in `app/robolabs.css` and `app/robolabs-products.css`. Dark catalog controls, cards, detail section navigation, media, plans and installation must remain scoped to their wrappers. Existing filters/search, gallery keyboard navigation, verified media links and contact fallback retain their real behavior. Validate narrow and desktop layouts; do not allow category rows or product headings to cause page overflow.

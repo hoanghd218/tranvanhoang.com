@@ -44,9 +44,9 @@ export async function generateMetadata({
       siteName: "Tony Hoang",
       images: [
         {
-          url: "https://tranvanhoang.com/images/editorial/hero-bridge.webp",
-          width: 1536,
-          height: 1024,
+          url: "https://tranvanhoang.com/images/products/rocketflow-robotic-cover.webp",
+          width: 1200,
+          height: 800,
           alt: "Tony Hoang — Kiến trúc sư thiết kế hệ thống",
         },
       ],
@@ -57,10 +57,10 @@ export async function generateMetadata({
       description: t("twitterDescription"),
     },
     alternates: {
-      canonical: locale === "vi" ? "https://tranvanhoang.com" : `https://tranvanhoang.com/${locale}`,
+      canonical: locale === "en" ? "https://tranvanhoang.com" : `https://tranvanhoang.com/${locale}`,
       languages: {
-        vi: "https://tranvanhoang.com",
-        en: "https://tranvanhoang.com/en",
+        vi: "https://tranvanhoang.com/vi",
+        en: "https://tranvanhoang.com",
         "x-default": "https://tranvanhoang.com",
       },
     },
@@ -68,7 +68,7 @@ export async function generateMetadata({
 }
 
 export const viewport: Viewport = {
-  themeColor: "#F5F3E9",
+  themeColor: "#080808",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,

@@ -5,14 +5,13 @@ import { getAllPosts } from "@/lib/mdx"
 import { getAllLifeStories } from "@/lib/life-mdx"
 
 const baseUrl = "https://tranvanhoang.com"
-const locales = ["vi", "en"]
-const defaultLocale = "vi"
+const locales = ["en", "vi"]
+const defaultLocale = "en"
 
 /** Build full URL — default locale has no prefix */
 function localizedUrl(path: string, locale: string): string {
-  if (locale === defaultLocale) return `${baseUrl}${path}`
-  const translated = path === "/tai-nguyen" ? "/resources" : path === "/qua" ? "/gifts" : path
-  return `${baseUrl}/${locale}${translated}`
+  const translated = locale === "en" ? (path === "/tai-nguyen" ? "/resources" : path === "/qua" ? "/gifts" : path) : path
+  return `${baseUrl}${locale === defaultLocale ? "" : `/${locale}`}${translated}`
 }
 
 /** Build alternates map for a given path */
@@ -47,6 +46,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/qua", lastModified: new Date("2026-01-15") },
     { path: "/life", lastModified: new Date("2026-03-01") },
     { path: "/courses", lastModified: new Date("2026-08-13") },
+    { path: "/privacy/kdspy-ai", lastModified: new Date("2026-10-11") },
+    { path: "/support/kdspy-ai", lastModified: new Date("2026-10-11") },
     { path: "/products", lastModified: new Date("2026-10-11") },
     { path: "/coloring-book-kdp", lastModified: new Date("2026-10-11") },
   ]

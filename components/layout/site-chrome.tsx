@@ -6,5 +6,7 @@ import { usePathname } from "next/navigation"
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const reader = /^\/(?:vi\/|en\/)?playbooks\/[^/]+\/?$/.test(pathname)
-  return reader ? null : children
+  const home = /^\/(?:vi\/?|en\/?)?$/.test(pathname)
+  const products = /^\/(?:vi\/|en\/)?(?:products|playbooks|coloring-book-kdp)(?:\/|$)/.test(pathname)
+  return reader || home || products ? null : children
 }

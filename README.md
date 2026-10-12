@@ -1,6 +1,6 @@
 # Tony Hoang
 
-Personal website positioning Tony Hoang as a systems architect, alongside published writing, activities and owned digital products: AI skills, software, Chrome extensions and mobile apps. Built with Next.js 16, React 19, TypeScript and Tailwind CSS 4; Vietnamese and English routes use `next-intl`.
+Personal website positioning Tony Hoang as a systems architect, alongside published writing, activities and owned digital products: AI skills, software, Chrome extensions and mobile apps. Built with Next.js 16, React 19, TypeScript and Tailwind CSS 4; English is the default language; Vietnamese routes use `/vi`. Both use `next-intl`.
 
 ## Local development
 
@@ -9,7 +9,7 @@ npm install
 npm run dev
 ```
 
-Open [localhost:3000](http://localhost:3000). Browse `/`, `/blog`, `/life`, `/products` and `/about`; English routes use `/en`.
+Open [localhost:3000](http://localhost:3000). Browse `/`, `/blog`, `/life`, `/products` and `/about`; The same routes under `/vi` use Vietnamese. Legacy `/en/*` URLs redirect to the unprefixed English canonical URL. Translated routes are `/resources` ↔ `/vi/tai-nguyen` and `/gifts` ↔ `/vi/qua`.
 
 ```bash
 npm run lint
@@ -64,14 +64,22 @@ These commands use Node/npm; existing dependencies were installed using pinned p
 
 Each extension detail hero shows an actual interface screenshot, followed by a curated three-feature tour. Page anchors link to overview, features, screenshot library, plans and installation. The gallery's group filter narrows the visible thumbnails without removing access to the complete library.
 
-RocketFlow, RocketListing and RocketSpy each have a distinct local decorative AI cover for product discovery. Covers are visual metaphors; interface previews and feature tours use verified screenshots labeled **Dữ liệu demo**. See [product visuals](docs/product-visuals.md) for exact generation prompts and asset paths. This page refresh reuses all 67 screenshots and the existing content-hashed collection; it requires no new R2 upload.
+RocketFlow, RocketListing and KDSPY AI each have a distinct local decorative robotic AI cover for product discovery. Covers are visual metaphors; interface previews and feature tours use verified screenshots labeled **Dữ liệu demo**. See [product visuals](docs/product-visuals.md) for artwork asset paths and provenance notes. This page refresh reuses all 67 screenshots and the existing content-hashed collection; it requires no new R2 upload.
 
 Lint covers application code; vendored `.claude`, `.opencode`, `.agents` tooling and the generated route file are excluded. Run `npm run lint` before committing application changes.
 
 ## Theme
 
-Warm ivory, emerald and gold editorial styling uses Be Vietnam Pro, Noto Serif and an Allura signature. Tokens and responsive rules live in `app/editorial.css`; reusable components live in `components/editorial/`. See [design guidelines](docs/design-guidelines.md).
+The homepage, product catalog/details, book catalog and Coloring Book skill landing share a RoboLabs-inspired black/orange theme: sticky pill navigation, dotted hero, dark panels, Satoshi typography and restrained reveals. `app/robolabs.css` and `app/robolabs-products.css` hold scoped styling; `components/editorial/robo-shell.tsx` shares the header/footer. Interface copy supports English and Vietnamese. Other editorial pages retain ivory/emerald styling; the image-book detail keeps its focused reader.
 
-The homepage bridge illustration at `public/images/editorial/hero-bridge.webp` portrays the same Hoang at present and in a desired future, connected through systems, technology and AI. It is an AI-generated visual metaphor, not documentation of an actual event. Only the final generated artwork is included in the site. The 3:2 image uses `next/Image` with `fill` and `object-fit: contain` so both endpoints remain visible; heading and caption stay editable HTML in `lib/editorial-content.ts`.
+The reference inspection found Services, Process and Solutions as homepage anchors, plus a separate Contact page. The adaptation includes Services, Process and Solutions sections alongside real Skills, Apps and Books catalogs. Observed fades/reveals and process motion inform lightweight effects; this does not claim an exact reproduction of every reference animation.
+
+Product discovery uses local `*-robotic-cover.webp` artwork under `public/images/products/`. Robots are conceptual decoration, while interface tours retain verified demo screenshots. Contact CTAs use Tony’s [LinkedIn](https://www.linkedin.com/in/hoanghd218/), centralized in `editorialContent.contactHref`. See [design guidelines](docs/design-guidelines.md).
 
 Project UI/UX tooling: [.agents/skills/ui-ux-pro-max/SKILL.md](.agents/skills/ui-ux-pro-max/SKILL.md).
+
+## KDSPY AI public documentation
+
+English privacy and support pages are published at [Privacy Policy](https://www.tranvanhoang.com/privacy/kdspy-ai) and [Support](https://www.tranvanhoang.com/support/kdspy-ai). Legacy `/en` links redirect to these English URLs; `/vi` documentation aliases remain available. Public support uses **hoanghd218@gmail.com**, supplied by the owner; `lib/kdspy-ai-support.ts` holds the shared `mailto:` destination and locale path helper. There is no new ticket backend.
+
+Only the narrow documentation changes were deployed from the existing live production baseline; unrelated local redesign remains separate. See [public pages and validation](docs/kdspy-ai-public-pages.md). Chrome Web Store email verification is pending the owner’s click on the verification email; do not treat publication of these pages as Store approval.

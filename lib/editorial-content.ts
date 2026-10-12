@@ -1,4 +1,5 @@
 export const editorialContent = {
+  contactHref: "https://www.linkedin.com/in/hoanghd218/",
   navigation: [
     { label: "Sản phẩm", href: "/products" },
     { label: "Bài viết", href: "/blog" },
@@ -38,7 +39,10 @@ export type EditorialArticle = {
   href: string; date?: string; readingTime?: string
 }
 
-export function localizedPath(path: string, locale = "vi") {
+export function localizedPath(path: string, locale = "en") {
   if (!path.startsWith("/") || path.startsWith("//")) return path
-  return locale === "en" ? `/en${path === "/" ? "" : path}` : path
+  const translated = locale === "en"
+    ? path.replace(/^\/tai-nguyen(?=[?#/]|$)/, "/resources").replace(/^\/qua(?=[?#/]|$)/, "/gifts")
+    : path.replace(/^\/resources(?=[?#/]|$)/, "/tai-nguyen").replace(/^\/gifts(?=[?#/]|$)/, "/qua")
+  return locale === "vi" ? `/vi${translated === "/" ? "" : translated}` : translated
 }

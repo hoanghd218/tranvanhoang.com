@@ -1,0 +1,119 @@
+@font-face { font-family:"Satoshi"; src:url("/fonts/satoshi-medium.woff2") format("woff2"); font-weight:500; font-style:normal; font-display:swap; }
+.robolabs-home { --rl-bg:#080808; --rl-panel:#101010; --rl-border:#262626; --rl-muted:#a5a5a5; --rl-accent:#e87811; display:flow-root; background:var(--rl-bg); color:#f5f5f5; font-family:"Satoshi",var(--font-inter),sans-serif; overflow:clip; }
+.robolabs-home * { box-sizing:border-box; }
+.robolabs-home h1,.robolabs-home h2,.robolabs-home h3 { font-family:inherit; font-weight:500; letter-spacing:-.045em; text-wrap:balance; }
+.robolabs-home p { color:var(--rl-muted); line-height:1.8; }
+.robolabs-home a { text-decoration:none; transition:color .2s,background .2s,border-color .2s; }
+.robolabs-home a:focus-visible,.robolabs-home summary:focus-visible { outline:2px solid var(--rl-accent); outline-offset:6px; }
+.rl-container { width:min(1120px,calc(100% - 64px)); margin-inline:auto; }
+.rl-header { position:sticky; top:20px; z-index:30; width:min(900px,calc(100% - 48px)); margin:20px auto -84px; height:64px; padding:8px 22px; display:flex; align-items:center; justify-content:space-between; gap:20px; border:1px solid var(--rl-border); border-radius:60px; background:#090909ed; backdrop-filter:blur(18px); }
+.rl-brand { display:flex; align-items:center; gap:8px; color:#f5f5f5; font-size:18px; font-weight:600; letter-spacing:-.6px; white-space:nowrap; }
+.rl-brand svg,.rl-brand-dot { color:var(--rl-accent); }
+.rl-header nav { display:flex; gap:8px; }
+.rl-header nav a { color:var(--rl-muted); padding:12px; font-size:14px; }
+.rl-header nav a:hover,.rl-footer nav a:hover { color:#fff; }
+.rl-button { display:inline-flex; align-items:center; justify-content:center; gap:14px; min-height:52px; padding:14px 24px; border:1px solid var(--rl-border); border-radius:8px; color:#eee; background:linear-gradient(#191919,#101010); font-size:14px; box-shadow:inset 0 1px #ffffff08,0 4px 15px #0005; }
+.rl-button:hover { background:#222; border-color:#6f4a30; }
+.rl-header .rl-button { min-height:44px; padding:10px 16px; font-size:13px; }
+.rl-hero { position:relative; isolation:isolate; padding:210px 0 55px; text-align:center; }
+.rl-hero-dots { position:absolute; inset:0; z-index:-1; background-image:radial-gradient(#7776 .8px,transparent .8px); background-size:9px 9px; mask-image:radial-gradient(ellipse 48% 65% at 50% 28%,#000 0%,transparent 100%); }
+.rl-status { display:inline-flex; align-items:center; gap:10px; padding:7px 13px; border:1px solid var(--rl-border); border-radius:30px; font-size:12px; background:#090909; }
+.rl-status span { height:8px; width:8px; border-radius:50%; background:#65bd46; box-shadow:0 0 0 5px #65bd461a; }
+.robolabs-home h1 { font-size:clamp(36px,4.6vw,66px); line-height:1.35; margin:30px -20px 24px; }
+.robolabs-home h1>span { display:block; color:var(--rl-accent); }
+.rl-title-star { width:.75em; height:.75em; display:inline; vertical-align:baseline; margin-left:16px; fill:#eee; stroke-width:1; }
+.rl-hero-description { max-width:620px; margin:0 auto 36px; font-size:16px; }
+.rl-technologies { margin-top:84px; }
+.rl-technologies>p { font-size:12px; margin-bottom:24px; }
+.rl-technologies>div { display:flex; justify-content:center; flex-wrap:wrap; align-items:center; gap:48px; color:#8d8d8d; font-size:24px; letter-spacing:-1px; font-weight:600; }
+.rl-technologies .rl-tech-flow { letter-spacing:1px; }
+.rl-section { padding-block:96px; scroll-margin-top:110px; }
+.rl-section-head { margin-bottom:40px; display:flex; align-items:end; justify-content:space-between; gap:24px; }
+.rl-section-head h2 { font-size:clamp(28px,3.2vw,42px); line-height:1.35; margin:20px 0 12px; }
+.rl-section-head h2 span { color:var(--rl-muted); }
+.rl-section-head p { font-size:14px; margin:0; }
+.rl-tag { display:inline-flex; align-items:center; gap:8px; color:var(--rl-muted); font-size:11px; letter-spacing:.04em; border:1px solid var(--rl-border); border-radius:30px; padding:6px 12px; }
+.rl-intro .rl-section-head { display:block; text-align:center; margin-bottom:64px; }
+.rl-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+.rl-benefit { padding:24px 18px; text-align:center; }
+.rl-benefit-icon { width:80px; height:80px; margin:0 auto 28px; display:grid; place-items:center; color:var(--rl-accent); border:1px solid #423024; border-radius:20px; background:radial-gradient(ellipse at top,#ed873725,transparent 75%),#111; box-shadow:0 0 45px #ed87370a; }
+.rl-benefit h3 { font-size:20px; margin-bottom:14px; }
+.rl-benefit p { font-size:14px; margin:0; }
+.rl-card { min-width:0; background:linear-gradient(135deg,#151515,#0d0d0d); border:1px solid var(--rl-border); border-radius:16px; overflow:hidden; }
+.rl-card h3 { font-size:26px; line-height:1.4; margin:20px 0 12px; }
+.rl-card p { font-size:14px; margin-bottom:24px; }
+.rl-card-body { padding:28px; }
+.rl-card-image { display:block; aspect-ratio:3/2; overflow:hidden; border-bottom:1px solid var(--rl-border); }
+.rl-card-image img { width:100%; height:100%; object-fit:cover; transition:transform .35s; }
+.rl-card-image:hover img { transform:scale(1.04); }
+.rl-card-top { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.rl-card-top img { border-radius:8px; }
+.rl-card-top .rl-tag { font-size:9px; }
+.rl-card-link { display:inline-flex; align-items:center; gap:10px; min-height:44px; color:var(--rl-accent); font-size:13px; flex-shrink:0; }
+.rl-card-link:hover { color:#ffc291; }
+.rl-card .rl-card-body { display:flex; flex-direction:column; align-items:start; }
+.rl-grid .rl-card { display:flex; flex-direction:column; }
+.rl-grid .rl-card-body { flex:1; }
+.rl-grid .rl-card-link { margin-top:auto; }
+.rl-skill-layout { display:grid; grid-template-columns:1fr 1fr; }
+.rl-skill-layout .rl-card-body { padding:44px; }
+.rl-card ul { padding:0; margin:0 0 24px; list-style:none; }
+.rl-card li { display:flex; gap:10px; align-items:center; color:#b9b9b9; font-size:13px; margin:12px 0; }
+.rl-card li svg { color:var(--rl-accent); flex-shrink:0; }
+.rl-skill-art { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:35px; padding:36px 20px; background:radial-gradient(ellipse at center,#ed873713,transparent 70%),radial-gradient(#6b6b6b30 1px,transparent 1px); background-size:auto,12px 12px; border-left:1px solid var(--rl-border); }
+.rl-skill-art>div { display:flex; align-items:center; gap:12px; color:var(--rl-accent); }
+.rl-skill-art>div span { font-size:12px; color:#b9b9b9; }
+.rl-skill-art>p { font-size:10px; letter-spacing:2px; }
+.rl-book-layout { display:grid; grid-template-columns:.8fr 1.2fr; align-items:center; }
+.rl-book-cover { display:flex; justify-content:center; padding:40px; background:radial-gradient(ellipse,#ed873718,transparent 70%); }
+.rl-book-cover img { width:220px; height:auto; max-width:100%; border-radius:3px 8px 8px 3px; transform:rotate(-5deg); box-shadow:12px 16px 30px #0008; border-left:4px solid #444; }
+.rl-book-layout h3 { font-size:36px; }
+.rl-faq { display:grid; grid-template-columns:.8fr 1.2fr; gap:60px; }
+.rl-faq details { border-bottom:1px solid var(--rl-border); }
+.rl-faq summary { padding:24px 0; display:flex; align-items:center; justify-content:space-between; gap:24px; cursor:pointer; font-size:15px; list-style:none; }
+.rl-faq summary::-webkit-details-marker { display:none; }
+.rl-faq summary>span { font-size:24px; color:var(--rl-muted); }
+.rl-faq details[open] summary>span { transform:rotate(45deg); }
+.rl-faq details p { font-size:14px; margin:0 0 24px; }
+.rl-footer { position:relative; isolation:isolate; padding-top:95px; text-align:center; }
+.rl-footer-glow { position:absolute; inset:0; z-index:-1; background:radial-gradient(ellipse 40% 45% at 50% 35%,#ed873717,transparent); }
+.rl-footer-star { margin:auto auto 28px; color:var(--rl-accent); }
+.rl-footer h2 { font-size:clamp(32px,4vw,52px); line-height:1.35; }
+.rl-footer h2>span { color:var(--rl-accent); }
+.rl-footer>p { max-width:510px; margin:24px auto 32px; font-size:14px; }
+.rl-footer-bottom { border-top:1px solid var(--rl-border); margin-top:100px; padding:32px 0; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:28px; }
+.rl-footer-bottom nav { display:flex; flex-wrap:wrap; gap:24px; font-size:12px; color:var(--rl-muted); }
+.rl-footer-bottom small { width:100%; text-align:left; font-size:11px; color:var(--rl-muted); }
+@media(min-width:1800px) { .rl-hero { padding-top:240px; } }
+@media(max-width:900px) { .rl-header { padding-inline:16px; } .rl-grid { gap:12px; } .rl-card-body { padding:20px; } .rl-card-top { flex-wrap:wrap; } .rl-skill-layout { grid-template-columns:1fr; } .rl-skill-art { min-height:250px; border-left:0; border-top:1px solid var(--rl-border); } .rl-section-head { flex-wrap:wrap; } .rl-faq { gap:32px; } }
+@media(max-width:700px) { .rl-container { width:calc(100% - 40px); } .rl-header { width:calc(100% - 24px); top:12px; margin-top:12px; gap:6px; padding-inline:12px; height:60px; } .rl-brand { font-size:15px; gap:5px; } .rl-brand svg { width:16px; } .rl-header nav { gap:0; } .rl-header nav a { font-size:12px; padding:12px 9px; } .rl-header-contact { display:none; } .rl-hero { padding-top:170px; padding-bottom:24px; } .robolabs-home h1 { margin-inline:0; font-size:36px; } .rl-title-star { margin-left:8px; } .rl-hero-description { font-size:14px; } .rl-technologies { margin-top:64px; } .rl-technologies>div { gap:20px 26px; font-size:19px; } .rl-section { padding-block:56px; } .rl-grid { grid-template-columns:1fr; gap:20px; } .rl-intro .rl-section-head { margin-bottom:24px; } .rl-benefit { padding:22px; } .rl-benefit-icon { margin-bottom:20px; } .rl-section-head { gap:12px; margin-bottom:24px; } .rl-section-head h2 { font-size:30px; } .rl-skill-layout .rl-card-body { padding:26px; } .rl-skill-art>div { gap:8px; } .rl-skill-art>div svg { width:26px; } .rl-skill-art>div span { font-size:10px; } .rl-book-layout,.rl-faq { grid-template-columns:1fr; } .rl-book-cover { padding:32px; } .rl-book-cover img { width:170px; } .rl-book-layout h3 { font-size:28px; } .rl-faq { gap:0; } .rl-footer { padding-top:56px; } .rl-footer-bottom { margin-top:64px; text-align:left; } .rl-footer-bottom nav { gap:16px 20px; } }
+@media(prefers-reduced-motion:reduce) { .robolabs-home * { transition:none!important; scroll-behavior:auto!important; } }
+
+.rl-footer-bottom nav a { display:inline-flex; align-items:center; min-height:44px; }
+/* Finite decorative motion; scroll reveals are progressive enhancement. */
+.rl-button svg,.rl-card-link svg { transition:transform .25s ease; }
+.rl-button:hover svg,.rl-card-link:hover svg { transform:translate(3px,-2px); }
+.rl-card { transition:border-color .3s,box-shadow .3s; }
+.rl-card:hover { border-color:#56402c; box-shadow:0 0 32px #e8781108; }
+.rl-hero-content>.rl-status { animation:rl-arrive .7s both; }
+.rl-hero-content>h1 { animation:rl-arrive .9s .1s both; }
+.rl-hero-content>.rl-hero-description,.rl-hero-content>.rl-button { animation:rl-arrive .9s .2s both; }
+.rl-status>span { animation:rl-online 2s 2; }
+.rl-skill-art>div>svg:nth-of-type(1) { animation:rl-node 2s 2; }
+.rl-skill-art>div>svg:nth-of-type(3) { animation:rl-node 2s .3s 2; }
+.rl-skill-art>div>svg:nth-of-type(5) { animation:rl-node 2s .6s 2; }
+@keyframes rl-arrive { from { opacity:0; transform:translateY(16px); filter:blur(4px); } to { opacity:1; transform:translateY(0); filter:blur(0); } }
+@keyframes rl-online { 50% { box-shadow:0 0 0 7px #65bd4608,0 0 12px #65bd4630; } }
+@keyframes rl-node { 50% { filter:drop-shadow(0 0 10px #e87811); transform:translateY(-4px); } }
+@media(prefers-reduced-motion:reduce) { .robolabs-home * { animation:none!important; } }
+.rl-header .rl-language { gap:0; padding:2px; border:1px solid #333; border-radius:30px; }
+.rl-header .rl-language a { min-width:36px; min-height:40px; padding:11px 8px; font-size:11px; text-align:center; border-radius:24px; }
+.rl-header .rl-language a[aria-current="true"] { background:#2a1b0f; color:#ffab66; }
+@media(max-width:700px) { .rl-header .rl-brand { font-size:13px; } .rl-header .rl-brand>svg,.rl-brand-dot { display:none; } .rl-header nav a { padding-inline:7px; } .rl-header .rl-language a { min-width:29px; padding-inline:5px; } }
+.rl-skill-page { padding-top:120px; --surface-card:#141414; --surface-inset:#191919; --text-primary:#f5f5f5; --text-secondary:#aaa; --text-tertiary:#999; --hairline:#333; --color-background:#080808; --color-foreground:#f5f5f5; }
+.robolabs-home .rl-skill-page h1 { margin-inline:0; font-size:clamp(36px,4.5vw,60px); }
+.rl-orange { color:#e87811; }
+.rl-skill-page input { background:#161616; color:#fff; border-color:#444; }
+.rl-skill-page button[type="submit"] { background:#e87811; color:#080808; border-radius:8px; }
+.rl-skill-page .rk-card { background:#141414; border-color:#333; }
+@media(max-width:700px) { .rl-skill-page { padding-top:100px; } }

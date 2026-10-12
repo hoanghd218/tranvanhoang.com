@@ -8,7 +8,7 @@ import type { BlogPost } from "@/lib/mdx"
 const icons = [Brain, Layers3, Compass, PenLine]
 export function PostCard({ post, heading: Heading = "h2" }: { post: BlogPost; heading?: "h2" | "h3" }) {
   const locale = useLocale()
-  const prefix = locale === "en" ? "/en" : ""
+  const prefix = locale === "vi" ? "/vi" : ""
   const Icon = icons[Array.from(post.category).reduce((sum, char) => sum + char.charCodeAt(0), 0) % icons.length]
   const date = new Date(post.metadata.date)
   const readableDate = Number.isNaN(date.getTime()) ? post.metadata.date : new Intl.DateTimeFormat(locale === "en" ? "en-GB" : "vi-VN", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(date)

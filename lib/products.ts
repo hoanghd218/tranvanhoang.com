@@ -48,7 +48,7 @@ export const products: Product[] = [
     features: ["Google Flow, ChatGPT, Grok & Gemini", "Hàng đợi prompt ảnh và video", "Chạy song song và quản lý lịch sử", "Điều khiển qua MCP"],
     status: "available", featured: true, version: "1.0.3",
     icon: "/images/products/rocketflow-icon.png", screenshot: "/images/products/rocketflow-screenshot.png",
-    cover: "/images/products/rocketflow-cover.webp",
+    cover: "/images/products/rocketflow-robotic-cover.webp",
     installation: extensionInstallation, releaseNote: extensionReleaseNote,
   },
   {
@@ -58,7 +58,7 @@ export const products: Product[] = [
     features: ["Thu thập sản phẩm, tìm kiếm & Best Sellers", "Xuất dữ liệu CSV và JSON", "Tải ảnh listing, biến thể và A+", "Hàng đợi chạy trong nền"],
     status: "available", version: "1.0.3",
     icon: "/images/products/rocketlisting-icon.png", screenshot: "/images/products/rocketlisting-screenshot.png",
-    cover: "/images/products/rocketlisting-cover.webp",
+    cover: "/images/products/rocketlisting-robotic-cover.webp",
     installation: extensionInstallation, releaseNote: extensionReleaseNote,
   },
   {
@@ -68,7 +68,7 @@ export const products: Product[] = [
     features: ["Phân tích Kindle, sách in & audiobook", "Ước tính doanh số và doanh thu từ BSR", "Đánh giá tiềm năng & cạnh tranh", "Xuất CSV và điều khiển qua MCP"],
     status: "available", version: "1.0.4",
     icon: "/images/products/rocketspy-icon.png", screenshot: "/images/products/rocketspy-screenshot.png",
-    cover: "/images/products/rocketspy-cover.webp",
+    cover: "/images/products/rocketspy-robotic-cover.webp",
     installation: extensionInstallation, releaseNote: extensionReleaseNote,
   },
   {
@@ -87,15 +87,57 @@ export const products: Product[] = [
   },
 ]
 
-export function formatProductPrice(product: Product) {
+const englishCopy: Record<string, Pick<Product, "description" | "details" | "features">> = {
+  rocketflow: {
+    description: "Run batches of image and video prompts on Google Flow, ChatGPT, Grok and Gemini.",
+    details: "Add prompts to a queue, choose a platform and follow each generation in your browser. RocketFlow uses your own accounts on the AI platforms.",
+    features: ["Google Flow, ChatGPT, Grok & Gemini", "Image and video prompt queues", "Parallel runs and history management", "MCP control"],
+  },
+  rocketlisting: {
+    description: "Collect Amazon listings, export CSV/JSON and download product images in batches.",
+    details: "Collect data from Amazon product pages, search results and Best Sellers. Organize results, inspect individual products and export data for listing research.",
+    features: ["Collect products, search results & Best Sellers", "Export CSV and JSON", "Download listing, variation and A+ images", "Background queue"],
+  },
+  rocketspy: {
+    description: "Research Amazon book niches with BSR, estimated sales and competition data.",
+    details: "Analyze Kindle, print books and audiobooks from search results, Best Sellers or book pages. Compare data to explore niches; sales and revenue are estimates based on BSR, not Amazon-confirmed sales.",
+    features: ["Analyze Kindle, print books & audiobooks", "Estimate sales and revenue from BSR", "Evaluate potential & competition", "CSV export and MCP control"],
+  },
+  "coloring-book-skill": {
+    description: "A Claude AI skill for creating coloring books to sell on Amazon KDP.",
+    details: "A resource for people who want to create coloring books with Claude AI. Watch the tutorial and get the skill through Tony’s existing resource page.",
+    features: ["Use with Claude AI", "Create coloring books", "Video tutorial"],
+  },
+}
+
+export function getLocalizedProducts(locale = "en"): Product[] {
+  if (locale !== "en") return products
+  return products.map(product => ({ ...product, ...englishCopy[product.slug],
+    ...(product.action && { action: { ...product.action, label: "Get the free skill" } }),
+    ...(product.installation && { installation: [
+      "Contact Tony to receive the extension package.",
+      "Extract the package, open chrome://extensions and enable Developer mode.",
+      "Choose Load unpacked, then select the folder containing manifest.json.",
+      "Pin the extension to the Chrome toolbar and open it to get started.",
+    ], releaseNote: "The current version works through December 31, 2026. Update to a new version after this date." }),
+  }))
+}
+
+export function getLocalizedCategories(locale = "en") {
+  const names = { skill: "AI Skills", software: "Software", extension: "Chrome Extensions", mobile: "Mobile Apps" }
+  return productCategories.map(category => ({ ...category, name: locale === "en" ? names[category.id] : category.name }))
+}
+
+export function formatProductPrice(product: Product, locale = "en") {
+  const english = locale === "en"
   if (product.extensionCode) {
     const plans = getExtensionPlans(product.extensionCode)
-    if (!plans.length) return "Xem gói sử dụng"
+    if (!plans.length) return english ? "View plans" : "Xem gói sử dụng"
     const minimum = Math.min(...plans.map(plan => plan.listPrice))
-    if (minimum === 0) return "Có gói miễn phí"
-    return `Từ ${new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND", maximumFractionDigits: 0 }).format(minimum)}`
+    if (minimum === 0) return english ? "Free plan available" : "Có gói miễn phí"
+    return `${english ? "From" : "Từ"} ${new Intl.NumberFormat(english ? "en-US" : "vi-VN", { style: "currency", currency: "VND", maximumFractionDigits: 0 }).format(minimum)}`
   }
-  if (product.price === undefined) return "Xem thông tin"
-  if (product.price === 0) return "Miễn phí"
-  return new Intl.NumberFormat("vi-VN", { style: "currency", currency: product.currency || "VND", maximumFractionDigits: 0 }).format(product.price)
+  if (product.price === undefined) return english ? "View details" : "Xem thông tin"
+  if (product.price === 0) return english ? "Free" : "Miễn phí"
+  return new Intl.NumberFormat(english ? "en-US" : "vi-VN", { style: "currency", currency: product.currency || "VND", maximumFractionDigits: 0 }).format(product.price)
 }

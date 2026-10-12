@@ -27,14 +27,14 @@ export async function generateMetadata({ params }: CoursePageProps): Promise<Met
   if (!course) notFound()
   const t = await getTranslations({ locale, namespace: `courses.${course.translationKey}` })
   const coursePath = `/courses/${course.slug}`
-  const localizedPath = `${locale === "vi" ? "" : `/${locale}`}${coursePath}`
+  const localizedPath = `${locale === "en" ? "" : `/${locale}`}${coursePath}`
   const image = `${baseUrl}${course.cover}`
   return {
     title: t("metaTitle"),
     description: t("metaDescription"),
     alternates: {
       canonical: `${baseUrl}${localizedPath}`,
-      languages: { vi: `${baseUrl}${coursePath}`, en: `${baseUrl}/en${coursePath}`, "x-default": `${baseUrl}${coursePath}` },
+      languages: { vi: `${baseUrl}/vi${coursePath}`, en: `${baseUrl}${coursePath}`, "x-default": `${baseUrl}${coursePath}` },
     },
     openGraph: { title: t("metaTitle"), description: t("metaDescription"), type: "website", url: `${baseUrl}${localizedPath}`, images: [{ url: image, width: 1600, height: 900, alt: t("coverAlt") }] },
     twitter: { card: "summary_large_image", title: t("metaTitle"), description: t("metaDescription"), images: [image] },
@@ -50,7 +50,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
   const courseKey = course.translationKey
   const ct = (key: string) => t(`${courseKey}.${key}`)
   const coursePath = `/courses/${course.slug}`
-  const localePrefix = locale === "vi" ? "" : `/${locale}`
+  const localePrefix = locale === "en" ? "" : `/${locale}`
   const localizedUrl = `${baseUrl}${localePrefix}${coursePath}`
   const outcomes = t.raw(`${course.translationKey}.outcomes`) as string[]
   const lessons = course.lessons.map((lesson, index) => ({

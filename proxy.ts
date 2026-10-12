@@ -20,10 +20,11 @@ export default function proxy(request: NextRequest) {
 
   // Next.js 16 can re-run proxy after next-intl's default-locale rewrite and
   // merge its canonical redirect, producing a self-redirect. Rewrite the
-  // unprefixed Vietnamese route directly and provide the locale explicitly.
+  // unprefixed English route directly and provide the locale explicitly.
   if (!hasLocalePrefix) {
     const url = request.nextUrl.clone()
-    url.pathname = `/${routing.defaultLocale}${pathname === "/" ? "" : pathname}`
+    const internalPath = pathname.replace(/^\/resources(?=\/|$)/, "/tai-nguyen").replace(/^\/gifts(?=\/|$)/, "/qua")
+    url.pathname = `/${routing.defaultLocale}${internalPath === "/" ? "" : internalPath}`
     const requestHeaders = new Headers(request.headers)
     requestHeaders.set("x-next-intl-locale", routing.defaultLocale)
     return NextResponse.rewrite(url, { request: { headers: requestHeaders } })

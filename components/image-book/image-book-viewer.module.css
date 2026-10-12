@@ -1,11 +1,11 @@
-.reader { --book-ink: #162d29; --book-line: #d6ddd6; background: #f1f0ea; color: var(--book-ink); border: 1px solid var(--book-line); border-radius: 16px; overflow: hidden; width: 100%; }
+.reader { --book-ink: #f2f2f2; --book-line: #333; background: #0b0b0b; color: var(--book-ink); border: 1px solid var(--book-line); border-radius: 16px; overflow: hidden; width: 100%; }
 .reader:fullscreen { border-radius: 0; overflow: auto; }
-.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; background: #faf9f5; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; background: #141414; }
 .header h2 { font: inherit; font-weight: 600; margin: 0; }
-.reader button, .reader select { min-width: 44px; min-height: 44px; border: 1px solid var(--book-line); border-radius: 8px; background: #fff; color: var(--book-ink); cursor: pointer; }
+.reader button, .reader select { min-width: 44px; min-height: 44px; border: 1px solid var(--book-line); border-radius: 8px; background: #1b1b1b; color: var(--book-ink); cursor: pointer; }
 .reader button { display: inline-flex; align-items: center; justify-content: center; }
 .reader button:disabled { opacity: .35; cursor: default; }
-.reader :focus-visible { outline: 3px solid #087d62; outline-offset: 3px; }
+.reader :focus-visible { outline: 3px solid #f28a35; outline-offset: 3px; }
 .stage { display: flex; justify-content: center; padding: 20px; gap: 0; overflow: auto; min-height: 260px; touch-action: pan-y pinch-zoom; }
 .page { display: none; margin: 0; flex: 0 0 auto; width: min(100%, calc(72svh * var(--page-ratio))); }
 .page img { display: block; width: 100%; height: auto; object-fit: contain; }
@@ -19,7 +19,7 @@
 .thumbnails { display: flex; gap: 10px; overflow-x: auto; padding: 12px 20px 20px; }
 .thumbnails button { flex: 0 0 72px; flex-direction: column; padding: 4px; gap: 4px; }
 .thumbnails img { width: 60px; height: 80px; object-fit: contain; }
-.thumbnails button[aria-pressed="true"] { outline: 3px solid #087d62; outline-offset: -2px; }
+.thumbnails button[aria-pressed="true"] { outline: 3px solid #f28a35; outline-offset: -2px; }
 .failure { min-height: 260px; display: grid; align-content: center; justify-items: center; padding: 24px; }
 @media (min-width: 768px) {
   .page { width: min(50%, calc(72svh * var(--page-ratio))); }
