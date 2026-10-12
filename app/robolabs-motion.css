@@ -33,16 +33,12 @@
 .rl-process-card .rl-flow-stack>span:nth-of-type(2) { animation-delay:1.5s; }
 .rl-process-card .rl-flow-stack>span:nth-of-type(3) { animation-delay:3s; }
 .rl-process-card .rl-core { animation:rl-core-pulse 3s ease-in-out infinite; animation-play-state:paused; }
-.rl-process-card .rl-core:before,.rl-process-card .rl-core:after { background:linear-gradient(90deg,#3b342c 30%,#e99a5b 49%,#3b342c 68%); background-size:300% 100%; animation:rl-data-flow 3s linear infinite; animation-play-state:paused; }
-.rl-process-card .rl-core:after { animation-delay:1.5s; }
-.rl-process-card .rl-integrations>span { animation:rl-satellite 4s ease-in-out infinite alternate; animation-play-state:paused; }
-.rl-process-card .rl-integrations>span:nth-child(even) { animation-delay:-2s; }
 .rl-process-card .rl-code-result { display:inline-block; vertical-align:bottom; white-space:nowrap; animation:rl-type-result 5s steps(20,end) infinite; animation-play-state:paused; }
 .rl-process-card .rl-code-cursor { animation:rl-blink .8s steps(1) infinite; animation-play-state:paused; }
 .rl-service-card .rl-service-visual { animation:rl-service-float 5s ease-in-out infinite; animation-play-state:paused; }
 .rl-service-card:nth-child(2) .rl-service-visual { animation-delay:-1.6s; }
 .rl-service-card:nth-child(3) .rl-service-visual { animation-delay:-3.2s; }
-.rl-in-view :is(.rl-flow-stack>span,.rl-core,.rl-integrations>span,.rl-code-result,.rl-code-cursor,.rl-service-visual),.rl-in-view .rl-core:before,.rl-in-view .rl-core:after { animation-play-state:running; }
+.rl-in-view :is(.rl-flow-stack>span,.rl-core,.rl-connection,.rl-code-result,.rl-code-cursor,.rl-service-visual) { animation-play-state:running; }
 .rl-technologies>.rl-marquee { display:block; overflow:hidden; max-width:780px; margin:auto; mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); }
 .rl-marquee-track { display:flex; width:max-content; animation:rl-marquee 28s linear infinite; animation-play-state:paused; }
 .rl-marquee-group { display:flex; align-items:center; gap:64px; padding-right:64px; flex-shrink:0; }
@@ -56,8 +52,6 @@
 @keyframes rl-perimeter { to { --rl-edge-angle:360deg; } }
 @keyframes rl-arrow-pass { 0% { transform:translate(0,0); opacity:1; } 45% { transform:translate(7px,-7px); opacity:0; } 46% { transform:translate(-7px,7px); opacity:0; } 100% { transform:translate(0,0); opacity:1; } }
 @keyframes rl-flow-cycle { 0%,40%,100% { border-color:#2c2c2c; color:#999; box-shadow:none; } 12%,28% { border-color:#9c5929; color:#eee; box-shadow:0 0 22px #e8781120; } }
-@keyframes rl-data-flow { from { background-position:100% 0; } to { background-position:-100% 0; } }
-@keyframes rl-satellite { to { translate:0 -6px; } }
 @keyframes rl-type-result { 0%,12% { clip-path:inset(0 100% 0 0); } 60%,92% { clip-path:inset(0 0 0 0); } 100% { clip-path:inset(0 100% 0 0); } }
 @keyframes rl-service-float { 50% { translate:0 -8px; box-shadow:inset 0 1px #ffffff15,0 22px 40px #e8781110; } }
 @keyframes rl-marquee { to { transform:translateX(-50%); } }
@@ -72,3 +66,7 @@
   .rl-marquee-group { flex-wrap:wrap; justify-content:center; padding:0; }
   .rl-marquee-group[aria-hidden="true"] { display:none; }
 }
+
+.rl-process-card .rl-connection { stroke-dasharray:4 5; animation:rl-connection-flow 1.8s linear infinite; animation-play-state:paused; }
+.rl-in-view .rl-connection { animation-play-state:running; }
+@keyframes rl-connection-flow { to { stroke-dashoffset:-18; } }

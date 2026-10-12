@@ -18,7 +18,7 @@ export function HomeProcess({ locale }: { locale: string }) {
         <h3>{step.title}</h3>
         <div className={`rl-process-art rl-process-art--${i}`} aria-hidden="true">
           {i === 0 && <div className="rl-flow-stack"><span><CircleDot size={16} />{en ? "Trigger" : "Kích hoạt"}</span><ArrowDown size={14} /><span><Bot size={16} />AI Skill</span><ArrowDown size={14} /><span><Check size={16} />{en ? "Result" : "Kết quả"}</span></div>}
-          {i === 1 && <div className="rl-integrations"><span><Database /></span><span><FileText /></span><div className="rl-core"><Cpu size={32} /></div><span><Layers3 /></span><span><Workflow /></span></div>}
+          {i === 1 && <div className="rl-integrations"><svg className="rl-integration-links" viewBox="0 0 200 113" fill="none" aria-hidden="true"><path className="rl-connection" d="M44 32 L67 42 M156 32 L133 42 M44 81 L67 71 M156 81 L133 71" /><path className="rl-connection-arrows" d="M61 36 L67 42 L59 43 M139 36 L133 42 L141 43 M59 70 L67 71 L61 77 M141 70 L133 71 L139 77" /></svg><span><Database /></span><span><FileText /></span><div className="rl-core"><Cpu size={32} /></div><span><Layers3 /></span><span><Workflow /></span></div>}
           {i === 2 && <div className="rl-code"><div><Code2 size={15} /><span>workflow.ts</span></div><code><span>const</span> agent = {"{"}<br />&nbsp; goal: <em>&quot;create value&quot;</em>,<br />&nbsp; tools: [<em>&quot;AI&quot;</em>, <em>&quot;skills&quot;</em>],<br />&nbsp; feedback: <span>true</span><br />{"}"}<br /><br /><span className="rl-code-result">✓ {en ? "Ready to improve" : "Sẵn sàng cải thiện"}</span><b className="rl-code-cursor">▎</b></code></div>}
         </div>
         <p>{step.text}</p>
