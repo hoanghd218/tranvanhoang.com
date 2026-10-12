@@ -7,8 +7,8 @@
 .reader button:disabled { opacity: .35; cursor: default; }
 .reader :focus-visible { outline: 3px solid #087d62; outline-offset: 3px; }
 .stage { display: flex; justify-content: center; padding: 20px; gap: 0; overflow: auto; min-height: 260px; touch-action: pan-y pinch-zoom; }
-.page { display: none; margin: 0; flex: 0 0 auto; width: 100%; }
-.page img { display: block; width: 100%; height: auto; max-height: 72svh; object-fit: contain; }
+.page { display: none; margin: 0; flex: 0 0 auto; width: min(100%, calc(72svh * var(--page-ratio))); }
+.page img { display: block; width: 100%; height: auto; object-fit: contain; }
 .activePage { display: block; }
 .zoomed { justify-content: flex-start; touch-action: auto; }
 .zoomed .page { width: 180%; }
@@ -22,9 +22,10 @@
 .thumbnails button[aria-pressed="true"] { outline: 3px solid #087d62; outline-offset: -2px; }
 .failure { min-height: 260px; display: grid; align-content: center; justify-items: center; padding: 24px; }
 @media (min-width: 768px) {
-  .page { width: 50%; }
+  .page { width: min(50%, calc(72svh * var(--page-ratio))); }
   .activePage { display: none; }
   .spreadPage { display: block; }
-  .stage:has(.page:only-child) .page { width: 50%; }
   .zoomed .page { width: 90%; }
 }
+
+.page img { box-shadow: 0 3px 16px rgb(22 45 41 / 10%); }

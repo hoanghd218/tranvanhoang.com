@@ -1,7 +1,7 @@
 "use client"
 
 import Image from "next/image"
-import { useId, useRef, useState, useSyncExternalStore } from "react"
+import { type CSSProperties, useId, useRef, useState, useSyncExternalStore } from "react"
 import { ChevronLeft, ChevronRight, Maximize, ZoomIn, ZoomOut } from "lucide-react"
 import styles from "./image-book-viewer.module.css"
 
@@ -100,7 +100,7 @@ export function ImageBookViewer({ title, pages, className = "" }: ImageBookViewe
 function BookPage({ page, number, className }: { page: ImageBookPage; number: number; className: string }) {
   const [failed, setFailed] = useState(false)
   const [attempt, setAttempt] = useState(0)
-  return <figure className={`${styles.page} ${className}`}>
+  return <figure className={`${styles.page} ${className}`} style={{ "--page-ratio": page.width / page.height } as CSSProperties}>
     {failed ? <div className={styles.failure} role="alert"><p>Không tải được trang {number}.</p><button type="button" onClick={() => { setFailed(false); setAttempt(value => value + 1) }}>Thử lại</button></div>
       : <Image key={attempt} src={page.src} alt={page.alt} width={page.width} height={page.height} unoptimized onError={() => setFailed(true)} draggable={false} />}
   </figure>
