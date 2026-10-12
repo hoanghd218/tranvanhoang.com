@@ -30,5 +30,5 @@ export function RoboFooter({ locale }: { locale: string }) {
 }
 
 export function RoboShell({ locale, children }: { locale: string; children: React.ReactNode }) {
-  return <div className="robolabs-home rl-product-site"><RoboHeader locale={locale} />{children}<RoboFooter locale={locale} /><RoboMotion /></div>
+  return <div className="robolabs-home rl-product-site"><RoboHeader locale={locale} />{children}<RoboFooter locale={locale} /><RoboMotion locale={locale} /></div>
 }

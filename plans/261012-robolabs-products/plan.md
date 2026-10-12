@@ -43,4 +43,19 @@ English-default routing implemented; direct HTTP checks passed for `/`, `/vi`, p
 ## Additional requested scope
 Add homepage Services, Process and Solutions sections and anchor navigation, alongside existing Skills/Apps/Books catalogs. Implemented and visually verified on the production preview, including the process cards and six-link responsive navigation.
 
-Validation reports: `plans/reports/tester-261012-robolabs-final.md` and `plans/reports/code-reviewer-261012-robolabs-final.md`. New marketing/catalog/product/book controls are bilingual; existing source book pages, screenshot content and legacy editorial content retain their original language. No production deployment.
+Validation reports: `plans/reports/tester-261012-robolabs-final.md` and `plans/reports/code-reviewer-261012-robolabs-final.md`. New marketing/catalog/product/book controls are bilingual; existing source book pages, screenshot content and legacy editorial content retain their original language. Initial production deployment completed from commit `0515d14c`.
+
+## Follow-up: button styling and visible motion
+
+User reports missing reference-like button styling and motion after publication. Refine the implemented theme without claiming an exact copy of every reference effect.
+
+- [x] Give dark-theme CTAs consistent beveled surfaces, restrained orange edge glow and clear keyboard focus.
+- [x] Add shimmer sweep on hover/focus, directional arrow movement and a tactile pressed state; preserve real link/button semantics.
+- [x] Add a technology marquee with readable labels and no extra announcements from duplicated decorative content.
+- [x] Animate process illustrations in loops only while visible; stop offscreen work.
+- [x] Provide a discoverable global pause/resume control covering ongoing marquee and illustration motion.
+- [x] Honor `prefers-reduced-motion` with static presentation; avoid smooth scrolling, shimmer and transform motion under this preference.
+- [x] Validate pause/resume and offscreen suspension in browser; review responsive, keyboard-focus and reduced-motion rules.
+- [x] Run lint/build and review final motion behavior before publishing the follow-up.
+
+Validation: production build, lint and TypeScript passed. Browser confirmed changing perimeter angle, infinite process loops, global pause/resume and offscreen suspension. Reviewer found no blockers.

@@ -17,7 +17,7 @@ export function EditorialHome({ locale }: { locale: string }) {
         <h1 id="rl-hero-title">{copy.title}<Sparkles className="rl-title-star" aria-hidden="true" /><span>{copy.accent}</span></h1>
         <p className="rl-hero-description">{copy.description}</p>
         <a className="rl-button" href="#skills">{copy.explore}<ArrowDownRight size={18} aria-hidden="true" /></a>
-        <div className="rl-technologies"><p>{copy.technology}</p><div><span>✳ Claude</span><span>OpenAI</span><span className="rl-tech-flow">n8n</span><span>Gemini</span><span>Next.js</span></div></div>
+        <div className="rl-technologies"><p>{copy.technology}</p><div className="rl-marquee"><div className="rl-marquee-track">{[0, 1].map(copy => <div className="rl-marquee-group" key={copy} aria-hidden={copy === 1 ? true : undefined}><span>✳ Claude</span><span>OpenAI</span><span className="rl-tech-flow">n8n</span><span>Gemini</span><span>Next.js</span></div>)}</div></div></div>
       </div>
     </section>
     <HomeServices locale={locale} />
@@ -29,6 +29,6 @@ export function EditorialHome({ locale }: { locale: string }) {
       <div>{copy.faqs.map(item => <details key={item.q}><summary>{item.q}<span aria-hidden="true">+</span></summary><p>{item.a}</p></details>)}</div>
     </section>
     <RoboFooter locale={locale} />
-    <RoboMotion />
+    <RoboMotion locale={locale} />
   </div>
 }
