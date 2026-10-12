@@ -6,6 +6,7 @@ import { notFound } from "next/navigation"
 import { hasLocale } from "next-intl"
 
 import "../globals.css"
+import { SiteChrome } from "@/components/layout/site-chrome"
 import { Header } from "@/components/layout/header"
 import { Footer } from "@/components/layout/footer"
 import { OrganizationSchema } from "@/components/seo/organization-schema"
@@ -119,13 +120,13 @@ export default async function LocaleLayout({
               {t("skipToContent")}
             </a>
 
-            <Header />
+            <SiteChrome><Header /></SiteChrome>
 
             <main id="main-content" className="flex-1">
               {children}
             </main>
 
-            <Footer />
+            <SiteChrome><Footer /></SiteChrome>
 
           </Providers>
         </NextIntlClientProvider>

@@ -33,3 +33,6 @@
 .flipHost { width: 100%; display: flex; justify-content: center; align-items: center; min-width: 0; }
 .flipPage { background: white; overflow: hidden; }
 .flipPage img { width: 100%; height: 100%; object-fit: contain; display: block; user-select: none; }
+
+.homeLink { display: inline-flex; min-height: 44px; align-items: center; text-decoration: none; color: var(--book-ink); font-size: 14px; }
+.reader:has(.homeLink) { border: 0; border-radius: 0; min-height: 100svh; }

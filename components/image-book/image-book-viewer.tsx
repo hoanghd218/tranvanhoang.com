@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import Image from "next/image"
 import { type CSSProperties, useId, useRef, useState, useSyncExternalStore } from "react"
 import { ChevronLeft, ChevronRight, Maximize, ZoomIn, ZoomOut } from "lucide-react"
@@ -18,10 +19,11 @@ export type ImageBookViewerProps = {
   title: string
   pages: readonly ImageBookPage[]
   className?: string
+  homeHref?: string
 }
 
 /** View-only reader. Remount with key={productId} when switching books. */
-export function ImageBookViewer({ title, pages, className = "" }: ImageBookViewerProps) {
+export function ImageBookViewer({ title, pages, className = "", homeHref }: ImageBookViewerProps) {
   const desktop = useSyncExternalStore(subscribeDesktop, () => window.matchMedia("(min-width: 768px)").matches, () => false)
   const reducedMotion = useSyncExternalStore(subscribeMotion, () => window.matchMedia("(prefers-reduced-motion: reduce)").matches, () => true)
   const [flipFailed, setFlipFailed] = useState(false)
@@ -68,7 +70,7 @@ export function ImageBookViewer({ title, pages, className = "" }: ImageBookViewe
         turn(event.key === "ArrowLeft" ? -1 : 1)
       }
     }}>
-    <header className={styles.header}><h2>{title}</h2><button type="button" onClick={fullscreen} aria-label="Bật hoặc tắt toàn màn hình"><Maximize size={20} aria-hidden="true" /></button></header>
+    <header className={styles.header}>{homeHref ? <Link className={styles.homeLink} href={homeHref}>← Về trang chủ</Link> : <h2>{title}</h2>}<button type="button" onClick={fullscreen} aria-label="Bật hoặc tắt toàn màn hình"><Maximize size={20} aria-hidden="true" /></button></header>
     <div id={id} className={`${styles.stage} ${zoomed ? styles.zoomed : ""}`} tabIndex={0} aria-label="Trang sách. Dùng phím mũi tên để chuyển trang."
       onTouchStart={event => {
         if (event.touches.length !== 1) { touch.current = null; return }

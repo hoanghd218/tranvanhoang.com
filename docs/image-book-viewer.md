@@ -26,3 +26,5 @@ CLOUDFLARE_ACCOUNT_ID=your-account-id node scripts/publish-image-book.mjs --slug
 ```
 
 Input names are consecutive `01.png`, `02.png`, etc. The uploader uses the existing `tony-hoang-media` bucket, content-derived immutable paths and `media.ainexus.vn`. Every object is publicly verified for bytes and content type before writing the manifest. Existing matching objects are reused; conflicting content or uncertain upload errors stop the run. Verify remote state before retrying an interrupted write.
+
+Book detail pages use a focused reading layout: no website header/footer or introductory sections, only the reader and a locale-aware “Về trang chủ” link. `SiteChrome` suppresses website chrome only on exact `/playbooks/[slug]` detail routes (including locale prefixes); navigating home restores it. The catalog retains normal website navigation.

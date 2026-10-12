@@ -39,6 +39,15 @@ User requires a visible book page curl rather than an immediate page replacement
 - [ ] Verify real animation visually on desktop and mobile; cover, forward/back through all ten pages, thumbnail jump, keyboard, drag, last-page bounds, fullscreen resize, zoom transitions, reduced motion, image error/retry and unmount/re-entry. Run lint, TypeScript/build and independent review before focused commit/push/deployment.
 - [ ] Update viewer documentation to describe dependency, accessible fallback behavior and confirmed limitations. Verify deployed REA reader actually curls pages before reporting completion.
 
+## Focused book reader layout
+
+User requires only the book, its controls and a home link on detail reader pages.
+
+- [ ] Add client `SiteChrome` slot using the current pathname; suppress website header/footer only on `/playbooks/[slug]` and `/en/playbooks/[slug]`. Preserve chrome on `/playbooks` catalog and all other website routes. Match exact route segments rather than a broad substring.
+- [ ] Remove visible reader-page introduction and source attribution blocks. Retain a screen-reader-only `h1` for page identity and metadata.
+- [ ] Add optional `homeHref` to the reusable viewer and compact navigation containing the home link plus book controls. Supply the locale-appropriate home destination from the page.
+- [ ] Verify both locales: reader shows no global header/footer, catalog and regular pages retain them, home link navigates correctly, keyboard controls and page flip remain functional. Run lint/build and focused review before commit/push/deploy.
+
 See test-report.md for existing static component browser evidence. Physical iOS/Safari gestures remain untested. Public release and page-flip integration require fresh route/CDN/browser verification.
 
 Unresolved questions: none; stop only if ten authentic completed images or required Cloudflare/deployment authorization are unavailable.
