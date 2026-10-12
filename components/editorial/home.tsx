@@ -4,6 +4,7 @@ import { HomeCatalog } from "./home-catalog"
 import { RoboHeader, RoboFooter } from "./robo-shell"
 import { RoboMotion } from "./robo-motion"
 import { HomeServices, HomeSolutions } from "./home-services"
+import { HomeSignup } from "./home-signup"
 import { HomeProcess } from "./home-process"
 
 export function EditorialHome({ locale }: { locale: string }) {
@@ -28,6 +29,7 @@ export function EditorialHome({ locale }: { locale: string }) {
       <div className="rl-section-head"><span className="rl-tag">{copy.faqTag}</span><h2 id="rl-faq-title">{copy.faqTitle}</h2></div>
       <div>{copy.faqs.map(item => <details key={item.q}><summary>{item.q}<span aria-hidden="true">+</span></summary><p>{item.a}</p></details>)}</div>
     </section>
+    <HomeSignup locale={locale} />
     <RoboFooter locale={locale} />
     <RoboMotion locale={locale} />
   </div>

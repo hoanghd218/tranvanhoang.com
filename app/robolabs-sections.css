@@ -83,3 +83,21 @@
 
 .rl-integration-links { position:absolute; inset:0; width:100%; height:100%; overflow:visible; stroke:#9c714e; stroke-width:1; }
 .rl-connection-arrows { stroke:#db985e; stroke-linecap:round; stroke-linejoin:round; }
+
+.rl-signup { display:grid; grid-template-columns:1.1fr 1fr; gap:56px; align-items:center; padding:48px; border:1px solid #303030; border-radius:28px; background:radial-gradient(ellipse at 0 100%,#e878110d,transparent 60%),#101010; }
+.rl-signup .rl-section-head { margin:0; flex-direction:column; align-items:flex-start; gap:20px; }
+.rl-signup .rl-section-head h2 { font-size:clamp(30px,3.2vw,44px); }
+.rl-signup .rl-section-head p { max-width:440px; }
+.rl-signup-form { min-width:0; }
+.rl-signup-form form { display:grid; gap:14px; }
+.rl-signup-form label { font-size:14px; color:#ddd; }
+.rl-signup-form input { width:100%; min-height:54px; padding:14px 16px; border:1px solid #383838; border-radius:10px; background:#080808; color:#eee; font-size:16px; }
+.rl-signup-form input:focus-visible { outline:2px solid #e87811; outline-offset:3px; }
+.rl-signup-form .rl-button { justify-content:center; width:100%; }
+.rl-signup-form :disabled { cursor:wait; opacity:.6; }
+.rl-signup-note { font-size:12px; color:#999; line-height:1.7; }
+.rl-signup-error { color:#f3aa81; font-size:14px; }
+.rl-signup-success { display:grid; gap:14px; color:#bbb; }
+.rl-signup-success svg { color:#e87811; }
+.rl-signup-success h3 { color:#eee; font-size:24px; }
+@media(max-width:700px) { .rl-signup { grid-template-columns:1fr; padding:28px 22px; gap:28px; } }
