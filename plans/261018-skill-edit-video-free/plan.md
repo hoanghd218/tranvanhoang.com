@@ -46,3 +46,16 @@ The requested URL renders the existing site's Tony Hoang theme. Free and paid ac
 ## Verification — 2026-10-18
 
 Website lint, TypeScript, production build and all 12 existing tests pass. Browser inspected at 1440px and 390px: one header/H1, no horizontal overflow or JavaScript errors. Preview: http://localhost:3091/skill-edit-video-free. ERP draft setup applied on development site; publication pending real protected archives, owner-selected Published share policy and public ERP origin. No production deploy.
+
+## Addendum — inline checkout
+
+Keep the visitor on this landing after registration. Reuse the real ERP checkout/order page in an embedded frame; keep the Zalo action on the same landing. Payment confirmation and fulfillment remain ERP-owned.
+
+- [ ] Extend ERP SDK with an optional backward-compatible `onNavigate` callback, invoked only after existing `safeNavigation` validation. Suppress normal navigation only when the callback returns `false`; consumers without it retain existing redirects.
+- [ ] Mount the landing form with that callback. Validate the returned checkout/order URL against the configured ERP origin and allowed checkout/order paths before rendering the frame. Reject unsupported URLs rather than embedding them.
+- [ ] Replace the submitted form with a titled responsive checkout/order frame and persistent same-page Zalo action. Provide an explicit safe checkout link for browsers that cannot display the frame.
+- [ ] Inspect ERP response `Content-Security-Policy` (`frame-ancestors`) and `X-Frame-Options`, plus landing `frame-src`. Confirm the deployed landing origin can embed the actual checkout and order pages; do not weaken frame policy globally.
+- [ ] Keep the actual 72-hour ERP expiry. Do not display an invented five-minute payment deadline or infer payment success from frame loading/navigation.
+- [ ] Test SDK default redirects, callback suppression, unsafe URL rejection, free and paid submissions, frame rendering, fallback link, mobile height/overflow and Zalo visibility. Run website lint/build and applicable ERP tests; delegate final review.
+
+Risk: production frame headers may differ from local responses. Verify production headers before claiming inline checkout works there; if embedding is blocked, report the limitation and retain the explicit safe fallback link.
