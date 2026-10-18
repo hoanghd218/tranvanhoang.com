@@ -83,3 +83,7 @@ Project UI/UX tooling: [.agents/skills/ui-ux-pro-max/SKILL.md](.agents/skills/ui
 English privacy and support pages are published at [Privacy Policy](https://www.tranvanhoang.com/privacy/kdspy-ai) and [Support](https://www.tranvanhoang.com/support/kdspy-ai). Legacy `/en` links redirect to these English URLs; `/vi` documentation aliases remain available. Public support uses **hoanghd218@gmail.com**, supplied by the owner; `lib/kdspy-ai-support.ts` holds the shared `mailto:` destination and locale path helper. There is no new ticket backend.
 
 Only the narrow documentation changes were deployed from the existing live production baseline; unrelated local redesign remains separate. See [public pages and validation](docs/kdspy-ai-public-pages.md). Chrome Web Store email verification is pending the owner’s click on the verification email; do not treat publication of these pages as Store approval.
+
+## Video editing skills campaign
+
+`/skill-edit-video-free` uses the existing Tony Hoang theme for a Vietnamese campaign with one free skill and a 199,000 VND coffee package containing ten skills. The real ERP SDK is configured with `NEXT_PUBLIC_VIDEO_SKILL_ERP_ORIGIN`; absent configuration shows an honest support fallback. See [setup and remaining activation requirements](docs/skill-edit-video-free.md). Author ownership is configured server-side in ERP for `hoanghd218@gmail.com`; delivery requires actual protected files and an approved share policy.

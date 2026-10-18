@@ -73,5 +73,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productRoutes = products.flatMap(product => bilingualEntries(`/products/${product.slug}`, new Date("2026-10-11")))
   const courseRoutes = courses.flatMap(course => bilingualEntries(`/courses/${course.slug}`, new Date("2026-08-13")))
-  return [...staticRoutes, ...productRoutes, ...courseRoutes, ...blogRoutes, ...lifeRoutes]
+  return [{ url: `${baseUrl}/skill-edit-video-free`, lastModified: new Date("2026-10-18") }, ...staticRoutes, ...productRoutes, ...courseRoutes, ...blogRoutes, ...lifeRoutes]
 }
