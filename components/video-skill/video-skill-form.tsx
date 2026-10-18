@@ -21,7 +21,7 @@ export function VideoSkillForm() {
   const container = useRef<HTMLDivElement>(null)
   const [failed, setFailed] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const origin = process.env.NEXT_PUBLIC_VIDEO_SKILL_ERP_ORIGIN
+  const origin = process.env.NEXT_PUBLIC_VIDEO_SKILL_ERP_ORIGIN || "https://pay-staging.freedombuilders.vn"
   useEffect(() => {
     if (!origin || !container.current) return
     let active = true
@@ -39,6 +39,7 @@ export function VideoSkillForm() {
     return () => { active = false; handle?.destroy() }
   }, [origin])
   return <div className="vs-form-panel">
+    {origin === "https://pay-staging.freedombuilders.vn" && <p className="vs-staging-notice">Bản thử nghiệm: form ghi nhận đăng ký vào ERP staging. Chưa giao file skill hoặc mở thanh toán gói cà phê.</p>}
     {!mounted && <p role="status">{!origin || failed ? "Form đăng ký hiện chưa sẵn sàng. Vui lòng liên hệ Hoàng để được hỗ trợ." : "Đang tải form đăng ký…"}</p>}
     {(!origin || failed) && <a href="mailto:hoanghd218@gmail.com" className="rl-button">Liên hệ Hoàng</a>}
     <div ref={container} />
