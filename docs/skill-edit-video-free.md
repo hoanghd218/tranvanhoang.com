@@ -44,3 +44,7 @@ Owner-supplied community group: https://zalo.me/g/v169jbjxeuhthgocvhgs. The land
 ## Inline checkout
 
 The SDK validates its returned destination then calls the optional `onNavigate(url,result)` hook. Returning false delegates navigation to the host. The landing accepts only `/checkout/<43-character-token>` or `/order/<43-character-token>` on the configured ERP origin with no query/hash, and embeds it in a sandboxed iframe. Checkout status/payment confirmation stays authoritative in ERP. Order links remain inside the frame; a manual external fallback is available. No checkout tokens are stored by the host. The real session expiry is unchanged; no artificial promotional countdown is added.
+
+## Explicit required email consent
+
+The owner requested an explicit, manually selected prerequisite for submitting this campaign form. The checkbox stays unchecked by default and discloses the skill plus three guidance/product-offer emails and unsubscribe option. The ERP form flag and consent label drive the SDK; both native form validation and API validation require consent when the flag is active. Other forms remain optional by default. The existing sequence still checks consent, purchases and unsubscribe before sending; this does not set consent silently or resend to past registrants. Website SDK cache key: `consent-required-20261018`.

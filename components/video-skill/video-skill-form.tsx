@@ -9,7 +9,7 @@ function loadSdk(origin: string) {
   if (window.EduForm) return Promise.resolve()
   if (!sdkPromise) sdkPromise = new Promise<void>((resolve, reject) => {
     const script = document.createElement("script")
-    script.src = `${origin}/assets/edu_business/js/embed.v1.js?v=inline-20261018`
+    script.src = `${origin}/assets/edu_business/js/embed.v1.js?v=consent-required-20261018`
     script.onload = () => resolve()
     script.onerror = () => { script.remove(); sdkPromise = undefined; reject(new Error("SDK unavailable")) }
     document.head.appendChild(script)

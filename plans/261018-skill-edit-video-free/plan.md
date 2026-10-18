@@ -59,3 +59,15 @@ Keep the visitor on this landing after registration. Reuse the real ERP checkout
 - [ ] Test SDK default redirects, callback suppression, unsafe URL rejection, free and paid submissions, frame rendering, fallback link, mobile height/overflow and Zalo visibility. Run website lint/build and applicable ERP tests; delegate final review.
 
 Risk: production frame headers may differ from local responses. Verify production headers before claiming inline checkout works there; if embedding is blocked, report the limitation and retain the explicit safe fallback link.
+
+## Addendum — explicit email consent
+
+Require the visitor to manually tick consent before submitting this campaign. Explain clearly that registration delivers the skill plus three guidance/offer emails, with an unsubscribe option. Never preselect the checkbox.
+
+- [ ] Add optional generic ERP Lead Form configuration for required email consent and its public label. Enable it only on this campaign's active form; preserve existing forms and the configured email sequence.
+- [ ] Enforce the configured consent requirement on the server before accepting a submission. Require an explicit affirmative value rather than mere field presence.
+- [ ] Render an unchecked, labeled checkbox in the SDK; use native required validation and an equivalent programmatic guard so scripted submission cannot bypass the check.
+- [ ] Update campaign configuration and landing disclosure to state skill delivery, three guidance/offer emails and unsubscribe availability consistently. Refresh/cache-bust the SDK/config used by the site so returning visitors receive the consent control.
+- [ ] Verify unchecked and omitted consent fail, manually checked consent succeeds, labels are accessible, and forms without the requirement retain existing behavior. Run applicable tests without sending actual emails; confirm the existing sequence remains unchanged.
+
+Success: the campaign cannot submit without a deliberate checkbox action, and the visitor sees the email scope and unsubscribe disclosure before consenting.
