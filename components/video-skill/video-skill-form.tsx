@@ -39,7 +39,7 @@ export function VideoSkillForm() {
     return () => { active = false; handle?.destroy() }
   }, [origin])
   return <div className="vs-form-panel">
-    {origin === "https://pay-staging.freedombuilders.vn" && <p className="vs-staging-notice">Bản thử nghiệm: form ghi nhận đăng ký vào ERP staging. Chưa giao file skill hoặc mở thanh toán gói cà phê.</p>}
+    {origin === "https://pay-staging.freedombuilders.vn" && <p className="vs-staging-notice">Bản thử nghiệm: chọn 1 skill mẫu miễn phí hoặc bộ 10 skills mẫu giá 199.000đ. Gói cà phê mở bước thanh toán trên ERP staging; giao dịch SePay thật chưa được kiểm chứng.</p>}
     {!mounted && <p role="status">{!origin || failed ? "Form đăng ký hiện chưa sẵn sàng. Vui lòng liên hệ Hoàng để được hỗ trợ." : "Đang tải form đăng ký…"}</p>}
     {(!origin || failed) && <a href="mailto:hoanghd218@gmail.com" className="rl-button">Liên hệ Hoàng</a>}
     <div ref={container} />

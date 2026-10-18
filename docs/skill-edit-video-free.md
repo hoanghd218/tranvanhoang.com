@@ -34,3 +34,9 @@ Validation completed: `pnpm lint` (one existing React Hook Form warning), `pnpm 
 ## Staging connection — 2026-10-18
 
 The owner confirmed `https://pay-staging.freedombuilders.vn`. The frontend now uses that public origin by default; `NEXT_PUBLIC_VIDEO_SKILL_ERP_ORIGIN` can override it. Vercel connector denied environment-variable writes (403), so this nonsecret, owner-approved URL is configured in source and delivered through Git. The staging notice explicitly states registrations are tests and files/payment are not active. Registration-only mode uses the generic `free` choice and records leads without promising fulfillment. Named product offers remain drafts until real assets and approved policy are supplied.
+
+## Sample product activation
+
+The owner authorized simple test skills and enabling the paid staging package. Both archives contain actual SKILL.md instruction files clearly labeled test samples; free has one, coffee has ten industry workflows. They are uploaded as private Frappe Files, not public website assets. The existing effective published video-skill policy is reused; no revenue percentages are invented. Staging uses live checkout code but a verified real SePay transaction is still pending. Direct Google Drive URLs are not supported by the current DownloadLink handler: import the file into ERP private storage first. The private file handler validates File metadata and disk path; customer download access depends on entitlement.
+
+Owner-supplied community group: https://zalo.me/g/v169jbjxeuhthgocvhgs. The landing links directly to the group; ERP Program also stores this destination for applicable registration/order flows. No messages are sent to Zalo by this integration.
