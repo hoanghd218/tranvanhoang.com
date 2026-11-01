@@ -35,7 +35,8 @@ function bilingualEntries(path: string, lastModified: Date): MetadataRoute.Sitem
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
-    { path: "/", lastModified: new Date("2026-03-16") },
+    { path: "/", lastModified: new Date("2026-11-01") },
+    { path: "/community", lastModified: new Date("2026-11-01") },
     { path: "/about", lastModified: new Date("2026-03-01") },
     { path: "/learn-ai", lastModified: new Date("2026-03-01") },
     { path: "/learn-ai/ai-for-beginners", lastModified: new Date("2026-02-01") },

@@ -8,6 +8,7 @@ export const routing = defineRouting({
   pathnames: {
     "/": "/",
     "/about": "/about",
+    "/community": "/community",
     "/privacy/kdspy-ai": "/privacy/kdspy-ai",
     "/support/kdspy-ai": "/support/kdspy-ai",
     "/playbooks": "/playbooks",

@@ -22,7 +22,7 @@ export function HomeSignup({ locale }: { locale: string }) {
       setStatus("success")
     } catch { setStatus("error") }
   }
-  return <section className="rl-section rl-container" id="free-resources" aria-labelledby="signup-title">
+  return <section className="rl-section rl-container" id="signup" aria-labelledby="signup-title">
     <div className="rl-signup" data-reveal>
       <div className="rl-section-head"><span className="rl-tag"><Gift size={14} aria-hidden="true" />{en ? "A gift for your next idea" : "Quà tặng cho ý tưởng tiếp theo"}</span>
         <h2 id="signup-title">{en ? "Useful AI resources." : "Tài nguyên AI hữu ích."}<br /><span className="rl-orange">{en ? "Straight to your inbox." : "Gửi thẳng vào hộp thư."}</span></h2>

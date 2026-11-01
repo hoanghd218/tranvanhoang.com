@@ -9,6 +9,7 @@
 @import "./robolabs-products.css";
 @import "./robolabs-sections.css";
 @import "./robolabs-motion.css";
+@import "./robolabs-landing.css";
 
 /* Light Theme (Default) */
 :root {
