@@ -87,3 +87,9 @@ Only the narrow documentation changes were deployed from the existing live produ
 ## Video editing skills campaign
 
 `/skill-edit-video-free` uses the existing Tony Hoang theme for a Vietnamese campaign with one free skill and a 199,000 VND coffee package containing ten skills. The real ERP SDK defaults to the owner-approved `https://pay-staging.freedombuilders.vn`; `NEXT_PUBLIC_VIDEO_SKILL_ERP_ORIGIN` overrides it. Staging explicitly labels test registrations and inactive file delivery/payment. See [setup and remaining activation requirements](docs/skill-edit-video-free.md). Author ownership is configured server-side in ERP for `hoanghd218@gmail.com`; delivery requires actual protected files and an approved share policy.
+
+## Video gifts page (`/tai-lieu`)
+
+`tranvanhoang.com/tai-lieu` collects every gift promised in Tony's Reels (comment a keyword → get repos, skills, sample prompts, diagrams, apps). It is Vietnamese-only: `proxy.ts` rewrites the unprefixed `/tai-lieu` to the `vi` locale; `/vi/tai-lieu` also works, canonical is `/tai-lieu`.
+
+All content lives in `lib/data/tai-lieu.ts`. To add a gift, copy an existing entry to the **top** of the `taiLieu` array (newest first). `slug` becomes the anchor `tranvanhoang.com/tai-lieu#<slug>`, which can be sent in comment auto-replies. Block types: `links` · `steps` · `code` (copy button) · `prompt` (collapsible, copy button) · `branches` (diagram as text) · `note`. Hero counts (gifts, distinct GitHub repos, prompts) are computed from the data. Only add links that were checked (`gh api repos/<owner>/<repo>`); then run `npm run lint && npm run build`.

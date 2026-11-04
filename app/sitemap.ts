@@ -3,6 +3,7 @@ import { products } from "@/lib/products"
 import { courses } from "@/lib/courses"
 import { getAllPosts } from "@/lib/mdx"
 import { getAllLifeStories } from "@/lib/life-mdx"
+import { taiLieu } from "@/lib/data/tai-lieu"
 
 const baseUrl = "https://tranvanhoang.com"
 const locales = ["en", "vi"]
@@ -74,5 +75,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productRoutes = products.flatMap(product => bilingualEntries(`/products/${product.slug}`, new Date("2026-10-11")))
   const courseRoutes = courses.flatMap(course => bilingualEntries(`/courses/${course.slug}`, new Date("2026-08-13")))
-  return [{ url: `${baseUrl}/skill-edit-video-free`, lastModified: new Date("2026-10-18") }, ...staticRoutes, ...productRoutes, ...courseRoutes, ...blogRoutes, ...lifeRoutes]
+  return [{ url: `${baseUrl}/skill-edit-video-free`, lastModified: new Date("2026-10-18") }, { url: `${baseUrl}/tai-lieu`, lastModified: new Date(taiLieu[0]?.date ?? "2026-11-04") }, ...staticRoutes, ...productRoutes, ...courseRoutes, ...blogRoutes, ...lifeRoutes]
 }

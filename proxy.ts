@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { routing } from "./i18n/routing"
 
 const handleI18nRouting = createMiddleware(routing)
+const VIETNAMESE_ONLY_PATH = /^\/tai-lieu(?=\/|$)/
 
 export default function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname
@@ -21,6 +22,16 @@ export default function proxy(request: NextRequest) {
   // Next.js 16 can re-run proxy after next-intl's default-locale rewrite and
   // merge its canonical redirect, producing a self-redirect. Rewrite the
   // unprefixed English route directly and provide the locale explicitly.
+  // Vietnamese-only pages keep a short unprefixed URL (tranvanhoang.com/tai-lieu)
+  // but render with the Vietnamese locale.
+  if (!hasLocalePrefix && VIETNAMESE_ONLY_PATH.test(pathname)) {
+    const url = request.nextUrl.clone()
+    url.pathname = `/vi${pathname}`
+    const requestHeaders = new Headers(request.headers)
+    requestHeaders.set("x-next-intl-locale", "vi")
+    return NextResponse.rewrite(url, { request: { headers: requestHeaders } })
+  }
+
   if (!hasLocalePrefix) {
     const url = request.nextUrl.clone()
     const internalPath = pathname.replace(/^\/resources(?=\/|$)/, "/tai-nguyen").replace(/^\/gifts(?=\/|$)/, "/qua")
