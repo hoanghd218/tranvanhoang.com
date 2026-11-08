@@ -43,6 +43,47 @@ const gh = (repo: string) => `https://github.com/${repo}`
 
 export const taiLieu: TaiLieu[] = [
   {
+    slug: "ai-agent-trustmrr",
+    date: "2026-11-08",
+    title: "Ai thật sự kiếm tiền từ AI agent — 494 app trên TrustMRR",
+    keyword: "AGENT",
+    kinds: ["prompt"],
+    summary:
+      "Tony cho Claude Code đọc hết 12.297 startup trên TrustMRR (doanh thu đọc thẳng từ Stripe): 494 app bán AI agent, 266 app tháng trước thu 0 đồng, chỉ 30 app thu trên 10.000 đô.",
+    blocks: [
+      {
+        type: "links",
+        title: "Danh sách và nguồn",
+        items: [
+          {
+            label: "Tải danh sách 494 app (CSV, mở bằng Excel)",
+            url: "/tai-lieu/ai-agent-trustmrr-2026-11-08.csv",
+            note: "Số chạy ngày 08/11/2026 · có cột top 15, nhóm việc, doanh thu 30 ngày, người theo dõi X",
+          },
+          { label: "TrustMRR — doanh thu startup xác thực qua Stripe", url: "https://trustmrr.com/startups" },
+        ],
+      },
+      {
+        type: "prompt",
+        title: "Câu lệnh Claude Code — tự chạy lại số mới nhất",
+        text: "Đọc hết mọi startup trên trustmrr.com (123 trang: trustmrr.com/startups/page/1 tới 123). Giữ những startup bán AI agent. Xếp theo doanh thu 30 ngày đã xác thực qua Stripe. Với top 15: mở trustmrr.com/startup/<slug>.md, bỏ cái nào dữ liệu Stripe cũ hơn 7 ngày, lấy cái kế tiếp. Lưu ket-qua/ai-agent.csv và ket-qua/tom-tat.md: tổng số startup, số bán AI agent, số thu 0 đô, số trên 10.000 đô, top 15 chiếm bao nhiêu phần trăm tiền, mỗi cái bán việc gì, số người theo dõi X, ngày thành lập, mấy người làm.\n\"Bán AI agent\" nghĩa là khách trả tiền cho một phần mềm AI tự làm một việc thay họ qua nhiều bước; ghi rõ tiêu chí đã dùng và các ca lưng chừng.\nTải chậm (khoảng 1 trang mỗi giây) và chia tiền theo nhóm việc agent làm.",
+      },
+      {
+        type: "steps",
+        title: "Cách chạy",
+        items: [
+          "Mở Claude Code trong một thư mục trống.",
+          "Dán câu lệnh trên, chờ khoảng 15 phút.",
+          "Mở ket-qua/tom-tat.md (con số chính) và ket-qua/ai-agent.csv (đủ danh sách).",
+        ],
+      },
+      {
+        type: "note",
+        text: "Kết quả lần Tony chạy: top 15 ôm 52% tiền của cả nhóm; 10/15 app đứng đầu bán thêm khách hàng (tìm người mua, nhắn tin đặt lịch, SEO, mạng xã hội, quảng cáo); 79% tiền nằm ở agent bán hàng + marketing. Con số 494 do Claude Code phân loại theo mô tả founder tự viết — ước lượng sát, không tuyệt đối.",
+      },
+    ],
+  },
+  {
     slug: "claude-skill",
     date: "2026-11-03",
     title: "Claude Skill — toàn bộ trong một sơ đồ",
