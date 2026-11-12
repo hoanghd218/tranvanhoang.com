@@ -4,6 +4,7 @@ import { courses } from "@/lib/courses"
 import { getAllPosts } from "@/lib/mdx"
 import { getAllLifeStories } from "@/lib/life-mdx"
 import { taiLieu } from "@/lib/data/tai-lieu"
+import { COURSE_INDEXABLE, COURSE_SLUG, moduleSummaries } from "@/lib/course-playbook/course"
 
 const baseUrl = "https://tranvanhoang.com"
 const locales = ["en", "vi"]
@@ -75,5 +76,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const productRoutes = products.flatMap(product => bilingualEntries(`/products/${product.slug}`, new Date("2026-10-11")))
   const courseRoutes = courses.flatMap(course => bilingualEntries(`/courses/${course.slug}`, new Date("2026-08-13")))
-  return [{ url: `${baseUrl}/skill-edit-video-free`, lastModified: new Date("2026-10-18") }, { url: `${baseUrl}/tai-lieu`, lastModified: new Date(taiLieu[0]?.date ?? "2026-11-04") }, ...staticRoutes, ...productRoutes, ...courseRoutes, ...blogRoutes, ...lifeRoutes]
+  // Playbook khoá AI Mobile App: chỉ vào sitemap khi COURSE_INDEXABLE = true (mặc định false → noindex, không liệt kê).
+  // Module "soon" (đang soạn) chỉ là trang giữ chỗ nên không liệt kê.
+  const playbookLastModified = new Date("2026-11-12")
+  const coursePlaybookRoutes = COURSE_INDEXABLE
+    ? [
+        ...bilingualEntries(`/playbooks/${COURSE_SLUG}`, playbookLastModified),
+        ...moduleSummaries.filter(module => module.status === "ready").flatMap(module => bilingualEntries(`/playbooks/${COURSE_SLUG}/${module.slug}`, playbookLastModified)),
+      ]
+    : []
+  return [{ url: `${baseUrl}/skill-edit-video-free`, lastModified: new Date("2026-10-18") }, { url: `${baseUrl}/tai-lieu`, lastModified: new Date(taiLieu[0]?.date ?? "2026-11-04") }, ...staticRoutes, ...productRoutes, ...courseRoutes, ...coursePlaybookRoutes, ...blogRoutes, ...lifeRoutes]
 }

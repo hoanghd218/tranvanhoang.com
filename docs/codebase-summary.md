@@ -171,6 +171,10 @@ The active localized header/footer navigation is assembled in `components/layout
 | `messages/{locale}.json` | Localized catalog, course, lesson, metadata, and status copy |
 | `public/images/courses/vibe-coding-sale-page-cover.webp` | Local cover for UI and social previews |
 
+### Course Playbook (AI Mobile App Business OS)
+
+Routes `/playbooks/ai-mobile-app` (hub) and `/playbooks/ai-mobile-app/[module]` (+ `/vi`) render data-driven playbook pages: data in `lib/data/course-playbook/`, contract in `lib/course-playbook/types.ts`, renderers in `components/course-playbook/`, scoped styles in `app/[locale]/playbooks/ai-mobile-app/course-playbook.css`. Noindex until `COURSE_INDEXABLE` is flipped. See [course playbook](./course-playbook.md).
+
 The first workshop uses Fathom's verified `/embed/{token}?autoplay=0` endpoint and always exposes the public share URL as a fallback. Workshop 2's supplied share URL returns 404, so `available: false` and `embedUrl: null` prevent a broken iframe while preserving its curriculum card.
 
 ### Layout Components (`components/layout/`)
